@@ -10,5 +10,9 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Dependencies
         run: npm install
+      - name: Set Identity
+        run: |
+          git config --global user.email "nmchavda99@gmail.com"
+          git config --global user.name "Nirav Chavda"
       - name: Deploy to GH Pages
         run: npm run deploy
