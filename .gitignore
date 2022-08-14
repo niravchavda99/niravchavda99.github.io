@@ -2,8 +2,10 @@
 
 # dependencies
 /node_modules
+/.idea
 /.pnp
 .pnp.js
+niravchavda99.github.io.iml
 
 # testing
 /coverage
