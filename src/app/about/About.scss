@@ -1,0 +1,23 @@
+.profile-image {
+  @apply w-1/4 rounded-full;
+}
+
+.image-container {
+  @apply flex flex-col items-center;
+}
+
+.name {
+  @apply text-4xl mt-2;
+}
+
+.career {
+  @apply text-xl text-slate-500;
+}
+
+.links {
+  @apply mt-2 flex flex-row justify-center;
+}
+
+.link-item {
+  @apply px-2;
+}

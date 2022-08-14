@@ -1,0 +1,21 @@
+.header-container {
+  @apply flex flex-row justify-between p-4 bg-white text-xl;
+  color: #6E07F3;
+}
+
+.header-logo {
+  @apply cursor-pointer p-2 text-2xl;
+}
+
+.header-content-container {
+  @apply flex flex-row content-center;
+}
+
+.header-content {
+  @apply mx-1 p-2 cursor-pointer border-2 border-transparent;
+}
+
+.header-content:hover {
+  @apply border-2 rounded-lg;
+  border-color: #6E07F3;
+}
