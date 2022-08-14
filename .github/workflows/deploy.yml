@@ -1,5 +1,5 @@
 name: Deploy
-on: [push]
+on: [ push ]
 
 jobs:
   deploy:
@@ -11,9 +11,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Set Identity
-        run: |
-          git config --global user.email "nmchavda99@gmail.com"
-          git config --global user.name "Nirav Chavda"
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        run: git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy to GH Pages
         run: npm run deploy
