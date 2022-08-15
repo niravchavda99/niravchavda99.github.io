@@ -1,5 +1,5 @@
 .skill-container {
-  @apply w-fit inline-block py-1.5 px-2 border border-violet-500 rounded-lg mx-2 my-2;
+  @apply w-fit inline-block py-1.5 px-2 border rounded-lg mx-2 my-2 text-violet-200;
 }
 
 .icon {
@@ -7,5 +7,25 @@
 }
 
 .skill-container:hover {
-  @apply transition ease-in-out scale-110 cursor-pointer shadow-md shadow-violet-400;
+  @apply transition ease-in-out scale-110 cursor-pointer shadow-md;
+}
+
+.light {
+  .skill-container {
+    @apply border-violet-500;
+  }
+
+  .skill-container:hover {
+    @apply shadow-violet-400;
+  }
+}
+
+.dark {
+  .skill-container {
+    @apply border-violet-400;
+  }
+
+  .skill-container:hover {
+    @apply shadow-violet-500;
+  }
 }
