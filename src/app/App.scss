@@ -7,3 +7,7 @@
 .center-all {
   @apply flex flex-col justify-center;
 }
+
+.theme-color {
+  @apply text-violet-500;
+}

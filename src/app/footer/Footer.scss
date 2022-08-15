@@ -1,0 +1,11 @@
+.footer {
+  @apply text-center inline-block p-2;
+}
+
+.copyright {
+  @apply w-fit inline-block;
+}
+
+.name {
+  @apply text-violet-500 font-semibold ml-1 text-lg underline underline-offset-2;
+}

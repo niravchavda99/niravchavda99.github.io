@@ -5,6 +5,7 @@ import About from "./about/About";
 import Experience from "./experience/Experience";
 import Skills from "./skills/Skills";
 import ScrollToTop from 'react-scroll-to-top';
+import Footer from "./footer/Footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <About/>
         <Experience/>
         <Skills/>
+        <Footer/>
       </div>
   );
 }
