@@ -7,7 +7,7 @@
 }
 
 .designation {
-  @apply text-xl text-left text-slate-500;
+  @apply text-xl text-left;
 }
 
 .achievements {
@@ -16,4 +16,28 @@
 
 .dates {
   @apply text-lg text-left text-slate-500;
+}
+
+.light {
+  .designation {
+    @apply text-slate-500;
+  }
+
+  .dates {
+    @apply text-slate-500;
+  }
+}
+
+.dark {
+  .organization-name {
+    @apply text-violet-200;
+  }
+
+  .designation {
+    @apply text-violet-300;
+  }
+
+  .dates {
+    @apply text-violet-300;
+  }
 }

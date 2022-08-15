@@ -7,7 +7,7 @@ type HeaderProps = {
 };
 
 const Header = ({darkMode, toggleDarkMode}: HeaderProps) => {
-  return <div className={darkMode ? 'dark' : 'light'}>
+  return <div>
     <nav className={`header-container`}>
       <div>
         <div className={'header-logo'}>Nirav Chavda</div>

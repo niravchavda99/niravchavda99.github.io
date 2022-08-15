@@ -3,12 +3,10 @@ import {jobs} from './jobs';
 import Job from "./job/Job";
 import VerticalRuler from "../common/VerticalRuler";
 import React from "react";
-import DarkModeProps from "../common/DarkModeProps";
 
-const Experience = ({darkMode}: DarkModeProps) => {
+const Experience = () => {
   return <div id={'experience'}>
-    <div className="text-5xl">Experience</div>
-    <br/>
+    <div className="experience-header">Experience</div>
     <div className="jobs-container">
       {jobs.map((jobProfile, index) =>
           <React.Fragment key={`jobProfile${index}`}>

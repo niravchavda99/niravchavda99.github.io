@@ -7,10 +7,10 @@ import SocialMediaLink from "../common/SocialMediaLink";
 import {Link} from "react-router-dom";
 import DarkModeProps from "../common/DarkModeProps";
 
-const About = ({darkMode}: DarkModeProps) => {
+const About = () => {
   const iconSize = 28;
 
-  return <div className={'center-all'} id={'about'}>
+  return <div id={'about'}>
     <div className="flex flex-wrap justify-center">
       <div className="w-6/12 sm:w-4/12 px-4">
         <img src={profileImage} alt="..."

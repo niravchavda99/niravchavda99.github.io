@@ -15,7 +15,7 @@
 }
 
 .career {
-  @apply text-xl text-slate-500;
+  @apply text-xl;
 }
 
 .links {
@@ -24,4 +24,32 @@
 
 .link-item {
   @apply px-2 hover:scale-125 transition ease-in-out;
+}
+
+.light {
+  #about {
+    @apply bg-white border-b-black;
+  }
+
+  .career {
+    @apply text-slate-500;
+  }
+}
+
+.dark {
+  #about {
+    @apply bg-slate-700 border-b-violet-300;
+  }
+
+  .career {
+    @apply text-violet-300;
+  }
+
+  .about-name {
+    @apply text-violet-200;
+  }
+
+  .link-item {
+    @apply text-violet-200;
+  }
 }

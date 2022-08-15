@@ -11,12 +11,12 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-      <div className="App">
+      <div className={`App ${darkMode ? 'dark' : 'light'}`}>
         <ScrollToTop className={'flex flex-col items-center justify-center'} smooth
                      color="#8b5cf6"/>
         <Header darkMode={darkMode} toggleDarkMode={setDarkMode}/>
-        <About darkMode={darkMode}/>
-        <Experience darkMode={darkMode}/>
+        <About/>
+        <Experience/>
         <Skills darkMode={darkMode}/>
         <Footer/>
       </div>
