@@ -1,4 +1,4 @@
-import {getMonthName} from "../utils";
+import {getMonthName} from "../Utils";
 
 class MonthYear {
   constructor(public month: number, public year: number) {

@@ -1,4 +1,4 @@
-import profileImage from '../images/profile.jpg';
+import profileImage from '../assets/images/profile.jpg';
 import "./About.scss";
 import {TbMail} from "react-icons/tb";
 import {BsGithub, BsInstagram, BsLinkedin, BsTwitter} from "react-icons/bs";
