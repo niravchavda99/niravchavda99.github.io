@@ -1,5 +1,5 @@
 .skill-container {
-  @apply w-fit inline-block py-1.5 px-2 border rounded-lg mx-2 my-2 text-violet-200;
+  @apply w-fit inline-block py-1.5 px-2 border rounded-lg mx-2 my-2;
 }
 
 .icon {
@@ -22,7 +22,7 @@
 
 .dark {
   .skill-container {
-    @apply border-violet-400;
+    @apply border-violet-400 text-violet-200;
   }
 
   .skill-container:hover {
