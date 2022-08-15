@@ -1,17 +1,17 @@
 import './Header.scss';
 
 const Header = () => {
-  return <div className={"header-container"}>
+  return <nav className={"header-container"}>
     <div>
       <div className={'header-logo'}>Nirav Chavda</div>
     </div>
     <div className={'header-content-container'}>
-      <div className={'header-content'}>About</div>
-      <div className={'header-content'}>Experience</div>
-      <div className={'header-content'}>Skills</div>
-      <div className={'header-content'}>Links</div>
+      <a href={"#about"} className={'header-content'}>About</a>
+      <a href={"#experience"} className={'header-content'}>Experience</a>
+      <a href={"#skills"} className={'header-content'}>Skills</a>
+      <a href={"#links"} className={'header-content'}>Links</a>
     </div>
-  </div>;
+  </nav>;
 }
 
 export default Header;

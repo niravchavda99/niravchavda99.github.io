@@ -2,3 +2,6 @@
   @apply h-screen text-center bg-white;
 }
 
+.center-all {
+  @apply flex flex-col justify-center;
+}

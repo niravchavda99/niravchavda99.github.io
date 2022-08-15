@@ -1,0 +1,19 @@
+.job-container {
+  @apply w-1/3 flex flex-row my-2;
+}
+
+.organization-name {
+  @apply text-2xl text-left;
+}
+
+.designation {
+  @apply text-xl text-left text-slate-500;
+}
+
+.achievements {
+  @apply pl-6 text-left list-disc;
+}
+
+.dates {
+  @apply text-lg text-left text-slate-500;
+}

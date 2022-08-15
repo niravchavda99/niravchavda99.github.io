@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 const About = () => {
   const iconSize = 28;
 
-  return <div id={'about'}>
+  return <div className={'center-all'} id={'about'}>
     <div className="flex flex-wrap justify-center">
       <div className="w-6/12 sm:w-4/12 px-4">
         <img src={profileImage} alt="..."
@@ -25,12 +25,11 @@ const About = () => {
       <SocialMediaLink platform={'linkedin'}><BsLinkedin size={iconSize}/></SocialMediaLink>
       <SocialMediaLink platform={'twitter'}><BsTwitter size={iconSize}/></SocialMediaLink>
       <SocialMediaLink platform={'instagram'}><BsInstagram size={iconSize}/></SocialMediaLink>
-      <Link to={"/blog"}>
+      <Link className={'link-item'} to={"/blog"}>
         <FaBlogger size={iconSize}/>
       </Link>
     </div>
-  </div>
-      ;
+  </div>;
 }
 
 export default About;
