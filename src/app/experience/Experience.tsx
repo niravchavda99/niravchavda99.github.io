@@ -12,7 +12,7 @@ const Experience = () => {
       {jobs.map((jobProfile, index) =>
           <React.Fragment key={`jobProfile${index}`}>
             <Job profile={jobProfile}/>
-            {index != jobs.length - 1 && <VerticalRuler/>}
+            {index !== jobs.length - 1 && <VerticalRuler/>}
           </React.Fragment>
       )}
     </div>
