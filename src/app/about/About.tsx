@@ -17,7 +17,7 @@ const About = () => {
       </div>
     </div>
 
-    <div className={'name'}>Nirav Chavda</div>
+    <div className={'about-name'}>Nirav Chavda</div>
     <div className={'career'}>Software Craftsperson</div>
     <div className={'links'}>
       <SocialMediaLink platform={'mail'}><TbMail size={iconSize}/></SocialMediaLink>
