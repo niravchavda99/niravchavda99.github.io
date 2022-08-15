@@ -5,8 +5,9 @@ import {BsGithub, BsInstagram, BsLinkedin, BsTwitter} from "react-icons/bs";
 import {FaBlogger} from "react-icons/fa";
 import SocialMediaLink from "../common/SocialMediaLink";
 import {Link} from "react-router-dom";
+import DarkModeProps from "../common/DarkModeProps";
 
-const About = () => {
+const About = ({darkMode}: DarkModeProps) => {
   const iconSize = 28;
 
   return <div className={'center-all'} id={'about'}>

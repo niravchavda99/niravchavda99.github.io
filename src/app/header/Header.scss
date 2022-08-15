@@ -1,6 +1,5 @@
 .header-container {
-  @apply flex flex-row justify-between p-1 bg-white/75 text-xl;
-  color: #6E07F3;
+  @apply flex flex-row justify-between p-1  text-xl;
 }
 
 .header-logo {
@@ -17,5 +16,24 @@
 
 .header-content:hover {
   @apply border-2 rounded-lg;
-  border-color: #6E07F3;
+}
+
+.light {
+  .header-container {
+    @apply text-violet-600 bg-white/75;
+  }
+
+  .header-content:hover {
+    @apply border-violet-600;
+  }
+}
+
+.dark {
+  .header-container {
+    @apply text-violet-300 bg-slate-700;
+  }
+
+  .header-content:hover {
+    @apply border-violet-300;
+  }
 }

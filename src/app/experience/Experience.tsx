@@ -3,8 +3,9 @@ import {jobs} from './jobs';
 import Job from "./job/Job";
 import VerticalRuler from "../common/VerticalRuler";
 import React from "react";
+import DarkModeProps from "../common/DarkModeProps";
 
-const Experience = () => {
+const Experience = ({darkMode}: DarkModeProps) => {
   return <div id={'experience'}>
     <div className="text-5xl">Experience</div>
     <br/>
