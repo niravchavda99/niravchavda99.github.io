@@ -1,5 +1,5 @@
 .footer {
-  @apply text-center inline-block p-2;
+  @apply text-center inline-block p-2 w-full;
 }
 
 .copyright {
@@ -7,5 +7,25 @@
 }
 
 .name {
-  @apply text-violet-500 font-semibold ml-1 text-lg underline underline-offset-2;
+  @apply font-semibold ml-1 underline underline-offset-2;
+}
+
+.light {
+  .name {
+    @apply text-violet-500;
+  }
+}
+
+.dark {
+  .footer {
+    @apply bg-slate-700;
+  }
+
+  .name {
+    @apply text-violet-200;
+  }
+
+  .footer-text {
+    @apply text-violet-200;
+  }
 }
