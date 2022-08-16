@@ -22,3 +22,13 @@ const months = [
 export const getMonthName = (month: number): string => {
   return months[month - 1];
 }
+
+const storageKey = 'nc-github-io-dark-mode';
+
+export const setToStorage = (value: boolean) => {
+  window.localStorage.setItem(storageKey, "" + value);
+}
+
+export const getFromStorage = (): boolean => {
+  return window.localStorage.getItem(storageKey) === 'true';
+}

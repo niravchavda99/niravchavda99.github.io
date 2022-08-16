@@ -1,4 +1,5 @@
 import {MdDarkMode, MdLightMode} from "react-icons/md";
+import {setToStorage} from "../Utils";
 
 type DarkModeToggleProps = {
   darkMode: boolean,
@@ -10,7 +11,10 @@ const DarkModeToggle = ({darkMode, toggleDarkMode}: DarkModeToggleProps) => {
 
   return (
       <div className="flex flex-col justify-center p-2">
-        <button onClick={() => toggleDarkMode(!darkMode)}>
+        <button onClick={() => {
+          setToStorage(!darkMode);
+          return toggleDarkMode(!darkMode);
+        }}>
           {darkMode ? <MdLightMode size={iconSize} className={"text-yellow-400 p-0.5"}/>
               : <MdDarkMode size={iconSize} className={"text-violet-500 p-0.5"}/>}
         </button>

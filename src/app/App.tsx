@@ -4,9 +4,11 @@ import Header from './header/Header';
 import ScrollToTop from 'react-scroll-to-top';
 import Footer from "./footer/Footer";
 import {Outlet} from "react-router-dom";
+import {getFromStorage} from "./Utils";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const mode = getFromStorage();
+  const [darkMode, setDarkMode] = useState(mode);
 
   return (
       <div className={`App ${darkMode ? 'dark' : 'light'}`}>
