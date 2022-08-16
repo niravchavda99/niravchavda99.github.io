@@ -3,11 +3,15 @@
 }
 
 .repository-title {
-  @apply font-semibold;
+  @apply font-semibold text-xl;
 }
 
 .code-link {
   @apply border rounded py-1 px-2 w-fit mt-4;
+}
+
+.repository-container:hover {
+  @apply shadow-lg;
 }
 
 .light {
@@ -17,6 +21,10 @@
 
   .code-link {
     @apply border-violet-500;
+  }
+
+  .repository-container:hover {
+    @apply shadow-violet-400;
   }
 }
 
@@ -31,5 +39,9 @@
 
   .code-link {
     @apply border-violet-400 text-violet-300;
+  }
+
+  .repository-container:hover {
+    @apply shadow-violet-600;
   }
 }
