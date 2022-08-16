@@ -1,5 +1,6 @@
 import './Header.scss';
 import DarkModeToggle from "../darkmodetoggle/DarkModeToggle";
+import {Link} from "react-router-dom";
 
 type HeaderProps = {
   darkMode: boolean,
@@ -16,6 +17,9 @@ const Header = ({darkMode, toggleDarkMode}: HeaderProps) => {
         <a href={"#about"} className={'header-content'}>About</a>
         <a href={"#experience"} className={'header-content'}>Experience</a>
         <a href={"#skills"} className={'header-content'}>Skills</a>
+        <Link to={"/projects"} className={'header-content'}>
+          Projects
+        </Link>
         <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode}/>
       </div>
     </nav>

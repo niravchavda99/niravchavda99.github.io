@@ -1,0 +1,11 @@
+.repository-container {
+  @apply p-4 rounded border border-violet-500 flex flex-col justify-between items-center;
+}
+
+.repository-title {
+  @apply font-semibold;
+}
+
+.code-link {
+  @apply border border-violet-500 rounded py-1 px-2 w-fit mt-4;
+}
