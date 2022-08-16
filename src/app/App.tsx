@@ -6,7 +6,7 @@ import Footer from "./footer/Footer";
 import {Outlet} from "react-router-dom";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   return (
       <div className={`App ${darkMode ? 'dark' : 'light'}`}>

@@ -11,8 +11,8 @@ const DarkModeToggle = ({darkMode, toggleDarkMode}: DarkModeToggleProps) => {
   return (
       <div className="flex flex-col justify-center p-2">
         <button onClick={() => toggleDarkMode(!darkMode)}>
-          {darkMode ? <MdDarkMode size={iconSize} className={"text-yellow-300 p-0.5"}/>
-              : <MdLightMode size={iconSize} className={"text-violet-500 p-0.5"}/>}
+          {darkMode ? <MdLightMode size={iconSize} className={"text-yellow-400 p-0.5"}/>
+              : <MdDarkMode size={iconSize} className={"text-violet-500 p-0.5"}/>}
         </button>
       </div>
   );
