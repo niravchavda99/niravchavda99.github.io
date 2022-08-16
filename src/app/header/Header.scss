@@ -1,5 +1,5 @@
 .header-container {
-  @apply flex flex-row justify-between p-1  text-xl;
+  @apply flex flex-row justify-between p-1 text-xl select-none;
 }
 
 .header-logo {
