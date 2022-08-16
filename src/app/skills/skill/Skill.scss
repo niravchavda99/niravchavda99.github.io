@@ -12,7 +12,7 @@
 
 .light {
   .skill-container {
-    @apply border-violet-500;
+    @apply border-violet-500 bg-violet-50;
   }
 
   .skill-container:hover {
@@ -22,7 +22,7 @@
 
 .dark {
   .skill-container {
-    @apply border-violet-400 text-violet-200;
+    @apply border-violet-400 text-violet-200 bg-slate-800;
   }
 
   .skill-container:hover {
