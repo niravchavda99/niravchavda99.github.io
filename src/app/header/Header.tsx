@@ -14,9 +14,9 @@ const Header = ({darkMode, toggleDarkMode}: HeaderProps) => {
         <a href={"/home"} className={'header-logo'}>Nirav Chavda</a>
       </div>
       <div className={'header-content-container'}>
-        <a href={"#about"} className={'header-content'}>About</a>
-        <a href={"#experience"} className={'header-content'}>Experience</a>
-        <a href={"#skills"} className={'header-content'}>Skills</a>
+        <a href={"/#about"} className={'header-content'}>About</a>
+        <a href={"/#experience"} className={'header-content'}>Experience</a>
+        <a href={"/#skills"} className={'header-content'}>Skills</a>
         <Link to={"/projects"} className={'header-content'}>
           Projects
         </Link>
