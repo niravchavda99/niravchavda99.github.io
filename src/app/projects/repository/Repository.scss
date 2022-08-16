@@ -1,5 +1,5 @@
 .repository-container {
-  @apply p-4 rounded border border-violet-500 flex flex-col justify-between items-center;
+  @apply p-4 rounded border-2 flex flex-col justify-between items-center;
 }
 
 .repository-title {
@@ -7,5 +7,29 @@
 }
 
 .code-link {
-  @apply border border-violet-500 rounded py-1 px-2 w-fit mt-4;
+  @apply border rounded py-1 px-2 w-fit mt-4;
+}
+
+.light {
+  .repository-container {
+    @apply border-violet-500;
+  }
+
+  .code-link {
+    @apply border-violet-500;
+  }
+}
+
+.dark {
+  .repository-container {
+    @apply border-violet-400;
+  }
+
+  .repository-title, .repository-description {
+    @apply text-violet-200;
+  }
+
+  .code-link {
+    @apply border-violet-400 text-violet-300;
+  }
 }

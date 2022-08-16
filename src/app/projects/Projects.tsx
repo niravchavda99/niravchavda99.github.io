@@ -19,7 +19,7 @@ const Projects = () => {
             <div className={"flex flex-col items-center"}>
               <InfinitySpin width='200' color="#8b5cf6"/>
             </div> :
-            <div className="grid grid-cols-3 gap-10">
+            <div className="grid grid-cols-3 gap-12">
               {repositories.map(repository => <Repository repository={repository}/>)}
             </div>
         }
