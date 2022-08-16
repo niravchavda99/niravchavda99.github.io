@@ -11,7 +11,7 @@ const Header = ({darkMode, toggleDarkMode}: HeaderProps) => {
   return <div>
     <nav className={`header-container`}>
       <div>
-        <div className={'header-logo'}>Nirav Chavda</div>
+        <a href={"/home"} className={'header-logo'}>Nirav Chavda</a>
       </div>
       <div className={'header-content-container'}>
         <a href={"#about"} className={'header-content'}>About</a>
