@@ -1,0 +1,19 @@
+.search-container {
+  @apply p-8;
+}
+
+.input {
+  @apply bg-transparent text-center p-2 w-1/4 rounded-lg focus:outline-none;
+}
+
+.light {
+  .input {
+    @apply border-2 border-violet-500 text-violet-500 placeholder-violet-500;
+  }
+}
+
+.dark {
+  .input {
+    @apply border-2 border-violet-400 text-violet-300 placeholder-violet-300;
+  }
+}
