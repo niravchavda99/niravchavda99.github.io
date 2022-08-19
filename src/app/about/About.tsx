@@ -12,7 +12,7 @@ const About = () => {
   return <div id={'about'}>
     <div className="flex flex-wrap justify-center">
       <div className="w-6/12 sm:w-1/4 px-4">
-        <img src={profileImage} alt="Profile Image"
+        <img src={profileImage} alt="Profile"
              className="shadow rounded-full max-w-full h-auto align-middle border-none"/>
       </div>
     </div>
