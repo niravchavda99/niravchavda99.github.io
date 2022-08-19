@@ -7,7 +7,7 @@ type Skill = {
   svg?: string
 }
 
-const getClassName = (subject: string, darkMode: boolean = false) => {
+const getDeviconClassName = (subject: string, darkMode: boolean = false) => {
   return `devicon-${subject} ${darkMode ? '' : 'colored'}`;
 }
 
@@ -15,37 +15,41 @@ export const getAllSkills = (theme: string): Skill[] => {
   const isDarkTheme = theme === 'dark';
 
   return [
-    {name: 'C', className: getClassName('c-plain')},
-    {name: 'C++', className: getClassName('cplusplus-plain')},
-    {name: 'Java', className: getClassName('java-plain')},
-    {name: 'HTML', className: getClassName('html5-plain')},
-    {name: 'CSS', className: getClassName('css3-plain')},
-    {name: 'Javascript', className: getClassName('javascript-plain')},
-    {name: 'Typescript', className: getClassName('typescript-plain')},
-    {name: 'Markdown', className: getClassName('markdown-original', isDarkTheme)},
-    {name: 'NodeJS', className: getClassName('nodejs-plain')},
-    {name: 'Express', className: getClassName('express-original', isDarkTheme)},
-    {name: 'React', className: getClassName('react-original')},
-    {name: 'Angular', className: getClassName('angularjs-plain')},
-    {name: 'Bootstrap', className: getClassName('bootstrap-plain', isDarkTheme)},
-    {name: 'Tailwind', className: getClassName('tailwindcss-plain')},
-    {name: 'PHP', className: getClassName('php-plain')},
-    {name: 'Go', className: getClassName('go-plain')},
-    {name: 'MySQL', className: getClassName('mysql-plain', isDarkTheme)},
-    {name: 'PostgreSQL', className: getClassName('postgresql-plain', isDarkTheme)},
-    {name: 'MongoDB', className: getClassName('mongodb-plain')},
-    {name: 'Docker', className: getClassName('docker-plain')},
-    {name: 'Spring', className: getClassName('spring-plain')},
-    {name: 'Micronaut', className: getClassName(''), svg: isDarkTheme ? micronautDark : micronautLight},
-    {name: 'Dart', className: getClassName('dart-plain')},
-    {name: 'Flutter', className: getClassName('flutter-plain')},
-    {name: 'D3 JS', className: getClassName('d3js-plain')},
-    {name: 'Git', className: getClassName('git-plain')},
-    {name: 'Firebase', className: getClassName('firebase-plain')},
-    {name: 'Heroku', className: getClassName('heroku-plain')},
-    {name: 'VSCode', className: getClassName('vscode-plain')},
-    {name: 'IntelliJ', className: getClassName('intellij-plain')},
-    {name: 'Android Studio', className: getClassName('androidstudio-plain')},
-    {name: 'Photoshop', className: getClassName('photoshop-plain')}
+    {name: 'C', className: getDeviconClassName('c-plain')},
+    {name: 'C++', className: getDeviconClassName('cplusplus-plain')},
+    {name: 'Java', className: getDeviconClassName('java-plain')},
+    {name: 'HTML', className: getDeviconClassName('html5-plain')},
+    {name: 'CSS', className: getDeviconClassName('css3-plain')},
+    {name: 'Javascript', className: getDeviconClassName('javascript-plain')},
+    {name: 'Typescript', className: getDeviconClassName('typescript-plain')},
+    {name: 'Markdown', className: getDeviconClassName('markdown-original', isDarkTheme)},
+    {name: 'NodeJS', className: getDeviconClassName('nodejs-plain')},
+    {name: 'Express', className: getDeviconClassName('express-original', isDarkTheme)},
+    {name: 'React', className: getDeviconClassName('react-original')},
+    {name: 'Angular', className: getDeviconClassName('angularjs-plain')},
+    {name: 'Bootstrap', className: getDeviconClassName('bootstrap-plain', isDarkTheme)},
+    {name: 'Tailwind', className: getDeviconClassName('tailwindcss-plain')},
+    {name: 'PHP', className: getDeviconClassName('php-plain')},
+    {name: 'Go', className: getDeviconClassName('go-plain')},
+    {name: 'MySQL', className: getDeviconClassName('mysql-plain', isDarkTheme)},
+    {name: 'PostgreSQL', className: getDeviconClassName('postgresql-plain', isDarkTheme)},
+    {name: 'MongoDB', className: getDeviconClassName('mongodb-plain')},
+    {name: 'Docker', className: getDeviconClassName('docker-plain')},
+    {name: 'Spring', className: getDeviconClassName('spring-plain')},
+    {
+      name: 'Micronaut',
+      className: getDeviconClassName(''),
+      svg: isDarkTheme ? micronautDark : micronautLight
+    },
+    {name: 'Dart', className: getDeviconClassName('dart-plain')},
+    {name: 'Flutter', className: getDeviconClassName('flutter-plain')},
+    {name: 'D3 JS', className: getDeviconClassName('d3js-plain')},
+    {name: 'Git', className: getDeviconClassName('git-plain')},
+    {name: 'Firebase', className: getDeviconClassName('firebase-plain')},
+    {name: 'Heroku', className: getDeviconClassName('heroku-plain')},
+    {name: 'VSCode', className: getDeviconClassName('vscode-plain')},
+    {name: 'IntelliJ', className: getDeviconClassName('intellij-plain')},
+    {name: 'Android Studio', className: getDeviconClassName('androidstudio-plain')},
+    {name: 'Photoshop', className: getDeviconClassName('photoshop-plain')}
   ];
 }

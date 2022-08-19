@@ -12,6 +12,10 @@
   @apply transition-all;
 }
 
+.repository-language {
+  @apply transition-all;
+}
+
 .code-link {
   @apply border rounded py-1 px-2 w-fit mt-4 transition-all;
 }
@@ -39,7 +43,7 @@
     @apply border-violet-400;
   }
 
-  .repository-title, .repository-description {
+  .repository-title, .repository-description, .repository-language {
     @apply text-violet-200;
   }
 
