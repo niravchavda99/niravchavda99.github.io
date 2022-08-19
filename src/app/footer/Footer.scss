@@ -1,5 +1,7 @@
+@import "src/app/common/Common.scss";
+
 .footer {
-  @apply text-center inline-block p-2 w-full;
+  @apply text-center inline-block p-2 w-full transition-all;
 }
 
 .copyright {
@@ -7,7 +9,11 @@
 }
 
 .name {
-  @apply font-semibold ml-1 underline underline-offset-2;
+  @apply font-semibold ml-1 underline underline-offset-2 transition-all;
+}
+
+.footer-text {
+  @apply transition-all;
 }
 
 .light {

@@ -10,7 +10,7 @@ const Skills = ({darkMode}: DarkModeValueProps) => {
         <br/>
         <div className="w-2/3">
           {getAllSkills(darkMode).map(skill =>
-              <Skill skillName={skill.name} iconClassName={skill.className} svg={skill.svg}/>)}
+              <Skill key={skill.name} skillName={skill.name} iconClassName={skill.className} svg={skill.svg}/>)}
         </div>
       </div>
   );

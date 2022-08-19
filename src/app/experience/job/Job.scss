@@ -1,13 +1,15 @@
+@import "src/app/common/Common.scss";
+
 .job-container {
   @apply w-1/3 flex flex-row my-2;
 }
 
 .organization-name {
-  @apply text-2xl text-left;
+  @apply text-2xl text-left transition-all;
 }
 
 .designation {
-  @apply text-xl text-left;
+  @apply text-xl text-left transition-all;
 }
 
 .achievements {
@@ -15,7 +17,7 @@
 }
 
 .dates {
-  @apply text-lg text-left text-slate-500;
+  @apply text-lg text-left text-slate-500 transition-all;
 }
 
 .light {

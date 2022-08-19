@@ -1,5 +1,7 @@
+@import "src/app/common/Common.scss";
+
 #about {
-  @apply h-max border-b-2 pb-8;
+  @apply h-max border-b-2 pb-8 transition-all;
 }
 
 .profile-image {
@@ -15,7 +17,7 @@
 }
 
 .career {
-  @apply text-xl;
+  @apply text-xl transition-all;
 }
 
 .links {

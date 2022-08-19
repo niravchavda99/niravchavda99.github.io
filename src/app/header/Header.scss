@@ -1,5 +1,7 @@
+@import "src/app/common/Common.scss";
+
 .header-container {
-  @apply flex flex-row justify-between p-1 select-none items-center;
+  @apply flex flex-row justify-between p-1 select-none items-center transition-all;
 }
 
 .header-logo {

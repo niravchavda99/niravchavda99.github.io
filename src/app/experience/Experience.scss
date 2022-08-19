@@ -1,5 +1,7 @@
+@import "src/app/common/Common.scss";
+
 #experience {
-  @apply h-max border-b-2 pt-2 pb-8 select-none;
+  @apply h-max border-b-2 pt-2 pb-8 select-none transition-all;
 }
 
 .jobs-container {
@@ -7,7 +9,7 @@
 }
 
 .experience-header {
-  @apply text-5xl p-2 pb-6;
+  @apply text-5xl p-2 pb-6 transition-all;
 }
 
 .light {

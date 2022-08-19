@@ -1,13 +1,19 @@
+@import "src/app/common/Common.scss";
+
 .repository-container {
-  @apply p-4 rounded border-2 flex flex-col justify-between items-center;
+  @apply p-4 rounded border-2 flex flex-col justify-between items-center transition-all;
 }
 
 .repository-title {
-  @apply font-semibold text-xl;
+  @apply font-semibold text-xl transition-all;
+}
+
+.repository-description {
+  @apply transition-all;
 }
 
 .code-link {
-  @apply border rounded py-1 px-2 w-fit mt-4;
+  @apply border rounded py-1 px-2 w-fit mt-4 transition-all;
 }
 
 .repository-container:hover {

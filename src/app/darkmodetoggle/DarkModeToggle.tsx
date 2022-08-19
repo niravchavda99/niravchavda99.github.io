@@ -8,6 +8,7 @@ const DarkModeToggle = ({darkMode, toggleDarkMode}: DarkModeProps) => {
   return (
       <div className="flex flex-col justify-center p-2">
         <button onClick={() => {
+          console.log('CLicked', darkMode);
           setToStorage(!darkMode);
           return toggleDarkMode(!darkMode);
         }}>
