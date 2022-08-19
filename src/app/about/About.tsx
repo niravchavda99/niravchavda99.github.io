@@ -11,14 +11,14 @@ const About = () => {
 
   return <div id={'about'}>
     <div className="flex flex-wrap justify-center">
-      <div className="w-6/12 sm:w-4/12 px-4">
-        <img src={profileImage} alt="..."
+      <div className="w-6/12 sm:w-1/4 px-4">
+        <img src={profileImage} alt="Profile Image"
              className="shadow rounded-full max-w-full h-auto align-middle border-none"/>
       </div>
     </div>
 
     <div className={'about-name'}>Nirav Chavda</div>
-    <div className={'career'}>Software Craftsperson</div>
+    <div className={'career'}>I'm a Software Craftsperson, Learner and an Enthusiast</div>
     <div className={'links'}>
       <SocialMediaLink platform={'mail'}><TbMail size={iconSize}/></SocialMediaLink>
       <SocialMediaLink platform={'github'}><BsGithub size={iconSize}/></SocialMediaLink>

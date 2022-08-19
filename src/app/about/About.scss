@@ -13,15 +13,15 @@
 }
 
 .about-name {
-  @apply text-4xl mt-2;
+  @apply text-4xl p-2 mt-2;
 }
 
 .career {
-  @apply text-xl transition-all;
+  @apply p-1 text-xl transition-all;
 }
 
 .links {
-  @apply mt-2 flex flex-row justify-center;
+  @apply mt-2 p-1 flex flex-row justify-center;
 }
 
 .link-item {
@@ -53,5 +53,9 @@
 
   .link-item {
     @apply text-violet-200;
+  }
+
+  .link-item > svg:hover {
+    @apply shadow-lg shadow-violet-600;
   }
 }
