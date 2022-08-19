@@ -10,9 +10,9 @@ const AppRoutes = () => {
   const [darkMode, setDarkMode] = useState(mode);
 
   return <Routes>
-    <Route path={"/"} element={<App darkMode={darkMode} toggleDarkMode={setDarkMode}/>}>
-      <Route path={"projects"} element={<Projects/>}/>
-      <Route index element={<Home darkMode={darkMode}/>}/>
+    <Route path={"/"} element={<App darkMode={darkMode}/>}>
+      <Route path={"projects"} element={<Projects darkMode toggleDarkMode={setDarkMode}/>}/>
+      <Route index element={<Home darkMode={darkMode} toggleDarkMode={setDarkMode}/>}/>
     </Route>
     <Route path="*" element={<Navigate to="/"/>}/>
   </Routes>;

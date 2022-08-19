@@ -1,5 +1,6 @@
 type DarkModeProps = {
-  darkMode: boolean
-}
+  darkMode: boolean,
+  toggleDarkMode: Function
+};
 
 export default DarkModeProps;

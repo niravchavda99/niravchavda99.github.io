@@ -1,9 +1,9 @@
 import './Skills.scss';
 import {getAllSkills} from "./AllSkills";
 import Skill from "./skill/Skill";
-import DarkModeProps from "../common/DarkModeProps";
+import DarkModeValueProps from "../common/DarkModeValueProps";
 
-const Skills = ({darkMode}: DarkModeProps) => {
+const Skills = ({darkMode}: DarkModeValueProps) => {
   return (
       <div id={'skills'}>
         <div className="skills-header">Skills</div>

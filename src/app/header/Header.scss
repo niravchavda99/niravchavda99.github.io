@@ -1,5 +1,5 @@
 .header-container {
-  @apply flex flex-row justify-between p-1 text-xl select-none;
+  @apply flex flex-row justify-between p-1 select-none items-center;
 }
 
 .header-logo {
@@ -11,7 +11,7 @@
 }
 
 .header-content {
-  @apply mx-1 p-2 cursor-pointer border-2 border-transparent;
+  @apply mx-1 p-2 cursor-pointer border-2 border-transparent text-xl;
 }
 
 .header-content:hover {

@@ -1,12 +1,8 @@
 import {MdDarkMode, MdLightMode} from "react-icons/md";
 import {setToStorage} from "../Utils";
+import DarkModeProps from "../common/DarkModeProps";
 
-type DarkModeToggleProps = {
-  darkMode: boolean,
-  toggleDarkMode: Function
-}
-
-const DarkModeToggle = ({darkMode, toggleDarkMode}: DarkModeToggleProps) => {
+const DarkModeToggle = ({darkMode, toggleDarkMode}: DarkModeProps) => {
   const iconSize = 28;
 
   return (
