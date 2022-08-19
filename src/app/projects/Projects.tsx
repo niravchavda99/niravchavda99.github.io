@@ -6,7 +6,7 @@ import Repository from "./repository/Repository";
 import {InfinitySpin} from "react-loader-spinner";
 import Search from "../search/Search";
 import Header from "../header/Header";
-import DarkModeProps from "../common/DarkModeProps";
+import ThemeProps from "../common/ThemeProps";
 
 const filterReposByName = (repositories: RepositoryDto[] | null, subject: string): RepositoryDto[] => {
   if (repositories === null) {
@@ -16,7 +16,7 @@ const filterReposByName = (repositories: RepositoryDto[] | null, subject: string
   return repositories.filter(repository => repository.name.toLowerCase().includes(subject));
 }
 
-const Projects = ({darkMode, toggleDarkMode}: DarkModeProps) => {
+const Projects = ({theme, toggleTheme}: ThemeProps) => {
   const [allRepositories, setAllRepositories] = useState<RepositoryDto[] | null>(null);
   const [repositories, setRepositories] = useState<RepositoryDto[] | null>(allRepositories);
 
@@ -34,7 +34,7 @@ const Projects = ({darkMode, toggleDarkMode}: DarkModeProps) => {
 
   return (
       <>
-        <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode}/>
+        <Header theme={theme} toggleTheme={toggleTheme}/>
         <div className={'projects-container'}>
           <div className="projects-header">Projects</div>
           {repositories === null ?

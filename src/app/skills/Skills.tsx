@@ -1,15 +1,15 @@
 import './Skills.scss';
 import {getAllSkills} from "./AllSkills";
 import Skill from "./skill/Skill";
-import DarkModeValueProps from "../common/DarkModeValueProps";
+import ThemeValueProps from "../common/ThemeValueProps";
 
-const Skills = ({darkMode}: DarkModeValueProps) => {
+const Skills = ({theme}: ThemeValueProps) => {
   return (
       <div id={'skills'}>
         <div className="skills-header">Skills</div>
         <br/>
         <div className="w-2/3">
-          {getAllSkills(darkMode).map(skill =>
+          {getAllSkills(theme).map(skill =>
               <Skill key={skill.name} skillName={skill.name} iconClassName={skill.className} svg={skill.svg}/>)}
         </div>
       </div>

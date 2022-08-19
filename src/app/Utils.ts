@@ -25,10 +25,10 @@ export const getMonthName = (month: number): string => {
 
 const storageKey = 'nc-github-io-dark-mode';
 
-export const setToStorage = (value: boolean) => {
+export const setToStorage = (value: string) => {
   window.localStorage.setItem(storageKey, "" + value);
 }
 
-export const getFromStorage = (): boolean => {
-  return window.localStorage.getItem(storageKey) === 'true';
+export const getThemeFromStorage = (): string => {
+  return window.localStorage.getItem(storageKey) ?? 'light';
 }

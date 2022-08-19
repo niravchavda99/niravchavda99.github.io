@@ -4,11 +4,11 @@ import Skills from "../skills/Skills";
 import React from "react";
 import Header from "../header/Header";
 import {Link} from "react-router-dom";
-import DarkModeProps from "../common/DarkModeProps";
+import ThemeProps from "../common/ThemeProps";
 
-const Home = ({darkMode, toggleDarkMode}: DarkModeProps) => {
+const Home = ({theme, toggleTheme}: ThemeProps) => {
   return <>
-    <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+    <Header theme={theme} toggleTheme={toggleTheme}>
       <a href={"/#about"} className={'header-content'}>About</a>
       <a href={"/#experience"} className={'header-content'}>Experience</a>
       <a href={"/#skills"} className={'header-content'}>Skills</a>
@@ -18,7 +18,7 @@ const Home = ({darkMode, toggleDarkMode}: DarkModeProps) => {
     </Header>
     <About/>
     <Experience/>
-    <Skills darkMode={darkMode}/>
+    <Skills theme={theme}/>
   </>;
 };
 
