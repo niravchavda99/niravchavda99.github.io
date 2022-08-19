@@ -1,7 +1,7 @@
 @import "src/app/common/Common.scss";
 
 .repository-container {
-  @apply p-4 rounded border-2 flex flex-col justify-between items-center transition-all;
+  @apply p-4 rounded-lg border-2 flex flex-col justify-between items-center transition-all;
 }
 
 .repository-title {
@@ -13,7 +13,7 @@
 }
 
 .repository-language {
-  @apply transition-all;
+  @apply p-1 transition-all;
 }
 
 .code-link {
@@ -22,6 +22,7 @@
 
 .repository-container:hover {
   @apply shadow-lg;
+  transition: all 0.1s;
 }
 
 .light {

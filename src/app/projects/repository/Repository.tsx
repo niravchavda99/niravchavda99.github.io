@@ -12,9 +12,11 @@ const Repository = ({repository, theme}: RepositoryProps) => {
 
   return (
       <div className={'repository-container'}>
-        <div>
-          <div className="repository-title">{repository.name}</div>
-          <div className="repository-description">{repository.description}</div>
+        <div className={'h-full flex flex-col justify-between'}>
+          <div>
+            <div className="repository-title">{repository.name}</div>
+            <div className="repository-description">{repository.description}</div>
+          </div>
           {language &&
               <div className="repository-language">
                 {icon} {language}

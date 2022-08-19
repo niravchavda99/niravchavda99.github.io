@@ -43,7 +43,7 @@ const Projects = ({theme, toggleTheme}: ThemeProps) => {
               </div> :
               <div>
                 <Search handleChange={setFilteredRepos}/>
-                <div className="grid grid-cols-3 gap-12">
+                <div className="repositories-container">
                   {repositories.map(repository =>
                       <Repository key={repository.id} repository={repository} theme={theme}/>)}
                 </div>
