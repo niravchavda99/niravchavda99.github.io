@@ -18,7 +18,6 @@ const Projects = () => {
   const [allRepositories, setAllRepositories] = useState<RepositoryDto[] | null>(null);
   const [repositories, setRepositories] = useState<RepositoryDto[] | null>(allRepositories);
 
-
   useEffect(() => {
     fetchRepositories().then(repos => {
       setAllRepositories(repos);
@@ -39,7 +38,7 @@ const Projects = () => {
               <InfinitySpin width='200' color="#8b5cf6"/>
             </div> :
             <div>
-              <Search handleChange={setFilteredRepos} />
+              <Search handleChange={setFilteredRepos}/>
               <div className="grid grid-cols-3 gap-12">
                 {repositories.map(repository => <Repository repository={repository}/>)}
               </div>
