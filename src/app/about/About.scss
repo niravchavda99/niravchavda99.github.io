@@ -25,7 +25,7 @@
 }
 
 .link-item {
-  @apply px-2 hover:scale-125 transition ease-in-out;
+  @apply px-2 hover:scale-150 transition ease-in-out;
 }
 
 .light {
@@ -53,9 +53,5 @@
 
   .link-item {
     @apply text-violet-200;
-  }
-
-  .link-item > svg:hover {
-    @apply shadow-lg shadow-violet-600;
   }
 }
