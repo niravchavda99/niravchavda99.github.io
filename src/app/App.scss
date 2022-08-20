@@ -1,7 +1,7 @@
 @import url(https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css);
 
 .App {
-  @apply h-screen text-center;
+  @apply h-screen text-center flex flex-col justify-between;
 }
 
 .center-all {

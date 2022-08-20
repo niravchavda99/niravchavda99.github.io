@@ -1,7 +1,7 @@
 @import "src/app/common/Common.scss";
 
 .projects-container {
-  @apply min-h-full h-max py-4 px-32 text-center select-none transition-all;
+  @apply py-4 px-32 text-center select-none transition-all;
 }
 
 .projects-header {

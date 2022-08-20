@@ -2,11 +2,11 @@ import './Projects.scss';
 import {fetchRepositories} from "../http/GithubGateway";
 import {ChangeEvent, useEffect, useState} from "react";
 import RepositoryDto from "./RepositoryDto";
-import Repository from "./repository/Repository";
 import {InfinitySpin} from "react-loader-spinner";
 import Search from "../search/Search";
 import Header from "../header/Header";
 import ThemeProps from "../common/ThemeProps";
+import Repository from "./repository/Repository";
 
 const filterReposByName = (repositories: RepositoryDto[] | null, subject: string): RepositoryDto[] => {
   if (repositories === null) {
