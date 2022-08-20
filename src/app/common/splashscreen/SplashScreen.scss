@@ -10,7 +10,7 @@
 }
 
 .dark {
-  @apply bg-slate-700;
+  @apply bg-dark;
 
   .letter-n {
     @apply text-violet-300 border-violet-400;
@@ -18,7 +18,7 @@
 }
 
 .light {
-  @apply bg-slate-200;
+  @apply bg-light;
 
   .letter-n {
     @apply text-violet-500 border-violet-600;

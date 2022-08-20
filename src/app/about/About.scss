@@ -5,7 +5,15 @@
 }
 
 .profile-image {
-  @apply w-1/4 rounded-full;
+  @apply shadow rounded-full max-w-full h-auto align-middle border-none;
+}
+
+.profile-image-wrapper {
+  @apply flex flex-wrap justify-center;
+}
+
+.profile-image-container {
+  @apply w-6/12 sm:w-1/4 px-4;
 }
 
 .image-container {
@@ -16,7 +24,7 @@
   @apply text-4xl p-2 mt-2;
 }
 
-.career {
+.about-short {
   @apply p-1 text-xl transition-all;
 }
 
@@ -30,20 +38,20 @@
 
 .light {
   #about {
-    @apply bg-white border-b-black;
+    @apply bg-light border-b-black;
   }
 
-  .career {
-    @apply text-slate-500;
+  .about-short {
+    @apply text-slate-600;
   }
 }
 
 .dark {
   #about {
-    @apply bg-slate-700 border-b-violet-300;
+    @apply bg-dark border-b-violet-300;
   }
 
-  .career {
+  .about-short {
     @apply text-violet-300;
   }
 

@@ -22,7 +22,7 @@
 
 .light {
   .header-container {
-    @apply text-violet-600 bg-white/75;
+    @apply text-violet-600 bg-light;
   }
 
   .header-content:hover {
@@ -32,7 +32,7 @@
 
 .dark {
   .header-container {
-    @apply text-violet-300 bg-slate-700;
+    @apply text-violet-300 bg-dark;
   }
 
   .header-content:hover {

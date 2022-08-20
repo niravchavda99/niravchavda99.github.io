@@ -14,13 +14,13 @@
 
 .light {
   .projects-container {
-    @apply bg-white;
+    @apply bg-light;
   }
 }
 
 .dark {
   .projects-container {
-    @apply bg-slate-700;
+    @apply bg-dark;
   }
 
   .projects-header {

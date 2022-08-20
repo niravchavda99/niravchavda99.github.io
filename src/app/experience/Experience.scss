@@ -14,13 +14,13 @@
 
 .light {
   #experience {
-    @apply bg-white border-b-black;
+    @apply bg-light border-b-black;
   }
 }
 
 .dark {
   #experience {
-    @apply bg-slate-700 border-b-violet-300;
+    @apply bg-dark border-b-violet-300;
   }
 
   .experience-header {

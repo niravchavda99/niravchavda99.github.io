@@ -17,6 +17,10 @@
 }
 
 .light {
+  .footer {
+    @apply bg-light;
+  }
+
   .name {
     @apply text-violet-500;
   }
@@ -24,7 +28,7 @@
 
 .dark {
   .footer {
-    @apply bg-slate-700;
+    @apply bg-dark;
   }
 
   .name {

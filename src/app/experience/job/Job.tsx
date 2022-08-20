@@ -11,11 +11,7 @@ const Job = ({profile}: JobProps) => {
   return (
       <>
         <div className={'job-container'}>
-          <div className={'p-3 border border-violet-500 rounded-lg w-full'}>
-            {/*<div className="flex flex-row justify-center">*/}
-            {/*  <MdWork color={"#8b5cf6"} size={32}*/}
-            {/*          className={'rounded-full border border-violet-500 p-1'}/>*/}
-            {/*</div>*/}
+          <div className={'job-box'}>
             <div className="organization-name">{organizationName}</div>
             <div className="designation">{designation}</div>
             <div className="dates">{dateStarted.toString()} - {dateEnded.toString()}</div>
