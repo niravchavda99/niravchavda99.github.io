@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import ThemeProps from "../common/ThemeProps";
 import SplashScreen from "../common/splashscreen/SplashScreen";
 import Fader from "../common/fader/Fader";
+import Activities from "../activities/Activities";
 
 const Home = ({theme, toggleTheme}: ThemeProps) => {
   const [loading, setLoading] = useState(true);
@@ -28,6 +29,7 @@ const Home = ({theme, toggleTheme}: ThemeProps) => {
         </Header>
         <About/>
         <Experience/>
+        <Activities/>
         <Skills theme={theme}/>
       </Fader>
 };

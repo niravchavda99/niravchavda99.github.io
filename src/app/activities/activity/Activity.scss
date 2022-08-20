@@ -1,0 +1,57 @@
+@import "src/app/common/Common.scss";
+
+.activity-wrapper {
+  @apply flex flex-col items-center justify-center;
+}
+
+.activity-container {
+  @apply p-6 max-w-md rounded-lg border shadow-md shadow-gray-800;
+}
+
+.activity-title {
+  @apply mb-2 text-2xl font-bold tracking-tight;
+}
+
+.activity-subtitle {
+  @apply font-normal;
+}
+
+.activity-description {
+  @apply font-normal;
+}
+
+.light {
+  .activity-container {
+    @apply bg-violet-50 border-slate-200 hover:bg-violet-200;
+  }
+
+  .activity-title {
+    @apply text-gray-900;
+  }
+
+  .activity-subtitle {
+    @apply text-gray-700;
+  }
+
+  .activity-description {
+    @apply text-gray-700;
+  }
+}
+
+.dark {
+  .activity-container {
+    @apply bg-violet-800 border-gray-700 hover:bg-violet-600;
+  }
+
+  .activity-title {
+    @apply text-white;
+  }
+
+  .activity-subtitle {
+    @apply text-gray-100;
+  }
+
+  .activity-description {
+    @apply text-gray-300;
+  }
+}

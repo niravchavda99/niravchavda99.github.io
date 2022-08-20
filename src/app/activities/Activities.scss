@@ -1,0 +1,29 @@
+@import "src/app/common/Common.scss";
+
+#activities {
+  @apply h-max border-b-2 pt-2 pb-8 select-none transition-all;
+}
+
+.activities-container {
+  @apply p-10 grid grid-cols-2 gap-4 border-violet-500;
+}
+
+.activities-header {
+  @apply text-5xl p-2 pb-6 transition-all;
+}
+
+.light {
+  #activities {
+    @apply bg-light border-b-black;
+  }
+}
+
+.dark {
+  #activities {
+    @apply bg-dark border-b-violet-300;
+  }
+
+  .activities-header {
+    @apply text-violet-200;
+  }
+}
