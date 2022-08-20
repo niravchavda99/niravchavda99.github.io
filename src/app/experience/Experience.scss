@@ -1,15 +1,15 @@
 @import "src/app/common/Common.scss";
 
 #experience {
-  @apply h-max border-b-2 pt-2 pb-8 select-none transition-all;
+  @apply h-max border-b p-8 select-none transition-all;
 }
 
 .jobs-container {
-  @apply flex flex-col items-center;
+  @apply relative border-l border-gray-200 dark:border-gray-700;
 }
 
 .experience-header {
-  @apply text-5xl p-2 pb-6 transition-all;
+  @apply text-5xl p-2 pb-8 transition-all;
 }
 
 .light {
@@ -21,6 +21,10 @@
 .dark {
   #experience {
     @apply bg-dark border-b-violet-300;
+  }
+
+  .jobs-container {
+    @apply border-l-violet-400;
   }
 
   .experience-header {

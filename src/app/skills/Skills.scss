@@ -1,7 +1,7 @@
 @import "src/app/common/Common.scss";
 
 #skills {
-  @apply h-max border-b-2 p-2 pb-6 flex flex-col items-center select-none transition-all;
+  @apply h-max border-b p-8 flex flex-col items-center select-none transition-all;
 }
 
 .skills-header {

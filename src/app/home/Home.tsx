@@ -23,14 +23,13 @@ const Home = ({theme, toggleTheme}: ThemeProps) => {
           <a href={"/#about"} className={'header-content'}>About</a>
           <a href={"/#experience"} className={'header-content'}>Experience</a>
           <a href={"/#skills"} className={'header-content'}>Skills</a>
-          <Link to={"/projects"} className={'header-content'}>
-            Projects
-          </Link>
+          <a href={"/#activities"} className={'header-content'}>Activities</a>
+          <Link to={"/projects"} className={'header-content'}>Projects</Link>
         </Header>
         <About/>
         <Experience/>
-        <Activities/>
         <Skills theme={theme}/>
+        <Activities/>
       </Fader>
 };
 
