@@ -1,9 +1,9 @@
 import {Navigate, Route, Routes} from "react-router-dom";
 import Projects from "./projects/Projects";
 import App from "./App";
-import Home from "./home/Home";
 import {getThemeFromStorage} from "./Utils";
 import {useState} from "react";
+import Home from "./home/Home";
 
 const AppRoutes = () => {
   const mode = getThemeFromStorage();

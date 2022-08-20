@@ -1,0 +1,38 @@
+@import "src/app/common/Common.scss";
+
+.loading {
+  @apply h-full text-3xl flex flex-col justify-center items-center content-center;
+}
+
+.letter-n {
+  @apply border-2 rounded-2xl p-2;
+  animation: rotateAnimation 2.5s infinite;
+}
+
+.dark {
+  @apply bg-slate-700;
+
+  .letter-n {
+    @apply text-violet-300 border-violet-400;
+  }
+}
+
+.light {
+  @apply bg-slate-200;
+
+  .letter-n {
+    @apply text-violet-500 border-violet-600;
+  }
+}
+
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
