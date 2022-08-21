@@ -13,7 +13,7 @@ const filterReposByName = (repositories: RepositoryDto[] | null, subject: string
     return [];
   }
 
-  return repositories.filter(repository => repository.name.toLowerCase().includes(subject));
+  return repositories.filter(repository => repository.name.toLowerCase().includes(subject.toLowerCase()));
 }
 
 const Projects = ({theme, toggleTheme}: ThemeProps) => {
