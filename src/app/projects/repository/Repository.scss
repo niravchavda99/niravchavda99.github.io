@@ -30,7 +30,7 @@
 
 .light {
   .repository-container {
-    @apply bg-violet-50 border-slate-200 text-gray-800;
+    @apply bg-violet-50 border-slate-200 text-gray-800 hover:shadow-md hover:shadow-violet-400 hover:scale-110;
   }
 
   .code-link {
@@ -40,7 +40,7 @@
 
 .dark {
   .repository-container {
-    @apply bg-violet-800 border-gray-700;
+    @apply bg-violet-800 border-gray-600 hover:shadow-md hover:shadow-violet-500 hover:scale-110;
   }
 
   .repository-name, .repository-language {
