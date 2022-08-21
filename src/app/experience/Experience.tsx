@@ -9,7 +9,7 @@ const Experience = () => {
     <div className={'flex flex-col justify-center items-center'}>
       <div className={'w-max'}>
         <div className="jobs-container">
-          {jobs.map(job => <Job profile={job}/>)}
+          {jobs.map(job => <Job key={`job${job.organizationName}${job.designation}`} profile={job}/>)}
         </div>
       </div>
     </div>

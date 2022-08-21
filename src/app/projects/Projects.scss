@@ -1,7 +1,7 @@
 @import "src/app/common/Common.scss";
 
 .projects-container {
-  @apply py-4 px-32 text-center select-none transition-all;
+  @apply py-4 px-8 md:px-32 text-center select-none transition-all;
 }
 
 .projects-header {
@@ -9,7 +9,7 @@
 }
 
 .repositories-container {
-  @apply grid grid-cols-3 gap-x-16 gap-y-10;
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-10;
 }
 
 .light {

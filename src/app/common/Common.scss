@@ -9,3 +9,7 @@
 .bg-dark {
   @apply bg-slate-700;
 }
+
+.mobile-hidden {
+  @apply hidden md:block;
+}

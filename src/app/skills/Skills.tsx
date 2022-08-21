@@ -8,7 +8,7 @@ const Skills = ({theme}: ThemeValueProps) => {
       <div id={'skills'}>
         <div className="skills-header">Skills</div>
         <br/>
-        <div className="w-2/3">
+        <div className="skills-container">
           {getAllSkills(theme).map(skill =>
               <Skill key={skill.name} skillName={skill.name} iconClassName={skill.className} svg={skill.svg}/>)}
         </div>
