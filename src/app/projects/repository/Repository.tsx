@@ -19,9 +19,9 @@ const Repository = ({repository, theme}: RepositoryProps) => {
               <p className="repository-description">{repository.description}</p>
               <p className="repository-description">
                 {language &&
-                    <div className="repository-language">
+                    <span className="repository-language">
                       {icon} {language}
-                    </div>}
+                    </span>}
               </p>
             </div>
             <a href={repository.htmlUrl} className="code-link" rel={"noreferrer"} target={"_blank"}>
