@@ -2,7 +2,7 @@ import axios from "axios";
 import RepositoryDto from "../projects/RepositoryDto";
 
 export const fetchRepositories = async (): Promise<RepositoryDto[]> => {
-  const {data} = await axios.get('https://api.github.com/users/niravchavda99/repos', {
+  const {data} = await axios.get('https://api.github.com/users/niravchavda99/repos?per_page=100', {
     headers: {
       'Accept': 'application/vnd.github+json'
     }
