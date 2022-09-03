@@ -48,18 +48,18 @@
 
 .dark {
   #about {
-    @apply bg-dark border-b-violet-300;
+    @apply bg-dark border-b-slate-300;
   }
 
   .about-short {
-    @apply text-violet-300;
+    @apply text-slate-300;
   }
 
   .about-name {
-    @apply text-violet-200;
+    @apply text-slate-200;
   }
 
   .link-item {
-    @apply text-violet-200;
+    @apply text-slate-200;
   }
 }

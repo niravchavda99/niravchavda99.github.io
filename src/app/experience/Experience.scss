@@ -20,14 +20,14 @@
 
 .dark {
   #experience {
-    @apply bg-dark border-b-violet-300;
+    @apply bg-dark border-b-slate-300;
   }
 
   .jobs-container {
-    @apply border-l-violet-400;
+    @apply border-l-slate-400;
   }
 
   .experience-header {
-    @apply text-violet-200;
+    @apply text-slate-200;
   }
 }

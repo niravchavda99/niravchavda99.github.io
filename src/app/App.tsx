@@ -6,10 +6,12 @@ import {Outlet} from "react-router-dom";
 import ThemeValueProps from "./common/ThemeValueProps";
 
 function App({theme}: ThemeValueProps) {
+  const backToTopColor = theme === 'dark' ? "black" : "#8b5cf6";
+
   return (
       <div className={`App ${theme}`}>
         <ScrollToTop className={'flex flex-col items-center justify-center'} smooth
-                     color="#8b5cf6"/>
+                     color={backToTopColor}/>
         <Outlet/>
         <Footer/>
       </div>

@@ -9,7 +9,11 @@
 }
 
 .repositories-container {
-  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-10;
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16;
+}
+
+.infinity-loading-spinner {
+  @apply flex flex-col items-center;
 }
 
 .light {
@@ -24,6 +28,6 @@
   }
 
   .projects-header {
-    @apply text-violet-200;
+    @apply text-slate-200;
   }
 }

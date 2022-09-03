@@ -12,7 +12,7 @@ const Job = ({profile}: JobProps) => {
 
   return (
       <div className="job-container">
-        <span className="job-icon"><MdWork size={18}/></span>
+        <span className="job-icon-container"><MdWork className={'job-icon'} size={18}/></span>
         <span className="organization-name">{organizationName}</span>
         <span className="designation">{designation}</span>
         <time className="dates">{`${dateStarted} - ${dateEnded.toString()}`}</time>

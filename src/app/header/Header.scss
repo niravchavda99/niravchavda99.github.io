@@ -32,10 +32,10 @@
 
 .dark {
   .header-container {
-    @apply text-violet-300 bg-dark;
+    @apply text-slate-300 bg-dark;
   }
 
   .header-content:hover {
-    @apply border-violet-300;
+    @apply border-slate-300;
   }
 }

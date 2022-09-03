@@ -1,11 +1,15 @@
 @import "src/app/common/Common.scss";
 
 #skills {
-  @apply h-max border-b p-8 flex flex-col items-center select-none transition-all;
+  @apply h-max border-b p-8 lg:p-24 flex flex-col items-center select-none transition-all;
 }
 
 .skills-header {
   @apply text-5xl p-2 pb-6 transition-all;
+}
+
+.skills-container {
+  @apply w-full lg:w-4/5;
 }
 
 .light {
@@ -16,10 +20,10 @@
 
 .dark {
   #skills {
-    @apply bg-dark border-b-violet-300;
+    @apply bg-dark border-b-slate-300;
   }
 
   .skills-header {
-    @apply text-violet-200;
+    @apply text-slate-200;
   }
 }

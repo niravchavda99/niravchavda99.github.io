@@ -4,8 +4,8 @@
   @apply mb-10 ml-6 text-left py-3 px-2;
 }
 
-.job-icon {
-  @apply flex absolute -left-4 justify-center items-center w-8 h-8 bg-violet-300 rounded-full;
+.job-icon-container {
+  @apply flex absolute -left-4 justify-center items-center w-8 h-8 rounded-full;
 }
 
 .organization-name {
@@ -17,14 +17,22 @@
 }
 
 .achievements {
-  @apply mb-4 text-base font-normal text-gray-500 dark:text-gray-400;
+  @apply mb-4 text-base font-normal text-gray-500 text-gray-400;
 }
 
 .dates {
-  @apply block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500;
+  @apply block mb-2 text-sm font-normal leading-none text-gray-400 text-gray-500;
 }
 
 .light {
+  .job-icon-container {
+    @apply bg-violet-300;
+  }
+
+  .job-icon {
+      @apply text-black;
+  }
+
   .designation {
     @apply text-slate-500;
   }
@@ -35,15 +43,23 @@
 }
 
 .dark {
+  .job-icon-container {
+    @apply bg-slate-300;
+  }
+
+  .job-icon {
+    @apply text-black;
+  }
+
   .organization-name {
-    @apply text-violet-200;
+    @apply text-slate-200;
   }
 
   .designation {
-    @apply text-violet-300;
+    @apply text-slate-300;
   }
 
   .dates {
-    @apply text-violet-300;
+    @apply text-slate-300;
   }
 }

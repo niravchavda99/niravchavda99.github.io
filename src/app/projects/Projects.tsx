@@ -32,14 +32,16 @@ const Projects = ({theme, toggleTheme}: ThemeProps) => {
     setRepositories(filteredRepositories);
   }
 
+  const loadingSpinnerColor = theme === 'dark' ? "#E2E8F0" : "#8b5cf6";
+
   return (
       <>
         <Header theme={theme} toggleTheme={toggleTheme}/>
         <div className={'projects-container'}>
           <div className="projects-header">Projects</div>
           {repositories === null ?
-              <div className={"flex flex-col items-center"}>
-                <InfinitySpin width='200' color="#8b5cf6"/>
+              <div className={"infinity-loading-spinner"}>
+                <InfinitySpin width='200' color={loadingSpinnerColor}/>
               </div> :
               <div>
                 <Search handleChange={setFilteredRepos}/>
