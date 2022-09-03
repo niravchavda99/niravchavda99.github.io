@@ -5,7 +5,7 @@
 }
 
 .activity-container {
-  @apply h-full p-6 max-w-md rounded-lg border shadow-md shadow-gray-800;
+  @apply h-full p-6 max-w-md rounded border shadow-md shadow-gray-800;
 }
 
 .activity-title {
@@ -22,7 +22,7 @@
 
 .light {
   .activity-container {
-    @apply bg-violet-50 border-slate-200 hover:bg-violet-200;
+    @apply bg-slate-100 border-slate-200 hover:bg-slate-300 hover:border-slate-300;
   }
 
   .activity-title {
