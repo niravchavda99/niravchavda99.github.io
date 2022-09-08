@@ -37,6 +37,10 @@
 }
 
 .light {
+  .profile-image {
+    @apply shadow-black/10;
+  }
+
   #about {
     @apply bg-light border-b-black;
   }
@@ -47,6 +51,10 @@
 }
 
 .dark {
+  .profile-image {
+    @apply shadow-slate-700/50;
+  }
+
   #about {
     @apply bg-dark border-b-slate-300;
   }
