@@ -33,7 +33,7 @@ export const setToStorage = (value: string) => {
 }
 
 export const getThemeFromStorage = (): string => {
-  return window.localStorage.getItem(storageKey) ?? 'light';
+  return window.localStorage.getItem(storageKey) ?? 'dark';
 }
 
 const devIconClasses: any = {
