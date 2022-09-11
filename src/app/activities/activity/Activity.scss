@@ -22,7 +22,7 @@
 
 .light {
   .activity-container {
-    @apply bg-slate-100 border-slate-200 hover:bg-slate-300 hover:border-slate-300;
+    @apply bg-slate-100 border-slate-100;
   }
 
   .activity-title {
@@ -40,7 +40,7 @@
 
 .dark {
   .activity-container {
-    @apply bg-slate-700 border-gray-700 hover:bg-slate-600;
+    @apply bg-slate-700 border-gray-700;
   }
 
   .activity-title {
