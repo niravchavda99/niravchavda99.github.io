@@ -21,7 +21,7 @@
 }
 
 .code-link {
-  @apply inline-flex items-center py-2 px-3 text-sm font-medium text-center rounded-lg focus:outline-none w-fit;
+  @apply inline-flex items-center py-2 px-3 text-sm font-medium text-center rounded-lg focus:outline-none w-fit z-50;
 }
 
 .repository-container:hover {
@@ -30,7 +30,7 @@
 
 .light {
   .repository-container {
-    @apply bg-slate-100 border-slate-200 text-gray-800 hover:shadow-lg hover:shadow-violet-400;
+    @apply bg-slate-100 border-slate-200 text-gray-800;
   }
 
   .code-link {
@@ -40,7 +40,7 @@
 
 .dark {
   .repository-container {
-    @apply bg-slate-700 border-gray-600 hover:shadow-md hover:shadow-slate-400;
+    @apply bg-slate-700 border-gray-600;
   }
 
   .repository-name, .repository-language {

@@ -3,6 +3,7 @@ import RepositoryDto from "../RepositoryDto";
 import {getLanguageIcon} from "../../Utils";
 import ThemeValueProps from "../../common/ThemeValueProps";
 import {FiGithub} from "react-icons/fi";
+import Shiny from "../../common/shiny/Shiny";
 
 type RepositoryProps = ThemeValueProps & { repository: RepositoryDto }
 
@@ -12,7 +13,7 @@ const Repository = ({repository, theme}: RepositoryProps) => {
 
   return (
       <div className={'repository-wrapper'}>
-        <div className="repository-container">
+        <Shiny color={"#7C3AED"} size={150} opacity={0.6} classNames="repository-container">
           <div className={'h-full flex flex-col justify-between items-center'}>
             <div>
               <div className="repository-name">{repository.name}</div>
@@ -29,7 +30,7 @@ const Repository = ({repository, theme}: RepositoryProps) => {
               <span className={'ml-1'}>Code</span>
             </a>
           </div>
-        </div>
+        </Shiny>
       </div>
   );
 };
