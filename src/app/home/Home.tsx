@@ -28,7 +28,7 @@ const Home = ({theme, toggleTheme}: ThemeProps) => {
         <About/>
         <Experience/>
         <Skills theme={theme}/>
-        <Activities/>
+        <Activities theme={theme}/>
       </Fader>
 };
 

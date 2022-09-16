@@ -1,18 +1,19 @@
 import './Shiny.scss'
 import {ReactNode, useEffect, useRef} from "react";
 import {onMouseMove, onMouseOut, onMouseOver, setShineSizeAndOffset} from "./ShinyUtils";
+import ThemeValueProps from "../ThemeValueProps";
 
 type ShinyProps = {
   children: ReactNode;
   size: number;
   color: string;
-  opacity: number;
   classNames?: string;
-};
+} & ThemeValueProps;
 
-const Shiny = ({children, size, color, opacity, classNames}: ShinyProps) => {
+const Shiny = ({children, size, color, classNames, theme}: ShinyProps) => {
   const shinyRef = useRef<any>(null);
   const classes = "shiny" + (classNames ? ` ${classNames}` : '');
+  const opacity = theme === 'dark' ? 1 : 0.5;
 
   useEffect(() => {
     if (shinyRef) {

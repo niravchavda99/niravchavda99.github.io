@@ -13,7 +13,7 @@ const Repository = ({repository, theme}: RepositoryProps) => {
 
   return (
       <div className={'repository-wrapper'}>
-        <Shiny color={"#7C3AED"} size={150} opacity={0.6} classNames="repository-container">
+        <Shiny color={"#7C3AED"} size={150} theme={theme} classNames="repository-container">
           <div className={'h-full flex flex-col justify-between items-center'}>
             <div>
               <div className="repository-name">{repository.name}</div>
