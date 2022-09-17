@@ -13,11 +13,11 @@
 }
 
 .header-content {
-  @apply mx-1 p-2 cursor-pointer border-2 border-transparent text-xl;
+  @apply mx-1 p-2 cursor-pointer border-2 border-transparent text-lg;
 }
 
 .header-content:hover {
-  @apply border-2 rounded-lg;
+  @apply rounded-lg;
 }
 
 .light {
@@ -26,7 +26,7 @@
   }
 
   .header-content:hover {
-    @apply border-violet-600;
+    @apply bg-slate-300;
   }
 }
 
@@ -36,6 +36,6 @@
   }
 
   .header-content:hover {
-    @apply border-slate-300;
+    @apply bg-zinc-800;
   }
 }
