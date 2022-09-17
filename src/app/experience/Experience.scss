@@ -1,7 +1,7 @@
 @import "src/app/common/Common.scss";
 
 #experience {
-  @apply h-max border-b p-8 select-none transition-all;
+  @apply h-max border-b p-8 lg:p-24 select-none transition-all;
 }
 
 .jobs-container {
