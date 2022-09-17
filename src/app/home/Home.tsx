@@ -12,24 +12,24 @@ import {Link} from "react-router-dom";
 import StickyHeader from "../sticky-header/StickyHeader";
 
 const Home = ({theme, toggleTheme}: ThemeProps) => {
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 2100);
-  }, []);
+    useEffect(() => {
+        setTimeout(() => setLoading(false), 2100);
+    }, []);
 
-  return loading ?
-      <SplashScreen/> :
-      <Fader timeout={200} transitionTime={1}>
-        <Header theme={theme} toggleTheme={toggleTheme}>
-          <Link to={"/projects"} className={'header-content'}>Projects</Link>
-        </Header>
-        <StickyHeader />
-        <About/>
-        <Experience/>
-        <Skills theme={theme}/>
-        <Activities theme={theme}/>
-      </Fader>
+    return loading ?
+        <SplashScreen/> :
+        <Fader timeout={200} transitionTime={1}>
+            <Header theme={theme} toggleTheme={toggleTheme}>
+                <Link to={"/projects"} className={'header-content'}>Projects</Link>
+            </Header>
+            <StickyHeader/>
+            <About/>
+            <Experience/>
+            <Skills theme={theme}/>
+            <Activities theme={theme}/>
+        </Fader>
 };
 
 export default Home;

@@ -1,6 +1,7 @@
 .sticky-header {
   @apply w-fit sticky top-1 border rounded-full p-1;
   margin: 0 auto;
+  backdrop-filter: blur(2px);
 }
 
 .sticky-header-content {
@@ -13,7 +14,7 @@
   }
 
   .sticky-header-content:hover {
-    @apply bg-slate-300;
+    @apply bg-slate-500 text-white;
   }
 }
 
@@ -23,6 +24,6 @@
   }
 
   .sticky-header-content:hover {
-    @apply bg-zinc-800;
+    @apply bg-slate-400 text-black;
   }
 }
