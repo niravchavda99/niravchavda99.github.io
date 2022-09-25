@@ -1,9 +1,9 @@
 type SvgIconProps = {
-  svg: string
-}
+  svg: string;
+};
 
-const SvgIcon = ({svg}: SvgIconProps) => {
-  return <img src={svg} className={'w-8 inline-block'} alt={'Icon'}/>;
+const SvgIcon = ({ svg }: SvgIconProps) => {
+  return <img src={svg} className={"w-16 inline-block"} alt={"Icon"} />;
 };
 
 export default SvgIcon;

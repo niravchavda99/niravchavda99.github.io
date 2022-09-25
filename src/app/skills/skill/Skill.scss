@@ -1,20 +1,16 @@
 .skill-container {
-  @apply w-fit inline-block p-2 border rounded-lg mx-2 my-2;
+  @apply w-fit p-2 bg-transparent;
 }
 
 .icon {
-  @apply text-xl mr-1 text-white;
+  @apply text-5xl mr-1 text-white;
 }
 
 .skill-container:hover {
-  @apply transition ease-in-out scale-110 cursor-pointer shadow-md;
+  @apply cursor-pointer;
 }
 
 .light {
-  .skill-container {
-    @apply border-slate-500 bg-slate-100;
-  }
-
   .skill-container:hover {
     @apply shadow-violet-400;
   }
@@ -22,7 +18,7 @@
 
 .dark {
   .skill-container {
-    @apply border-slate-400 text-slate-300 bg-transparent;
+    @apply text-slate-300;
   }
 
   .skill-container:hover {

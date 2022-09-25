@@ -9,7 +9,7 @@
 }
 
 .skills-container {
-  @apply w-full lg:w-4/5;
+  @apply w-full lg:w-4/5 grid grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-y-4 justify-items-center;
 }
 
 .light {
