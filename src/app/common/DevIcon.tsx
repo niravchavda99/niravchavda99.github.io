@@ -1,9 +1,12 @@
 type IconProps = {
-  className: string
-}
+  className: string;
+  size?: number;
+};
 
-const DevIcon = ({className}: IconProps) => {
-  return <i className={`${className}`}></i>;
+const DevIcon = ({ className, size }: IconProps) => {
+  return (
+    <i style={{ fontSize: `${size ?? 3}rem` }} className={`${className}`}></i>
+  );
 };
 
 export default DevIcon;
