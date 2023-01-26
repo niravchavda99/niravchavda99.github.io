@@ -1,5 +1,7 @@
+@import "src/app/common/Common.scss";
+
 .sticky-header {
-  @apply w-fit sticky top-1 border rounded-full p-1;
+  @apply w-fit sticky top-1 border rounded-full p-1 transition-all;
   margin: 0 auto;
   backdrop-filter: blur(2px);
 }
