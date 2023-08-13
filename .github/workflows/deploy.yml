@@ -3,10 +3,10 @@ on: [push]
 
 jobs:
   deploy:
-    runs:
-      using: "node16"
     runs-on: ubuntu-latest
     steps:
+      runs:
+        using: "node16"
       - uses: actions/checkout@v2
       - name: Install Dependencies
         run: npm install
