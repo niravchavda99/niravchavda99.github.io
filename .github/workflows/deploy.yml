@@ -1,8 +1,10 @@
 name: Deploy
-on: [ push ]
+on: [push]
 
 jobs:
   deploy:
+    runs:
+      using: "node16"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
