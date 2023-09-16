@@ -25,9 +25,6 @@ const About = () => {
       <SocialMediaLink platform={'linkedin'}><BsLinkedin size={iconSize}/></SocialMediaLink>
       <SocialMediaLink platform={'twitter'}><BsTwitter size={iconSize}/></SocialMediaLink>
       <SocialMediaLink platform={'instagram'}><BsInstagram size={iconSize}/></SocialMediaLink>
-      <Link className={'link-item'} to={"/blog"}>
-        <FaBlogger size={iconSize}/>
-      </Link>
     </div>
   </div>;
 }
