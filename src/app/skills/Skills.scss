@@ -2,6 +2,7 @@
 
 #skills {
   @apply h-max border-b p-8 lg:p-24 flex flex-col items-center select-none transition-all;
+  height: 100vh;
 }
 
 .skills-header {
