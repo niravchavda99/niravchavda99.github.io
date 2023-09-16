@@ -20,11 +20,11 @@ const About = () => {
     <div className={'about-name'}>Nirav Chavda</div>
     <div className={'about-short'}>I'm a Software Craftsperson, Learner and an Enthusiast</div>
     <div className={'links'}>
-      <SocialMediaLink platform={'mail'}><TbMail size={iconSize}/></SocialMediaLink>
+      <SocialMediaLink platform={'mail'}><TbMail size={iconSize+4}/></SocialMediaLink>
       <SocialMediaLink platform={'github'}><BsGithub size={iconSize}/></SocialMediaLink>
-      <SocialMediaLink platform={'linkedin'}><BsLinkedin size={iconSize}/></SocialMediaLink>
+      <SocialMediaLink platform={'linkedin'}><BsLinkedin size={iconSize-2}/></SocialMediaLink>
       <SocialMediaLink platform={'twitter'}><BsTwitter size={iconSize}/></SocialMediaLink>
-      <SocialMediaLink platform={'instagram'}><BsInstagram size={iconSize}/></SocialMediaLink>
+      <SocialMediaLink platform={'instagram'}><BsInstagram size={iconSize-2}/></SocialMediaLink>
     </div>
   </div>;
 }
