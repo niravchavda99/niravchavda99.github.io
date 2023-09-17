@@ -25,6 +25,7 @@ const Job = ({profile}: JobProps) => {
                 (profile as JobProfile)?.designation :
                 (profile as EducationProfile)?.degree}
           </span>
+          {profile?.location && <div className="dates">{profile.location}</div>}
           <span className="dates">{`${dateStarted} - ${dateEnded.toString()}`}</span>
           <p className="achievements"></p>
         </div>

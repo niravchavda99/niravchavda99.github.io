@@ -1,10 +1,11 @@
 import MonthYear from "../../common/MonthYear";
 
 export interface Profile {
-  dateStarted: MonthYear,
-  dateEnded: MonthYear,
-  organizationName: string,
-  achievements: string[]
+  dateStarted: MonthYear;
+  dateEnded: MonthYear;
+  organizationName: string;
+  achievements: string[];
+  location?: string;
   type: 'job' | 'education';
 }
 
