@@ -2,7 +2,7 @@
 
 #about {
   @apply h-max border-b p-8 transition-all;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .profile-image {

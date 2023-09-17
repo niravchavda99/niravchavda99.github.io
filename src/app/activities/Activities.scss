@@ -2,7 +2,7 @@
 
 #activities {
   @apply h-max border-b p-8 lg:p-24 select-none transition-all;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .activities-container {
