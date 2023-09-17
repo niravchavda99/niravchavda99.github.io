@@ -6,7 +6,7 @@
 }
 
 .jobs-container {
-  @apply relative border-l border-gray-700;
+  @apply xl:ml-24 lg:ml-24 md:ml-24 sm:ml-24;
 }
 
 .experience-header {
@@ -22,10 +22,6 @@
 .dark {
   #experience {
     @apply bg-dark border-b-slate-300;
-  }
-
-  .jobs-container {
-    @apply border-l-slate-400;
   }
 
   .experience-header {

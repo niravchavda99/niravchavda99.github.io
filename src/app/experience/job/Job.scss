@@ -1,11 +1,17 @@
 @import "src/app/common/Common.scss";
 
-.job-container {
-  @apply mb-10 ml-6 text-left py-3 px-2;
+.job-icon-container {
+  @apply flex items-center justify-center rounded-full bg-violet-300 w-10 h-10;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
 }
 
-.job-icon-container {
-  @apply flex absolute -left-4 justify-center items-center w-8 h-8 rounded-full;
+.border-l-1 {
+  border-left-width: 1px;
+}
+
+.job-info-container {
+  @apply ml-2 pl-4 mb-4 border-l-1;
 }
 
 .organization-name {
@@ -17,11 +23,11 @@
 }
 
 .achievements {
-  @apply mb-4 text-base font-normal text-gray-500 text-gray-400;
+  @apply mb-4 text-base font-normal text-gray-500;
 }
 
 .dates {
-  @apply block mb-2 text-sm font-normal leading-none text-gray-400 text-gray-500;
+  @apply mb-2 text-sm text-gray-500;
 }
 
 .light {
@@ -29,8 +35,12 @@
     @apply bg-violet-300;
   }
 
+  .job-info-container {
+    @apply border-l-violet-300/50;
+  }
+
   .job-icon {
-      @apply text-black;
+    @apply text-black;
   }
 
   .designation {
@@ -45,6 +55,10 @@
 .dark {
   .job-icon-container {
     @apply bg-slate-300;
+  }
+
+  .job-info-container {
+    @apply border-l-slate-300/50;
   }
 
   .job-icon {

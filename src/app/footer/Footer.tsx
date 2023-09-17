@@ -3,6 +3,8 @@ import "./Footer.scss";
 
 const Footer = () => {
   const iconSize = 1.5;
+  const year = new Date().getFullYear();
+
   return (
     <div className={"footer"}>
       <div className="themed-text py-1">
@@ -21,7 +23,7 @@ const Footer = () => {
           size={iconSize}
         />
       </div>
-      <div className={"footer-text pb-1"}>© 2022</div>
+      <div className={"footer-text pb-1"}>© {year}</div>
     </div>
   );
 };
