@@ -1,7 +1,11 @@
 import {getMonthName} from "../Utils";
 
 class MonthYear {
-  constructor(public month: number, public year: number) {
+  private constructor(public month: number, public year: number) {
+  }
+
+  static of(month: number, year: number): MonthYear {
+    return new MonthYear(month, year);
   }
 
   public get isPresent() {

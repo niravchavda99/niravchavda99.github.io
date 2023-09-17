@@ -1,11 +1,19 @@
 import MonthYear from "../../common/MonthYear";
 
-type JobProfile = {
+export interface Profile {
   dateStarted: MonthYear,
   dateEnded: MonthYear,
   organizationName: string,
-  designation: string,
   achievements: string[]
-};
+  type: 'job' | 'education';
+}
 
-export default JobProfile;
+export interface JobProfile extends Profile {
+  designation: string,
+  type: 'job'
+}
+
+export interface EducationProfile extends Profile {
+  degree: string,
+  type: 'education'
+}
