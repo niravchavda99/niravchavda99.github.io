@@ -30,19 +30,6 @@ const Job = ({profile}: JobProps) => {
           <p className="achievements"></p>
         </div>
       </div>
-      // <div className="job-container">
-      //   <span className="job-icon-container">
-      //     {isJobProfile ?
-      //         <MdWork className='job-icon' size={18}/> :
-      //         <MdSchool className='job-icon' size={18}/>
-      //     }
-      //   </span>
-      //   <span className="organization-name">{organizationName}</span>
-      //   <span
-      //       className="designation">{isJobProfile ? (profile as JobProfile)?.designation : (profile as EducationProfile)?.degree}</span>
-      //   <time className="dates">{`${dateStarted} - ${dateEnded.toString()}`}</time>
-      //   <p className="achievements"></p>
-      // </div>
   );
 };
 
