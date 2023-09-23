@@ -6,12 +6,17 @@
   transition: all 0.5s linear;
 }
 
+.bg {
+  background: url("../assets/images/bg.jpeg") fixed;
+  background-size: cover;
+}
+
 .bg-light {
-  @apply bg-slate-200;
+  @extend .bg;
 }
 
 .bg-dark {
-  background-color: var(--bg-color);
+  @extend .bg;
 }
 
 .mobile-hidden {
