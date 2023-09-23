@@ -13,9 +13,3 @@ export const GlassMorphic = ({fadeOpacity, children, classNames}: GlassMorphicPr
 
   return <div className={`glass-morphic${classes}`} style={style}>{children}</div>;
 };
-
-const getBackground = (mode: 'dark' | 'light', fadeOpacity: number): string => {
-  const color = mode == 'dark' ? '#000' : '#fff';
-  const opacity = fadeOpacity + "%";
-  return `linear-gradient(120deg, rgba(${color}, ${opacity}), rgba(${color}, ${opacity}))`;
-}
