@@ -17,10 +17,6 @@
 }
 
 .light {
-  .footer {
-    @apply bg-light;
-  }
-
   .themed-text {
     @apply text-black;
   }
@@ -31,10 +27,6 @@
 }
 
 .dark {
-  .footer {
-    @apply bg-dark;
-  }
-
   .themed-text {
     @apply text-slate-200;
   }

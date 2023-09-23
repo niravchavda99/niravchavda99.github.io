@@ -2,7 +2,9 @@
 @import "src/app/common/Common.scss";
 
 .App {
-  @apply h-screen text-center flex flex-col justify-between;
+  @apply h-screen text-center flex flex-col justify-between backdrop-blur-sm;
+  height: max-content;
+  min-height: 100vh;
 }
 
 .center-all {

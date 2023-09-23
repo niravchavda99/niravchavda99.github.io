@@ -15,13 +15,13 @@
 
 .light {
   #activities {
-    @apply bg-light border-b-black;
+    @apply border-b-black;
   }
 }
 
 .dark {
   #activities {
-    @apply bg-dark border-b-slate-300;
+    @apply border-b-slate-300;
   }
 
   .activities-header {
