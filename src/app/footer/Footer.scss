@@ -9,33 +9,13 @@
 }
 
 .name {
-  @apply font-semibold ml-1 underline underline-offset-2 transition-all;
+  @apply font-semibold ml-1 underline underline-offset-2 transition-all text-slate-200;
 }
 
 .footer-text {
-  @apply transition-all;
+  @apply transition-all text-slate-200;
 }
 
-.light {
-  .themed-text {
-    @apply text-black;
-  }
-
-  .name {
-    @apply text-violet-500;
-  }
-}
-
-.dark {
-  .themed-text {
-    @apply text-slate-200;
-  }
-
-  .name {
-    @apply text-slate-200;
-  }
-
-  .footer-text {
-    @apply text-slate-200;
-  }
+.themed-text {
+  @apply text-slate-200;
 }

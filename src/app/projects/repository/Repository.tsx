@@ -1,19 +1,18 @@
 import './Repository.scss';
 import RepositoryDto from "../RepositoryDto";
 import {getLanguageIcon} from "../../Utils";
-import ThemeValueProps from "../../common/ThemeValueProps";
 import {FiGithub} from "react-icons/fi";
 import Shiny from "../../common/shiny/Shiny";
 
-type RepositoryProps = ThemeValueProps & { repository: RepositoryDto }
+type RepositoryProps = { repository: RepositoryDto }
 
-const Repository = ({repository, theme}: RepositoryProps) => {
+const Repository = ({repository}: RepositoryProps) => {
   const {language} = repository;
-  const icon = getLanguageIcon(language, theme);
+  const icon = getLanguageIcon(language);
 
   return (
       <div className={'repository-wrapper'}>
-        <Shiny color={"#7C3AED"} size={150} theme={theme} classNames="repository-container">
+        <Shiny color={"#7C3AED"} size={150} classNames="repository-container">
           <div className={'h-full flex flex-col justify-between items-center'}>
             <div>
               <div className="repository-name">{repository.name}</div>

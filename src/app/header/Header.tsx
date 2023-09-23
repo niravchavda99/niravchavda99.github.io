@@ -1,12 +1,8 @@
 import './Header.scss';
-import DarkModeToggle from "../darkmodetoggle/DarkModeToggle";
-import React, {ReactNode} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
-import ThemeProps from "../common/ThemeProps";
 
-type HeaderProps = ThemeProps & { children?: ReactNode };
-
-const Header = ({theme, toggleTheme, children}: HeaderProps) => {
+const Header = () => {
   return <nav className={`header-container`}>
     <div>
       <Link to={"/"} className={'header-logo'}>Nirav Chavda</Link>
@@ -25,7 +21,6 @@ const Header = ({theme, toggleTheme, children}: HeaderProps) => {
         Activities
       </a>
       <Link to={"/projects"} className={'header-content'}>Projects</Link>
-      <DarkModeToggle theme={theme} toggleTheme={toggleTheme}/>
     </div>
   </nav>;
 }

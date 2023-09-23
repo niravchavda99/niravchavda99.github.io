@@ -1,5 +1,5 @@
 .skill-container {
-  @apply w-fit py-2 bg-transparent;
+  @apply w-fit py-2 bg-transparent text-slate-300;
 }
 
 .icon {
@@ -7,21 +7,5 @@
 }
 
 .skill-container:hover {
-  @apply cursor-pointer;
-}
-
-.light {
-  .skill-container:hover {
-    @apply shadow-violet-400;
-  }
-}
-
-.dark {
-  .skill-container {
-    @apply text-slate-300;
-  }
-
-  .skill-container:hover {
-    @apply shadow-violet-500;
-  }
+  @apply cursor-pointer shadow-violet-500;
 }

@@ -1,4 +1,3 @@
-import micronautLight from "../assets/icons/micronaut_icon_black.svg";
 import micronautDark from "../assets/icons/micronaut_icon_white.svg";
 
 type Skill = {
@@ -11,15 +10,13 @@ const getDeviconClassName = (subject: string, darkMode: boolean = false) => {
   return `devicon-${subject} ${darkMode ? "" : "colored"}`;
 };
 
-export const getAllSkills = (theme: string): Skill[] => {
-  const isDarkTheme = theme === "dark";
-
+export const getAllSkills = (): Skill[] => {
   return [
     {name: "Java", className: getDeviconClassName("java-plain")},
     {
       name: "Micronaut",
       className: getDeviconClassName(""),
-      svg: isDarkTheme ? micronautDark : micronautLight,
+      svg: micronautDark,
     },
     {name: "Javascript", className: getDeviconClassName("javascript-plain")},
     {name: "Typescript", className: getDeviconClassName("typescript-plain")},
@@ -32,13 +29,13 @@ export const getAllSkills = (theme: string): Skill[] => {
     {name: "MS SQL Server", className: getDeviconClassName("microsoftsqlserver-plain")},
     {
       name: "Markdown",
-      className: getDeviconClassName("markdown-original", isDarkTheme),
+      className: getDeviconClassName("markdown-original", true),
     },
     {name: "Spring", className: getDeviconClassName("spring-plain")},
     {name: "NodeJS", className: getDeviconClassName("nodejs-plain")},
     {
       name: "Express",
-      className: getDeviconClassName("express-original", isDarkTheme),
+      className: getDeviconClassName("express-original", true),
     },
     {name: "MySQL", className: getDeviconClassName("mysql-plain")},
     {name: "Dart", className: getDeviconClassName("dart-plain")},

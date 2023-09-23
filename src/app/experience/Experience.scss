@@ -1,7 +1,7 @@
 @import "src/app/common/Common.scss";
 
 #experience {
-  @apply h-max border-b p-8 lg:p-12 select-none transition-all;
+  @apply h-max border-b p-8 lg:p-12 select-none transition-all border-b-slate-300;
   min-height: 100vh;
 }
 
@@ -10,21 +10,5 @@
 }
 
 .experience-header {
-  @apply text-5xl p-2 pb-8 transition-all;
-}
-
-.light {
-  #experience {
-    @apply border-b-black;
-  }
-}
-
-.dark {
-  #experience {
-    @apply border-b-slate-300;
-  }
-
-  .experience-header {
-    @apply text-slate-200;
-  }
+  @apply text-5xl p-2 pb-8 transition-all text-slate-200;
 }

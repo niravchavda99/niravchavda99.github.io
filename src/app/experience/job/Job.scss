@@ -1,7 +1,7 @@
 @import "src/app/common/Common.scss";
 
 .job-icon-container {
-  @apply flex items-center justify-center rounded-full bg-violet-300 w-10 h-10;
+  @apply flex items-center justify-center rounded-full bg-violet-300 w-10 h-10 bg-slate-300;
   min-width: 2.5rem;
   min-height: 2.5rem;
 }
@@ -11,15 +11,15 @@
 }
 
 .job-info-container {
-  @apply ml-2 pl-4 mb-4 border-l-1;
+  @apply ml-2 pl-4 mb-4 border-l-1 border-l-slate-300/50;
 }
 
 .organization-name {
-  @apply flex items-center mb-1 text-lg font-semibold;
+  @apply flex items-center mb-1 text-lg font-semibold text-slate-200;
 }
 
 .designation {
-  @apply flex items-center mb-1 text-lg font-semibold;
+  @apply flex items-center mb-1 text-lg font-semibold text-slate-300;
 }
 
 .achievements {
@@ -27,53 +27,9 @@
 }
 
 .dates {
-  @apply mb-2 text-sm text-gray-500;
+  @apply mb-2 text-sm text-gray-500 text-slate-300;
 }
 
-.light {
-  .job-icon-container {
-    @apply bg-violet-300;
-  }
-
-  .job-info-container {
-    @apply border-l-violet-300/50;
-  }
-
-  .job-icon {
-    @apply text-black;
-  }
-
-  .designation {
-    @apply text-slate-500;
-  }
-
-  .dates {
-    @apply text-slate-500;
-  }
-}
-
-.dark {
-  .job-icon-container {
-    @apply bg-slate-300;
-  }
-
-  .job-info-container {
-    @apply border-l-slate-300/50;
-  }
-
-  .job-icon {
-    @apply text-black;
-  }
-
-  .organization-name {
-    @apply text-slate-200;
-  }
-
-  .designation {
-    @apply text-slate-300;
-  }
-
-  .dates {
-    @apply text-slate-300;
-  }
+.job-icon {
+  @apply text-black;
 }

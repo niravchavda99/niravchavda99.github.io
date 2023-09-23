@@ -1,11 +1,5 @@
-import { BsCodeSlash } from "react-icons/bs";
+import {BsCodeSlash} from "react-icons/bs";
 import DevIcon from "./common/DevIcon";
-
-export const getDate = (day: number, month: number, year: number): Date => {
-  const date = new Date();
-  date.setFullYear(year, month - 1, day);
-  return date;
-};
 
 const months = [
   "January",
@@ -26,22 +20,12 @@ export const getMonthName = (month: number): string => {
   return months[month - 1];
 };
 
-const storageKey = "theme";
-
-export const setToStorage = (value: string) => {
-  window.localStorage.setItem(storageKey, "" + value);
-};
-
-export const getThemeFromStorage = (): string => {
-  return window.localStorage.getItem(storageKey) ?? "dark";
-};
-
 const devIconClasses: any = {
-  C: { light: "c-plain colored", dark: "c-plain colored" },
-  "C++": { light: "cplusplus-plain colored", dark: "cplusplus-plain colored" },
-  Java: { light: "java-plain colored", dark: "java-plain colored" },
-  HTML: { light: "html5-plain colored", dark: "html5-plain colored" },
-  CSS: { light: "css3-plain colored", dark: "css3-plain colored" },
+  C: {light: "c-plain colored", dark: "c-plain colored"},
+  "C++": {light: "cplusplus-plain colored", dark: "cplusplus-plain colored"},
+  Java: {light: "java-plain colored", dark: "java-plain colored"},
+  HTML: {light: "html5-plain colored", dark: "html5-plain colored"},
+  CSS: {light: "css3-plain colored", dark: "css3-plain colored"},
   JavaScript: {
     light: "javascript-plain colored",
     dark: "javascript-plain colored",
@@ -50,25 +34,24 @@ const devIconClasses: any = {
     light: "typescript-plain colored",
     dark: "typescript-plain colored",
   },
-  Dart: { light: "dart-plain colored", dark: "dart-plain colored" },
-  Flutter: { light: "flutter-plain colored", dark: "flutter-plain colored" },
-  Shell: { light: "bash-plain colored", dark: "bash-plain" },
-  Svelte: { light: "svelte-plain colored", dark: "svelte-plain colored" },
+  Dart: {light: "dart-plain colored", dark: "dart-plain colored"},
+  Flutter: {light: "flutter-plain colored", dark: "flutter-plain colored"},
+  Shell: {light: "bash-plain colored", dark: "bash-plain"},
+  Svelte: {light: "svelte-plain colored", dark: "svelte-plain colored"},
 };
 
 export const getLanguageIcon = (
-  language: string,
-  theme: string
+    language: string
 ): JSX.Element => {
   const languageClass = devIconClasses[language];
 
   if (!languageClass) {
-    return <BsCodeSlash className={"inline-block"} size={18} />;
+    return <BsCodeSlash className={"inline-block"} size={18}/>;
   }
 
-  const themeClass = languageClass[theme];
+  const themeClass = languageClass["dark"];
 
   const className = `devicon-${themeClass}`;
 
-  return <DevIcon size={1} className={className} />;
+  return <DevIcon size={1} className={className}/>;
 };

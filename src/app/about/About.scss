@@ -1,12 +1,12 @@
 @import "src/app/common/Common.scss";
 
 #about {
-  @apply h-max border-b p-8 transition-all;
+  @apply h-max border-b p-8 transition-all border-b-slate-300;
   min-height: 100vh;
 }
 
 .profile-image {
-  @apply shadow-xl rounded-full max-w-full h-auto align-middle border-none;
+  @apply shadow-xl rounded-full max-w-full h-auto align-middle border-none shadow-slate-700/50;
 }
 
 .profile-image-wrapper {
@@ -22,11 +22,11 @@
 }
 
 .about-name {
-  @apply text-4xl p-2 mt-2;
+  @apply text-4xl p-2 mt-2 text-slate-200;
 }
 
 .about-short {
-  @apply p-1 text-xl transition-all;
+  @apply p-1 text-xl transition-all text-slate-300;
 }
 
 .links {
@@ -34,41 +34,5 @@
 }
 
 .link-item {
-  @apply px-2 hover:scale-150 transition ease-in-out;
-}
-
-.light {
-  .profile-image {
-    @apply shadow-black/10;
-  }
-
-  #about {
-    @apply border-b-black;
-  }
-
-  .about-short {
-    @apply text-slate-600;
-  }
-}
-
-.dark {
-  .profile-image {
-    @apply shadow-slate-700/50;
-  }
-
-  #about {
-    @apply border-b-slate-300;
-  }
-
-  .about-short {
-    @apply text-slate-300;
-  }
-
-  .about-name {
-    @apply text-slate-200;
-  }
-
-  .link-item {
-    @apply text-slate-200;
-  }
+  @apply px-2 hover:scale-150 transition ease-in-out text-slate-200;
 }

@@ -5,7 +5,6 @@ import RepositoryDto from "./RepositoryDto";
 import {InfinitySpin} from "react-loader-spinner";
 import Search from "../common/search/Search";
 import Header from "../header/Header";
-import ThemeProps from "../common/ThemeProps";
 import Repository from "./repository/Repository";
 
 const filterReposByName = (repositories: RepositoryDto[] | null, subject: string): RepositoryDto[] => {
@@ -16,7 +15,7 @@ const filterReposByName = (repositories: RepositoryDto[] | null, subject: string
   return repositories.filter(repository => repository.name.toLowerCase().includes(subject.toLowerCase()));
 }
 
-const Projects = ({theme, toggleTheme}: ThemeProps) => {
+const Projects = () => {
   const [allRepositories, setAllRepositories] = useState<RepositoryDto[] | null>(null);
   const [repositories, setRepositories] = useState<RepositoryDto[] | null>(allRepositories);
 
@@ -32,11 +31,11 @@ const Projects = ({theme, toggleTheme}: ThemeProps) => {
     setRepositories(filteredRepositories);
   }
 
-  const loadingSpinnerColor = theme === 'dark' ? "#E2E8F0" : "#8b5cf6";
+  const loadingSpinnerColor = "#E2E8F0";
 
   return (
       <>
-        <Header theme={theme} toggleTheme={toggleTheme}/>
+        <Header/>
         <div className={'projects-container'}>
           <div className="projects-header">Projects</div>
           {repositories === null ?
@@ -47,7 +46,7 @@ const Projects = ({theme, toggleTheme}: ThemeProps) => {
                 <Search handleChange={setFilteredRepos}/>
                 <div className="repositories-container">
                   {repositories.map(repository =>
-                      <Repository key={repository.id} repository={repository} theme={theme}/>)}
+                      <Repository key={repository.id} repository={repository}/>)}
                 </div>
               </div>
           }
