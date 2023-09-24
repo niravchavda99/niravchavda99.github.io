@@ -11,7 +11,7 @@ const Activity = ({activity}: ActivityProps) => {
 
   return (
       <div className={'activity-wrapper'}>
-        <GlassMorphic fadeOpacity={50}>
+        <GlassMorphic fadeOpacity={50} classNames={'h-full'}>
           <Shiny size={200} color={"#7C3AED"} classNames="activity-container">
             <h5 className="activity-title">{activity.title}</h5>
             <p className="activity-subtitle">{activity.subtitle}</p>
