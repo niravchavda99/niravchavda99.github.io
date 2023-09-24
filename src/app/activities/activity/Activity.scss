@@ -5,7 +5,8 @@
 }
 
 .activity-container {
-  @apply h-full p-6 max-w-md rounded border shadow-md shadow-gray-800 bg-slate-700 border-gray-700;
+  @apply h-full p-6 max-w-md shadow-md shadow-violet-800;
+  border-radius: inherit;
 }
 
 .activity-title {
