@@ -4,25 +4,26 @@
   "private": true,
   "homepage": "https://niravchavda99.github.io",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.48",
-    "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6",
-    "axios": "^0.27.2",
+    "@testing-library/jest-dom": "^6.1.3",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.6.4",
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
+    "axios": "^1.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-favicon": "^1.0.1",
-    "react-icons": "^4.4.0",
-    "react-loader-spinner": "^5.1.7-beta.1",
-    "react-router-dom": "^6.3.0",
+    "react-favicon": "^2.0.3",
+    "react-icons": "^4.11.0",
+    "react-loader-spinner": "^5.4.5",
+    "react-router-dom": "^6.16.0",
     "react-scripts": "5.0.1",
     "react-scroll-to-top": "^3.0.0",
-    "tailwindcss": "^3.2.4",
+    "tailwindcss": "^3.3.3",
+    "tailwindscss": "^0.3.0",
     "typescript": "^4.7.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -51,9 +52,9 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.8",
-    "gh-pages": "^4.0.0",
-    "postcss": "^8.4.16",
-    "sass": "^1.54.4"
+    "autoprefixer": "^10.4.16",
+    "gh-pages": "^6.0.0",
+    "postcss": "^8.4.30",
+    "sass": "^1.68.0"
   }
 }
