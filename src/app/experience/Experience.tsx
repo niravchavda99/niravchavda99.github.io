@@ -10,7 +10,7 @@ const Experience = () => {
     <div className={'flex flex-col justify-center items-center'}>
       <div className="jobs-container">
         {jobs.map((job) => {
-          const designation = job.type == "job" ? (job as JobProfile).designation : (job as EducationProfile).degree;
+          const designation = job.type === "job" ? (job as JobProfile).designation : (job as EducationProfile).degree;
           const jobKey = `job-${job.organizationName}-${designation}`;
           return <Job key={jobKey} profile={job}/>;
         })}
