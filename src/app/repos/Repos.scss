@@ -1,10 +1,10 @@
-@import "src/app/common/Common.scss";
+@import "../common/Common";
 
-.projects-container {
+.repos-container {
   @apply py-4 px-8 md:px-32 text-center select-none transition-all;
 }
 
-.projects-header {
+.repos-header {
   @apply text-5xl p-2 pb-6 transition-all text-slate-200;
 }
 

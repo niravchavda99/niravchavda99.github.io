@@ -1,5 +1,5 @@
 import axios from "axios";
-import RepositoryDto from "../projects/RepositoryDto";
+import RepositoryDto from "../repos/RepositoryDto";
 
 export const fetchRepositories = async (): Promise<RepositoryDto[]> => {
   const {data} = await axios.get('https://api.github.com/users/niravchavda99/repos?per_page=100', {

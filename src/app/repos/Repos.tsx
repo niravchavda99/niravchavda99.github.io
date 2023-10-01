@@ -1,4 +1,4 @@
-import './Projects.scss';
+import './Repos.scss';
 import {fetchRepositories} from "../http/GithubGateway";
 import {ChangeEvent, useEffect, useState} from "react";
 import RepositoryDto from "./RepositoryDto";
@@ -15,7 +15,7 @@ const filterReposByName = (repositories: RepositoryDto[] | null, subject: string
   return repositories.filter(repository => repository.name.toLowerCase().includes(subject.toLowerCase()));
 }
 
-const Projects = () => {
+const Repos = () => {
   const [allRepositories, setAllRepositories] = useState<RepositoryDto[] | null>(null);
   const [repositories, setRepositories] = useState<RepositoryDto[] | null>(allRepositories);
 
@@ -36,8 +36,8 @@ const Projects = () => {
   return (
       <>
         <Header/>
-        <div className={'projects-container'}>
-          <div className="projects-header">Projects</div>
+        <div className={'repos-container'}>
+          <div className="repos-header">Github Repos</div>
           {repositories === null ?
               <div className={"infinity-loading-spinner"}>
                 <InfinitySpin width='200' color={loadingSpinnerColor}/>
@@ -55,4 +55,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default Repos;
