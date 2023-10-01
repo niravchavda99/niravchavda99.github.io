@@ -1,21 +1,25 @@
 import './Repository.scss';
 import RepositoryDto from "../RepositoryDto";
 import {getLanguageIcon} from "../../Utils";
-import {FiGithub} from "react-icons/fi";
 import Shiny from "../../common/shiny/Shiny";
 import {GlassMorphic} from "../../common/glassmorphic/GlassMorphic";
+import {RxExternalLink} from "react-icons/rx";
+import {FaGithub} from "react-icons/fa";
+import {useState} from "react";
 
 type RepositoryProps = { repository: RepositoryDto }
 
 const Repository = ({repository}: RepositoryProps) => {
   const {language} = repository;
   const icon = getLanguageIcon(language);
+  const [showCodeLinkButton, toggleShowCodeLinkButton] = useState<boolean>(false);
 
   return (
-      <div className={'repository-wrapper'}>
+      <div className={'repository-wrapper'} onMouseOver={() => toggleShowCodeLinkButton(true)}
+           onMouseOut={() => toggleShowCodeLinkButton(false)}>
         <GlassMorphic fadeOpacity={20} classNames={'w-full h-full'}>
           <Shiny color={"#7C3AED"} size={200} classNames="repository-container">
-            <div className={'h-full flex flex-col justify-between items-center'}>
+            <div className={'h-full flex flex-row place-content-between text-left'}>
               <div>
                 <div className="repository-name">{repository.name}</div>
                 <p className="repository-description">{repository.description}</p>
@@ -26,11 +30,19 @@ const Repository = ({repository}: RepositoryProps) => {
                     </span>}
                 </p>
               </div>
-              <a href={repository.htmlUrl} className="code-link" rel={"noreferrer"}
-                 target={"_blank"}>
-                <FiGithub className={'inline-block'} size={16}/>
-                <span className={'ml-1'}>Code</span>
-              </a>
+
+              <div
+                  className={`flex flex-col ${showCodeLinkButton ? 'justify-between' : 'justify-end'}`}>
+                {showCodeLinkButton &&
+                    <a href={repository.htmlUrl} className="code-link" rel={"noreferrer"}
+                       target={"_blank"}>
+                      <span className={'mr-1 text-lg'}>Code</span>
+                      <RxExternalLink className={'inline-block'} size={16}/>
+                    </a>}
+                <div className={'text-right'}>
+                  <FaGithub className={'inline-block text-white'} size={16}/>
+                </div>
+              </div>
             </div>
           </Shiny>
         </GlassMorphic>
