@@ -18,7 +18,7 @@ const Repository = ({repository}: RepositoryProps) => {
       <div className={'repository-wrapper'} onMouseOver={() => toggleShowCodeLinkButton(true)}
            onMouseOut={() => toggleShowCodeLinkButton(false)}>
         <GlassMorphic fadeOpacity={20} classNames={'w-full h-full'}>
-          <Shiny color={"#7C3AED"} size={200} classNames="repository-container">
+          <Shiny color={"#0EA5E9"} size={200} classNames="repository-container">
             <div className={'h-full flex flex-row place-content-between text-left'}>
               <div>
                 <div className="repository-name">{repository.name}</div>

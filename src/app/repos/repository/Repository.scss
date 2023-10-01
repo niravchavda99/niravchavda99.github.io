@@ -5,7 +5,7 @@
 }
 
 .repository-container {
-  @apply p-6 w-full h-full rounded-lg shadow-md shadow-violet-800 transition-all;
+  @apply p-6 w-full h-full rounded-lg shadow-md shadow-sky-800 transition-all;
   border-radius: inherit;
 }
 
@@ -25,7 +25,7 @@
   @apply inline-flex items-center py-2 px-3;
   @apply text-sm font-medium text-center;
   @apply rounded-lg focus:outline-none w-fit z-50;
-  @apply bg-slate-300 hover:bg-violet-500 hover:text-white h-fit;
+  @apply bg-slate-300 hover:bg-sky-500 hover:text-white h-fit;
 }
 
 .repository-container:hover {
