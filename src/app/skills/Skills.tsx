@@ -1,12 +1,15 @@
 import './Skills.scss';
 import {technologies} from "./constants";
+import React from "react";
 
 const Skills = () => {
     return (
         <div id={'skills'} className='max-container'>
-            <div className="skills-header">Skills</div>
+            <h1 className='head-text'>
+                My <span className=' blue-gradient_text font-semibold drop-shadow'>Skills</span>
+            </h1>
             <br/>
-            <div className='py-10 flex flex-col'>
+            <div className='mt-10 flex flex-col'>
                 <div className='mt-16 flex flex-wrap gap-20'>
                     {technologies.map(technology => (
                         <div className='block-container w-20 h-20'>

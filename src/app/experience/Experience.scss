@@ -1,10 +1,5 @@
 @import "src/app/common/Common.scss";
 
-#experience {
-  @apply h-max border-b p-8 lg:p-12 select-none transition-all border-b-slate-300;
-  min-height: 100vh;
-}
-
 .vertical-timeline-element-date {
   width: max-content !important;
 }

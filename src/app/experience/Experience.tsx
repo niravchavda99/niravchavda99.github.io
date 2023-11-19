@@ -6,9 +6,12 @@ import 'react-vertical-timeline-component/style.min.css';
 import {Profile} from "./Profile";
 
 const Experience = () => {
-    return <div id={'experience'} className='max-container'>
-        <div className="text-5xl p-2 pb-8 transition-all text-slate-200">Experience</div>
-        <div className={'flex flex-col justify-center items-center'}>
+    return <div id={'experience'}
+                className='max-container h-max min-h-[100vh] border-b select-none transition-all border-b-slate-300'>
+        <h1 className='head-text'>
+            My <span className=' blue-gradient_text font-semibold drop-shadow'>Experience</span>
+        </h1>
+        <div className={'flex flex-col justify-center items-center mt-10'}>
             <VerticalTimeline>
                 {jobs.map(job => renderTimelineElement(job, job.organizationName, job.designation))}
             </VerticalTimeline>

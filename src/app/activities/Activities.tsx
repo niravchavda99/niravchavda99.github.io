@@ -5,9 +5,11 @@ import {BorderedTiltCard} from "../common/BorderedTiltCard";
 
 const Activities = () => {
     return <div id={'activities'} className='max-container'>
-        <div className="activities-header">Activities</div>
+        <h1 className='head-text'>
+            My <span className=' blue-gradient_text font-semibold drop-shadow'>Activities</span>
+        </h1>
 
-        <div className="activities-container">
+        <div className="activities-container mt-12">
             {activities.map((activity, index) => (
                 <BorderedTiltCard delayOffset={index} className='px-6 py-12'>
                     <h3 className={'text-white font-bold text-[24px]'}>{activity.title}</h3>
