@@ -12,7 +12,7 @@ const Skills = () => {
             <div className='mt-10 flex flex-col'>
                 <div className='mt-16 flex flex-wrap gap-20 justify-center items-center'>
                     {technologies.map(technology => (
-                        <div className='block-container w-20 h-20'>
+                        <div key={technology.name} className='block-container w-20 h-20'>
                             <div className='btn-back rounded-xl'/>
                             <div className='btn-front rounded-xl flex justify-center items-center'>
                                 <img src={technology.icon} alt={technology.name}
