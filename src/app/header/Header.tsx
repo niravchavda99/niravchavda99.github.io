@@ -20,7 +20,7 @@ const Header = () => {
       <a href={"/#activities"} className={"header-content mobile-hidden"}>
         Activities
       </a>
-      <Link to={"/repos"} className={'header-content'}>Repos</Link>
+      <Link to={"/projects"} className={'header-content'}>Projects</Link>
     </div>
   </nav>;
 }

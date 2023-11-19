@@ -9,6 +9,10 @@ module.exports = {
         worksans: ["Work Sans", "sans-serif"],
         poppins: ['Poppins', "sans-serif"]
       },
+      colors: {
+        secondary: "#aaa6c3",
+        tertiary: "#151030"
+      }
     },
   },
   plugins: [],
