@@ -10,7 +10,7 @@ const Skills = () => {
             </h1>
             <br/>
             <div className='mt-10 flex flex-col'>
-                <div className='mt-16 flex flex-wrap gap-20'>
+                <div className='mt-16 flex flex-wrap gap-20 justify-center items-center'>
                     {technologies.map(technology => (
                         <div className='block-container w-20 h-20'>
                             <div className='btn-back rounded-xl'/>
