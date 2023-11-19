@@ -6,7 +6,7 @@ import 'react-vertical-timeline-component/style.min.css';
 import {Profile} from "./Profile";
 
 const Experience = () => {
-    return <div id={'experience'}>
+    return <div id={'experience'} className='max-container'>
         <div className="text-5xl p-2 pb-8 transition-all text-slate-200">Experience</div>
         <div className={'flex flex-col justify-center items-center'}>
             <VerticalTimeline>
@@ -25,7 +25,7 @@ const Experience = () => {
 const renderTimelineElement = (profile: Profile, name: string, heading1: string) => {
     return (
         <VerticalTimelineElement
-            key={name}
+            key={name + profile.dateStarted + profile.dateEnded}
             date={`${profile.dateStarted} - ${profile.dateEnded}`}
             dateClassName={'text-white'}
             icon={<div className='flex justify-center items-center w-full h-full'>

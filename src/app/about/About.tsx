@@ -7,7 +7,7 @@ import SocialMediaLink from "../common/SocialMediaLink";
 const About = () => {
   const iconSize = 28;
 
-  return <div id={'about'}>
+  return <section id={'about'} className='max-container'>
     <div className="profile-image-wrapper">
       <div className="profile-image-container">
         <img src={profileImage} alt="Profile"
@@ -24,7 +24,7 @@ const About = () => {
       <SocialMediaLink platform={'twitter'}><BsTwitter size={iconSize}/></SocialMediaLink>
       <SocialMediaLink platform={'instagram'}><BsInstagram size={iconSize - 2}/></SocialMediaLink>
     </div>
-  </div>;
+  </section>;
 }
 
 export default About;

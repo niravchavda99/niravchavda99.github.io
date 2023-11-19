@@ -4,7 +4,7 @@ import Activity from "./activity/Activity";
 import React from "react";
 
 const Activities = () => {
-  return <div id={'activities'}>
+  return <div id={'activities'} className='max-container'>
     <div className="activities-header">Activities</div>
 
     <div className="flex justify-center">

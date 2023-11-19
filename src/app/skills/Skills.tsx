@@ -5,7 +5,7 @@ import {GlassMorphic} from "../common/glassmorphic/GlassMorphic";
 
 const Skills = () => {
   return (
-      <div id={'skills'}>
+      <div id={'skills'} className='max-container'>
         <div className="skills-header">Skills</div>
         <br/>
         <GlassMorphic fadeOpacity={10} classNames={'skills-container px-8 py-16'}>

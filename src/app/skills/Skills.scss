@@ -1,7 +1,7 @@
 @import "src/app/common/Common.scss";
 
 #skills {
-  @apply h-max border-b p-8 lg:p-24 flex flex-col items-center select-none transition-all border-b-slate-300;
+  @apply h-max border-b p-8 lg:py-24 flex flex-col items-center select-none transition-all border-b-slate-300;
   min-height: 100vh;
 }
 
