@@ -1,6 +1,5 @@
-import ActivityDto from "./activity/ActivityDto";
 
-export const activities: ActivityDto[] = [
+export const activities = [
   {
     title: 'Heat Transfer Lab',
     subtitle: 'Virtual Labs, IIT Bombay - 2020',
