@@ -3,7 +3,6 @@ import tailwind from '../assets/icons/tech/tailwind.png';
 import react from '../assets/icons/tech/react.svg';
 
 const Footer = () => {
-    const iconSize = 1.5;
     const year = new Date().getFullYear();
 
     return (
