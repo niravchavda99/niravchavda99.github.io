@@ -8,9 +8,6 @@ const Header = () => {
       <Link to={"/"} className={'header-logo'}>Nirav Chavda</Link>
     </div>
     <div className={'header-content-container'}>
-      <a href={"/#about"} className={"header-content mobile-hidden"}>
-        About
-      </a>
       <a href={"/#experience"} className={"header-content mobile-hidden"}>
         Experience
       </a>
