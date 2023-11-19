@@ -1,25 +1,22 @@
 import "./Activities.scss";
-import {jobs} from './AllActivities';
-import Activity from "./activity/Activity";
+import {activities} from './AllActivities';
 import React from "react";
+import {BorderedTiltCard} from "../common/BorderedTiltCard";
 
 const Activities = () => {
-  return <div id={'activities'} className='max-container'>
-    <div className="activities-header">Activities</div>
+    return <div id={'activities'} className='max-container'>
+        <div className="activities-header">Activities</div>
 
-    <div className="flex justify-center">
-      <a href="https://app.daily.dev/niravchavda99"><img
-          src="https://api.daily.dev/devcards/1e425277bd434101a24d2e9fcb45e7fe.png?r=xof"
-          width="350"
-          alt="Nirav Chavda's Dev Card"/></a>
-    </div>
-
-    <div className="activities-container">
-      {jobs.map((activity, index) => <Activity activity={activity}
-                                               key={`activity-${activity.title}`}/>
-      )}
-    </div>
-  </div>;
+        <div className="activities-container">
+            {activities.map((activity, index) => (
+                <BorderedTiltCard delayOffset={index} className='px-6 py-12'>
+                    <h3 className={'text-white font-bold text-[24px]'}>{activity.title}</h3>
+                    <p className={'text-white font-bold text-[20px]'}>{activity.subtitle}</p>
+                    <p className={'mt-2 text-secondary text-[16px]'}>{activity.description}</p>
+                </BorderedTiltCard>
+            ))}
+        </div>
+    </div>;
 }
 
 export default Activities;

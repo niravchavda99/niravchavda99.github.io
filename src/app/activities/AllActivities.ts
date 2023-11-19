@@ -1,6 +1,6 @@
 import ActivityDto from "./activity/ActivityDto";
 
-export const jobs: ActivityDto[] = [
+export const activities: ActivityDto[] = [
   {
     title: 'Heat Transfer Lab',
     subtitle: 'Virtual Labs, IIT Bombay - 2020',

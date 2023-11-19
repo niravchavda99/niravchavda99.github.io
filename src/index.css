@@ -159,3 +159,9 @@ code {
 .block-container:hover > .btn-front {
     transform: translateZ(80px) translateY(-5px) rotateX(15deg) rotateY(15deg);
 }
+
+.green-pink-gradient {
+    background: "#00cea8";
+    background: linear-gradient(90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
+    background: -webkit-linear-gradient(-90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
+}

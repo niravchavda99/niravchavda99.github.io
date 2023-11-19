@@ -6,6 +6,7 @@ import {ReactNode} from "react";
 export interface TiltCardProps {
     children: ReactNode;
     delayOffset: number;
+    className?: string;
 }
 
 export const TiltCard = ({delayOffset, children}: TiltCardProps) => {
