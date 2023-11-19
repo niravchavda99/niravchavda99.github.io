@@ -5,10 +5,6 @@
   min-height: 100vh;
 }
 
-.jobs-container {
-  @apply mt-4;
-}
-
-.experience-header {
-  @apply text-5xl p-2 pb-8 transition-all text-slate-200;
+.vertical-timeline-element-date {
+  width: max-content !important;
 }
