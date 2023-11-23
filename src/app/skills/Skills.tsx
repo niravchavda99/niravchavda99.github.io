@@ -16,7 +16,9 @@ const Skills = () => {
                             <div className='btn-back rounded-xl'/>
                             <div className='btn-front rounded-xl flex justify-center items-center'>
                                 <img src={technology.icon} alt={technology.name}
-                                     className='w-2/3 h-2/3 object-contain'/>
+                                     className='w-2/3 h-2/3 object-contain skill-icon-light'/>
+                                <img src={technology?.darkIcon ?? technology.icon} alt={technology.name}
+                                     className='w-2/3 h-2/3 object-contain skill-icon-dark'/>
                             </div>
                         </div>
                     ))}

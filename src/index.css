@@ -113,6 +113,16 @@ code {
     .head-text {
         @apply text-slate-700;
     }
+
+    .block-container .btn-front {
+        background-color: #88888833;
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        transition: 250ms;
+        transform-style: preserve-3d;
+        transform-origin: top left;
+        overflow: hidden;
+    }
 }
 
 .subhead-text {
