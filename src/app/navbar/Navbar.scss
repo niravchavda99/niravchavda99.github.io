@@ -1,13 +1,15 @@
 @import "src/app/common/Common.scss";
 
 .header-container {
-  @apply flex flex-row justify-between p-1 select-none items-center transition-all text-slate-300;
+  @apply w-full p-1 select-none items-center transition-all text-slate-300;
+  @apply fixed top-0 z-30;
+  @apply font-poppins;
 }
 
 
 .header-logo {
   @apply cursor-pointer p-2 text-xl w-10 h-10 rounded-lg;
-  @apply bg-tertiary items-center justify-center flex font-bold shadow-md;
+  @apply bg-tertiary items-center justify-center flex font-bold shadow-md transition-all;
 }
 
 .theme-light {
@@ -15,7 +17,7 @@
     @apply bg-white;
   }
 
-  .header-container {
+  .header-content {
     @apply text-slate-800;
   }
 

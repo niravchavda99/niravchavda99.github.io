@@ -6,6 +6,7 @@ import React, {useState} from "react";
 import {BsArrowUp} from "react-icons/bs";
 import {Theme} from "./theme/Theme";
 import {ThemeDto} from "./theme/ThemeDto";
+import Navbar from "./navbar/Navbar";
 
 function App() {
     const [currentTheme, setCurrentTheme] = useState<ThemeDto>(ThemeDto.dark());
@@ -25,6 +26,7 @@ function App() {
                 style={{backgroundColor: "#0284C7"}}
                 component={<BsArrowUp size={26} color={'white'}/>}
             />
+            <Navbar className={`theme${themeSuffix}`} />
             <div className={`App transition-all bg${themeSuffix} theme${themeSuffix}`}>
                 <Outlet/>
                 <Footer/>

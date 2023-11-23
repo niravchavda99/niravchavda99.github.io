@@ -1,4 +1,3 @@
-import Navbar from "../navbar/Navbar";
 import {projects, ProjectTag} from "./constants";
 import {Link} from "react-router-dom";
 import {FaArrowRight, FaGithub} from "react-icons/fa6";
@@ -8,7 +7,6 @@ import './Projects.scss';
 export const Projects = () => {
     return (
         <>
-            <Navbar/>
             <section className='max-container text-left '>
                 <h1 className='head-text'>My <span
                     className='blue-gradient_text font-semibold drop-shadow'>Projects</span></h1>
