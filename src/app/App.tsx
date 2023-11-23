@@ -2,26 +2,35 @@ import {Outlet} from "react-router-dom";
 import ScrollToTop from "react-scroll-to-top";
 import "./App.scss";
 import Footer from "./footer/Footer";
-import {CSSProperties} from "react";
+import React, {useState} from "react";
 import {BsArrowUp} from "react-icons/bs";
+import {Theme} from "./theme/Theme";
+import {ThemeDto} from "./theme/ThemeDto";
 
 function App() {
-  const style = {backgroundColor: "#0284C7"} as CSSProperties;
+    const [currentTheme, setCurrentTheme] = useState<ThemeDto>(ThemeDto.dark());
 
-  return (
-      <>
-        <ScrollToTop
-            className={"flex flex-col items-center justify-center"}
-            smooth
-            style={style}
-            component={<BsArrowUp size={26} color={'white'}/>}
-        />
-        <div className={`App transition-all`}>
-          <Outlet/>
-          <Footer/>
-        </div>
-      </>
-  );
+    const toggleTheme = () => {
+        setCurrentTheme(currentTheme.isDark ? ThemeDto.light() : ThemeDto.dark());
+    }
+
+    const themeSuffix = currentTheme.isDark ? '-dark' : '-light';
+
+    return (
+        <>
+            <Theme currentTheme={currentTheme} toggleTheme={toggleTheme}/>
+            <ScrollToTop
+                className={"flex flex-col items-center justify-center"}
+                smooth
+                style={{backgroundColor: "#0284C7"}}
+                component={<BsArrowUp size={26} color={'white'}/>}
+            />
+            <div className={`App transition-all bg${themeSuffix} theme${themeSuffix}`}>
+                <Outlet/>
+                <Footer/>
+            </div>
+        </>
+    );
 }
 
 export default App;

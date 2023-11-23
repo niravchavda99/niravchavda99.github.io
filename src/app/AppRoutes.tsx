@@ -2,6 +2,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import App from "./App";
 import Home from "./home/Home";
 import {Projects} from "./projects/Projects";
+import React from "react";
 
 const AppRoutes = () => {
 

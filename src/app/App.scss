@@ -4,9 +4,16 @@
 .App {
   @apply h-screen text-center flex flex-col justify-between backdrop-blur-sm;
   @apply font-poppins;
-  background: rgba(black, 50%);
   height: max-content;
   min-height: 100vh;
+}
+
+.theme-light .bg-theme {
+  @apply bg-light;
+}
+
+.theme-dark .bg-theme {
+  @apply bg-dark;
 }
 
 .center-all {

@@ -6,8 +6,12 @@
   transition: all 0.5s linear;
 }
 
-.bg {
-  @apply bg-tertiary;
+.bg-dark {
+  @apply bg-tertiary-dark;
+}
+
+.bg-light {
+  @apply bg-slate-300/20;
 }
 
 .mobile-hidden {

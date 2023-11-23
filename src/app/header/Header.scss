@@ -4,9 +4,24 @@
   @apply flex flex-row justify-between p-1 select-none items-center transition-all text-slate-300;
 }
 
+
 .header-logo {
   @apply cursor-pointer p-2 text-xl w-10 h-10 rounded-lg;
   @apply bg-tertiary items-center justify-center flex font-bold shadow-md;
+}
+
+.theme-light {
+  .header-logo {
+    @apply bg-white;
+  }
+
+  .header-container {
+    @apply text-slate-800;
+  }
+
+  .header-content:hover {
+    @apply rounded-lg bg-slate-200;
+  }
 }
 
 .header-content-container {
