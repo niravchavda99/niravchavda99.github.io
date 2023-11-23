@@ -8,9 +8,12 @@
 
 .bg {
   @apply bg-tertiary;
-  background-size: cover;
 }
 
 .mobile-hidden {
   @apply hidden md:block;
+}
+
+.blue-gradient_text {
+  @apply bg-gradient-to-r from-[#00c6ff] to-[#0072ff] bg-clip-text text-transparent;
 }

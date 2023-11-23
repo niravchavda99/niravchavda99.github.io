@@ -10,7 +10,7 @@ export const Projects = () => {
             <Header/>
             <section className='max-container text-left '>
                 <h1 className='head-text'>My <span
-                    className=' blue-gradient_text font-semibold drop-shadow'>Projects</span></h1>
+                    className='blue-gradient_text font-semibold drop-shadow'>Projects</span></h1>
                 <div className='mt-5 flex flex-col gap-3 text-slate-200'>
                     <p>I've embarked on numerous projects throughout the years, but these are the ones I hold closest to
                         my
