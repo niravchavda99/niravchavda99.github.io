@@ -1,7 +1,7 @@
 import "./Activities.scss";
 import {activities} from './AllActivities';
 import React from "react";
-import {BorderedTiltCard} from "../common/tilt-card/BorderedTiltCard";
+import {BorderedTiltCard} from "../common/tilt-card/bordered/BorderedTiltCard";
 
 const Activities = () => {
     return <div id={'activities'} className='max-container'>
