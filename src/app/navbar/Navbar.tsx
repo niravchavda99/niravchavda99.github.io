@@ -1,6 +1,6 @@
 import './Navbar.scss';
-import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
+import React from "react";
+import {NavLink, useLocation} from "react-router-dom";
 
 interface NavbarProps {
     className: string;
@@ -8,10 +8,10 @@ interface NavbarProps {
 
 const Navbar = (props: NavbarProps) => {
     const className = props.className ?? "";
-    const [isProjectsRoute, setIsProjectsRoute] = useState<boolean>(false);
+    const isProjectsRoute = useLocation().pathname === '/projects';
 
     return <nav className={`${className} header-container`}>
-        <div className="flex flex-row justify-between">
+        <div className="header">
             <div>
                 <NavLink to={"/"} className='header-logo'>
                     <p className='blue-gradient_text'>NC</p>
@@ -30,10 +30,7 @@ const Navbar = (props: NavbarProps) => {
                 }
                 <NavLink
                     to={"/projects"}
-                    className={({isActive}) => {
-                        setIsProjectsRoute(isActive);
-                        return `header-content${isActive ? ' text-blue-500' : ''}`;
-                    }}>
+                    className={({isActive}) => `header-content${isActive ? ' text-blue-500' : ''}`}>
                     Projects
                 </NavLink>
             </div>

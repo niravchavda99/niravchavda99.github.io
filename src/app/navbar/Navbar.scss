@@ -1,11 +1,13 @@
 @import "src/app/common/Common.scss";
 
 .header-container {
-  @apply w-full p-1 select-none items-center transition-all text-slate-300;
-  @apply fixed top-0 z-30;
-  @apply font-poppins;
+  @apply w-full fixed top-0 z-30 font-poppins;
 }
 
+.header {
+  @apply p-1 flex flex-row justify-between select-none items-center transition-all;
+  @apply text-slate-300 bg-tertiary-dark;
+}
 
 .header-logo {
   @apply cursor-pointer p-2 text-xl w-10 h-10 rounded-lg;
@@ -13,6 +15,10 @@
 }
 
 .theme-light {
+  .header {
+    background-color: #EFF2F6;
+  }
+
   .header-logo {
     @apply bg-white;
   }
