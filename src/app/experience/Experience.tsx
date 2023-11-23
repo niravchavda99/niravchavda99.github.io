@@ -18,7 +18,7 @@ const Experience = () => {
         </div>
 
         <div className={'flex flex-col justify-center items-center mt-4'}>
-            <VerticalTimeline>
+            <VerticalTimeline lineColor="#94a3b8">
                 {educations.map(education => renderTimelineElement(education, education.instituteName, education.degree))}
             </VerticalTimeline>
         </div>
@@ -30,7 +30,7 @@ const renderTimelineElement = (profile: Profile, name: string, heading1: string)
         <VerticalTimelineElement
             key={name + profile.dateStarted + profile.dateEnded}
             date={`${profile.dateStarted} - ${profile.dateEnded}`}
-            dateClassName={'text-white'}
+            dateClassName={'timeline-date'}
             icon={<div className='flex justify-center items-center w-full h-full'>
                 <img src={profile.icon} alt={name}
                      className='w-[70%] h-[70%] object-contain rounded-full'/>
