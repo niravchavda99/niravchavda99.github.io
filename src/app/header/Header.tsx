@@ -1,6 +1,6 @@
 import './Header.scss';
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 const Header = () => {
     return <nav className={`header-container`}>
@@ -19,7 +19,8 @@ const Header = () => {
             <a href={"/#activities"} className={"header-content mobile-hidden"}>
                 Activities
             </a>
-            <Link to={"/projects"} className={'header-content'}>Projects</Link>
+            <NavLink to={"/projects"}
+                     className={({isActive}) => `header-content ${isActive ? 'text-blue-500' : 'text-white'}`}>Projects</NavLink>
         </div>
     </nav>;
 }
