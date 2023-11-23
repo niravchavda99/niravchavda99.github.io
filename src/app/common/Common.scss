@@ -7,7 +7,7 @@
 }
 
 .bg {
-  background: url("../assets/images/bg.jpeg") fixed;
+  @apply bg-tertiary;
   background-size: cover;
 }
 
