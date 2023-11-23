@@ -22,11 +22,21 @@
 }
 
 .about-name {
-  @apply text-4xl p-2 mt-8 text-slate-200 blue-gradient_text;
+  @apply text-4xl p-2 mt-12 text-slate-200 blue-gradient_text font-semibold;
 }
 
 .about-short {
   @apply p-1 text-xl transition-all text-slate-300;
+}
+
+.theme-light {
+  .about-short {
+    @apply text-slate-700;
+  }
+
+  .link-item {
+    @apply text-slate-700;
+  }
 }
 
 .links {
