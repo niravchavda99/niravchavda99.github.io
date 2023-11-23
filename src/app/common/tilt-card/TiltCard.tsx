@@ -1,4 +1,4 @@
-import {fadeIn} from "../projects/constants";
+import {fadeIn} from "../../projects/constants";
 import {Tilt} from "react-tilt";
 import {motion} from "framer-motion";
 import {ReactNode} from "react";

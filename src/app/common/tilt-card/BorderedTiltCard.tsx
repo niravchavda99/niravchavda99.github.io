@@ -1,7 +1,8 @@
-import {fadeIn} from "../projects/constants";
+import {fadeIn} from "../../projects/constants";
 import {Tilt} from "react-tilt";
 import {motion} from "framer-motion";
 import {TiltCardProps} from "./TiltCard";
+import './BorderedTiltCard.scss';
 
 export const BorderedTiltCard = ({delayOffset, children, className}: TiltCardProps) => {
     return (
@@ -11,7 +12,7 @@ export const BorderedTiltCard = ({delayOffset, children, className}: TiltCardPro
                 className={'w-full green-pink-gradient p-[1px] rounded-[20px]'}
             >
                 <div
-                    className={`bg-tertiary rounded-[20px] min-h-[280px] flex justify-evenly items-center flex-col ${className}`}>
+                    className={`tilt-card-bg rounded-[20px] min-h-[280px] flex justify-evenly items-center flex-col ${className}`}>
                     {children}
                 </div>
             </motion.div>

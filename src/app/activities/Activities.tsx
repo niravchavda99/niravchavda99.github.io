@@ -1,7 +1,7 @@
 import "./Activities.scss";
 import {activities} from './AllActivities';
 import React from "react";
-import {BorderedTiltCard} from "../common/BorderedTiltCard";
+import {BorderedTiltCard} from "../common/tilt-card/BorderedTiltCard";
 
 const Activities = () => {
     return <div id={'activities'} className='max-container'>
@@ -12,9 +12,9 @@ const Activities = () => {
         <div className="activities-container mt-12">
             {activities.map((activity, index) => (
                 <BorderedTiltCard key={activity.title} delayOffset={index} className='px-6 py-12 min-h-[400px]'>
-                    <h3 className={'text-white font-bold text-[24px]'}>{activity.title}</h3>
-                    <p className={'text-white font-bold text-[20px]'}>{activity.subtitle}</p>
-                    <p className={'mt-2 text-secondary text-[16px]'}>{activity.description}</p>
+                    <h3 className={'activity-title font-bold text-[24px]'}>{activity.title}</h3>
+                    <p className={'activity-subtitle font-bold text-[20px]'}>{activity.subtitle}</p>
+                    <p className={'mt-2 activity-description text-[16px]'}>{activity.description}</p>
                 </BorderedTiltCard>
             ))}
         </div>

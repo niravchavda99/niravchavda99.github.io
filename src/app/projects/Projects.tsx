@@ -2,7 +2,7 @@ import Header from "../header/Header";
 import {projects, ProjectTag} from "./constants";
 import {Link} from "react-router-dom";
 import {FaArrowRight, FaGithub} from "react-icons/fa6";
-import {TiltCard} from "../common/TiltCard";
+import {TiltCard} from "../common/tilt-card/TiltCard";
 
 export const Projects = () => {
     return (
