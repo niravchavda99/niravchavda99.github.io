@@ -10,27 +10,27 @@ const Navbar = (props: NavbarProps) => {
     const className = props.className ?? "";
     const isProjectsRoute = useLocation().pathname === '/projects';
 
-    return <nav className={`${className} header-container`}>
-        <div className="header">
+    return <nav className={`${className} navbar-container`}>
+        <div className="navbar">
             <div>
-                <NavLink to={"/"} className='header-logo'>
+                <NavLink to={"/"} className='navbar-logo'>
                     <p className='blue-gradient_text'>NC</p>
                 </NavLink>
             </div>
-            <div className={'header-content-container'}>
+            <div className={'navbar-content-container'}>
                 {!isProjectsRoute &&
                     <>
-                        <a href={"/#experience"} className={"header-content mobile-hidden"}>Experience</a>
-                        <a href={"/#skills"} className={"header-content mobile-hidden"}>Skills</a>
-                        <a href={"/#activities"} className={"header-content mobile-hidden"}>Activities</a>
+                        <a href={"/#experience"} className={"navbar-content mobile-hidden"}>Experience</a>
+                        <a href={"/#skills"} className={"navbar-content mobile-hidden"}>Skills</a>
+                        <a href={"/#activities"} className={"navbar-content mobile-hidden"}>Activities</a>
                     </>
                 }
                 {isProjectsRoute &&
-                    <NavLink to={"/"} className='header-content'>Home</NavLink>
+                    <NavLink to={"/"} className='navbar-content'>Home</NavLink>
                 }
                 <NavLink
                     to={"/projects"}
-                    className={({isActive}) => `header-content${isActive ? ' text-blue-500' : ''}`}>
+                    className={({isActive}) => `navbar-content${isActive ? ' text-blue-500' : ''}`}>
                     Projects
                 </NavLink>
             </div>
