@@ -1,8 +1,8 @@
-import './Header.scss';
+import './Navbar.scss';
 import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 
-const Header = () => {
+const Navbar = () => {
     const [isProjectsRoute, setIsProjectsRoute] = useState<boolean>(false);
 
     return <nav className={`header-container`}>
@@ -34,4 +34,4 @@ const Header = () => {
     </nav>;
 }
 
-export default Header;
+export default Navbar;
