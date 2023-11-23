@@ -13,12 +13,16 @@
   @apply text-5xl p-2 pb-6 transition-all text-slate-200;
 }
 
-.activity-title, .activity-subtitle {
-  @apply text-white;
+.activity-title {
+  @apply text-white font-bold text-[24px];
+}
+
+.activity-subtitle {
+  @apply text-white font-bold text-[20px]
 }
 
 .activity-description {
-  @apply text-secondary;
+  @apply text-secondary mt-2 text-[16px];
 }
 
 .theme-light {
