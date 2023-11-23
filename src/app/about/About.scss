@@ -1,7 +1,7 @@
 @import "src/app/common/Common.scss";
 
 #about {
-  @apply h-max border-b p-8 transition-all border-b-slate-300 flex flex-col justify-center;
+  @apply h-max p-8 transition-all flex flex-col justify-center;
   min-height: 100vh;
 }
 

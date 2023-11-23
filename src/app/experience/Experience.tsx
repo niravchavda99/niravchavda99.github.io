@@ -7,7 +7,7 @@ import {Profile} from "./Profile";
 
 const Experience = () => {
     return <div id={'experience'}
-                className='max-container h-max min-h-[100vh] border-b select-none transition-all border-b-slate-300'>
+                className='max-container h-max min-h-[100vh] select-none transition-all'>
         <h1 className='head-text'>
             My <span className=' blue-gradient_text font-semibold drop-shadow'>Experience</span>
         </h1>
