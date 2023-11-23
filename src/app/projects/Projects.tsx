@@ -11,7 +11,7 @@ export const Projects = () => {
             <section className='max-container text-left '>
                 <h1 className='head-text'>My <span
                     className=' blue-gradient_text font-semibold drop-shadow'>Projects</span></h1>
-                <div className='mt-5 flex flex-col gap-3 text-slate-200 font-poppins'>
+                <div className='mt-5 flex flex-col gap-3 text-slate-200'>
                     <p>I've embarked on numerous projects throughout the years, but these are the ones I hold closest to
                         my
                         heart. Many of them are open-source, so if you come across something that piques your interest,
@@ -45,11 +45,11 @@ export const Projects = () => {
                             <div className={'mt-4 flex flex-wrap gap-2'}>
                                 {project.tags.map((tag: ProjectTag) =>
                                     <p key={tag.name}
-                                       className={`text-[14px] font-poppins ${tag.color}`}>#{tag.name}</p>
+                                       className={`text-[14px] ${tag.color}`}>#{tag.name}</p>
                                 )}
                             </div>
 
-                            <div className='mt-5 font-poppins text-blue-600'>
+                            <div className='mt-5 text-blue-600'>
                                 <Link
                                     to={project.link}
                                     target='_blank'

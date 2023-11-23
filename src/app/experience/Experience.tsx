@@ -44,7 +44,7 @@ const renderTimelineElement = (profile: Profile, name: string, heading1: string)
             iconStyle={{background: profile.iconBg}}
         >
             <div className={'text-left'}>
-                <h3 className='text-black text-xl font-poppins font-semibold'>
+                <h3 className='text-black text-xl font-semibold'>
                     {heading1}
                 </h3>
                 <p className='text-black-500 font-medium font-base' style={{margin: 0}}>
