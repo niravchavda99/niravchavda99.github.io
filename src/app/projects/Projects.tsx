@@ -3,6 +3,7 @@ import {projects, ProjectTag} from "./constants";
 import {Link} from "react-router-dom";
 import {FaArrowRight, FaGithub} from "react-icons/fa6";
 import {TiltCard} from "../common/tilt-card/TiltCard";
+import './Projects.scss';
 
 export const Projects = () => {
     return (
@@ -11,7 +12,7 @@ export const Projects = () => {
             <section className='max-container text-left '>
                 <h1 className='head-text'>My <span
                     className='blue-gradient_text font-semibold drop-shadow'>Projects</span></h1>
-                <div className='mt-5 flex flex-col gap-3 text-slate-200'>
+                <div className='description'>
                     <p>I've embarked on numerous projects throughout the years, but these are the ones I hold closest to
                         my
                         heart. Many of them are open-source, so if you come across something that piques your interest,
@@ -38,8 +39,8 @@ export const Projects = () => {
                             </div>
 
                             <div className={'mt-5 text-left'}>
-                                <h3 className={'text-white font-bold text-[24px]'}>{project.name}</h3>
-                                <p className={'mt-2 text-secondary text-[14px]'}>{project.description}</p>
+                                <h3 className={'project-name'}>{project.name}</h3>
+                                <p className={'project-description'}>{project.description}</p>
                             </div>
 
                             <div className={'mt-4 flex flex-wrap gap-2'}>

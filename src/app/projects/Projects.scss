@@ -1,0 +1,25 @@
+.description {
+  @apply mt-5 flex flex-col gap-3 text-slate-200;
+}
+
+.project-name {
+  @apply text-white font-bold text-[24px];
+}
+
+.project-description {
+  @apply mt-2 text-secondary text-[14px];
+}
+
+.theme-light {
+  .description {
+    @apply text-slate-700;
+  }
+
+  .project-name {
+    @apply text-slate-700;
+  }
+
+  .project-description {
+    @apply text-slate-600;
+  }
+}
