@@ -4,10 +4,6 @@
   @apply flex flex-row justify-between p-1 select-none items-center transition-all text-slate-300;
 }
 
-.header-logo {
-  @apply cursor-pointer p-2 text-2xl;
-}
-
 .header-content-container {
   @apply flex flex-row content-center;
 }
