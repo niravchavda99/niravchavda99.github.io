@@ -37,8 +37,8 @@ export const Projects = () => {
                             </div>
 
                             <div className={'mt-5 text-left'}>
-                                <h3 className={'project-name'}>{project.name}</h3>
-                                <p className={'project-description'}>{project.description}</p>
+                                <h3 className={'project-name text-[24px]'}>{project.name}</h3>
+                                <p className={'project-description text-[14px]'}>{project.description}</p>
                             </div>
 
                             <div className={'mt-4 flex flex-wrap gap-2'}>

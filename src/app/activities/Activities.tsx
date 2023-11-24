@@ -12,9 +12,9 @@ const Activities = () => {
         <div className="activities-container mt-12">
             {activities.map((activity, index) => (
                 <BorderedTiltCard key={activity.title} delayOffset={index} className='px-6 py-12 min-h-[400px]'>
-                    <h3 className={'activity-title'}>{activity.title}</h3>
-                    <p className={'activity-subtitle'}>{activity.subtitle}</p>
-                    <p className={'activity-description'}>{activity.description}</p>
+                    <h3 className={'activity-title text-[24px]'}>{activity.title}</h3>
+                    <p className={'activity-subtitle text-[20px]'}>{activity.subtitle}</p>
+                    <p className={'activity-description text-[16px]'}>{activity.description}</p>
                 </BorderedTiltCard>
             ))}
         </div>

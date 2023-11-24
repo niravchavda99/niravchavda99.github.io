@@ -14,15 +14,15 @@
 }
 
 .activity-title {
-  @apply text-white font-bold text-[24px];
+  @apply text-white font-bold;
 }
 
 .activity-subtitle {
-  @apply text-white font-bold text-[20px]
+  @apply text-white font-bold;
 }
 
 .activity-description {
-  @apply text-secondary mt-2 text-[16px];
+  @apply text-secondary mt-2;
 }
 
 .theme-light {
