@@ -11,7 +11,7 @@ export const Theme = ({currentTheme, toggleTheme}: ThemeProps) => {
 
     return (
         <div
-            className={`fixed left-2 bottom-2 p-1 rounded-full z-20 cursor-pointer text-2xl ${textColor}`}
+            className={`p-1 pr-4 rounded-full z-20 cursor-pointer text-2xl ${textColor}`}
             onClick={() => toggleTheme()}
         >
             {currentTheme.isLight ? <MdLightMode/> : <MdDarkMode/>}
