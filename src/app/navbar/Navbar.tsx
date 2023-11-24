@@ -34,7 +34,7 @@ const Navbar = (props: NavbarProps) => {
                 }
                 <NavLink
                     to={"/projects"}
-                    className={({isActive}) => `navbar-content${isActive ? ' text-blue-500' : ''}`}>
+                    className={({isActive}) => `navbar-content${isActive ? ' navbar-content-active' : ''}`}>
                     Projects
                 </NavLink>
                 <Theme currentTheme={props.currentTheme} toggleTheme={props.toggleTheme}/>
