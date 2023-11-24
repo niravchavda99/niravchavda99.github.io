@@ -1,7 +1,7 @@
 @import "src/app/common/Common.scss";
 
 #activities {
-  @apply h-max p-8 select-none transition-all;
+  @apply h-max p-8 md:py-16 lg:py-24 select-none transition-all;
   min-height: 100vh;
 }
 
