@@ -1,16 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.a4fd7b98.css",
-    "main.js": "/static/js/main.d99f5039.js",
+    "main.css": "/static/css/main.a2cfcec0.css",
+    "main.js": "/static/js/main.1fd5a817.js",
     "static/js/496.f5c13298.chunk.js": "/static/js/496.f5c13298.chunk.js",
     "static/media/portfolio-three-js-snap.png": "/static/media/portfolio-three-js-snap.a7987775b00a354f3604.png",
     "static/media/3d-portfolio-snap.png": "/static/media/3d-portfolio-snap.0773f6917866316d2563.png",
     "static/media/profile.jpg": "/static/media/profile.e9ca4a9f0085d95279c8.jpg",
     "static/media/gujarat_university_logo.png": "/static/media/gujarat_university_logo.6264af70ff52851a93f5.png",
     "static/media/kskvku_logo.png": "/static/media/kskvku_logo.aac126c8a93062079971.png",
-    "static/media/micronaut.svg": "/static/media/micronaut.425edc8a0dc2a91788c8b371983a770c.svg",
+    "static/media/micronaut-dark.svg": "/static/media/micronaut-dark.b09426693826658ae153615107d7bf4a.svg",
+    "static/media/micronaut-light.svg": "/static/media/micronaut-light.425edc8a0dc2a91788c8b371983a770c.svg",
     "static/media/react.svg": "/static/media/react.45dedb84e59c338391737a4b83e827a2.svg",
-    "static/media/microsoft-sql-server.svg": "/static/media/microsoft-sql-server.6583a645e3ef583e74c9315da320ad00.svg",
+    "static/media/microsoft-sql-server-dark.svg": "/static/media/microsoft-sql-server-dark.0ab18fade3dcab9ab0c8fa8055fdf4ff.svg",
+    "static/media/microsoft-sql-server-light.svg": "/static/media/microsoft-sql-server-light.6583a645e3ef583e74c9315da320ad00.svg",
     "static/media/java.svg": "/static/media/java.3d1aa5693d06e1379a66ab037b687e3b.svg",
     "static/media/bootstrap.svg": "/static/media/bootstrap.3bcee4595ab95c7686fcc5e79e74339c.svg",
     "static/media/intellij-idea.svg": "/static/media/intellij-idea.5879eadaa661a1b107876509b7754bd0.svg",
@@ -19,12 +21,12 @@
     "index.html": "/index.html",
     "static/media/dart.svg": "/static/media/dart.de4312d18ceafd63975a8295a552d4b4.svg",
     "static/media/flutter.svg": "/static/media/flutter.8fd3a0479f3ab6e04e94cf35423c56ec.svg",
-    "main.a4fd7b98.css.map": "/static/css/main.a4fd7b98.css.map",
-    "main.d99f5039.js.map": "/static/js/main.d99f5039.js.map",
+    "main.a2cfcec0.css.map": "/static/css/main.a2cfcec0.css.map",
+    "main.1fd5a817.js.map": "/static/js/main.1fd5a817.js.map",
     "496.f5c13298.chunk.js.map": "/static/js/496.f5c13298.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a4fd7b98.css",
-    "static/js/main.d99f5039.js"
+    "static/css/main.a2cfcec0.css",
+    "static/js/main.1fd5a817.js"
   ]
 }
