@@ -4,7 +4,7 @@ import React from "react";
 import {BorderedTiltCard} from "../common/tilt-card/bordered/BorderedTiltCard";
 
 const Activities = () => {
-    return <div id={'activities'} className='max-container'>
+    return <div id={'activities'} className='max-container min-h-[calc(100vh-80px)]'>
         <h1 className='head-text'>
             My <span className=' blue-gradient_text font-semibold drop-shadow'>Activities</span>
         </h1>

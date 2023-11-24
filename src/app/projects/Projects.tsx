@@ -7,7 +7,7 @@ import './Projects.scss';
 export const Projects = () => {
     return (
         <>
-            <section className='max-container text-left '>
+            <section className='max-container min-h-[calc(100vh-80px)] text-left '>
                 <h1 className='head-text'>My <span
                     className='blue-gradient_text font-semibold drop-shadow'>Projects</span></h1>
                 <div className='description'>

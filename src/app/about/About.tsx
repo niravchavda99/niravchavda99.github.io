@@ -7,7 +7,7 @@ import SocialMediaLink from "../common/SocialMediaLink";
 const About = () => {
   const iconSize = 28;
 
-  return <section id={'about'} className='max-container'>
+  return <section id={'about'} className='max-container min-h-[calc(100vh-80px)]'>
     <div className="profile-image-wrapper">
       <div className="profile-image-container">
         <img src={profileImage} alt="Profile"
