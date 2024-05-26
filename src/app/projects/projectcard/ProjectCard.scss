@@ -3,11 +3,11 @@
 }
 
 .project-code-link-container {
-  @apply absolute inset-0 flex justify-end m-3 card-img_hover;
+  @apply absolute inset-0 flex justify-end m-3;
 }
 
 .project-code-link {
-  @apply black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer;
+  @apply w-10 h-10 rounded-full flex justify-center items-center cursor-pointer;
 }
 
 .project-code-link-icon {

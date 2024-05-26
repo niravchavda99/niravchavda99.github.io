@@ -21,7 +21,7 @@ export const ProjectCard = ({project, index}: ProjectCardProps) => {
                         {project.codeLink &&
                             <div className="project-code-link-container">
                                 <div
-                                    className="project-code-link"
+                                    className="black-gradient project-code-link"
                                     onClick={() => window.open(project.codeLink, "_blank")}>
                                     <FaGithub className='project-code-link-icon'/>
                                 </div>
