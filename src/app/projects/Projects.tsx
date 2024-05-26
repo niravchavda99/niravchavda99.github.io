@@ -1,8 +1,6 @@
-import {projects, ProjectTag} from "./constants";
-import {Link} from "react-router-dom";
-import {FaArrowRight, FaGithub} from "react-icons/fa6";
-import {TiltCard} from "../common/tilt-card/TiltCard";
+import {projects} from "./constants";
 import './Projects.scss';
+import {ProjectCard} from "./projectcard/ProjectCard";
 
 export const Projects = () => {
     return (
@@ -22,48 +20,7 @@ export const Projects = () => {
                 </div>
                 <div className='flex flex-wrap justify-center my-20 gap-16'>
                     {projects.map((project, index) => (
-                        <TiltCard key={project.name} delayOffset={index}>
-                            <div className='flex flex-col justify-between h-full'>
-                                <div className='flex flex-col'>
-                                    <div className={'relative w-full h-[230px]'}>
-                                        <img src={project.image} alt={project.name}
-                                             className={'w-full h-full object-cover rounded-2xl'}/>
-
-                                        {project.codeLink &&
-                                            <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
-                                                <div
-                                                    className={"black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"}
-                                                    onClick={() => window.open(project.codeLink, "_blank")}>
-                                                    <FaGithub className='w-2/3 h-2/3 object-contain text-white'/>
-                                                </div>
-                                            </div>}
-                                    </div>
-
-                                    <div className={'mt-5 text-left'}>
-                                        <h3 className={'project-name text-[24px]'}>{project.name}</h3>
-                                        <p className={'project-description text-[14px]'}>{project.description}</p>
-                                    </div>
-
-                                    <div className={'mt-4 flex flex-wrap gap-2'}>
-                                        {project.tags.map((tag: ProjectTag) =>
-                                            <p key={tag.name}
-                                               className={`text-[14px] ${tag.color}`}>#{tag.name}</p>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className='mt-5 text-blue-600'>
-                                    <Link
-                                        to={project.link}
-                                        target='_blank'
-                                        rel='noopener noreferrer'
-                                        className='flex items-center gap-2 font-semibold'>
-                                        Live Link
-                                        <FaArrowRight className='w-4 h-4 object-contain'/>
-                                    </Link>
-                                </div>
-                            </div>
-                        </TiltCard>
+                        <ProjectCard project={project} index={index}/>
                     ))}
                 </div>
             </section>

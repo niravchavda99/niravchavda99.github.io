@@ -1,0 +1,15 @@
+.project-snap {
+  @apply w-full h-full object-cover rounded-2xl;
+}
+
+.project-code-link-container {
+  @apply absolute inset-0 flex justify-end m-3 card-img_hover;
+}
+
+.project-code-link {
+  @apply black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer;
+}
+
+.project-code-link-icon {
+  @apply w-2/3 h-2/3 object-contain text-white;
+}
