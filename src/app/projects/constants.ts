@@ -1,6 +1,7 @@
 import {Variants} from "framer-motion";
 import portfolioThreeJsSnap from '../assets/images/portfolio-three-js-snap.png';
 import threeDPortfolioSnap from '../assets/images/3d-portfolio-snap.png';
+import pokedexSnap from '../assets/images/pokedex-snap.png';
 
 export interface ProjectTag {
     name: string;
@@ -8,7 +9,7 @@ export interface ProjectTag {
 }
 
 export interface Project {
-    codeLink: string;
+    codeLink?: string;
     description: string;
     image: string;
     link: string;
@@ -18,11 +19,23 @@ export interface Project {
 
 export const projects: Project[] = [
     {
-        codeLink: 'https://github.com/niravchavda99/portfolio-threejs-demo',
+        description: 'Project to understand Next.js',
+        image: pokedexSnap,
+        link: 'https://pokedex-six-neon.vercel.app',
+        name: 'Pokédex',
+        tags: [
+            {name: 'next.js', color: 'blue-text-gradient'},
+            {name: 'react', color: 'orange-text-gradient'},
+            {name: 'shadcn', color: 'green-text-gradient'},
+            {name: 'tailwind', color: 'pink-text-gradient'},
+        ],
+    },
+    {
+        codeLink: 'https://github.com/niravchavda99/3d-portfolio-demo',
         description: 'Learning project to work with 3D elements in Javascript',
-        image: portfolioThreeJsSnap,
-        link: 'https://portfolio-threejs-demo.vercel.app/',
-        name: 'Portfolio ThreeJS',
+        image: threeDPortfolioSnap,
+        link: 'https://3d-portfolio-demo-chi.vercel.app',
+        name: '3D Portfolio',
         tags: [
             {name: 'react', color: 'orange-text-gradient'},
             {name: 'vite', color: 'green-text-gradient'},
@@ -32,11 +45,11 @@ export const projects: Project[] = [
         ],
     },
     {
-        codeLink: 'https://github.com/niravchavda99/3d-portfolio-demo',
+        codeLink: 'https://github.com/niravchavda99/portfolio-threejs-demo',
         description: 'Learning project to work with 3D elements in Javascript',
-        image: threeDPortfolioSnap,
-        link: 'https://3d-portfolio-demo-chi.vercel.app',
-        name: '3D Portfolio',
+        image: portfolioThreeJsSnap,
+        link: 'https://portfolio-threejs-demo.vercel.app/',
+        name: 'Portfolio ThreeJS',
         tags: [
             {name: 'react', color: 'orange-text-gradient'},
             {name: 'vite', color: 'green-text-gradient'},
