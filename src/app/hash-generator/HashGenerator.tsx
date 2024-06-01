@@ -24,11 +24,9 @@ const toastOptions: ToastOptions = {position: "top-center", closeButton: true, c
 export const HashGenerator = () => {
     const [hashAlgorithm, setHashAlgorithm] = useState<HashAlgorithmDto>(sha1Algorithm);
     const [inputString, setInputString] = useState<string>('');
-    const [message, setMessage] = useState<string>('');
     const [result, setResult] = useState<string>('');
 
     const resetFields = () => {
-        setMessage('');
         setResult('');
     }
 
@@ -40,7 +38,6 @@ export const HashGenerator = () => {
 
     const generateAndCopy = async (input: string | ArrayBuffer | SharedArrayBuffer) => {
         const hashResult = await generateHash(hashAlgorithm.type, input);
-        setResult(hashResult);
         setResult(hashResult);
         await copyResultToClipboard(hashResult);
     }
@@ -84,11 +81,6 @@ export const HashGenerator = () => {
                 <div className='w-[400px]'>
                     <TextArea placeholder='Enter text' onChange={setInputString}/>
                 </div>
-                {!!message.length &&
-                    <div className='text-sm text-red-400 text-center w-[400px]'>
-                        {message}
-                    </div>
-                }
             </div>
 
             <div className='flex justify-center mt-4 gap-2'>
@@ -112,7 +104,7 @@ export const HashGenerator = () => {
                 </div>
             }
 
-            <ToastContainer />
+            <ToastContainer/>
         </section>
     );
 }
