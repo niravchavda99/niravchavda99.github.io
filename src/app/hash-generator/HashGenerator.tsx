@@ -37,9 +37,14 @@ export const HashGenerator = () => {
     }
 
     const generateAndCopy = async (input: string | ArrayBuffer | SharedArrayBuffer) => {
-        const hashResult = await generateHash(hashAlgorithm.type, input);
-        setResult(hashResult);
-        await copyResultToClipboard(hashResult);
+        try {
+            const hashResult = await generateHash(hashAlgorithm.type, input);
+            setResult(hashResult);
+            await copyResultToClipboard(hashResult);
+        } catch (err: any) {
+            toast.dismiss();
+            toast.error((err as Error).message, toastOptions);
+        }
     }
 
     const generateFromInput = async () => {
