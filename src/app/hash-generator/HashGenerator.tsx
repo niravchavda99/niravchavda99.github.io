@@ -63,6 +63,8 @@ export const HashGenerator = () => {
         await generateAndCopy(bytes);
     }
 
+    const clearInput = () => setInputString('');
+
     return (
         <section className='max-container w-full min-h-[calc(100vh-80px)]'>
             <h1 className='head-text text-center'>
@@ -84,12 +86,13 @@ export const HashGenerator = () => {
 
             <div className='flex flex-col items-center'>
                 <div className='w-[400px]'>
-                    <TextArea placeholder='Enter text' onChange={setInputString}/>
+                    <TextArea value={inputString} placeholder='Enter text' onChange={setInputString}/>
                 </div>
             </div>
 
             <div className='flex justify-center mt-4 gap-2'>
                 <Button onClick={generateFromInput}>Generate</Button>
+                <Button onClick={clearInput}>Clear</Button>
                 <Button onClick={generateRandom}>Random</Button>
             </div>
 
