@@ -1,9 +1,11 @@
 .hash-result-container {
-  @apply text-white mt-12 w-[400px];
+  @apply text-white mt-12;
+  width: 400px;
 }
 
 .hash-result-header {
-  @apply text-sm text-slate-400 mb-2 flex flex-row items-center justify-between;
+  @apply text-sm text-slate-400 mb-2;
+  @apply flex flex-row items-center justify-between;
 }
 
 .theme-light {
