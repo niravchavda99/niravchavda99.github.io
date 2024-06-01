@@ -1,0 +1,17 @@
+.hash-result-container {
+  @apply text-white mt-12 w-[400px];
+}
+
+.hash-result-header {
+  @apply text-sm text-slate-400 mb-2 flex flex-row items-center justify-between;
+}
+
+.theme-light {
+  .hash-result-container {
+    @apply text-black;
+  }
+
+  .hash-result-header {
+    @apply text-slate-600;
+  }
+}

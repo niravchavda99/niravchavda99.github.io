@@ -1,0 +1,9 @@
+.hash-label {
+  @apply text-white;
+}
+
+.theme-light {
+  .hash-label {
+    @apply text-black;
+  }
+}
