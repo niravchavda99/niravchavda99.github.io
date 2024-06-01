@@ -91,9 +91,9 @@ export const HashGenerator = () => {
             </div>
 
             <div className='flex justify-center mt-4 gap-2'>
-                <Button onClick={generateFromInput}>Generate</Button>
-                <Button onClick={clearInput}>Clear</Button>
                 <Button onClick={generateRandom}>Random</Button>
+                <Button onClick={generateFromInput}>Generate</Button>
+                <Button variant='danger' onClick={clearInput}>Clear</Button>
             </div>
 
             {!!result.length &&
