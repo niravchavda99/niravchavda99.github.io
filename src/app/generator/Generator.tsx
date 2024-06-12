@@ -2,27 +2,28 @@ import {RadioButton} from "../common/radio-button/RadioButton";
 import {useState} from "react";
 import {TextArea} from "../common/textarea/TextArea";
 import {Button} from "../common/button/Button";
-import {generateHash, HashAlgorithm} from "./generate-hash";
+import {Algorithm, generateData} from "./generate-data";
 import {IoCopyOutline} from "react-icons/io5";
 import {Clipboard} from "./Clipboard";
 import {toast, ToastContainer, ToastOptions} from "react-toastify";
-import './HashGenerator.scss';
+import './Generator.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
-interface HashAlgorithmDto {
+interface AlgorithmDto {
     name: string;
-    type: HashAlgorithm;
+    type: Algorithm;
 }
 
-const sha1Algorithm: HashAlgorithmDto = {name: 'SHA1', type: 'sha1'};
-const sha256Algorithm: HashAlgorithmDto = {name: 'SHA256', type: 'sha256'};
-const sha384Algorithm: HashAlgorithmDto = {name: 'SHA384', type: 'sha384'};
-const sha512Algorithm: HashAlgorithmDto = {name: 'SHA512', type: 'sha512'};
-const hashAlgorithms: HashAlgorithmDto[] = [sha1Algorithm, sha256Algorithm, sha384Algorithm, sha512Algorithm];
+const nanoIdAlgorithm: AlgorithmDto = {name: 'Nano Id', type: 'nanoid'};
+const sha1Algorithm: AlgorithmDto = {name: 'SHA1', type: 'sha1'};
+const sha256Algorithm: AlgorithmDto = {name: 'SHA256', type: 'sha256'};
+const sha384Algorithm: AlgorithmDto = {name: 'SHA384', type: 'sha384'};
+const sha512Algorithm: AlgorithmDto = {name: 'SHA512', type: 'sha512'};
+const algorithms: AlgorithmDto[] = [nanoIdAlgorithm, sha1Algorithm, sha256Algorithm, sha384Algorithm, sha512Algorithm];
 const toastOptions: ToastOptions = {position: "top-center", closeButton: true, className: 'mt-10'};
 
-export const HashGenerator = () => {
-    const [hashAlgorithm, setHashAlgorithm] = useState<HashAlgorithmDto>(sha1Algorithm);
+export const Generator = () => {
+    const [algorithm, setAlgorithm] = useState<AlgorithmDto>(sha1Algorithm);
     const [inputString, setInputString] = useState<string>('');
     const [result, setResult] = useState<string>('');
 
@@ -38,9 +39,9 @@ export const HashGenerator = () => {
 
     const generateAndCopy = async (input: string | ArrayBuffer | SharedArrayBuffer) => {
         try {
-            const hashResult = await generateHash(hashAlgorithm.type, input);
-            setResult(hashResult);
-            await copyResultToClipboard(hashResult);
+            const result = await generateData(algorithm.type, input);
+            setResult(result);
+            await copyResultToClipboard(result);
         } catch (err: any) {
             toast.dismiss();
             toast.error((err as Error).message, toastOptions);
@@ -68,18 +69,18 @@ export const HashGenerator = () => {
     return (
         <section className='max-container w-full min-h-[calc(100vh-80px)]'>
             <h1 className='head-text text-center'>
-                <span className='blue-gradient_text font-semibold drop-shadow'>Hash Generator</span>
+                <span className='blue-gradient_text font-semibold drop-shadow'>Generator</span>
             </h1>
 
             <div className='flex flex-row gap-4 justify-center mt-4'>
-                {hashAlgorithms.map((hashAlgorithmDto: HashAlgorithmDto) => (
+                {algorithms.map((algorithmDto: AlgorithmDto) => (
                     <RadioButton
-                        id={`${hashAlgorithmDto.type}-hash`}
-                        label={hashAlgorithmDto.name}
-                        name='hash-type'
-                        key={hashAlgorithmDto.type}
-                        defaultChecked={hashAlgorithm === hashAlgorithmDto}
-                        onChange={() => setHashAlgorithm(hashAlgorithmDto)}
+                        id={`${algorithmDto.type}-algorithm`}
+                        label={algorithmDto.name}
+                        name='algorithm-type'
+                        key={algorithmDto.type}
+                        defaultChecked={algorithm === algorithmDto}
+                        onChange={() => setAlgorithm(algorithmDto)}
                     />
                 ))}
             </div>
@@ -98,8 +99,8 @@ export const HashGenerator = () => {
 
             {!!result.length &&
                 <div className='flex flex-row justify-center'>
-                    <div className='hash-result-container'>
-                        <div className='hash-result-header'>
+                    <div className='result-container'>
+                        <div className='result-header'>
                             <span>Result</span>
                             <IoCopyOutline
                                 className='cursor-pointer w-4 h-4'

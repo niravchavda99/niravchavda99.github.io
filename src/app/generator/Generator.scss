@@ -1,19 +1,19 @@
-.hash-result-container {
+.result-container {
   @apply text-white mt-12;
   width: 400px;
 }
 
-.hash-result-header {
+.result-header {
   @apply text-sm text-slate-400 mb-2;
   @apply flex flex-row items-center justify-between;
 }
 
 .theme-light {
-  .hash-result-container {
+  .result-container {
     @apply text-black;
   }
 
-  .hash-result-header {
+  .result-header {
     @apply text-slate-600;
   }
 }
