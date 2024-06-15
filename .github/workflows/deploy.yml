@@ -12,6 +12,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Dependencies
         run: npm install
+      - name: 'Install Git LFS'
+        run: |
+          curl -s https://git-lfs.github.com/install.sh | bash
+      - name: Configure Git LFS
+        run: |
+          echo "*.pack filter=lfs diff=lfs merge=lfs -text" > .gitattributes
       - name: Set Identity
         run: |
           git config --global user.email "nmchavda99@gmail.com"
