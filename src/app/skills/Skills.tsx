@@ -4,7 +4,7 @@ import React from "react";
 
 const Skills = () => {
     return (
-        <div id={'skills'} className='max-container min-h-[calc(100vh-80px)]'>
+        <div id='skills' className='max-container min-h-[calc(100vh-80px)]'>
             <h1 className='head-text'>
                 My <span className=' blue-gradient_text font-semibold drop-shadow'>Skills</span>
             </h1>

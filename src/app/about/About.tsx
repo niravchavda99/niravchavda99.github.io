@@ -7,7 +7,7 @@ import SocialMediaLink from "../common/SocialMediaLink";
 const About = () => {
   const iconSize = 28;
 
-  return <section id={'about'} className='max-container min-h-[calc(100vh-80px)]'>
+  return <section id='about' className='max-container min-h-[calc(100vh-80px)]'>
     <div className="profile-image-wrapper">
       <div className="profile-image-container">
         <img src={profileImage} alt="Profile"
@@ -15,14 +15,14 @@ const About = () => {
       </div>
     </div>
 
-    <div className={'about-name'}>Nirav Chavda</div>
-    <div className={'about-short'}>I'm a Software Craftsperson, Learner and an Enthusiast</div>
-    <div className={'links'}>
-      <SocialMediaLink platform={'mail'}><TbMail size={iconSize + 4}/></SocialMediaLink>
-      <SocialMediaLink platform={'github'}><BsGithub size={iconSize}/></SocialMediaLink>
-      <SocialMediaLink platform={'linkedin'}><BsLinkedin size={iconSize - 2}/></SocialMediaLink>
-      <SocialMediaLink platform={'twitter'}><BsTwitter size={iconSize}/></SocialMediaLink>
-      <SocialMediaLink platform={'instagram'}><BsInstagram size={iconSize - 2}/></SocialMediaLink>
+    <div className='about-name'>Nirav Chavda</div>
+    <div className='about-short'>I'm a Software Craftsperson, Learner and an Enthusiast</div>
+    <div className='links'>
+      <SocialMediaLink platform='mail'><TbMail size={iconSize + 4}/></SocialMediaLink>
+      <SocialMediaLink platform='github'><BsGithub size={iconSize}/></SocialMediaLink>
+      <SocialMediaLink platform='linkedin'><BsLinkedin size={iconSize - 2}/></SocialMediaLink>
+      <SocialMediaLink platform='twitter'><BsTwitter size={iconSize}/></SocialMediaLink>
+      <SocialMediaLink platform='instagram'><BsInstagram size={iconSize - 2}/></SocialMediaLink>
     </div>
   </section>;
 }

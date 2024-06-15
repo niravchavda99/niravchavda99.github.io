@@ -6,18 +6,18 @@ import 'react-vertical-timeline-component/style.min.css';
 import {Profile} from "./Profile";
 
 const Experience = () => {
-    return <div id={'experience'}
-                className='max-container min-h-[calc(100vh-80px)] h-max min-h-[100vh] select-none transition-all'>
+    return <div id='experience'
+                className='max-container h-max min-h-[100vh] select-none transition-all'>
         <h1 className='head-text'>
             My <span className=' blue-gradient_text font-semibold drop-shadow'>Experience</span>
         </h1>
-        <div className={'flex flex-col justify-center items-center mt-10'}>
+        <div className='flex flex-col justify-center items-center mt-10'>
             <VerticalTimeline>
                 {jobs.map(job => renderTimelineElement(job, job.organizationName, job.designation))}
             </VerticalTimeline>
         </div>
 
-        <div className={'flex flex-col justify-center items-center mt-4'}>
+        <div className='flex flex-col justify-center items-center mt-4'>
             <VerticalTimeline lineColor="#94a3b8">
                 {educations.map(education => renderTimelineElement(education, education.instituteName, education.degree))}
             </VerticalTimeline>
@@ -30,7 +30,7 @@ const renderTimelineElement = (profile: Profile, name: string, heading1: string)
         <VerticalTimelineElement
             key={name + profile.dateStarted + profile.dateEnded}
             date={`${profile.dateStarted} - ${profile.dateEnded}`}
-            dateClassName={'timeline-date'}
+            dateClassName='timeline-date'
             icon={<div className='flex justify-center items-center w-full h-full'>
                 <img src={profile.icon} alt={name}
                      className='w-[70%] h-[70%] object-contain rounded-full'/>
@@ -43,7 +43,7 @@ const renderTimelineElement = (profile: Profile, name: string, heading1: string)
             }}
             iconStyle={{background: profile.iconBg}}
         >
-            <div className={'text-left'}>
+            <div className='text-left'>
                 <h3 className='text-black text-xl font-semibold'>
                     {heading1}
                 </h3>

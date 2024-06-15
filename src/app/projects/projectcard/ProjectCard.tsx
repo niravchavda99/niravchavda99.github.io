@@ -14,9 +14,9 @@ export const ProjectCard = ({project, index}: ProjectCardProps) => {
         <TiltCard key={project.name} delayOffset={index}>
             <div className='flex flex-col justify-between h-full'>
                 <div className='flex flex-col'>
-                    <div className={'relative w-full h-[230px]'}>
+                    <div className='relative w-full h-[230px]'>
                         <img src={project.image} alt={project.name}
-                             className={'project-snap'}/>
+                             className='project-snap'/>
 
                         {project.codeLink &&
                             <div className="project-code-link-container">
@@ -28,12 +28,12 @@ export const ProjectCard = ({project, index}: ProjectCardProps) => {
                             </div>}
                     </div>
 
-                    <div className={'mt-5 text-left'}>
-                        <h3 className={'project-name text-[24px]'}>{project.name}</h3>
-                        <p className={'project-description text-[14px]'}>{project.description}</p>
+                    <div className='mt-5 text-left'>
+                        <h3 className='project-name text-[24px]'>{project.name}</h3>
+                        <p className='project-description text-[14px]'>{project.description}</p>
                     </div>
 
-                    <div className={'mt-4 flex flex-wrap gap-2'}>
+                    <div className='mt-4 flex flex-wrap gap-2'>
                         {project.tags.map((tag: ProjectTag) =>
                             <p key={tag.name}
                                className={`text-[14px] ${tag.color}`}>#{tag.name}</p>

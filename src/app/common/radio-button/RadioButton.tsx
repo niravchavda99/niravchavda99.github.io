@@ -33,7 +33,7 @@ export const RadioButton = ({defaultChecked, disabled, id, label, name, onChange
                     ].join(" ")}
                 />
             </div>
-            <label htmlFor={id} className={"label text-start hover:cursor-pointer"}>
+            <label htmlFor={id} className="label text-start hover:cursor-pointer">
                 {label}
             </label>
         </div>
