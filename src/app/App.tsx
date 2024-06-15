@@ -5,41 +5,32 @@ import Footer from "./footer/Footer";
 import React, { useState } from "react";
 import { BsArrowUp } from "react-icons/bs";
 import Navbar from "./navbar/Navbar";
-import { Theme } from "./theme/ThemeSwitch";
+import { Theme, ThemeContext } from "./theme/ThemeContext";
 
 function App() {
-  const [currentTheme, setCurrentTheme] = useState<Theme>(
-    getThemeFromLocalStorage(),
-  );
-
+  const [theme, setTheme] = useState<Theme>(getThemeFromLocalStorage());
   const toggleTheme = () => {
-    const updatedTheme = currentTheme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
+    const updatedTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
     setThemeInLocalStorage(updatedTheme);
-    setCurrentTheme(updatedTheme);
+    setTheme(updatedTheme);
   };
-
-  const themeSuffix = currentTheme === Theme.DARK ? "-dark" : "-light";
-
+  const themeSuffix = theme === Theme.DARK ? "-dark" : "-light";
   return (
-    <>
+    <ThemeContext.Provider value={{ theme: theme, toggle: toggleTheme }}>
       <ScrollToTop
         className="flex flex-col items-center justify-center"
         smooth
         style={{ backgroundColor: "#0284C7" }}
         component={<BsArrowUp size={26} color="white" />}
       />
-      <Navbar
-        currentTheme={currentTheme}
-        toggleTheme={toggleTheme}
-        className={`theme${themeSuffix}`}
-      />
+      <Navbar className={`theme${themeSuffix}`} />
       <div
         className={`App transition-all bg${themeSuffix} theme${themeSuffix}`}
       >
         <Outlet />
         <Footer />
       </div>
-    </>
+    </ThemeContext.Provider>
   );
 }
 

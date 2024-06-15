@@ -1,24 +1,18 @@
-import {MdDarkMode, MdLightMode} from "react-icons/md";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { useContext } from "react";
+import { Theme, ThemeContext } from "./ThemeContext";
 
-export enum Theme {
-    LIGHT = "LIGHT", DARK = "DARK"
-}
+export const ThemeSwitch = () => {
+  const { theme, toggle } = useContext(ThemeContext);
+  const textColor: string =
+    theme === Theme.DARK ? "text-yellow-400" : "text-blue-500";
 
-export interface ThemeProps {
-    currentTheme: Theme;
-    toggleTheme: Function;
-}
-
-// TODO: Make this use context API instead of props drilling
-export const ThemeSwitch = ({currentTheme, toggleTheme}: ThemeProps) => {
-    const textColor: string = currentTheme === Theme.DARK ? 'text-yellow-400' : 'text-blue-500';
-
-    return (
-        <div
-            className={`p-1 pr-4 rounded-full z-20 cursor-pointer text-2xl ${textColor}`}
-            onClick={() => toggleTheme()}
-        >
-            {currentTheme === Theme.DARK ? <MdDarkMode/> : <MdLightMode/>}
-        </div>
-    );
-}
+  return (
+    <div
+      className={`p-1 pr-4 rounded-full z-20 cursor-pointer text-2xl ${textColor}`}
+      onClick={toggle}
+    >
+      {theme === Theme.DARK ? <MdDarkMode /> : <MdLightMode />}
+    </div>
+  );
+};

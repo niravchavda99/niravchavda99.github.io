@@ -1,45 +1,56 @@
-import './Navbar.scss';
+import "./Navbar.scss";
 import React from "react";
-import {NavLink, useLocation} from "react-router-dom";
-import {Theme, ThemeSwitch} from "../theme/ThemeSwitch";
+import { NavLink, useLocation } from "react-router-dom";
+import { ThemeSwitch } from "../theme/ThemeSwitch";
 
 interface NavbarProps {
-    currentTheme: Theme;
-    toggleTheme: Function;
-    className: string;
+  className: string;
 }
 
 const Navbar = (props: NavbarProps) => {
-    const className = props.className ?? "";
-    const isProjectsRoute = useLocation().pathname === '/projects';
+  const className = props.className ?? "";
+  const isNotHomeRoute = useLocation().pathname !== "/";
 
-    return <nav className={`${className} navbar-container`}>
-        <div className="navbar">
-            <div>
-                <NavLink to="/" className='navbar-logo'>
-                    <p className='blue-gradient_text'>NC</p>
-                </NavLink>
-            </div>
-            <div className='navbar-content-container'>
-                {!isProjectsRoute &&
-                    <>
-                        <a href="/#experience" className="navbar-content mobile-hidden">Experience</a>
-                        <a href="/#skills" className="navbar-content mobile-hidden">Skills</a>
-                        <a href="/#activities" className="navbar-content mobile-hidden">Activities</a>
-                    </>
-                }
-                {isProjectsRoute &&
-                    <NavLink to="/" className='navbar-content'>Home</NavLink>
-                }
-                <NavLink
-                    to="/projects"
-                    className={({isActive}) => `navbar-content${isActive ? ' navbar-content-active' : ''}`}>
-                    Projects
-                </NavLink>
-                <ThemeSwitch currentTheme={props.currentTheme} toggleTheme={props.toggleTheme}/>
-            </div>
+  return (
+    <nav className={`${className} navbar-container`}>
+      <div className="navbar">
+        <div>
+          <NavLink to="/" className="navbar-logo">
+            <p className="blue-gradient_text">NC</p>
+          </NavLink>
         </div>
-    </nav>;
-}
+        <div className="navbar-content-container">
+          {!isNotHomeRoute && (
+            <>
+              <a href="/#experience" className="navbar-content mobile-hidden">
+                Experience
+              </a>
+              <a href="/#skills" className="navbar-content mobile-hidden">
+                Skills
+              </a>
+              <a href="/#activities" className="navbar-content mobile-hidden">
+                Activities
+              </a>
+            </>
+          )}
+          {isNotHomeRoute && (
+            <NavLink to="/" className="navbar-content">
+              Home
+            </NavLink>
+          )}
+          <NavLink
+            to="/projects"
+            className={({ isActive }) =>
+              `navbar-content${isActive ? " navbar-content-active" : ""}`
+            }
+          >
+            Projects
+          </NavLink>
+          <ThemeSwitch />
+        </div>
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;
