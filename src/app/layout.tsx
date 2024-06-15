@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import "../index.scss";
 import ScrollToTop from "react-scroll-to-top";
 import { BsArrowUp } from "react-icons/bs";
@@ -13,7 +13,10 @@ import Head from "next/head";
 type RootLayoutProps = { children?: ReactNode };
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const [theme, setTheme] = useState<Theme>(getThemeFromLocalStorage());
+  const [theme, setTheme] = useState<Theme>(Theme.DARK);
+  useEffect(() => {
+    setTheme(getThemeFromLocalStorage());
+  }, []);
   const toggleTheme = () => {
     const updatedTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
     setThemeInLocalStorage(updatedTheme);
@@ -52,7 +55,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 }
 
 function getThemeFromLocalStorage(): Theme {
-  const themeFromStorage = localStorage.getItem("theme");
+  const themeFromStorage = localStorage?.getItem("theme");
   if (!themeFromStorage) {
     return Theme.DARK;
   }
@@ -60,5 +63,5 @@ function getThemeFromLocalStorage(): Theme {
 }
 
 function setThemeInLocalStorage(theme: Theme): void {
-  localStorage.setItem("theme", theme);
+  localStorage?.setItem("theme", theme);
 }
