@@ -1,6 +1,8 @@
+"use client";
+
 import { FaArrowRight, FaGithub } from "react-icons/fa6";
 import { Project, ProjectTag } from "../constants";
-import { TiltCard } from "../../common/tilt-card/TiltCard";
+import { TiltCard } from "../../../components/common/tilt-card/TiltCard";
 import "./ProjectCard.scss";
 import Link from "next/link";
 

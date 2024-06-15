@@ -1,0 +1,27 @@
+@import "../common/Common";
+
+.footer {
+  @apply text-center inline-block p-2 w-full transition-all text-slate-200;
+}
+
+.theme-light {
+  .footer {
+    @apply text-slate-700;
+  }
+
+  .footer-text {
+    @apply text-slate-700;
+  }
+}
+
+.copyright {
+  @apply w-fit inline-block;
+}
+
+.name {
+  @apply font-semibold ml-1 underline underline-offset-2 transition-all;
+}
+
+.footer-text {
+  @apply transition-all;
+}

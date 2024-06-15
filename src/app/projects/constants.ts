@@ -1,7 +1,7 @@
 import { Variants } from "framer-motion";
-import portfolioThreeJsSnap from "../assets/images/portfolio-three-js-snap.png";
-import threeDPortfolioSnap from "../assets/images/3d-portfolio-snap.png";
-import pokedexSnap from "../assets/images/pokedex-snap.png";
+import portfolioThreeJsSnap from "../../assets/images/portfolio-three-js-snap.png";
+import threeDPortfolioSnap from "../../assets/images/3d-portfolio-snap.png";
+import pokedexSnap from "../../assets/images/pokedex-snap.png";
 
 export interface ProjectTag {
   name: string;

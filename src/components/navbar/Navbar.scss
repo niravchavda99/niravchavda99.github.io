@@ -1,0 +1,53 @@
+@import "../common/Common";
+
+.navbar-container {
+  @apply w-full fixed top-0 z-30 font-poppins;
+}
+
+.navbar {
+  @apply p-1 flex flex-row justify-between select-none items-center transition-all;
+  @apply text-slate-300 bg-tertiary-dark;
+}
+
+.navbar-logo {
+  @apply cursor-pointer p-2 text-xl w-10 h-10 rounded-lg ml-2;
+  @apply bg-tertiary items-center justify-center flex font-bold shadow-md transition-all;
+}
+
+.navbar-content-active {
+  @apply text-blue-500;
+}
+
+.theme-light {
+  .navbar {
+    background-color: #EFF2F6;
+  }
+
+  .navbar-logo {
+    @apply bg-white;
+  }
+
+  .navbar-content {
+    @apply text-slate-800;
+  }
+
+  .navbar-content-active {
+    @apply text-blue-500;
+  }
+
+  .navbar-content:hover {
+    @apply rounded-lg bg-slate-200;
+  }
+}
+
+.navbar-content-container {
+  @apply flex flex-row items-center;
+}
+
+.navbar-content {
+  @apply mx-1 p-2 cursor-pointer border-2 border-transparent text-lg;
+}
+
+.navbar-content:hover {
+  @apply rounded-lg bg-slate-800;
+}

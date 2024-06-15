@@ -1,0 +1,24 @@
+:root {
+  --bg-color: rgb(13, 16, 19);
+  --line-color: rgb(94, 197, 214);
+}
+
+.transition-all {
+  transition: all 0.5s linear;
+}
+
+.bg-dark {
+  @apply bg-tertiary-dark;
+}
+
+.bg-light {
+  @apply bg-slate-300/30;
+}
+
+.mobile-hidden {
+  @apply hidden md:block;
+}
+
+.blue-gradient_text {
+  @apply bg-gradient-to-r from-[#00c6ff] to-[#0072ff] bg-clip-text text-transparent;
+}
