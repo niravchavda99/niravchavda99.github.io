@@ -14,7 +14,8 @@ jobs:
         run: npm install
       - name: 'Install Git LFS'
         run: |
-          curl -s https://git-lfs.github.com/install.sh | bash
+          sudo apt-get install git-lfs
+          git-lfs install
       - name: Configure Git LFS
         run: |
           echo "*.pack filter=lfs diff=lfs merge=lfs -text" > .gitattributes
