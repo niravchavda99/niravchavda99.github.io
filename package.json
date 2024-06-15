@@ -4,21 +4,15 @@
   "private": true,
   "homepage": "https://niravchavda99.github.io",
   "dependencies": {
-    "@testing-library/jest-dom": "^6.4.6",
-    "@testing-library/react": "^16.0.0",
-    "@testing-library/user-event": "^14.5.2",
-    "@types/jest": "^29.5.12",
     "@types/node": "^20.14.2",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "axios": "1.7.2",
     "framer-motion": "^11.2.10",
     "md5": "^2.3.0",
     "nanoid": "^5.0.7",
     "next": "^14.2.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-favicon": "^2.0.5",
     "react-icons": "^5.2.1",
     "react-loader-spinner": "^6.1.6",
     "react-scroll-to-top": "^3.0.0",
@@ -28,8 +22,7 @@
     "sha1": "^1.1.1",
     "tailwindcss": "^3.4.4",
     "tailwindscss": "^0.3.0",
-    "typescript": "^5.4.5",
-    "web-vitals": "^4.1.1"
+    "typescript": "^5.4.5"
   },
   "scripts": {
     "dev": "next dev",
@@ -60,7 +53,6 @@
     "@types/react-vertical-timeline-component": "^3.3.6",
     "@types/sha1": "^1.1.5",
     "autoprefixer": "^10.4.19",
-    "eslint": "^9.5.0",
     "gh-pages": "^6.1.1",
     "postcss": "^8.4.38",
     "sass": "^1.77.5"
