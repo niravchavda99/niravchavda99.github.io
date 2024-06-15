@@ -1,11 +1,10 @@
 import './Navbar.scss';
 import React from "react";
 import {NavLink, useLocation} from "react-router-dom";
-import {Theme} from "../theme/Theme";
-import {ThemeDto} from "../theme/ThemeDto";
+import {Theme, ThemeSwitch} from "../theme/ThemeSwitch";
 
 interface NavbarProps {
-    currentTheme: ThemeDto;
+    currentTheme: Theme;
     toggleTheme: Function;
     className: string;
 }
@@ -37,7 +36,7 @@ const Navbar = (props: NavbarProps) => {
                     className={({isActive}) => `navbar-content${isActive ? ' navbar-content-active' : ''}`}>
                     Projects
                 </NavLink>
-                <Theme currentTheme={props.currentTheme} toggleTheme={props.toggleTheme}/>
+                <ThemeSwitch currentTheme={props.currentTheme} toggleTheme={props.toggleTheme}/>
             </div>
         </div>
     </nav>;

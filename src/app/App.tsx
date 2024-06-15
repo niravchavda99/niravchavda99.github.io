@@ -4,17 +4,17 @@ import "./App.scss";
 import Footer from "./footer/Footer";
 import React, {useState} from "react";
 import {BsArrowUp} from "react-icons/bs";
-import {ThemeDto} from "./theme/ThemeDto";
 import Navbar from "./navbar/Navbar";
+import {Theme} from "./theme/ThemeSwitch";
 
 function App() {
-    const [currentTheme, setCurrentTheme] = useState<ThemeDto>(ThemeDto.dark());
+    const [currentTheme, setCurrentTheme] = useState<Theme>(Theme.DARK);
 
     const toggleTheme = () => {
-        setCurrentTheme(currentTheme.isDark ? ThemeDto.light() : ThemeDto.dark());
+        setCurrentTheme(currentTheme === Theme.DARK ? Theme.LIGHT : Theme.DARK);
     }
 
-    const themeSuffix = currentTheme.isDark ? '-dark' : '-light';
+    const themeSuffix = currentTheme === Theme.DARK ? '-dark' : '-light';
 
     return (
         <>
