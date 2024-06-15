@@ -21,30 +21,33 @@ import intellijIdea from "../assets/icons/tech/intellij-idea.svg";
 import vsCode from "../assets/icons/tech/vs-code.svg";
 
 type Technology = {
-    name: string;
-    icon: string;
-    darkIcon?: string;
+  name: string;
+  icon: string;
+  darkIcon?: string;
 };
 
 export const technologies: Technology[] = [
-    {name: 'Java', icon: java},
-    {name: 'Micronaut', icon: micronautLight, darkIcon: micronautDark},
-    {name: "Javascript", icon: javascript},
-    {name: "Typescript", icon: typescript},
-    {name: "Angular", icon: angular},
-    {name: "React", icon: react},
-    {name: "HTML", icon: html},
-    {name: "CSS", icon: css},
-    {name: "Bootstrap", icon: bootstrap},
-    {name: "Tailwind", icon: tailwind},
-    {name: "MS SQL Server", icon: microsoftSqlServerLight, darkIcon: microsoftSqlServerDark},
-    {name: "NodeJS", icon: nodejs},
-    {name: "MySQL", icon: mysql},
-    {name: "Dart", icon: dart},
-    {name: "Flutter", icon: flutter},
-    {name: "ThreeJS", icon: threeJs},
-    {name: "Git", icon: git},
-    {name: "IntelliJ", icon: intellijIdea},
-    {name: "VSCode", icon: vsCode},
+  { name: "Java", icon: java.src },
+  { name: "Micronaut", icon: micronautLight.src, darkIcon: micronautDark.src },
+  { name: "Javascript", icon: javascript.src },
+  { name: "Typescript", icon: typescript.src },
+  { name: "Angular", icon: angular.src },
+  { name: "React", icon: react.src },
+  { name: "HTML", icon: html.src },
+  { name: "CSS", icon: css.src },
+  { name: "Bootstrap", icon: bootstrap.src },
+  { name: "Tailwind", icon: tailwind.src },
+  {
+    name: "MS SQL Server",
+    icon: microsoftSqlServerLight.src,
+    darkIcon: microsoftSqlServerDark.src,
+  },
+  { name: "NodeJS", icon: nodejs.src },
+  { name: "MySQL", icon: mysql.src },
+  { name: "Dart", icon: dart.src },
+  { name: "Flutter", icon: flutter.src },
+  { name: "ThreeJS", icon: threeJs.src },
+  { name: "Git", icon: git.src },
+  { name: "IntelliJ", icon: intellijIdea.src },
+  { name: "VSCode", icon: vsCode.src },
 ];
-

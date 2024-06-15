@@ -6,7 +6,6 @@ import React from "react";
 import {Generator} from "./generator/Generator";
 
 const AppRoutes = () => {
-
     return (
         <Routes>
             <Route path="/" element={<App/>}>

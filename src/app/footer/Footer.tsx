@@ -15,8 +15,8 @@ const Footer = () => {
                 <div className="footer-text ml-2">© {year}</div>
             </div>
             <div className="py-1 flex flex-row justify-center items-center">
-                <img src={react} alt="React" className='w-6 h-6 object-contain'/>
-                <img src={tailwind} alt="React" className='w-6 h-6 object-contain ml-2'/>
+                <img src={react.src} alt="React" className='w-6 h-6 object-contain'/>
+                <img src={tailwind.src} alt="React" className='w-6 h-6 object-contain ml-2'/>
             </div>
         </div>
     );
