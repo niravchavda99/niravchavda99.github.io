@@ -1,14 +1,8 @@
-import { sha1, sha256, sha384, sha512 } from "crypto-hash";
 import { nanoid } from "nanoid";
 import md5 from "md5";
+import sha1 from "sha1";
 
-export type Algorithm =
-  | "nanoid"
-  | "md5"
-  | "sha1"
-  | "sha256"
-  | "sha384"
-  | "sha512";
+export type Algorithm = "nanoid" | "md5" | "sha1";
 
 export type TransformInput = string | Uint8Array;
 type TransformerFunction = (text: TransformInput) => Promise<string>;
@@ -18,10 +12,7 @@ type AlgorithmFunctionMap = {
 
 const algorithmFunctionMap: AlgorithmFunctionMap = {
   md5: withPromise(md5),
-  sha1: sha1,
-  sha256: sha256,
-  sha384: sha384,
-  sha512: sha512,
+  sha1: withPromise(sha1),
   nanoid: withPromise(() => nanoid()),
 };
 

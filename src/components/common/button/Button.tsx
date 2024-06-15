@@ -7,12 +7,22 @@ interface ButtonProps {
   children: ReactNode;
   onClick: () => void;
   variant?: ButtonVariant;
+  disabled?: boolean;
 }
 
-export const Button = ({ children, variant, onClick }: ButtonProps) => {
-  const classNames = ["button", `button-${variant ?? "primary"}`].join(" ");
+export const Button = ({
+  children,
+  variant,
+  onClick,
+  disabled,
+}: ButtonProps) => {
+  const classNames = [
+    "button",
+    `button-${variant ?? "primary"}`,
+    disabled && "button-disabled",
+  ].join(" ");
   return (
-    <button className={classNames} onClick={onClick}>
+    <button className={classNames} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

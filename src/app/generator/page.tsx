@@ -14,21 +14,20 @@ import "react-toastify/dist/ReactToastify.css";
 interface AlgorithmDto {
   name: string;
   type: Algorithm;
+  isGenerateDisabled?: boolean;
 }
 
-const nanoIdAlgorithm: AlgorithmDto = { name: "Nano Id", type: "nanoid" };
+const nanoIdAlgorithm: AlgorithmDto = {
+  name: "Nano Id",
+  type: "nanoid",
+  isGenerateDisabled: true,
+};
 const md5Algorithm: AlgorithmDto = { name: "MD5", type: "md5" };
 const sha1Algorithm: AlgorithmDto = { name: "SHA1", type: "sha1" };
-const sha256Algorithm: AlgorithmDto = { name: "SHA256", type: "sha256" };
-const sha384Algorithm: AlgorithmDto = { name: "SHA384", type: "sha384" };
-const sha512Algorithm: AlgorithmDto = { name: "SHA512", type: "sha512" };
 const algorithms: AlgorithmDto[] = [
   nanoIdAlgorithm,
   md5Algorithm,
   sha1Algorithm,
-  sha256Algorithm,
-  sha384Algorithm,
-  sha512Algorithm,
 ];
 const toastOptions: ToastOptions = {
   position: "top-center",
@@ -113,7 +112,12 @@ export default function GeneratorPage() {
 
       <div className="flex justify-center mt-4 gap-2">
         <Button onClick={generateRandom}>Random</Button>
-        <Button onClick={generateFromInput}>Generate</Button>
+        <Button
+          onClick={generateFromInput}
+          disabled={algorithm.isGenerateDisabled}
+        >
+          Generate
+        </Button>
         <Button variant="danger" onClick={clearInput}>
           Clear
         </Button>

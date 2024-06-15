@@ -12,7 +12,6 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "axios": "1.7.2",
-    "crypto-hash": "^3.0.0",
     "framer-motion": "^11.2.10",
     "md5": "^2.3.0",
     "nanoid": "^5.0.7",
@@ -26,6 +25,7 @@
     "react-tilt": "^1.0.2",
     "react-toastify": "^10.0.5",
     "react-vertical-timeline-component": "^3.6.0",
+    "sha1": "^1.1.1",
     "tailwindcss": "^3.4.4",
     "tailwindscss": "^0.3.0",
     "typescript": "^5.4.5",
@@ -58,6 +58,7 @@
   "devDependencies": {
     "@types/md5": "^2.3.5",
     "@types/react-vertical-timeline-component": "^3.3.6",
+    "@types/sha1": "^1.1.5",
     "autoprefixer": "^10.4.19",
     "eslint": "^9.5.0",
     "gh-pages": "^6.1.1",

@@ -11,3 +11,23 @@
 .button-danger {
   @apply border-red-600 text-red-600 hover:bg-red-600 active:bg-red-500;
 }
+
+.button-primary.button-disabled {
+  @apply border-blue-300 text-blue-300 hover:bg-blue-300 active:bg-blue-200 hover:text-blue-100;
+}
+
+.theme-dark {
+  .button-primary.button-disabled {
+    @apply border-blue-900 text-blue-900 hover:bg-blue-900 active:bg-blue-800 hover:text-blue-600;
+  }
+}
+
+.button-danger.button-disabled {
+  @apply border-red-300 text-red-300 hover:bg-red-300 active:bg-red-200 hover:text-red-100;
+}
+
+.theme-dark {
+  .button-danger.button-disabled {
+    @apply border-red-900 text-red-900 hover:bg-red-900 active:bg-red-800 hover:text-red-600;
+  }
+}
