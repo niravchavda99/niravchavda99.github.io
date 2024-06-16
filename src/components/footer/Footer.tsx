@@ -1,9 +1,13 @@
 import "./Footer.scss";
+import nextjsDark from "../../assets/icons/tech/nextjs-dark.svg";
+import nextjsLight from "../../assets/icons/tech/nextjs-light.svg";
 import tailwind from "../../assets/icons/tech/tailwind.png";
-import react from "../../assets/icons/tech/react.svg";
 import Image from "next/image";
+import { useContext } from "react";
+import { Theme, ThemeContext } from "../theme/ThemeContext";
 
 const Footer = () => {
+  const { theme } = useContext(ThemeContext);
   const year = new Date().getFullYear();
 
   return (
@@ -19,8 +23,8 @@ const Footer = () => {
         <Image
           width={24}
           height={24}
-          src={react.src}
-          alt="React"
+          src={theme === Theme.DARK ? nextjsLight.src : nextjsDark.src}
+          alt="Next.js"
           className="object-contain"
         />
         <Image

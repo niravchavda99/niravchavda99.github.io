@@ -19,6 +19,9 @@ import dart from "../../assets/icons/tech/dart.svg";
 import flutter from "../../assets/icons/tech/flutter.svg";
 import intellijIdea from "../../assets/icons/tech/intellij-idea.svg";
 import vsCode from "../../assets/icons/tech/vs-code.svg";
+import nextjsLight from "../../assets/icons/tech/nextjs-light.svg";
+import nextjsDark from "../../assets/icons/tech/nextjs-dark.svg";
+import nestjs from "../../assets/icons/tech/nestjs.png";
 
 type Technology = {
   name: string;
@@ -31,8 +34,10 @@ export const technologies: Technology[] = [
   { name: "Micronaut", icon: micronautLight.src, darkIcon: micronautDark.src },
   { name: "Javascript", icon: javascript.src },
   { name: "Typescript", icon: typescript.src },
+  { name: "Next.js", icon: nextjsLight.src, darkIcon: nextjsDark.src },
   { name: "Angular", icon: angular.src },
   { name: "React", icon: react.src },
+  { name: "NestJS", icon: nestjs.src },
   { name: "HTML", icon: html.src },
   { name: "CSS", icon: css.src },
   { name: "Bootstrap", icon: bootstrap.src },
