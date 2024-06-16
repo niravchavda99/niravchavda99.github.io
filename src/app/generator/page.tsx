@@ -7,9 +7,9 @@ import { Button } from "@/src/components/common/button/Button";
 import { Algorithm, generateData, TransformInput } from "./generate-data";
 import { IoCopyOutline } from "react-icons/io5";
 import { Clipboard } from "./Clipboard";
-import { toast, ToastContainer, ToastOptions } from "react-toastify";
 import "./Generator.scss";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "@/src/ui/ui/toaster";
+import { useToast } from "@/src/ui/ui/use-toast";
 
 interface AlgorithmDto {
   name: string;
@@ -29,16 +29,12 @@ const algorithms: AlgorithmDto[] = [
   md5Algorithm,
   sha1Algorithm,
 ];
-const toastOptions: ToastOptions = {
-  position: "top-center",
-  closeButton: true,
-  className: "mt-10",
-};
 
 export default function GeneratorPage() {
   const [algorithm, setAlgorithm] = useState<AlgorithmDto>(md5Algorithm);
   const [inputString, setInputString] = useState<string>("");
   const [result, setResult] = useState<string>("");
+  const { toast } = useToast();
 
   const resetFields = () => {
     setResult("");
@@ -46,8 +42,10 @@ export default function GeneratorPage() {
 
   const copyResultToClipboard = async (value: string) => {
     await Clipboard.copy(value);
-    toast.dismiss();
-    toast.success("Copied to clipboard!", toastOptions);
+    toast({
+      description: "Copied to clipboard!",
+      variant: "default",
+    });
   };
 
   const generateAndCopy = async (input: TransformInput) => {
@@ -56,16 +54,20 @@ export default function GeneratorPage() {
       setResult(result);
       await copyResultToClipboard(result);
     } catch (err: any) {
-      toast.dismiss();
-      toast.error((err as Error).message, toastOptions);
+      toast({
+        description: (err as Error).message,
+        variant: "destructive",
+      });
     }
   };
 
   const generateFromInput = async () => {
     resetFields();
     if (!inputString?.length) {
-      toast.dismiss();
-      toast.error("Enter text to generate!", toastOptions);
+      toast({
+        description: "Enter text to generate!",
+        variant: "destructive",
+      });
       return;
     }
     await generateAndCopy(inputString);
@@ -139,7 +141,7 @@ export default function GeneratorPage() {
         </div>
       )}
 
-      <ToastContainer />
+      <Toaster />
     </section>
   );
 }

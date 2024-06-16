@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://niravchavda99.github.io",
   "dependencies": {
+    "@radix-ui/react-toast": "^1.1.5",
     "@types/node": "^20.14.2",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
@@ -20,7 +21,6 @@
     "react-loader-spinner": "^6.1.6",
     "react-scroll-to-top": "^3.0.0",
     "react-tilt": "^1.0.2",
-    "react-toastify": "^10.0.5",
     "react-vertical-timeline-component": "^3.6.0",
     "sha1": "^1.1.1",
     "sharp": "^0.33.4",
