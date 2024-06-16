@@ -36,7 +36,7 @@ const toastOptions: ToastOptions = {
 };
 
 export default function GeneratorPage() {
-  const [algorithm, setAlgorithm] = useState<AlgorithmDto>(sha1Algorithm);
+  const [algorithm, setAlgorithm] = useState<AlgorithmDto>(md5Algorithm);
   const [inputString, setInputString] = useState<string>("");
   const [result, setResult] = useState<string>("");
 
@@ -81,6 +81,7 @@ export default function GeneratorPage() {
 
   return (
     <section className="max-container w-full min-h-[calc(100vh-80px)]">
+      <title>Nirav Chavda | Generator</title>
       <h1 className="head-text text-center">
         <span className="blue-gradient_text font-semibold drop-shadow">
           Generator

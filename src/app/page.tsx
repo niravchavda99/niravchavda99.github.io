@@ -7,6 +7,7 @@ import Activities from "@/src/components/activities/Activities";
 export default function HomePage() {
   return (
     <>
+      <title>Nirav Chavda</title>
       <About />
       <Experience />
       <Skills />
