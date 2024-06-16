@@ -1,8 +1,8 @@
 import { EducationProfile, JobProfile } from "./Profile";
-import MonthYear from "../common/MonthYear";
-import incubyteLogo from "../../assets/images/incubyte_logo.jpg";
-import kskvkuLogo from "../../assets/images/kskvku_logo.png";
-import gujaratUniversityLogo from "../../assets/images/gujarat_university_logo.png";
+import MonthYear from "@/src/components/common/MonthYear";
+import incubyteLogo from "@/src/assets/images/incubyte_logo.jpg";
+import kskvkuLogo from "@/src/assets/images/kskvku_logo.png";
+import gujaratUniversityLogo from "@/src/assets/images/gujarat_university_logo.png";
 
 export const jobs: JobProfile[] = [
   {

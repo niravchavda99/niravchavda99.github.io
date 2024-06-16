@@ -1,4 +1,4 @@
-import MonthYear from "../common/MonthYear";
+import MonthYear from "@/src/components/common/MonthYear";
 
 export interface Profile {
   dateEnded: MonthYear;

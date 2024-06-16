@@ -4,9 +4,9 @@ import React, { ReactNode, useEffect, useState } from "react";
 import "../index.scss";
 import ScrollToTop from "react-scroll-to-top";
 import { BsArrowUp } from "react-icons/bs";
-import Navbar from "../components/navbar/Navbar";
-import Footer from "../components/footer/Footer";
-import { Theme, ThemeContext } from "../components/theme/ThemeContext";
+import Navbar from "@/src/components/navbar/Navbar";
+import Footer from "@/src/components/footer/Footer";
+import { Theme, ThemeContext } from "@/src/components/theme/ThemeContext";
 import "./App.scss";
 import Head from "next/head";
 

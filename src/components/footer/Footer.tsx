@@ -1,10 +1,10 @@
 import "./Footer.scss";
-import nextjsDark from "../../assets/icons/tech/nextjs-dark.svg";
-import nextjsLight from "../../assets/icons/tech/nextjs-light.svg";
-import tailwind from "../../assets/icons/tech/tailwind.png";
+import nextjsDark from "@/src/assets/icons/tech/nextjs-dark.svg";
+import nextjsLight from "@/src/assets/icons/tech/nextjs-light.svg";
+import tailwind from "@/src/assets/icons/tech/tailwind.png";
 import Image from "next/image";
 import { useContext } from "react";
-import { Theme, ThemeContext } from "../theme/ThemeContext";
+import { Theme, ThemeContext } from "@/src/components/theme/ThemeContext";
 
 const Footer = () => {
   const { theme } = useContext(ThemeContext);

@@ -1,7 +1,7 @@
 import "./Activities.scss";
 import { activities } from "./AllActivities";
 import React from "react";
-import { BorderedTiltCard } from "../common/tilt-card/bordered/BorderedTiltCard";
+import { BorderedTiltCard } from "@/src/components/common/tilt-card/bordered/BorderedTiltCard";
 
 const Activities = () => {
   return (

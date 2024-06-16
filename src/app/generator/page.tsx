@@ -1,9 +1,9 @@
 "use client";
 
-import { RadioButton } from "../../components/common/radio-button/RadioButton";
+import { RadioButton } from "@/src/components/common/radio-button/RadioButton";
 import { useState } from "react";
-import { TextArea } from "../../components/common/textarea/TextArea";
-import { Button } from "../../components/common/button/Button";
+import { TextArea } from "@/src/components/common/textarea/TextArea";
+import { Button } from "@/src/components/common/button/Button";
 import { Algorithm, generateData, TransformInput } from "./generate-data";
 import { IoCopyOutline } from "react-icons/io5";
 import { Clipboard } from "./Clipboard";

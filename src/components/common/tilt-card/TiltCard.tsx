@@ -1,6 +1,6 @@
 "use client";
 
-import { fadeIn } from "../../../app/projects/constants";
+import { fadeIn } from "@/src/app/projects/constants";
 import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
