@@ -1,6 +1,5 @@
 "use client";
 
-import { RadioButton } from "@/src/components/common/radio-button/RadioButton";
 import { useState } from "react";
 import { TextArea } from "@/src/components/common/textarea/TextArea";
 import { Algorithm, generateData, TransformInput } from "./generate-data";
@@ -10,6 +9,8 @@ import "./Generator.scss";
 import { Toaster } from "@/src/ui/ui/toaster";
 import { useToast } from "@/src/ui/ui/use-toast";
 import { Button } from "@/src/ui/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/src/ui/ui/radio-group";
+import { Label } from "@/src/ui/ui/label";
 
 interface AlgorithmDto {
   name: string;
@@ -90,18 +91,26 @@ export default function GeneratorPage() {
         </span>
       </h1>
 
-      <div className="flex flex-row gap-4 justify-center mt-4">
+      <RadioGroup defaultValue={algorithm.type} className="radio-buttons">
         {algorithms.map((algorithmDto: AlgorithmDto) => (
-          <RadioButton
-            id={`${algorithmDto.type}-algorithm`}
-            label={algorithmDto.name}
-            name="algorithm-type"
+          <div
             key={algorithmDto.type}
-            defaultChecked={algorithm === algorithmDto}
-            onChange={() => setAlgorithm(algorithmDto)}
-          />
+            className="flex flex-row justify-center items-center space-x-2"
+          >
+            <RadioGroupItem
+              value={algorithmDto.type}
+              id={algorithmDto.type}
+              onClick={() => setAlgorithm(algorithmDto)}
+            />
+            <Label
+              htmlFor={algorithmDto.type}
+              className="cursor-pointer text-sm"
+            >
+              {algorithmDto.name}
+            </Label>
+          </div>
         ))}
-      </div>
+      </RadioGroup>
 
       <div className="flex flex-col items-center">
         <div className="w-[400px]">
@@ -113,38 +122,56 @@ export default function GeneratorPage() {
         </div>
       </div>
 
-      <div className="flex justify-center mt-4 gap-2">
-        <Button variant="default" onClick={generateRandom}>
-          Random
-        </Button>
-        <Button
-          variant="default"
-          onClick={generateFromInput}
-          disabled={algorithm.isGenerateDisabled}
-        >
-          Generate
-        </Button>
-        <Button variant="destructive" onClick={clearInput}>
-          Clear
-        </Button>
-      </div>
-
-      {!!result.length && (
-        <div className="flex flex-row justify-center">
-          <div className="result-container">
-            <div className="result-header">
-              <span>Result</span>
-              <IoCopyOutline
-                className="cursor-pointer w-4 h-4"
-                onClick={() => copyResultToClipboard(result)}
-              />
-            </div>
-            <div className="w-[400px] break-all text-left">{result}</div>
-          </div>
-        </div>
+      {renderButtons(
+        generateRandom,
+        generateFromInput,
+        clearInput,
+        algorithm.isGenerateDisabled,
       )}
+
+      {!!result.length &&
+        renderResultContainer(result, () => copyResultToClipboard(result))}
 
       <Toaster />
     </section>
+  );
+}
+
+function renderButtons(
+  onRandom: () => void,
+  onGenerate: () => void,
+  onClear: () => void,
+  generateDisabled: boolean | undefined,
+) {
+  return (
+    <div className="flex justify-center mt-4 gap-2">
+      <Button variant="default" onClick={onRandom}>
+        Random
+      </Button>
+      <Button
+        variant="default"
+        onClick={onGenerate}
+        disabled={generateDisabled}
+      >
+        Generate
+      </Button>
+      <Button variant="destructive" onClick={onClear}>
+        Clear
+      </Button>
+    </div>
+  );
+}
+
+function renderResultContainer(result: string, onCopy: () => void) {
+  return (
+    <div className="flex flex-row justify-center">
+      <div className="result-container">
+        <div className="result-header">
+          <span>Result</span>
+          <IoCopyOutline className="cursor-pointer w-4 h-4" onClick={onCopy} />
+        </div>
+        <div className="w-[400px] break-all text-left">{result}</div>
+      </div>
+    </div>
   );
 }
