@@ -5,7 +5,7 @@ type ButtonVariant = "primary" | "danger";
 
 interface ButtonProps {
   children: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   variant?: ButtonVariant;
   disabled?: boolean;
 }

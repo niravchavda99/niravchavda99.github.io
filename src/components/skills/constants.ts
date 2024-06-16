@@ -7,7 +7,6 @@ import javascript from "@/src/assets/icons/tech/javascript.png";
 import nodejs from "@/src/assets/icons/tech/nodejs.png";
 import react from "@/src/assets/icons/tech/react.svg";
 import tailwind from "@/src/assets/icons/tech/tailwind.png";
-import threeJs from "@/src/assets/icons/tech/threejs.svg";
 import typescript from "@/src/assets/icons/tech/typescript.png";
 import java from "@/src/assets/icons/tech/java.svg";
 import angular from "@/src/assets/icons/tech/angular.png";
@@ -51,7 +50,6 @@ export const technologies: Technology[] = [
   { name: "MySQL", icon: mysql.src },
   { name: "Dart", icon: dart.src },
   { name: "Flutter", icon: flutter.src },
-  { name: "ThreeJS", icon: threeJs.src },
   { name: "Git", icon: git.src },
   { name: "IntelliJ", icon: intellijIdea.src },
   { name: "VSCode", icon: vsCode.src },
