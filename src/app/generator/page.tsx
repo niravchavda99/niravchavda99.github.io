@@ -3,13 +3,13 @@
 import { RadioButton } from "@/src/components/common/radio-button/RadioButton";
 import { useState } from "react";
 import { TextArea } from "@/src/components/common/textarea/TextArea";
-import { Button } from "@/src/components/common/button/Button";
 import { Algorithm, generateData, TransformInput } from "./generate-data";
 import { IoCopyOutline } from "react-icons/io5";
 import { Clipboard } from "./Clipboard";
 import "./Generator.scss";
 import { Toaster } from "@/src/ui/ui/toaster";
 import { useToast } from "@/src/ui/ui/use-toast";
+import { Button } from "@/src/ui/ui/button";
 
 interface AlgorithmDto {
   name: string;
@@ -114,14 +114,17 @@ export default function GeneratorPage() {
       </div>
 
       <div className="flex justify-center mt-4 gap-2">
-        <Button onClick={generateRandom}>Random</Button>
+        <Button variant="default" onClick={generateRandom}>
+          Random
+        </Button>
         <Button
+          variant="default"
           onClick={generateFromInput}
           disabled={algorithm.isGenerateDisabled}
         >
           Generate
         </Button>
-        <Button variant="danger" onClick={clearInput}>
+        <Button variant="destructive" onClick={clearInput}>
           Clear
         </Button>
       </div>
