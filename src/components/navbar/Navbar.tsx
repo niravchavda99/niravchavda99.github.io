@@ -51,6 +51,7 @@ const Navbar = (props: NavbarProps) => {
           >
             Projects
           </Link>
+
           <ThemeSwitch />
         </div>
       </div>

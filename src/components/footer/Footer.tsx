@@ -4,10 +4,10 @@ import nextjsLight from "@/src/assets/icons/tech/nextjs-light.svg";
 import tailwind from "@/src/assets/icons/tech/tailwind.png";
 import Image from "next/image";
 import { useContext } from "react";
-import { Theme, ThemeContext } from "@/src/components/theme/ThemeContext";
+import { ThemeMode, ThemeContext } from "@/src/components/theme/ThemeContext";
 
 const Footer = () => {
-  const { theme } = useContext(ThemeContext);
+  const { mode } = useContext(ThemeContext);
   const year = new Date().getFullYear();
 
   return (
@@ -23,7 +23,7 @@ const Footer = () => {
         <Image
           width={24}
           height={24}
-          src={theme === Theme.DARK ? nextjsLight.src : nextjsDark.src}
+          src={mode === ThemeMode.Dark ? nextjsLight.src : nextjsDark.src}
           alt="Next.js"
           className="object-contain"
         />
