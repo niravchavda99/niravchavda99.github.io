@@ -8,6 +8,7 @@ import {
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import { Profile } from "./Profile";
+import Image from "next/image";
 
 const Experience = () => {
   return (
@@ -57,10 +58,12 @@ const renderTimelineElement = (
       dateClassName="timeline-date"
       icon={
         <div className="flex justify-center items-center w-full h-full">
-          <img
+          <Image
             src={profile.icon}
             alt={name}
             className="w-[70%] h-[70%] object-contain rounded-full"
+            width={40}
+            height={40}
           />
         </div>
       }

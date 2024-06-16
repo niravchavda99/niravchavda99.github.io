@@ -3,6 +3,7 @@ import "./About.scss";
 import { TbMail } from "react-icons/tb";
 import { BsGithub, BsInstagram, BsLinkedin, BsTwitter } from "react-icons/bs";
 import SocialMediaLink from "../common/SocialMediaLink";
+import Image from "next/image";
 
 const About = () => {
   const iconSize = 28;
@@ -10,7 +11,13 @@ const About = () => {
     <section id="about" className="max-container min-h-[calc(100vh-80px)]">
       <div className="profile-image-wrapper">
         <div className="profile-image-container">
-          <img src={profileImage.src} alt="Profile" className="profile-image" />
+          <Image
+            src={profileImage.src}
+            alt="Profile"
+            className="profile-image"
+            width={1000}
+            height={1000}
+          />
         </div>
       </div>
 

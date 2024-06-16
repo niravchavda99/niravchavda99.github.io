@@ -5,6 +5,7 @@ import { Project, ProjectTag } from "../constants";
 import { TiltCard } from "../../../components/common/tilt-card/TiltCard";
 import "./ProjectCard.scss";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ProjectCardProps {
   project: Project;
@@ -17,7 +18,8 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
       <div className="flex flex-col justify-between h-full">
         <div className="flex flex-col">
           <div className="relative w-full h-[230px]">
-            <img
+            <Image
+              fill={true}
               src={project.image}
               alt={project.name}
               className="project-snap"

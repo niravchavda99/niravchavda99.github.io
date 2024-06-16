@@ -1,6 +1,7 @@
 import "./Skills.scss";
 import { technologies } from "./constants";
 import React from "react";
+import Image from "next/image";
 
 const Skills = () => {
   return (
@@ -18,14 +19,18 @@ const Skills = () => {
             <div key={technology.name} className="block-container w-20 h-20">
               <div className="btn-back rounded-xl" />
               <div className="btn-front rounded-xl flex justify-center items-center">
-                <img
+                <Image
                   src={technology.icon}
                   alt={technology.name}
+                  width={60}
+                  height={60}
                   className="w-2/3 h-2/3 object-contain skill-icon-light"
                 />
-                <img
+                <Image
                   src={technology?.darkIcon ?? technology.icon}
                   alt={technology.name}
+                  width={60}
+                  height={60}
                   className="w-2/3 h-2/3 object-contain skill-icon-dark"
                 />
               </div>

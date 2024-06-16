@@ -1,6 +1,7 @@
 import "./Footer.scss";
 import tailwind from "../../assets/icons/tech/tailwind.png";
 import react from "../../assets/icons/tech/react.svg";
+import Image from "next/image";
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -15,11 +16,19 @@ const Footer = () => {
         <div className="footer-text ml-2">© {year}</div>
       </div>
       <div className="py-1 flex flex-row justify-center items-center">
-        <img src={react.src} alt="React" className="w-6 h-6 object-contain" />
-        <img
+        <Image
+          width={24}
+          height={24}
+          src={react.src}
+          alt="React"
+          className="object-contain"
+        />
+        <Image
           src={tailwind.src}
           alt="React"
-          className="w-6 h-6 object-contain ml-2"
+          className="object-contain ml-2"
+          width={24}
+          height={24}
         />
       </div>
     </div>
