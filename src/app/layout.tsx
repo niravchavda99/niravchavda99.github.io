@@ -14,6 +14,7 @@ import {
 import "../index.scss";
 import "./App.scss";
 import { cn } from "@/src/lib/utils";
+import { Toaster } from "@/src/ui/ui/toaster";
 
 type RootLayoutProps = { children?: ReactNode };
 
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               style={{ backgroundColor: "#0284C7" }}
               component={<BsArrowUp size={26} color="white" />}
             />
+            <Toaster />
             <Navbar className={`theme-mode-${themeSuffix}`} />
             <div
               className={cn(

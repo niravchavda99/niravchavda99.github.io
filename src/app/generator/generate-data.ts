@@ -2,12 +2,12 @@ import { nanoid } from "nanoid";
 import md5 from "md5";
 import sha1 from "sha1";
 
-export type Algorithm = "nanoid" | "md5" | "sha1";
+export type AlgorithmType = "nanoid" | "md5" | "sha1";
 
 export type TransformInput = string | Uint8Array;
 type TransformerFunction = (text: TransformInput) => Promise<string>;
 type AlgorithmFunctionMap = {
-  [key in Algorithm]: TransformerFunction;
+  [key in AlgorithmType]: TransformerFunction;
 };
 
 const algorithmFunctionMap: AlgorithmFunctionMap = {
@@ -29,7 +29,7 @@ function withPromise(transformer: Function): TransformerFunction {
 }
 
 export function generateData(
-  algorithm: Algorithm,
+  algorithm: AlgorithmType,
   text: TransformInput,
 ): Promise<string> {
   return algorithmFunctionMap[algorithm](text);

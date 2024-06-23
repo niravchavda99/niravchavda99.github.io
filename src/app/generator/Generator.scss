@@ -1,11 +1,15 @@
 .result-container {
-  @apply text-white mt-12;
-  width: 400px;
+  @apply text-white;
 }
 
 .result-header {
   @apply text-sm text-slate-400 mb-2;
   @apply flex flex-row items-center justify-between;
+}
+
+.result-info {
+  @apply text-sm text-slate-400 mb-2;
+  @apply flex flex-row items-center justify-center;
 }
 
 .radio-buttons {
@@ -18,6 +22,10 @@
   }
 
   .result-header {
+    @apply text-slate-600;
+  }
+
+  .result-info {
     @apply text-slate-600;
   }
 
