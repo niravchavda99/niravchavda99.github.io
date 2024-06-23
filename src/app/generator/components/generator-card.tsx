@@ -63,7 +63,7 @@ export const GeneratorCard = ({ algorithm }: GeneratorCardProps) => {
   };
 
   return (
-    <Card className="w-[300px]">
+    <Card className="w-[400px]">
       <CardHeader>
         <CardTitle>{algorithm.title}</CardTitle>
         <CardDescription>Generate {algorithm.displayName}</CardDescription>

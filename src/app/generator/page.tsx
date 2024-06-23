@@ -47,7 +47,7 @@ export default function GeneratorPage() {
           Generator
         </span>
       </h1>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-y-2 justify-center mt-4">
+      <div className="flex flew-row gap-4 flex-wrap justify-center mt-4">
         {algorithms.map((algorithm) => (
           <GeneratorCard key={algorithm.type} algorithm={algorithm} />
         ))}
