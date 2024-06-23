@@ -23,7 +23,7 @@ export const PopoverInput = ({ onGenerate }: PopoverInputProps) => {
           <span>Input</span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent className="popover-input-container">
         <div className="grid gap-4">
           <div className="space-y-2">
             <h4 className="font-medium leading-none">Input Text</h4>

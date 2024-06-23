@@ -2,7 +2,7 @@
 
 import { AlgorithmType } from "./generate-data";
 import "./Generator.scss";
-import { GeneratorCard } from "@/src/app/generator/components/generator-card";
+import { GeneratorCard } from "@/src/app/generator/components/generator-card/generator-card";
 
 export interface Algorithm {
   title: string;

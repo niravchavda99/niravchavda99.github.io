@@ -16,7 +16,8 @@ import {
 import ClipboardApi from "@/src/lib/clipboard-api";
 import { Algorithm } from "@/src/app/generator/page";
 import { useToast } from "@/src/ui/ui/use-toast";
-import { PopoverInput } from "@/src/app/generator/components/popover-input";
+import { PopoverInput } from "@/src/app/generator/components/popover-input/popover-input";
+import "./generator-card.scss";
 
 interface GeneratorCardProps {
   algorithm: Algorithm;
@@ -63,10 +64,14 @@ export const GeneratorCard = ({ algorithm }: GeneratorCardProps) => {
   };
 
   return (
-    <Card className="w-[400px]">
+    <Card className="w-[400px] generator-card">
       <CardHeader>
-        <CardTitle>{algorithm.title}</CardTitle>
-        <CardDescription>Generate {algorithm.displayName}</CardDescription>
+        <CardTitle className="generator-card-title">
+          {algorithm.title}
+        </CardTitle>
+        <CardDescription className="generator-card-description">
+          Generate {algorithm.displayName}
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-row items-center justify-center gap-2">
         <Button variant="default" size="sm" onClick={generateRandom}>
