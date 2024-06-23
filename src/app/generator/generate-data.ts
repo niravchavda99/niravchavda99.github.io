@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import md5 from "md5";
 import sha1 from "sha1";
 
-export type AlgorithmType = "nanoid" | "md5" | "sha1";
+export type AlgorithmType = "nanoid" | "md5" | "sha1" | "epoch";
 
 export type TransformInput = string | Uint8Array;
 type TransformerFunction = (text: TransformInput) => Promise<string>;
@@ -13,6 +13,7 @@ type AlgorithmFunctionMap = {
 const algorithmFunctionMap: AlgorithmFunctionMap = {
   md5: withPromise(md5),
   sha1: withPromise(sha1),
+  epoch: withPromise(Date.now),
   nanoid: withPromise(() => nanoid()),
 };
 

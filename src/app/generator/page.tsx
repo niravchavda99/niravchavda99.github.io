@@ -8,15 +8,23 @@ export interface Algorithm {
   title: string;
   displayName: string;
   type: AlgorithmType;
-  isGenerateDisabled?: boolean;
+  isInputDisabled?: boolean;
+  generateRandomActionName?: string;
 }
 
 const algorithms: Algorithm[] = [
   {
+    title: "Epoch",
+    displayName: "Unix Epoch time",
+    type: "epoch",
+    isInputDisabled: true,
+    generateRandomActionName: "Generate",
+  },
+  {
     title: "Nano Id",
     displayName: "Nano Id",
     type: "nanoid",
-    isGenerateDisabled: true,
+    isInputDisabled: true,
   },
   {
     title: "MD5",

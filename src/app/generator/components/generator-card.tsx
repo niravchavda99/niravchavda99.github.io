@@ -70,9 +70,9 @@ export const GeneratorCard = ({ algorithm }: GeneratorCardProps) => {
       </CardHeader>
       <CardContent className="flex flex-row items-center justify-center gap-2">
         <Button variant="default" size="sm" onClick={generateRandom}>
-          Random
+          {algorithm?.generateRandomActionName ?? "Random"}
         </Button>
-        {!algorithm.isGenerateDisabled && (
+        {!algorithm.isInputDisabled && (
           <PopoverInput onGenerate={generateFromInput} />
         )}
       </CardContent>
