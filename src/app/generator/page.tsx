@@ -41,7 +41,7 @@ const algorithms: Algorithm[] = [
 export default function GeneratorPage() {
   return (
     <section className="max-container w-full min-h-[calc(100vh-80px)]">
-      <title>Nirav Chavda | Generator</title>
+      <title>Generator | Nirav Chavda</title>
       <h1 className="head-text text-center">
         <span className="blue-gradient_text font-semibold drop-shadow">
           Generator

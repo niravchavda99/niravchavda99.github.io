@@ -5,7 +5,7 @@ import { ProjectCard } from "./projectcard/ProjectCard";
 export default function ProjectsPage() {
   return (
     <section className="max-container min-h-[calc(100vh-80px)] text-left ">
-      <title>Nirav Chavda | Projects</title>
+      <title>Projects | Nirav Chavda</title>
       <h1 className="head-text">
         My{" "}
         <span className="blue-gradient_text font-semibold drop-shadow">
