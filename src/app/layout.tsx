@@ -15,6 +15,10 @@ import "../index.scss";
 import "./App.scss";
 import { cn } from "@/src/lib/utils";
 import { Toaster } from "@/src/ui/ui/toaster";
+import {
+  getThemeFromLocalStorage,
+  setThemeInLocalStorage,
+} from "@/src/lib/local-storage-utils";
 
 type RootLayoutProps = { children?: ReactNode };
 
@@ -71,18 +75,4 @@ export default function RootLayout({ children }: RootLayoutProps) {
       </body>
     </html>
   );
-}
-
-function getThemeFromLocalStorage(): ThemeMode {
-  const themeFromStorage = localStorage?.getItem("theme");
-  if (!themeFromStorage) {
-    return ThemeMode.Dark;
-  }
-  return themeFromStorage === ThemeMode.Light
-    ? ThemeMode.Light
-    : ThemeMode.Dark;
-}
-
-function setThemeInLocalStorage(theme: ThemeMode): void {
-  localStorage?.setItem("theme", theme);
 }
