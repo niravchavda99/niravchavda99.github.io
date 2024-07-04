@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://niravchavda99.github.io",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "deploy": "gh-pages -d dist"
+  },
   "dependencies": {
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.1.1",
@@ -10,9 +16,6 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
-    "@types/node": "^20.14.2",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.2.10",
@@ -29,17 +32,24 @@
     "react-vertical-timeline-component": "^3.6.0",
     "sha1": "^1.1.1",
     "sharp": "^0.33.4",
-    "tailwind-merge": "^2.3.0",
+    "tailwind-merge": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/md5": "^2.3.5",
+    "@types/node": "^20.14.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-vertical-timeline-component": "^3.3.6",
+    "@types/sha1": "^1.1.5",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^9.6.0",
+    "gh-pages": "^6.1.1",
+    "postcss": "^8.4.38",
+    "sass": "^1.77.5",
     "tailwindcss": "^3.4.4",
     "tailwindcss-animate": "^1.0.7",
     "tailwindscss": "^0.3.0",
     "typescript": "^5.4.5"
-  },
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "deploy": "gh-pages -d dist"
   },
   "eslintConfig": {
     "extends": [
@@ -58,14 +68,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/md5": "^2.3.5",
-    "@types/react-vertical-timeline-component": "^3.3.6",
-    "@types/sha1": "^1.1.5",
-    "autoprefixer": "^10.4.19",
-    "gh-pages": "^6.1.1",
-    "postcss": "^8.4.38",
-    "sass": "^1.77.5"
   }
 }
