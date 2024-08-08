@@ -40,12 +40,6 @@ const Navbar = (props: NavbarProps) => {
             </>
           )}
           <Link
-            href="/generator"
-            className={`navbar-content${isActive("/generator") ? " navbar-content-active" : ""}`}
-          >
-            Generator
-          </Link>
-          <Link
             href="/projects"
             className={`navbar-content${isActive("/projects") ? " navbar-content-active" : ""}`}
           >
