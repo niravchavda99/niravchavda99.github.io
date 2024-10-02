@@ -4,7 +4,7 @@ import nextjsLight from "@/src/assets/icons/tech/nextjs-light.svg";
 import tailwind from "@/src/assets/icons/tech/tailwind.png";
 import Image from "next/image";
 import { useContext } from "react";
-import { ThemeMode, ThemeContext } from "@/src/components/theme/ThemeContext";
+import { ThemeContext, ThemeMode } from "@/src/components/theme/ThemeContext";
 
 const Footer = () => {
   const { mode } = useContext(ThemeContext);
