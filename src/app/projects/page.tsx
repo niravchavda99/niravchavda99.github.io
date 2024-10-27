@@ -1,6 +1,6 @@
 import { projects } from "./constants";
 import "./Projects.scss";
-import { ProjectCard } from "./projectcard/ProjectCard";
+import { ProjectItem } from "./project-item/project-item";
 
 export default function ProjectsPage() {
   return (
@@ -14,16 +14,17 @@ export default function ProjectsPage() {
       </h1>
       <div className="description">
         <p>
-          I've embarked on numerous projects throughout the years, but these are
-          the ones I hold closest to my heart. Many of them are open-source, so
-          if you come across something that piques your interest, feel free to
-          explore the codebase and contribute your ideas for further
-          enhancements. Your collaboration is highly valued!
+          Over the years, I’ve embarked on a variety of projects, each one
+          marking a meaningful step in my journey as a developer. These projects
+          hold a special place in my portfolio, showcasing my dedication to
+          building thoughtful, impactful solutions. Many are open-source,
+          allowing you to explore the codebase and gain insights into my
+          approach and expertise.
         </p>
       </div>
-      <div className="flex flex-wrap justify-center my-20 gap-16">
+      <div className="flex flex-col justify-center my-20 gap-8 md:gap-20">
         {projects.map((project, index) => (
-          <ProjectCard project={project} index={index} />
+          <ProjectItem project={project} index={index} />
         ))}
       </div>
     </section>
