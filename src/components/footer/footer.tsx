@@ -1,10 +1,10 @@
-import "./Footer.scss";
+import "./footer.scss";
 import nextjsDark from "@/src/assets/icons/tech/nextjs-dark.svg";
 import nextjsLight from "@/src/assets/icons/tech/nextjs-light.svg";
 import tailwind from "@/src/assets/icons/tech/tailwind.png";
 import Image from "next/image";
 import { useContext } from "react";
-import { ThemeContext, ThemeMode } from "@/src/components/theme/ThemeContext";
+import { ThemeContext, ThemeMode } from "@/src/components/theme/theme-context";
 
 const Footer = () => {
   const { mode } = useContext(ThemeContext);

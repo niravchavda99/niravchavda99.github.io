@@ -1,6 +1,6 @@
 import React from "react";
-import "./Navbar.scss";
-import { ThemeSwitch } from "@/src/components/theme/ThemeSwitch";
+import "./navbar.scss";
+import { ThemeSwitch } from "@/src/components/theme/theme-switch";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 

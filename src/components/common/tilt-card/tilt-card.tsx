@@ -1,10 +1,10 @@
 "use client";
 
-import { fadeIn } from "@/src/app/projects/constants";
 import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
-import "./TiltCard.scss";
+import "./tilt-card.scss";
+import {fadeIn} from "@/src/components/common/tilt-card/fadeIn";
 
 export interface TiltCardProps {
   children: ReactNode;

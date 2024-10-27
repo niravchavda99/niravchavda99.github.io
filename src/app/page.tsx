@@ -1,8 +1,8 @@
 import React from "react";
-import About from "@/src/components/about/About";
-import Experience from "@/src/components/experience/Experience";
-import Skills from "@/src/components/skills/Skills";
-import Activities from "@/src/components/activities/Activities";
+import About from "@/src/components/about/about";
+import Experience from "@/src/components/experience/experience";
+import Skills from "@/src/components/skills/skills";
+import Activities from "@/src/components/activities/activities";
 
 export default function HomePage() {
   return (

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -9,10 +11,7 @@ import {
 import { Button } from "@/src/ui/ui/button";
 import { IoCopyOutline } from "react-icons/io5";
 import { useState } from "react";
-import {
-  generateData,
-  TransformInput,
-} from "@/src/app/generator/generate-data";
+import { generateData, TransformInput } from "@/src/app/generator/generateData";
 import ClipboardApi from "@/src/lib/clipboard-api";
 import { Algorithm } from "@/src/app/generator/page";
 import { useToast } from "@/src/ui/ui/use-toast";

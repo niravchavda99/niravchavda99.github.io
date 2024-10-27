@@ -1,4 +1,4 @@
-import { getSocialMediaLink } from "@/src/app/Links";
+import { getSocialMediaLink } from "@/src/app/links";
 import React from "react";
 
 type SocialMediaLinkProps = { platform: string; children: React.ReactNode };

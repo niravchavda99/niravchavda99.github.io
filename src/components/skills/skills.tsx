@@ -1,4 +1,4 @@
-import "./Skills.scss";
+import "./skills.scss";
 import { technologies } from "./constants";
 import React from "react";
 import Image from "next/image";

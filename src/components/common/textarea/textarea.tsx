@@ -1,4 +1,4 @@
-import "./TextArea.scss";
+import "./textarea.scss";
 import { FormEvent } from "react";
 
 interface TextAreaProps {
@@ -8,7 +8,7 @@ interface TextAreaProps {
   onChange: (value: string) => void;
 }
 
-export const TextArea = ({
+export const Textarea = ({
   value,
   rows,
   placeholder,

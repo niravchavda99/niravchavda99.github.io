@@ -1,6 +1,6 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/src/ui/ui/popover";
 import { Button } from "@/src/ui/ui/button";
-import { TextArea } from "@/src/components/common/textarea/TextArea";
+import { Textarea } from "@/src/components/common/textarea/textarea";
 import { useState } from "react";
 import { Pencil } from "lucide-react";
 
@@ -28,7 +28,7 @@ export const PopoverInput = ({ onGenerate }: PopoverInputProps) => {
           <div className="space-y-2">
             <h4 className="font-medium leading-none">Input Text</h4>
           </div>
-          <TextArea
+          <Textarea
             value={inputText}
             placeholder="Enter text"
             onChange={setInputText}

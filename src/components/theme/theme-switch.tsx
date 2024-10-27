@@ -1,6 +1,6 @@
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { useContext } from "react";
-import { ThemeContext, ThemeMode } from "./ThemeContext";
+import { ThemeContext, ThemeMode } from "./theme-context";
 
 export const ThemeSwitch = () => {
   const { mode, toggle } = useContext(ThemeContext);

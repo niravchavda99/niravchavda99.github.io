@@ -1,5 +1,5 @@
 import { projects } from "./constants";
-import "./Projects.scss";
+import "./projects.scss";
 import { ProjectItem } from "./project-item/project-item";
 
 export default function ProjectsPage() {

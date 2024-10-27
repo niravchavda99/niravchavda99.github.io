@@ -1,4 +1,4 @@
-import { ThemeMode } from "@/src/components/theme/ThemeContext";
+import { ThemeMode } from "@/src/components/theme/theme-context";
 
 export function getThemeFromLocalStorage(): ThemeMode {
   const themeFromStorage = localStorage?.getItem("theme");

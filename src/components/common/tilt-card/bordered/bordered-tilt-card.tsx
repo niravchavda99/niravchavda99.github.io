@@ -1,10 +1,10 @@
 "use client";
 
-import { fadeIn } from "@/src/app/projects/constants";
 import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
-import { TiltCardProps } from "@/src/components/common/tilt-card/TiltCard";
-import "./BorderedTiltCard.scss";
+import { TiltCardProps } from "@/src/components/common/tilt-card/tilt-card";
+import "./bordered-tilt-card.scss";
+import {fadeIn} from "@/src/components/common/tilt-card/fadeIn";
 
 export const BorderedTiltCard = ({
   delayOffset,

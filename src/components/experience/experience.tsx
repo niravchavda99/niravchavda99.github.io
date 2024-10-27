@@ -1,13 +1,13 @@
 "use client";
 
-import "./Experience.scss";
+import "./experience.scss";
 import { educations, jobs } from "./constants";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import { Profile } from "./Profile";
+import { Profile } from "./profile";
 import Image from "next/image";
 
 const Experience = () => {

@@ -1,8 +1,8 @@
 import profileImage from "@/src/assets/images/profile.jpg";
-import "./About.scss";
+import "./about.scss";
 import { TbMail } from "react-icons/tb";
 import { BsGithub, BsInstagram, BsLinkedin, BsTwitter } from "react-icons/bs";
-import SocialMediaLink from "@/src/components/common/SocialMediaLink";
+import SocialMediaLink from "@/src/components/common/social-media-link";
 import Image from "next/image";
 
 const About = () => {

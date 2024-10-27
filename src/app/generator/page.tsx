@@ -1,7 +1,5 @@
-"use client";
-
-import { AlgorithmType } from "./generate-data";
-import "./Generator.scss";
+import { AlgorithmType } from "./generateData";
+import "./generator.scss";
 import { GeneratorCard } from "@/src/app/generator/components/generator-card/generator-card";
 
 export interface Algorithm {

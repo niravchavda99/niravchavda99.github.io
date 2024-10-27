@@ -1,5 +1,5 @@
-import { EducationProfile, JobProfile } from "./Profile";
-import MonthYear from "@/src/components/common/MonthYear";
+import { EducationProfile, JobProfile } from "./profile";
+import MonthYear from "@/src/components/common/month-year";
 import incubyteLogo from "@/src/assets/images/incubyte_logo.jpg";
 import kskvkuLogo from "@/src/assets/images/kskvku_logo.png";
 import gujaratUniversityLogo from "@/src/assets/images/gujarat_university_logo.png";

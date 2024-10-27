@@ -3,16 +3,16 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import ScrollToTop from "react-scroll-to-top";
 import { BsArrowUp } from "react-icons/bs";
-import Navbar from "@/src/components/navbar/Navbar";
-import Footer from "@/src/components/footer/Footer";
+import Navbar from "@/src/components/navbar/navbar";
+import Footer from "@/src/components/footer/footer";
 import Head from "next/head";
 import {
   ThemeColor,
   ThemeContext,
   ThemeMode,
-} from "@/src/components/theme/ThemeContext";
+} from "@/src/components/theme/theme-context";
 import "../index.scss";
-import "./App.scss";
+import "./app.scss";
 import { cn } from "@/src/lib/utils";
 import { Toaster } from "@/src/ui/ui/toaster";
 import {
