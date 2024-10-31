@@ -12,6 +12,7 @@ export interface TiltCardProps {
   className?: string;
 }
 
+// TODO: Have normal and bordered variant here
 export const TiltCard = ({ delayOffset, children }: TiltCardProps) => {
   return (
     <motion.div variants={fadeIn("up", "spring", delayOffset * 0.5, 0.75)}>

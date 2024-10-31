@@ -6,15 +6,10 @@ import { BsArrowUp } from "react-icons/bs";
 import Navbar from "@/src/components/navbar/navbar";
 import Footer from "@/src/components/footer/footer";
 import Head from "next/head";
-import {
-  ThemeColor,
-  ThemeContext,
-  ThemeMode,
-} from "@/src/components/theme/theme-context";
+import { ThemeContext, ThemeMode } from "@/src/components/theme/theme-context";
 import "../index.scss";
 import "./app.scss";
 import { cn } from "@/src/lib/utils";
-import { Toaster } from "@/src/ui/ui/toaster";
 import {
   getThemeFromLocalStorage,
   setThemeInLocalStorage,
@@ -24,10 +19,7 @@ type RootLayoutProps = { children?: ReactNode };
 
 export default function RootLayout({ children }: RootLayoutProps) {
   const [themeMode, setThemeMode] = useState<ThemeMode>(ThemeMode.Dark);
-  useEffect(() => {
-    setThemeMode(getThemeFromLocalStorage());
-    const link = document.createElement("link");
-  }, []);
+  useEffect(() => setThemeMode(getThemeFromLocalStorage()), []);
   const toggleTheme = () => {
     const updatedTheme =
       themeMode === ThemeMode.Dark ? ThemeMode.Light : ThemeMode.Dark;
@@ -48,7 +40,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ThemeContext.Provider
             value={{
               mode: themeMode,
-              color: ThemeColor.Blue,
               toggle: toggleTheme,
             }}
           >
@@ -58,7 +49,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
               style={{ backgroundColor: "#0284C7" }}
               component={<BsArrowUp size={26} color="white" />}
             />
-            <Toaster />
             <Navbar className={`theme-mode-${themeSuffix}`} />
             <div
               className={cn(

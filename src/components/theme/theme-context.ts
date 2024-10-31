@@ -7,21 +7,13 @@ export enum ThemeMode {
   Dark = "Dark",
 }
 
-export enum ThemeColor {
-  Red,
-  Blue,
-  Green,
-}
-
 interface ThemeContextProps {
   mode: ThemeMode;
-  color: ThemeColor;
   toggle: () => void;
 }
 
 export const ThemeContext: Context<ThemeContextProps> =
   createContext<ThemeContextProps>({
     mode: ThemeMode.Dark,
-    color: ThemeColor.Blue,
     toggle: () => {},
   });
