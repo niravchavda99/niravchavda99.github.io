@@ -1,7 +1,7 @@
 import "./activities.scss";
 import { activities } from "./all-activities";
 import React from "react";
-import { BorderedTiltCard } from "@/src/components/common/tilt-card/bordered/bordered-tilt-card";
+import { TiltCard } from "@/src/components/common/tilt-card/tilt-card";
 
 const Activities = () => {
   return (
@@ -15,9 +15,10 @@ const Activities = () => {
 
       <div className="activities-container mt-12">
         {activities.map((activity, index) => (
-          <BorderedTiltCard
+          <TiltCard
             key={activity.title}
             delayOffset={index}
+            variant="bordered"
             className="px-6 py-12 min-h-[400px]"
           >
             <h3 className="activity-title text-[24px]">{activity.title}</h3>
@@ -25,7 +26,7 @@ const Activities = () => {
             <p className="activity-description text-[16px]">
               {activity.description}
             </p>
-          </BorderedTiltCard>
+          </TiltCard>
         ))}
       </div>
     </div>
