@@ -20,7 +20,6 @@ const About = () => {
           />
         </div>
       </div>
-
       <div className="about-name">Nirav Chavda</div>
       <div className="about-short">
         I'm a Software Craftsperson, Learner and an Enthusiast
