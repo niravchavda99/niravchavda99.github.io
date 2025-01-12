@@ -1,6 +1,6 @@
-import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { useContext } from "react";
 import { ThemeContext, ThemeMode } from "./theme-context";
+import { Moon, Sun } from "lucide-react";
 
 export const ThemeSwitch = () => {
   const { mode, toggle } = useContext(ThemeContext);
@@ -11,7 +11,7 @@ export const ThemeSwitch = () => {
       className={`p-1 pr-4 rounded-full z-20 cursor-pointer text-2xl ${textColor}`}
       onClick={toggle}
     >
-      {mode === ThemeMode.Dark ? <MdDarkMode /> : <MdLightMode />}
+      {mode === ThemeMode.Dark ? <Moon /> : <Sun />}
     </div>
   );
 };
