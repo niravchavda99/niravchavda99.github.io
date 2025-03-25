@@ -7,16 +7,17 @@ import { cn } from "@/src/lib/utils";
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
+  position: "left" | "right";
 }
 
-export const ProjectItem = ({ project, index }: ProjectCardProps) => {
-  const isEven = index % 2 === 0;
+export const ProjectItem = ({ project, position }: ProjectCardProps) => {
   return (
     <div
       className={cn(
         "flex gap-2 md:gap-16 w-full md:items-center",
-        isEven ? "flex-col md:flex-row" : "flex-col md:flex-row-reverse",
+        position === "left"
+          ? "flex-col md:flex-row"
+          : "flex-col md:flex-row-reverse",
       )}
     >
       <div className="relative h-[230px] w-full md:w-[320px]">
@@ -55,17 +56,19 @@ export const ProjectItem = ({ project, index }: ProjectCardProps) => {
           ))}
         </div>
 
-        <div className="mt-5 text-blue-600">
-          <Link
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 font-semibold"
-          >
-            Live Link
-            <FaArrowRight className="w-4 h-4 object-contain" />
-          </Link>
-        </div>
+        {project.link && (
+          <div className="mt-5 text-blue-600">
+            <Link
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 font-semibold"
+            >
+              Live Link
+              <FaArrowRight className="w-4 h-4 object-contain" />
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

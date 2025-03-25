@@ -46,7 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <ScrollToTop
               className="flex flex-col items-center justify-center"
               smooth
-              style={{ backgroundColor: "#0284C7" }}
+              style={{ backgroundColor: "#0072ff" }}
               component={<BsArrowUp size={26} color="white" />}
             />
             <Navbar className={`theme-mode-${themeSuffix}`} />
