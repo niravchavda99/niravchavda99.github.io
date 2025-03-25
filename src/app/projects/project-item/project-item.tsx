@@ -62,7 +62,7 @@ export const ProjectItem = ({ project, index }: ProjectCardProps) => {
             rel="noopener noreferrer"
             className="flex items-center gap-2 font-semibold"
           >
-            Live Link
+            {project.linkText ?? "Live Link"}
             <FaArrowRight className="w-4 h-4 object-contain" />
           </Link>
         </div>
