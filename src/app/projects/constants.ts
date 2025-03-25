@@ -13,8 +13,7 @@ export interface Project {
     codeLink?: string;
     description: string;
     image: string;
-    link: string;
-    linkText?: string;
+    link?: string;
     name: string;
     tags: ProjectTag[];
 }
@@ -24,8 +23,6 @@ const xpathifyProject: Project = {
     description: "Instantly test and evaluate XPath expressions directly on web pages.",
     image: xpathifySnap.src,
     codeLink: undefined,
-    link: 'https://github.com/niravchavda99/xpathify',
-    linkText: 'Download',
     tags: [
         {"name": "chrome-extension", "color": "orange-text-gradient"},
         {"name": "react", "color": "green-text-gradient"},

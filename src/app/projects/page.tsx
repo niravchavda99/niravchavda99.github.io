@@ -23,8 +23,8 @@ export default function ProjectsPage() {
         </p>
       </div>
       <div className="flex flex-col justify-center my-20 gap-8 md:gap-20">
-        {projects.map((project, index) => (
-          <ProjectItem key={project.name} project={project} index={index} />
+        {projects.map((project) => (
+          <ProjectItem key={project.name} project={project} position="right" />
         ))}
       </div>
     </section>
