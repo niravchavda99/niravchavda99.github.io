@@ -3,11 +3,9 @@ import { ThemeMode } from "@/src/components/theme/theme-context";
 export function getThemeFromLocalStorage(): ThemeMode {
   const themeFromStorage = localStorage?.getItem("theme");
   if (!themeFromStorage) {
-    return ThemeMode.Dark;
+    return ThemeMode.Light;
   }
-  return themeFromStorage === ThemeMode.Light
-    ? ThemeMode.Light
-    : ThemeMode.Dark;
+  return themeFromStorage as ThemeMode;
 }
 
 export function setThemeInLocalStorage(theme: ThemeMode): void {

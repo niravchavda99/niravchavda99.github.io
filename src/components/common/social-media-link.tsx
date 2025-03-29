@@ -9,7 +9,7 @@ const SocialMediaLink = ({ platform, children }: SocialMediaLinkProps) => {
       href={getSocialMediaLink(platform)}
       target="_blank"
       rel="noreferrer"
-      className="link-item"
+      className="px-2 hover:scale-150 transition ease-in-out dark:text-slate-200 text-slate-700"
     >
       {children}
     </a>

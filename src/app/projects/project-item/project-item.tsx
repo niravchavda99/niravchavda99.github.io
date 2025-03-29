@@ -1,6 +1,5 @@
 import { FaArrowRight, FaGithub } from "react-icons/fa6";
 import { Project, ProjectTag } from "@/src/app/projects/constants";
-import "./project-item.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/src/lib/utils";
@@ -25,25 +24,25 @@ export const ProjectItem = ({ project, position }: ProjectCardProps) => {
           fill={true}
           src={project.image}
           alt={project.name}
-          className="project-snap"
+          className="w-full h-full object-cover rounded-2xl shadow-xl dark:shadow-slate-50/15"
         />
 
         {project.codeLink && (
-          <div className="project-code-link-container">
+          <div className="absolute inset-0 flex justify-end m-3">
             <a
               href={project.codeLink}
               target="_blank"
-              className="black-gradient project-code-link"
+              className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
             >
-              <FaGithub className="project-code-link-icon" />
+              <FaGithub className="w-2/3 h-2/3 object-contain text-white" />
             </a>
           </div>
         )}
       </div>
       <div className="md:flex-1">
         <div className="text-left">
-          <h3 className="project-name text-[24px]">{project.name}</h3>
-          <p className="project-description text-[14px]">
+          <h3 className="text-slate-700 dark:text-white font-bold text-[24px]">{project.name}</h3>
+          <p className="mt-2 text-slate-600 dark:text-slate-300 text-[14px]">
             {project.description}
           </p>
         </div>

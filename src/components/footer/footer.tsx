@@ -1,23 +1,24 @@
-import "./footer.scss";
 import nextjsDark from "@/src/assets/icons/tech/nextjs-dark.svg";
 import nextjsLight from "@/src/assets/icons/tech/nextjs-light.svg";
 import tailwind from "@/src/assets/icons/tech/tailwind.png";
 import Image from "next/image";
-import { useContext } from "react";
-import { ThemeContext, ThemeMode } from "@/src/components/theme/theme-context";
+import { ThemeMode, useTheme } from "@/src/components/theme/theme-context";
 
 const Footer = () => {
-  const { mode } = useContext(ThemeContext);
+  const { mode } = useTheme();
   const year = new Date().getFullYear();
 
   return (
-    <div className="footer">
+    <div className="text-center inline-block p-2 w-full text-slate-700 dark:text-slate-200">
       <div className="py-1 flex flex-row justify-center items-center">
         <div>Made with ❤️ by</div>
-        <a href="https://niravchavda99.github.io" className="name">
+        <a
+          href="https://niravchavda99.github.io"
+          className="font-semibold ml-1 underline underline-offset-2"
+        >
           Nirav Chavda
         </a>
-        <div className="footer-text ml-2">© {year}</div>
+        <div className="ml-2 text-slate-700 dark:text-slate-200">© {year}</div>
       </div>
       <div className="py-1 flex flex-row justify-center items-center">
         <Image
