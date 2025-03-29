@@ -1,6 +1,5 @@
 "use client";
 
-import "./experience.scss";
 import { educations, jobs } from "./constants";
 import {
   VerticalTimeline,
@@ -9,19 +8,13 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 import { Profile } from "./profile";
 import Image from "next/image";
+import { SectionContainer } from "@/src/components/common/section-container";
+import { HeadingText } from "@/src/components/common/heading-text";
 
 const Experience = () => {
   return (
-    <div
-      id="experience"
-      className="max-container h-max min-h-[100vh] select-none transition-all"
-    >
-      <h1 className="head-text">
-        My{" "}
-        <span className=" blue-gradient_text font-semibold drop-shadow">
-          Experience
-        </span>
-      </h1>
+    <SectionContainer id="experience" className="select-none">
+      <HeadingText precedingText="My" coloredText="Experience" />
       <div className="flex flex-col justify-center items-center mt-10">
         <VerticalTimeline>
           {jobs.map((job) =>
@@ -41,7 +34,7 @@ const Experience = () => {
           )}
         </VerticalTimeline>
       </div>
-    </div>
+    </SectionContainer>
   );
 };
 
@@ -55,7 +48,7 @@ const renderTimelineElement = (
       visible={true}
       key={name + profile.dateStarted + profile.dateEnded}
       date={`${profile.dateStarted} - ${profile.dateEnded}`}
-      dateClassName="timeline-date"
+      dateClassName="text-slate-800 dark:text-white !w-max"
       icon={
         <div className="flex justify-center items-center w-full h-full">
           <Image

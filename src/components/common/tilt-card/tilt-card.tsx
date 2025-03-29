@@ -3,7 +3,6 @@
 import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
-import "./tilt-card.scss";
 import { fadeIn } from "@/src/components/common/tilt-card/fadeIn";
 
 type TiltCardVariant = "normal" | "bordered";
@@ -30,7 +29,7 @@ export const TiltCard = ({
         <motion.div variants={fadeIn("up", "spring", delayOffset * 0.5, 0.75)}>
           <Tilt
             options={tiltOptions}
-            className="tilt-card-bg p-5 rounded-2xl sm:w-[360px] w-full h-[460px]"
+            className="bg-blue-100 dark:bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full h-[460px]"
           >
             {children}
           </Tilt>
@@ -44,7 +43,7 @@ export const TiltCard = ({
             className="w-full green-pink-gradient p-[1px] rounded-[20px]"
           >
             <div
-              className={`bordered-tilt-card-bg rounded-[20px] min-h-[280px] flex justify-evenly items-center flex-col ${className}`}
+              className={`bg-blue-50 dark:bg-tertiary rounded-[20px] min-h-[280px] flex justify-evenly items-center flex-col ${className}`}
             >
               {children}
             </div>
