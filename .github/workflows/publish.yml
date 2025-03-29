@@ -23,21 +23,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Detect package manager
-        id: detect-package-manager
-        run: |
-          echo "manager=pnpm" >> $GITHUB_OUTPUT
-          echo "command=install" >> $GITHUB_OUTPUT
-          echo "runner=pnpm" >> $GITHUB_OUTPUT
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
-          cache: pnpm
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8 # Use version 8.x or specify the exact version like 8.6.0
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
+      - name: Setup Node with pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: 'pnpm'
 
       - name: Restore cache
         uses: actions/cache@v4
