@@ -2,13 +2,9 @@
 
 import "../index.scss";
 import React, { ReactNode } from "react";
-import ScrollToTop from "react-scroll-to-top";
-import { BsArrowUp } from "react-icons/bs";
-import Navbar from "@/src/components/navbar/navbar";
-import Footer from "@/src/components/footer/footer";
 import Head from "next/head";
 import { ThemeProvider } from "@/src/components/theme/theme-context";
-import { cn } from "@/src/lib/utils";
+import { Home } from "./home";
 
 type RootLayoutProps = { children?: ReactNode };
 
@@ -23,23 +19,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       </Head>
       <body>
         <ThemeProvider>
-          <ScrollToTop
-            className="flex flex-col items-center justify-center"
-            smooth
-            style={{ backgroundColor: "#0072ff" }}
-            component={<BsArrowUp size={26} color="white" />}
-          />
-          <Navbar />
-          <div
-            className={cn(
-              "bg-slate-300/30 dark:bg-tertiary-dark",
-              "text-center flex flex-col justify-between",
-              "backdrop-blur-sm h-max min-h-screen",
-            )}
-          >
-            {children}
-            <Footer />
-          </div>
+          <Home>{children}</Home>
         </ThemeProvider>
       </body>
     </html>
