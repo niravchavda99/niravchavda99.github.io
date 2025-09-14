@@ -1,5 +1,6 @@
 import micronautLight from "@/src/assets/icons/tech/micronaut-light.svg";
 import micronautDark from "@/src/assets/icons/tech/micronaut-dark.svg";
+import springBoot from "@/src/assets/icons/tech/spring.svg";
 import css from "@/src/assets/icons/tech/css.png";
 import git from "@/src/assets/icons/tech/git.png";
 import html from "@/src/assets/icons/tech/html.png";
@@ -12,7 +13,7 @@ import java from "@/src/assets/icons/tech/java.svg";
 import angular from "@/src/assets/icons/tech/angular.png";
 import microsoftSqlServerLight from "@/src/assets/icons/tech/microsoft-sql-server-light.svg";
 import microsoftSqlServerDark from "@/src/assets/icons/tech/microsoft-sql-server-dark.svg";
-import mysql from "@/src/assets/icons/tech/mysql.png";
+import postgreSQL from "@/src/assets/icons/tech/postgresql.svg";
 import dart from "@/src/assets/icons/tech/dart.svg";
 import flutter from "@/src/assets/icons/tech/flutter.svg";
 import intellijIdea from "@/src/assets/icons/tech/intellij-idea.svg";
@@ -30,6 +31,7 @@ export type Technology = {
 
 export const technologies: Technology[] = [
   { name: "Java", icon: java.src },
+  { name: "Spring Boot", icon: springBoot.src },
   { name: "Micronaut", icon: micronautLight.src, darkIcon: micronautDark.src },
   { name: "Javascript", icon: javascript.src },
   { name: "Typescript", icon: typescript.src },
@@ -47,7 +49,7 @@ export const technologies: Technology[] = [
     darkIcon: microsoftSqlServerDark.src,
   },
   { name: "NodeJS", icon: nodejs.src },
-  { name: "MySQL", icon: mysql.src },
+  { name: "PostgreSQL", icon: postgreSQL.src },
   { name: "Dart", icon: dart.src },
   { name: "Flutter", icon: flutter.src },
   { name: "Git", icon: git.src },

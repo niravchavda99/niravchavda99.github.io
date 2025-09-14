@@ -10,6 +10,7 @@ import { Profile } from "./profile";
 import Image from "next/image";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";
+import MonthYear from "@/src/components/common/month-year";
 
 const Experience = () => {
   return (
@@ -47,7 +48,7 @@ const renderTimelineElement = (
     <VerticalTimelineElement
       visible={true}
       key={name + profile.dateStarted + profile.dateEnded}
-      date={`${profile.dateStarted} - ${profile.dateEnded}`}
+      date={`${profile.dateStarted} - ${profile.dateEnded ?? "Present"}`}
       dateClassName="text-slate-800 dark:text-white !w-max"
       icon={
         <div className="flex justify-center items-center w-full h-full">
@@ -74,7 +75,11 @@ const renderTimelineElement = (
           className="text-black-500 font-medium font-base"
           style={{ margin: 0 }}
         >
-          {profile.location}
+          {profile.location} (
+          {(profile.dateEnded ?? MonthYear.present())
+            .diff(profile.dateStarted)
+            .toCountString()}
+          )
         </p>
       </div>
       {profile.points.length > 0 && (

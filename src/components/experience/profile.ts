@@ -1,7 +1,7 @@
 import MonthYear from "@/src/components/common/month-year";
 
 export interface Profile {
-  dateEnded: MonthYear;
+  dateEnded?: MonthYear;
   dateStarted: MonthYear;
   icon: string;
   iconBg: string;

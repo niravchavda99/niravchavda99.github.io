@@ -40,11 +40,11 @@ const About = () => {
         <SocialMediaLink platform={SocialMediaPlatform.Linkedin}>
           <BsLinkedin size={iconSize - 2} />
         </SocialMediaLink>
-        <SocialMediaLink platform={SocialMediaPlatform.X}>
-          <BsTwitterX size={iconSize - 2} />
-        </SocialMediaLink>
         <SocialMediaLink platform={SocialMediaPlatform.Instagram}>
           <BsInstagram size={iconSize - 2} />
+        </SocialMediaLink>
+        <SocialMediaLink platform={SocialMediaPlatform.X}>
+          <BsTwitterX size={iconSize - 2} />
         </SocialMediaLink>
       </div>
     </SectionContainer>

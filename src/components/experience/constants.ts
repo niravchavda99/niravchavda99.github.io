@@ -6,7 +6,6 @@ import gujaratUniversityLogo from "@/src/assets/images/gujarat_university_logo.p
 
 export const jobs: JobProfile[] = [
   {
-    dateEnded: MonthYear.of(0, 0),
     dateStarted: MonthYear.of(7, 2022),
     designation: "Software Craftsperson",
     icon: incubyteLogo.src,
@@ -15,7 +14,8 @@ export const jobs: JobProfile[] = [
     organizationName: "Incubyte",
     points: [
       "Focus on writing quality code and deliver well crafted software",
-      "Worked on projects in React, Angular, Micronaut, Flutter, Azure, GCP etc.",
+      "Delivered projects in Nextjs, React, Angular, Micronaut, Spring Boot, Chrome Extensions, Flutter, Azure, GCP etc.",
+      "Published a Chrome Extension for xpath evaluation",
     ],
   },
   {
@@ -36,7 +36,7 @@ export const jobs: JobProfile[] = [
 
 export const educations: EducationProfile[] = [
   {
-    dateEnded: MonthYear.of(6, 2022),
+    dateEnded: MonthYear.of(8, 2022),
     dateStarted: MonthYear.of(8, 2019),
     degree: "MCA - Masters in Computer Application",
     icon: gujaratUniversityLogo.src,
@@ -51,7 +51,7 @@ export const educations: EducationProfile[] = [
     ],
   },
   {
-    dateEnded: MonthYear.of(6, 2019),
+    dateEnded: MonthYear.of(7, 2019),
     dateStarted: MonthYear.of(7, 2016),
     degree: "BCA - Bachelors in Computer Application",
     icon: kskvkuLogo.src,
