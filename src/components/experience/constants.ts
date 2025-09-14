@@ -44,6 +44,7 @@ export const educations: EducationProfile[] = [
     instituteName: "Department of Computer Science, Gujarat University",
     location: "Ahmedabad, Gujarat",
     points: [
+      "🥇 Gold Medallist",
       "Learnt C, C++, Java, MySQL, Cloud Computing with AWS, Networking, Distributed Application Development with JSP and problem solving",
       "Participated in Bootathon Knockdown The Lockdown organized by IIT Bombay",
       "Developed VirtualLabs with IIT Bombay",
@@ -58,6 +59,8 @@ export const educations: EducationProfile[] = [
     iconBg: "#79C5F1",
     instituteName: "Krantiguru Shyamji Krishna Verma Kachchh University",
     location: "Kachchh, Gujarat",
-    points: [],
+    points: [
+      "🥈 University Second Rank (Overall)"
+    ],
   },
 ];
