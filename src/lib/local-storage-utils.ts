@@ -3,7 +3,7 @@ import { ThemeMode } from "@/src/components/theme/theme-context";
 export function getThemeFromLocalStorage(): ThemeMode {
   const themeFromStorage = localStorage?.getItem("theme");
   if (!themeFromStorage) {
-    return ThemeMode.Light;
+    return ThemeMode.Dark;
   }
   return themeFromStorage as ThemeMode;
 }

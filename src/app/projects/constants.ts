@@ -4,90 +4,65 @@ import pokedexSnap from "@/src/assets/images/pokedex-snap.png";
 import portfolioThreeJsSnap from "@/src/assets/images/portfolio-three-js-snap.png";
 import xpathifySnap from "@/src/assets/images/xpathify-snap.png";
 
-export interface ProjectTag {
-  name: string;
-  color: string;
-}
-
 export interface Project {
   codeLink?: string;
   description: string;
+  featured?: boolean;
+  featuredBadge?: string;
   image: string;
   link?: string;
   name: string;
-  tags: ProjectTag[];
+  tags: string[];
 }
 
 const xpathifyProject: Project = {
   name: "Xpathify",
   description:
-    "Instantly test and evaluate XPath expressions directly on web pages.",
+    "Instantly test and evaluate XPath expressions directly on web pages. A Chrome Extension for XPath power users.",
   image: xpathifySnap.src,
-  codeLink: undefined,
   link: "https://chromewebstore.google.com/detail/ffhbcenfioobgmnhokaabdaecfoocmli?utm_source=item-share-cb",
-  tags: [
-    { name: "chrome-extension", color: "orange-text-gradient" },
-    { name: "react", color: "green-text-gradient" },
-    { name: "typescript", color: "pink-text-gradient" },
-    { name: "xpath", color: "blue-text-gradient" },
-  ],
+  tags: ["chrome-extension", "react", "typescript", "xpath"],
+  featured: true,
+  featuredBadge: "Published on Chrome Web Store",
 };
 
 const genForgeProject: Project = {
+  name: "GenForge",
   codeLink: "https://github.com/niravchavda99/gen-forge",
-  description: "Utility app to generate useful values on the fly!",
+  description:
+    "Utility app to generate useful values on the fly — UUIDs, hashes, colors, and more.",
   image: genForgeSnap.src,
   link: "https://niravchavda99.github.io/gen-forge",
-  name: "GenForge",
-  tags: [
-    { name: "nextjs", color: "orange-text-gradient" },
-    { name: "react", color: "green-text-gradient" },
-    { name: "shadcn", color: "pink-text-gradient" },
-    { name: "tailwind", color: "blue-text-gradient" },
-  ],
+  tags: ["nextjs", "react", "shadcn", "tailwind"],
 };
 
 const pokedexProject: Project = {
-  description: "Project to understand Next.js",
+  name: "Pokédex",
+  description:
+    "Next.js learning project — a complete Pokédex with server-side rendering and search.",
   image: pokedexSnap.src,
   link: "https://pokedex-six-neon.vercel.app",
-  name: "Pokédex",
-  tags: [
-    { name: "next.js", color: "blue-text-gradient" },
-    { name: "react", color: "orange-text-gradient" },
-    { name: "shadcn", color: "green-text-gradient" },
-    { name: "tailwind", color: "pink-text-gradient" },
-  ],
+  tags: ["next.js", "react", "shadcn", "tailwind"],
 };
 
 const _3DPortfolioProject: Project = {
+  name: "3D Portfolio",
   codeLink: "https://github.com/niravchavda99/3d-portfolio-demo",
-  description: "Learning project to work with 3D elements in Javascript",
+  description:
+    "Learning project exploring 3D elements in the browser using Three.js and React.",
   image: _3DPortfolioSnap.src,
   link: "https://3d-portfolio-demo-chi.vercel.app",
-  name: "3D Portfolio",
-  tags: [
-    { name: "react", color: "orange-text-gradient" },
-    { name: "vite", color: "green-text-gradient" },
-    { name: "threejs", color: "blue-text-gradient" },
-    { name: "animation", color: "pink-text-gradient" },
-    { name: "3d", color: "orange-text-gradient" },
-  ],
+  tags: ["react", "vite", "threejs", "3d", "animation"],
 };
 
 const portfolioThreeJsProject: Project = {
+  name: "Portfolio ThreeJS",
   codeLink: "https://github.com/niravchavda99/portfolio-threejs-demo",
-  description: "Learning project to work with 3D elements in Javascript",
+  description:
+    "Immersive 3D portfolio demo with WebGL animations and interactive Three.js scenes.",
   image: portfolioThreeJsSnap.src,
   link: "https://portfolio-threejs-demo.vercel.app/",
-  name: "Portfolio ThreeJS",
-  tags: [
-    { name: "react", color: "orange-text-gradient" },
-    { name: "vite", color: "green-text-gradient" },
-    { name: "threejs", color: "blue-text-gradient" },
-    { name: "animation", color: "pink-text-gradient" },
-    { name: "3d", color: "orange-text-gradient" },
-  ],
+  tags: ["react", "vite", "threejs", "3d", "animation"],
 };
 
 export const projects: Project[] = [

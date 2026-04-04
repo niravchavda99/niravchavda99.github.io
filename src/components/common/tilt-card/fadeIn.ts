@@ -1,10 +1,10 @@
-import {Variants} from "framer-motion";
+import { Variants } from "framer-motion";
 
 export const fadeIn = (
-    direction: string,
-    type: string,
-    delay: number,
-    duration: number,
+  direction: string,
+  type: string,
+  delay: number,
+  duration: number,
 ) => {
   return {
     hidden: {

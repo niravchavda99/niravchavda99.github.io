@@ -1,11 +1,14 @@
 export default function FullPageLoader() {
   return (
-    <div className="flex items-center justify-center min-h-screen p-5 min-w-screen">
-      <div className="flex space-x-2 animate-pulse">
-        <div className="w-3 h-3 bg-slate-500 rounded-full"></div>
-        <div className="w-3 h-3 bg-slate-500 rounded-full"></div>
-        <div className="w-3 h-3 bg-slate-500 rounded-full"></div>
+    <div className="flex flex-col items-center justify-center min-h-screen gap-4">
+      <div className="flex gap-1.5">
+        <div className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:-0.3s]" />
+        <div className="w-2 h-2 rounded-full bg-violet-400 animate-bounce [animation-delay:-0.15s]" />
+        <div className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce" />
       </div>
+      <span className="font-mono text-xs text-slate-400 dark:text-slate-500">
+        loading...
+      </span>
     </div>
   );
 }

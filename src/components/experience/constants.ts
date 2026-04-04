@@ -59,8 +59,6 @@ export const educations: EducationProfile[] = [
     iconBg: "#79C5F1",
     instituteName: "Krantiguru Shyamji Krishna Verma Kachchh University",
     location: "Kachchh, Gujarat",
-    points: [
-      "🥈 University Second Rank (Overall)"
-    ],
+    points: ["🥈 University Second Rank (Overall)"],
   },
 ];

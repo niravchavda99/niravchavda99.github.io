@@ -16,8 +16,7 @@ export function SectionContainer({
     <div
       id={id}
       className={cn(
-        "max-w-6xl mx-auto sm:p-16 pt-16 pb-12 px-8",
-        "min-h-[calc(100vh-80px)]",
+        "max-w-6xl mx-auto w-full px-6 sm:px-12 pt-24 pb-16",
         className,
       )}
     >

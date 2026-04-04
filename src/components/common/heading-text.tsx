@@ -12,18 +12,16 @@ export function HeadingText({
   className,
 }: HeadingTextProps) {
   return (
-    <h1
-      className={cn(
-        "text-slate-700 dark:text-white",
-        "sm:text-5xl text-3xl font-semibold sm:leading-snug",
-        "flex items-center justify-center gap-2",
-        className,
-      )}
-    >
-      {precedingText}
-      <span className="blue-gradient-text font-semibold drop-shadow">
-        {coloredText}
+    <div className={cn("flex items-center gap-3", className)}>
+      <span className="font-mono text-cyan-400/50 dark:text-cyan-400/40 text-2xl select-none font-light">
+        //
       </span>
-    </h1>
+      <h2 className="text-slate-800 dark:text-slate-100 text-3xl sm:text-4xl font-bold tracking-tight">
+        {precedingText && <span>{precedingText} </span>}
+        <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+          {coloredText}
+        </span>
+      </h2>
+    </div>
   );
 }
