@@ -7,6 +7,7 @@ export interface Profile {
   iconBg: string;
   location: string;
   points: string[];
+  url: string;
 }
 
 export interface JobProfile extends Profile {

@@ -1,7 +1,7 @@
 "use client";
 
 import { educations, jobs } from "./constants";
-import { JobProfile, EducationProfile, Profile } from "./profile";
+import { EducationProfile, JobProfile, Profile } from "./profile";
 import Image from "next/image";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";
@@ -33,13 +33,20 @@ const TimelineItem = ({
           className="w-11 h-11 rounded-full border-2 flex items-center justify-center bg-white dark:bg-slate-900 z-10 shadow-md transition-shadow duration-300 group-hover:shadow-lg"
           style={{ borderColor: `${accentColor}60` }}
         >
-          <Image
-            src={profile.icon}
-            alt={primaryLabel}
-            width={28}
-            height={28}
-            className="w-7 h-7 rounded-full object-contain"
-          />
+          <a
+            href={profile.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={primaryLabel}
+          >
+            <Image
+              src={profile.icon}
+              alt={primaryLabel}
+              width={28}
+              height={28}
+              className="w-7 h-7 rounded-full object-contain"
+            />
+          </a>
         </div>
         {!isLast && (
           <div className="w-px flex-1 mt-2 bg-gradient-to-b from-slate-300/60 to-transparent dark:from-slate-700/60" />

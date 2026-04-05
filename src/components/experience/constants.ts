@@ -12,6 +12,7 @@ export const jobs: JobProfile[] = [
     iconBg: "#5EC5D6",
     location: "Remote",
     organizationName: "Incubyte",
+    url: "https://www.incubyte.co/",
     points: [
       "Focus on writing quality code and deliver well crafted software",
       "Delivered projects in Nextjs, React, Angular, Micronaut, Spring Boot, Chrome Extensions, Flutter, Azure, GCP etc.",
@@ -26,6 +27,7 @@ export const jobs: JobProfile[] = [
     iconBg: "#5EC5D6",
     location: "Remote",
     organizationName: "Incubyte",
+    url: "https://www.incubyte.co/",
     points: [
       "Explored D3.js and worked on project to display different kind of information on graphs",
       "Learnt reactive programming paradigm",
@@ -42,6 +44,7 @@ export const educations: EducationProfile[] = [
     icon: gujaratUniversityLogo.src,
     iconBg: "#EC1B94",
     instituteName: "Department of Computer Science, Gujarat University",
+    url: "https://www.gujaratuniversity.ac.in/",
     location: "Ahmedabad, Gujarat",
     points: [
       "🥇 Gold Medallist",
@@ -58,6 +61,7 @@ export const educations: EducationProfile[] = [
     icon: kskvkuLogo.src,
     iconBg: "#79C5F1",
     instituteName: "Krantiguru Shyamji Krishna Verma Kachchh University",
+    url: "https://www.kskvku.ac.in/",
     location: "Kachchh, Gujarat",
     points: ["🥈 University Second Rank (Overall)"],
   },
