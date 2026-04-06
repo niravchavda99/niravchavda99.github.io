@@ -2,6 +2,7 @@ import _3DPortfolioSnap from "@/src/assets/images/3d-portfolio-snap.png";
 import genForgeSnap from "@/src/assets/images/gen-forge-snap.png";
 import pokedexSnap from "@/src/assets/images/pokedex-snap.png";
 import portfolioThreeJsSnap from "@/src/assets/images/portfolio-three-js-snap.png";
+import taskbedSnap from "@/src/assets/images/taskbed-snap.png";
 import xpathifySnap from "@/src/assets/images/xpathify-snap.png";
 
 export interface Project {
@@ -22,7 +23,7 @@ const xpathifyProject: Project = {
   image: xpathifySnap.src,
   link: "https://chromewebstore.google.com/detail/ffhbcenfioobgmnhokaabdaecfoocmli?utm_source=item-share-cb",
   tags: ["chrome-extension", "react", "typescript", "xpath"],
-  featured: true,
+  featured: false,
   featuredBadge: "Published on Chrome Web Store",
 };
 
@@ -39,10 +40,19 @@ const genForgeProject: Project = {
 const pokedexProject: Project = {
   name: "Pokédex",
   description:
-    "Next.js learning project — a complete Pokédex with server-side rendering and search.",
+    "Browse, search, and explore every Pokémon — types, stats, generations, and a personal favorites list.",
   image: pokedexSnap.src,
-  link: "https://pokedex-six-neon.vercel.app",
-  tags: ["next.js", "react", "shadcn", "tailwind"],
+  link: "https://pokedex.niravchavda.in",
+  tags: ["next.js", "react", "tailwind", "pokeapi"],
+};
+
+const taskbedProject: Project = {
+  name: "TaskBed",
+  description:
+    "Personal task manager powered by Google Drive — your tasks, stored where you already are.",
+  image: taskbedSnap.src,
+  link: "https://taskbed.niravchavda.in",
+  tags: ["next.js", "react", "tailwind", "google-drive", "pwa"],
 };
 
 const _3DPortfolioProject: Project = {
@@ -67,8 +77,9 @@ const portfolioThreeJsProject: Project = {
 
 export const projects: Project[] = [
   xpathifyProject,
-  genForgeProject,
   pokedexProject,
+  taskbedProject,
+  genForgeProject,
   _3DPortfolioProject,
   portfolioThreeJsProject,
 ];
