@@ -1,5 +1,4 @@
 import _3DPortfolioSnap from "@/src/assets/images/3d-portfolio-snap.png";
-import genForgeSnap from "@/src/assets/images/gen-forge-snap.png";
 import pokedexSnap from "@/src/assets/images/pokedex-snap.png";
 import portfolioThreeJsSnap from "@/src/assets/images/portfolio-three-js-snap.png";
 import taskbedSnap from "@/src/assets/images/taskbed-snap.png";
@@ -25,16 +24,6 @@ const xpathifyProject: Project = {
   tags: ["chrome-extension", "react", "typescript", "xpath"],
   featured: false,
   featuredBadge: "Published on Chrome Web Store",
-};
-
-const genForgeProject: Project = {
-  name: "GenForge",
-  codeLink: "https://github.com/niravchavda99/gen-forge",
-  description:
-    "Utility app to generate useful values on the fly — UUIDs, hashes, colors, and more.",
-  image: genForgeSnap.src,
-  link: "https://niravchavda99.github.io/gen-forge",
-  tags: ["nextjs", "react", "shadcn", "tailwind"],
 };
 
 const pokedexProject: Project = {
@@ -79,7 +68,6 @@ export const projects: Project[] = [
   xpathifyProject,
   pokedexProject,
   taskbedProject,
-  genForgeProject,
   _3DPortfolioProject,
   portfolioThreeJsProject,
 ];
