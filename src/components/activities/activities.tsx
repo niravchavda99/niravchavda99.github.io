@@ -20,7 +20,7 @@ const Activities = () => {
             {/* Top gradient accent line */}
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-violet-400 to-emerald-400 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Background number watermark — text-slate-200 is visible in light mode without being distracting */}
+            {/* Background number watermark: text-slate-200 is visible in light mode without being distracting */}
             <div className="absolute bottom-4 right-5 font-mono text-8xl font-bold text-slate-200 dark:text-slate-800 select-none group-hover:text-slate-300 dark:group-hover:text-slate-700 transition-colors duration-300">
               {String(index + 1).padStart(2, "0")}
             </div>

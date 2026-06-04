@@ -20,7 +20,7 @@ const TimelineItem = ({
   accentColor: string;
   isLast: boolean;
 }) => {
-  const dateRange = `${profile.dateStarted} — ${profile.dateEnded ?? "Present"}`;
+  const dateRange = `${profile.dateStarted} to ${profile.dateEnded ?? "Present"}`;
   const duration = (profile.dateEnded ?? MonthYear.present())
     .diff(profile.dateStarted)
     .toCountString();
@@ -103,7 +103,7 @@ const Experience = () => {
     <SectionContainer id="experience">
       <HeadingText coloredText="Experience" />
       <p className="mt-4 mb-14 text-slate-500 dark:text-slate-400 text-base max-w-xl">
-        My professional journey — from learning the craft to delivering
+        My professional journey, from learning the craft to delivering
         production software.
       </p>
 

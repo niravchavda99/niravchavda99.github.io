@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Projects | Nirav Chavda",
   description:
-    "A selection of things Nirav Chavda has built — open-source projects, tools, and experiments.",
+    "A selection of things Nirav Chavda has built: open-source projects, tools, and experiments.",
 };
 
 export default function ProjectsPage() {
@@ -19,7 +19,7 @@ export default function ProjectsPage() {
       <HeadingText coloredText="Projects" />
 
       <p className="mt-4 mb-14 text-slate-500 dark:text-slate-400 text-base max-w-2xl">
-        A selection of things I&apos;ve built — each one a step in my journey.
+        A selection of things I&apos;ve built, each one a step in my journey.
         Many are open-source, so feel free to explore the code.
       </p>
 

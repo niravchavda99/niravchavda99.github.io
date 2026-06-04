@@ -15,11 +15,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Nirav Chavda",
   description:
-    "Full-stack developer building thoughtful software — from backend services to mobile apps.",
+    "Full-stack developer building thoughtful software, from backend services to mobile apps.",
   openGraph: {
     title: "Nirav Chavda",
     description:
-      "Full-stack developer building thoughtful software — from backend services to mobile apps.",
+      "Full-stack developer building thoughtful software, from backend services to mobile apps.",
     url: "https://niravchavda.in",
     siteName: "Nirav Chavda",
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nirav Chavda",
     description:
-      "Full-stack developer building thoughtful software — from backend services to mobile apps.",
+      "Full-stack developer building thoughtful software, from backend services to mobile apps.",
   },
 };
 

@@ -34,7 +34,7 @@ const SOCIAL_ICONS = [
   },
 ];
 
-// Internship completed July 2022 — YOE counted from there
+// Internship completed July 2022, YOE counted from there
 const CAREER_START = new Date(2022, 6, 1);
 
 function calculateYOE(): string {
@@ -54,7 +54,7 @@ const About = () => {
       className="max-w-6xl mx-auto w-full px-6 sm:px-12 pt-24 pb-16"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[auto_auto_1fr] gap-x-16 gap-y-8 items-start">
-        {/* Name + subtitle — order 1 on mobile, col 1 row 1 on desktop */}
+        {/* Name + subtitle: order 1 on mobile, col 1 row 1 on desktop */}
         <div className="order-1 lg:col-start-1 lg:row-start-1">
           <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
             Nirav{" "}
@@ -71,7 +71,7 @@ const About = () => {
           </p>
         </div>
 
-        {/* Profile image — order 2 on mobile (above stats+code), spans 3 rows on desktop right column */}
+        {/* Profile image: order 2 on mobile (above stats+code), spans 3 rows on desktop right column */}
         <div className="flex items-center justify-center order-2 lg:row-span-3 lg:col-start-2 lg:row-start-1 self-center">
           <div className="relative">
             <div className="absolute -inset-6 rounded-full bg-gradient-to-r from-cyan-400/20 via-violet-400/10 to-cyan-400/20 blur-2xl animate-glow-pulse" />
@@ -90,7 +90,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Stats — order 3 on mobile (below image), col 1 row 2 on desktop */}
+        {/* Stats: order 3 on mobile (below image), col 1 row 2 on desktop */}
         <div className="flex items-center justify-center lg:justify-start gap-3 order-3 lg:col-start-1 lg:row-start-2">
           <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/60">
             <span className="text-base">☕</span>
@@ -117,7 +117,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Code block + social — order 4 on mobile, col 1 row 3 on desktop */}
+        {/* Code block + social: order 4 on mobile, col 1 row 3 on desktop */}
         <div className="flex flex-col gap-8 order-4 lg:col-start-1 lg:row-start-3">
           {/* Code block */}
           <div className="font-mono text-sm bg-slate-900/90 dark:bg-slate-900/60 rounded-xl border border-slate-700/40 shadow-2xl shadow-slate-900/20 overflow-hidden">

@@ -36,7 +36,7 @@ const Skills = () => {
     <SectionContainer id="skills">
       <HeadingText coloredText="Skills" />
       <p className="mt-4 mb-14 text-slate-500 dark:text-slate-400 text-base max-w-xl">
-        Technologies I&apos;ve worked with across the full stack — from backend
+        Technologies I&apos;ve worked with across the full stack, from backend
         services to mobile apps.
       </p>
 

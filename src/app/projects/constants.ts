@@ -1,4 +1,5 @@
 import _3DPortfolioSnap from "@/src/assets/images/3d-portfolio-snap.png";
+import devReflexSnap from "@/src/assets/images/devreflex-snap.png";
 import pokedexSnap from "@/src/assets/images/pokedex-snap.png";
 import portfolioThreeJsSnap from "@/src/assets/images/portfolio-three-js-snap.png";
 import taskbedSnap from "@/src/assets/images/taskbed-snap.png";
@@ -20,16 +21,23 @@ const xpathifyProject: Project = {
   description:
     "Instantly test and evaluate XPath expressions directly on web pages. A Chrome Extension for XPath power users.",
   image: xpathifySnap.src,
-  link: "https://chromewebstore.google.com/detail/ffhbcenfioobgmnhokaabdaecfoocmli?utm_source=item-share-cb",
+  link: "https://xpathify.niravchavda.in",
   tags: ["chrome-extension", "react", "typescript", "xpath"],
-  featured: false,
-  featuredBadge: "Published on Chrome Web Store",
+};
+
+const devReflexProject: Project = {
+  name: "DevReflex",
+  description:
+    "A sleek developer toolbox: generators, converters, formatters, encoders, and testers, one keystroke away on any page. A Chrome Extension.",
+  image: devReflexSnap.src,
+  link: "https://devreflex.niravchavda.in",
+  tags: ["chrome-extension", "react", "typescript", "developer-tools"],
 };
 
 const pokedexProject: Project = {
   name: "Pokédex",
   description:
-    "Browse, search, and explore every Pokémon — types, stats, generations, and a personal favorites list.",
+    "Browse, search, and explore every Pokémon: types, stats, generations, and a personal favorites list.",
   image: pokedexSnap.src,
   link: "https://pokedex.niravchavda.in",
   tags: ["next.js", "react", "tailwind", "pokeapi"],
@@ -38,7 +46,7 @@ const pokedexProject: Project = {
 const taskbedProject: Project = {
   name: "TaskBed",
   description:
-    "Personal task manager powered by Google Drive — your tasks, stored where you already are.",
+    "Personal task manager powered by Google Drive: your tasks, stored where you already are.",
   image: taskbedSnap.src,
   link: "https://taskbed.niravchavda.in",
   tags: ["next.js", "react", "tailwind", "google-drive", "pwa"],
@@ -65,6 +73,7 @@ const portfolioThreeJsProject: Project = {
 };
 
 export const projects: Project[] = [
+  devReflexProject,
   xpathifyProject,
   pokedexProject,
   taskbedProject,
