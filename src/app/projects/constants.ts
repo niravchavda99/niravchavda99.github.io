@@ -1,5 +1,6 @@
 import _3DPortfolioSnap from "@/src/assets/images/3d-portfolio-snap.png";
 import devReflexSnap from "@/src/assets/images/devreflex-snap.png";
+import loanStudioSnap from "@/src/assets/images/loan-studio-snap.png";
 import pokedexSnap from "@/src/assets/images/pokedex-snap.png";
 import portfolioThreeJsSnap from "@/src/assets/images/portfolio-three-js-snap.png";
 import taskbedSnap from "@/src/assets/images/taskbed-snap.png";
@@ -32,6 +33,15 @@ const devReflexProject: Project = {
   image: devReflexSnap.src,
   link: "https://devreflex.niravchavda.in",
   tags: ["chrome-extension", "react", "typescript", "developer-tools"],
+};
+
+const loanStudioProject: Project = {
+  name: "Loan Studio",
+  description:
+    "Indian EMI and amortization in plain numbers: home, car, and personal loans, extra payments, and a downloadable schedule.",
+  image: loanStudioSnap.src,
+  link: "https://loan-calculator-beta-nine.vercel.app/",
+  tags: ["react", "vite", "typescript", "tailwind", "finance"],
 };
 
 const pokedexProject: Project = {
@@ -75,6 +85,7 @@ const portfolioThreeJsProject: Project = {
 export const projects: Project[] = [
   devReflexProject,
   xpathifyProject,
+  loanStudioProject,
   pokedexProject,
   taskbedProject,
   _3DPortfolioProject,
