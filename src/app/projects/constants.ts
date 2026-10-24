@@ -4,6 +4,7 @@ import loanStudioSnap from "@/src/assets/images/loan-studio-snap.png";
 import pokedexSnap from "@/src/assets/images/pokedex-snap.png";
 import portfolioThreeJsSnap from "@/src/assets/images/portfolio-three-js-snap.png";
 import taskbedSnap from "@/src/assets/images/taskbed-snap.png";
+import wallpaperMatrixSnap from "@/src/assets/images/wallpaper-matrix-snap.png";
 import xpathifySnap from "@/src/assets/images/xpathify-snap.png";
 
 export interface Project {
@@ -62,6 +63,15 @@ const taskbedProject: Project = {
   tags: ["next.js", "react", "tailwind", "google-drive", "pwa"],
 };
 
+const wallpaperMatrixProject: Project = {
+  name: "Wallpaper Matrix",
+  description:
+    "Create a personal wallpaper with geometric styles, customizable color palettes, a live preview, and one-click PNG downloads.",
+  image: wallpaperMatrixSnap.src,
+  link: "https://wallpapermatrix.niravchavda.in",
+  tags: ["wallpaper-generator", "creative-tool", "customization"],
+};
+
 const _3DPortfolioProject: Project = {
   name: "3D Portfolio",
   codeLink: "https://github.com/niravchavda99/3d-portfolio-demo",
@@ -88,6 +98,7 @@ export const projects: Project[] = [
   loanStudioProject,
   pokedexProject,
   taskbedProject,
+  wallpaperMatrixProject,
   _3DPortfolioProject,
   portfolioThreeJsProject,
 ];
