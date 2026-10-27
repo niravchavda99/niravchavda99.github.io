@@ -162,6 +162,28 @@ test("motion can be paused and reduced motion is respected", async ({
   ).toBe(reduced);
 });
 
+test("camera works with a keyboard and reset restores the scene", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const canvas = page.locator(".orbital-canvas");
+  await page.getByRole("button", { name: "Reset simulation" }).click();
+  const snapshot = () =>
+    canvas.evaluate((element) => (element as HTMLCanvasElement).toDataURL());
+  const initial = await snapshot();
+  await canvas.focus();
+  await page.keyboard.press("ArrowRight");
+  expect(await snapshot()).not.toBe(initial);
+  await page.keyboard.press("Home");
+  expect(await snapshot()).toBe(initial);
+  await page.keyboard.press("ArrowUp");
+  await page.getByRole("button", { name: "Reset simulation" }).click();
+  expect(await snapshot()).toBe(initial);
+  await page.getByRole("link", { name: "Explore skills", exact: true }).click();
+  await expect(page).toHaveURL(/#toolkit$/);
+});
+
 test("mobile navigation opens, closes, and reaches a section", async ({
   page,
 }, testInfo) => {

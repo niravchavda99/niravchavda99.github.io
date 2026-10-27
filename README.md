@@ -32,7 +32,9 @@ The preview serves the actual static export, including direct `/projects/` navig
 - `src/index.css`: Tailwind import, design tokens, responsive layouts, and motion.
 - `CONTENT.md`: original content inventory and known information gaps.
 
-The full-width hero is a procedural Canvas world: softened Newtonian gravity drives luminous particles, with a shaded planet, perspective orbital paths, binary-field mode, and an interactive pulse. Physics lives in `src/lib/orbital-physics.ts`; rendering and lifecycle management live in `src/components/studio/orbital-world.tsx`. No animation engine, stock video, textures, or remote assets are used.
+The full-width hero is a procedural Canvas world: three-dimensional softened Newtonian gravity drives an orbital debris belt using velocity-Verlet integration. Generated terrain, independently rotating clouds, ocean highlights, atmospheric scattering, and a day/night boundary give the planet depth. Moons link directly to portfolio sections. Drag with a mouse or use arrow keys to orbit the camera; Home restores the view. Controls switch to a binary field, send a pulse, or reset the simulation.
+
+Physics lives in `src/lib/orbital-physics.ts`, projection and scene painting in `src/lib/orbital-renderer.ts`, generated surfaces in `src/lib/planet-surface.ts`, and lifecycle/input in `src/components/studio/orbital-world.tsx`. No animation engine, stock video, downloaded textures, or remote assets are used.
 
 The renderer caps resolution and frame rate, reduces particle count on mobile, stops simulation offscreen and in hidden tabs, and honors reduced motion and the global pause control. Remaining animation lives in `src/motion.css`. Fonts are self-hosted. The midnight/platinum/sapphire palette is defined in `src/index.css` and shared across every page. The existing custom-domain metadata is retained.
 

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { Orbit, Radio } from "lucide-react";
+import { Orbit, Radio, RotateCcw } from "lucide-react";
 import portrait from "@/src/assets/images/profile.jpg";
 import { OrbitalWorld } from "./orbital-world";
 import type { FieldMode } from "@/src/lib/orbital-physics";
@@ -10,9 +10,10 @@ import { profile } from "@/src/content/portfolio";
 export function CraftEngine() {
   const [mode, setMode] = useState<FieldMode>("orbit");
   const [pulse, setPulse] = useState(0);
+  const [reset, setReset] = useState(0);
   return (
     <div className="world-scene">
-      <OrbitalWorld mode={mode} pulse={pulse} />
+      <OrbitalWorld mode={mode} pulse={pulse} reset={reset} />
       <div className="world-coordinate">
         <span className="live-light" />N / C · ORBITAL OBSERVATORY
         <span>01 — A WORLD IN MOTION</span>
@@ -50,12 +51,24 @@ export function CraftEngine() {
           <Radio size={15} />
           Send a pulse
         </button>
+        <button
+          onClick={() => setReset((value) => value + 1)}
+          aria-label="Reset simulation"
+          title="Reset simulation"
+        >
+          <RotateCcw size={15} />
+        </button>
       </div>
       <div className="world-caption" aria-live="polite">
         {mode === "orbit"
           ? "ONE CENTER. INFINITE POSSIBILITIES."
           : "TWO CENTERS. A NEW EQUILIBRIUM."}
-        <span>Explore the field. Change its gravity.</span>
+        <span className="pointer-instruction">
+          Drag to orbit · Arrow keys to explore
+        </span>
+        <span className="touch-instruction">
+          Tap a moon to explore · Change the field below
+        </span>
       </div>
     </div>
   );

@@ -380,6 +380,59 @@ body::before {
     min-height: 38px;
   }
 }
+.orbital-canvas {
+  cursor: grab;
+  touch-action: pan-y;
+}
+.orbital-canvas[data-dragging] {
+  cursor: grabbing;
+}
+.orbital-canvas:focus-visible {
+  outline: 1px solid #a5cfff;
+  outline-offset: -4px;
+}
+.world-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 7px;
+  color: #c7d7ed;
+  font-size: 11px;
+  text-decoration: none;
+  background: radial-gradient(ellipse, #070d18b0, #070d1800);
+  will-change: transform;
+}
+.world-marker span {
+  width: 12px;
+  border-top: 1px solid #8eabd0;
+}
+.world-marker:hover,
+.world-marker:focus-visible {
+  color: white;
+  text-shadow: 0 0 12px #a5cfff;
+}
+.touch-instruction {
+  display: none !important;
+}
+@media (pointer: coarse) {
+  .pointer-instruction {
+    display: none !important;
+  }
+  .touch-instruction {
+    display: block !important;
+  }
+}
+@media (max-width: 380px) {
+  .world-controls button {
+    padding-inline: 7px;
+    font-size: 10px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

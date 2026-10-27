@@ -7,14 +7,19 @@ import {
 
 test("the orbital field stays finite through a sustained simulation", () => {
   for (const mode of ["orbit", "binary"] as const) {
-    const particles = createParticles(40);
+    const particles = createParticles(40, mode);
     for (let step = 0; step < 1800; step++)
       stepParticles(particles, 1 / 60, step / 60, mode);
     for (const particle of particles) {
       expect(
-        [particle.x, particle.y, particle.vx, particle.vy].every(
-          Number.isFinite,
-        ),
+        [
+          particle.x,
+          particle.y,
+          particle.z,
+          particle.vx,
+          particle.vy,
+          particle.vz,
+        ].every(Number.isFinite),
       ).toBe(true);
       expect(Math.hypot(particle.x, particle.y)).toBeLessThan(2000);
       expect(particle.trail.length).toBeLessThanOrEqual(18);
@@ -29,6 +34,7 @@ test("a pulse adds an outward impulse without changing initial positions", () =>
   particles.forEach((particle, i) => {
     expect(particle.x).toBe(before[i].x);
     expect(particle.y).toBe(before[i].y);
+    expect(particle.z).toBe(before[i].z);
     const radialChange =
       (particle.vx - before[i].vx) * particle.x +
       (particle.vy - before[i].vy) * particle.y;
