@@ -1,6 +1,6 @@
 # Nirav Chavda — Portfolio
 
-An original editorial portfolio, built with Next.js, React, TypeScript, and Tailwind CSS 4. All UI components and the animated SVG craft engine are authored in this repository.
+An original orbital observatory portfolio, built with Next.js, React, TypeScript, and Tailwind CSS 4. All UI components, motion graphics, and the interactive gravitational world are authored in this repository.
 
 ## Run locally
 
@@ -32,7 +32,9 @@ The preview serves the actual static export, including direct `/projects/` navig
 - `src/index.css`: Tailwind import, design tokens, responsive layouts, and motion.
 - `CONTENT.md`: original content inventory and known information gaps.
 
-Only navigation, project filtering, current-role duration, pointer interaction, and scroll observation require client JavaScript. Animation uses original CSS and SVG systems in `src/motion.css`; no animation runtime is shipped. Fonts are self-hosted. Reduced motion and manual pause are supported. The existing custom-domain metadata is retained.
+The full-width hero is a procedural Canvas world: softened Newtonian gravity drives luminous particles, with a shaded planet, perspective orbital paths, binary-field mode, and an interactive pulse. Physics lives in `src/lib/orbital-physics.ts`; rendering and lifecycle management live in `src/components/studio/orbital-world.tsx`. No animation engine, stock video, textures, or remote assets are used.
+
+The renderer caps resolution and frame rate, reduces particle count on mobile, stops simulation offscreen and in hidden tabs, and honors reduced motion and the global pause control. Remaining animation lives in `src/motion.css`. Fonts are self-hosted. The midnight/platinum/sapphire palette is defined in `src/index.css` and shared across every page. The existing custom-domain metadata is retained.
 
 ## Add content in code
 
@@ -45,7 +47,7 @@ Add an object to `projects` in `src/content/projects.ts`. No component edits are
   description: "What it does and who it helps.",
   href: "https://example.com",
   tags: ["React", "TypeScript"],
-  color: "mint", // "mint" | "lavender" | "peach" | "yellow"
+  color: "sapphire", // "sapphire" | "teal" | "slate" | "violet"
   // image: importedScreenshot, // optional static image import
   // source: "https://github.com/...", // optional
 },

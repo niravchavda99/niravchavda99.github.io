@@ -17,7 +17,7 @@ export interface Project {
   href: string;
   source?: string;
   tags: string[];
-  color: "lavender" | "mint" | "peach" | "yellow";
+  color: "sapphire" | "teal" | "slate" | "violet";
 }
 
 export const projects: Project[] = [
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     image: devreflex,
     href: "https://devreflex.niravchavda.in",
     tags: ["Chrome extension", "React", "TypeScript"],
-    color: "lavender",
+    color: "sapphire",
   },
   {
     name: "Xpathify",
@@ -39,7 +39,7 @@ export const projects: Project[] = [
     image: xpathify,
     href: "https://xpathify.niravchavda.in",
     tags: ["Chrome extension", "React", "XPath"],
-    color: "mint",
+    color: "teal",
   },
   {
     name: "Loan Studio",
@@ -49,7 +49,7 @@ export const projects: Project[] = [
     image: loans,
     href: "https://loan-calculator-beta-nine.vercel.app/",
     tags: ["React", "TypeScript", "Tailwind"],
-    color: "peach",
+    color: "slate",
   },
   {
     name: "Pokédex",
@@ -59,7 +59,7 @@ export const projects: Project[] = [
     image: pokedex,
     href: "https://pokedex.niravchavda.in",
     tags: ["Next.js", "React", "PokéAPI"],
-    color: "yellow",
+    color: "violet",
   },
   {
     name: "TaskBed",
@@ -69,7 +69,7 @@ export const projects: Project[] = [
     image: taskbed,
     href: "https://taskbed.niravchavda.in",
     tags: ["Next.js", "Google Drive", "PWA"],
-    color: "mint",
+    color: "teal",
   },
   {
     name: "Wallpaper Matrix",
@@ -79,7 +79,7 @@ export const projects: Project[] = [
     image: wallpaper,
     href: "https://wallpapermatrix.niravchavda.in",
     tags: ["Generative design", "Creative tool"],
-    color: "lavender",
+    color: "sapphire",
   },
   {
     name: "3D Portfolio",
@@ -90,7 +90,7 @@ export const projects: Project[] = [
     href: "https://3d-portfolio-demo-chi.vercel.app",
     source: "https://github.com/niravchavda99/3d-portfolio-demo",
     tags: ["React", "Three.js", "Vite"],
-    color: "peach",
+    color: "slate",
   },
   {
     name: "Portfolio ThreeJS",
@@ -101,6 +101,6 @@ export const projects: Project[] = [
     href: "https://portfolio-threejs-demo.vercel.app/",
     source: "https://github.com/niravchavda99/portfolio-threejs-demo",
     tags: ["WebGL", "Three.js", "React"],
-    color: "yellow",
+    color: "violet",
   },
 ];

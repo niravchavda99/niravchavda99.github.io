@@ -1,95 +1,201 @@
-/* Original motion systems, isolated from layout and typography. */
+/* The orbital world is drawn by our Canvas renderer. These are its UI and scroll effects. */
+body {
+  isolation: isolate;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: -60px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    radial-gradient(1px 1px at 30px 70px, #9bbbe7 80%, transparent),
+    radial-gradient(1px 1px at 140px 210px, #7799c7 80%, transparent),
+    radial-gradient(1px 1px at 260px 100px, #bfd5f2 80%, transparent);
+  background-size:
+    310px 290px,
+    430px 390px,
+    590px 510px;
+  animation: star-drift 100s linear infinite alternate;
+}
+@keyframes star-drift {
+  to {
+    transform: translate(40px, -40px);
+  }
+}
 .reading-progress {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: var(--orange);
+  height: 2px;
+  background: var(--accent);
   transform: scaleX(var(--reading-progress, 0));
   transform-origin: left;
   z-index: 60;
   pointer-events: none;
+  box-shadow: 0 0 12px #91baff80;
 }
-.portrait-stage {
+.world-hero {
   position: relative;
-}
-.principle-star {
-  animation: orbital 36s linear infinite;
-}
-.engine-portrait {
-  position: absolute;
-  width: 44%;
-  left: 28%;
-  top: 17%;
-  padding: 7px;
-  background: #f6f4ed;
-  transform: rotate(4deg);
-  box-shadow: 0 14px 32px #0006;
-}
-.engine-portrait img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 0.82;
-  object-fit: cover;
-  object-position: center 30%;
+  min-height: min(850px, calc(100svh - 88px));
+  padding: 0;
+  display: block;
+  overflow: clip;
+  isolation: isolate;
 }
-.engine-portrait > span {
-  padding: 10px 2px 3px;
+.world-scene {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.orbital-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.world-hero .hero-copy {
+  width: 46%;
+  max-width: 720px;
+  padding: clamp(60px, 7vh, 100px) 0 130px 56px;
+  position: relative;
+  pointer-events: none;
+}
+.world-hero .hero-copy a {
+  pointer-events: auto;
+}
+.world-hero .hero-copy > p {
+  max-width: 440px;
+}
+.world-hero h1 {
+  font-size: clamp(58px, 5.8vw, 100px);
+  text-shadow: 0 4px 35px #070d18;
+}
+.world-hero .hero-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 56px;
+  right: 56px;
+  margin: 0;
+  pointer-events: none;
+}
+.world-hero .hero-bottom a {
+  pointer-events: auto;
+}
+.world-coordinate {
+  position: absolute;
+  top: 28px;
+  right: 56px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  color: var(--ink);
-  font: 9px monospace;
-  letter-spacing: 0.7px;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #b8cce9;
+  font: 10px monospace;
+  letter-spacing: 1.5px;
 }
-.engine-portrait i {
-  color: #9e391b;
-  font-size: 15px;
-  font-style: normal;
+.world-coordinate > span:last-child {
+  width: 100%;
+  text-align: right;
+  color: #8ca3c4;
+  font-size: 9px;
+  margin-top: 3px;
 }
-.signal-orbit {
-  animation: signal-flow 14s linear infinite;
+.live-light {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #b7dcff;
+  box-shadow: 0 0 12px #76aaff;
+  animation: beacon 3s ease-in-out infinite;
 }
-.floating-skill {
+.world-portrait {
   position: absolute;
-  display: inline-block;
-  padding: 10px 14px;
-  color: var(--ink);
+  right: 56px;
+  bottom: 135px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 18px 10px 10px;
+  border: 1px solid #7896c241;
+  background: #0a1424d9;
+  backdrop-filter: blur(18px);
+}
+.world-portrait img {
+  width: 100px;
+  height: 113px;
+  object-fit: cover;
+  object-position: center 25%;
+  filter: saturate(0.6);
+}
+.world-portrait > div {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.world-portrait strong {
+  font: 500 20px var(--font-display);
+  color: #edf4ff;
+}
+.world-portrait span {
+  font-size: 11px;
+  color: #b8cae5;
+}
+.world-portrait span:first-child {
+  font: 8px monospace;
+  letter-spacing: 1.4px;
+}
+.world-controls {
+  position: absolute;
+  bottom: 70px;
+  right: 56px;
+  display: flex;
+  padding: 5px;
+  gap: 4px;
+  background: #0c1728e6;
+  border: 1px solid #344b6c;
+  border-radius: 30px;
+}
+.world-controls button {
+  min-height: 40px;
+  padding: 0 15px;
+  border: 0;
+  border-radius: 22px;
+  background: transparent;
+  color: #b4c7e3;
   font-size: 12px;
-  font-weight: 700;
-  border: 1px solid #24242020;
-  box-shadow: 0 6px 18px #0002;
-  animation: float-skill 6s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  gap: 7px;
 }
-.skill-react {
-  top: 19%;
-  left: 5%;
-  background: #e0ddf0;
-  --float-rotation: -9deg;
+.world-controls button[aria-pressed="true"] {
+  background: #b7d2ff;
+  color: #07101e;
 }
-.skill-java {
-  top: 39%;
-  right: 3%;
-  background: #e8ecad;
-  animation-delay: -2s;
-  --float-rotation: 8deg;
+.world-controls button:hover {
+  box-shadow: inset 0 0 0 1px #7f9cc7;
 }
-.skill-flutter {
-  bottom: 16%;
-  left: 6%;
-  background: #f3dcd0;
-  animation-delay: -4s;
-  --float-rotation: -5deg;
+.world-caption {
+  position: absolute;
+  right: 56px;
+  top: 100px;
+  text-align: right;
+  color: #a2bfeb;
+  font: 9px monospace;
+  letter-spacing: 1.6px;
 }
-.engine-step {
-  animation: step-glow 6s ease-in-out infinite;
+.world-caption > span {
+  display: block;
+  margin-top: 8px;
+  font: 11px var(--font-sans);
+  letter-spacing: 0;
+  color: #97adc9;
 }
-.engine-step:nth-of-type(2) {
-  animation-delay: 2s;
-}
-.engine-step:nth-of-type(3) {
-  animation-delay: 4s;
+.principle-star {
+  animation: orbital 24s linear infinite;
 }
 .career-timeline::after {
   content: "";
@@ -97,44 +203,33 @@
   left: -1px;
   top: 24px;
   width: 3px;
-  height: 54px;
-  background: linear-gradient(transparent, #e8ecad, transparent);
-  animation: timeline-signal 6s ease-in-out infinite;
+  height: 70px;
+  background: linear-gradient(transparent, #a4ceff, transparent);
+  animation: timeline-signal 4s ease-in-out infinite;
   pointer-events: none;
+  box-shadow: 0 0 14px #78a8ee55;
 }
 .skill-group li {
   transition:
     transform 0.25s,
-    box-shadow 0.25s,
-    background 0.25s;
+    background 0.25s,
+    border-color 0.25s;
 }
 .skill-group li:hover {
-  transform: translateY(-3px);
-  background: white;
-  box-shadow: 0 6px 13px #24242010;
+  transform: translateY(-4px);
+  border-color: #789ccb;
+  background: #172740;
 }
-@keyframes signal-flow {
-  to {
-    stroke-dashoffset: -300;
-  }
+.project-card {
+  animation: project-arrive 0.6s both;
 }
-@keyframes float-skill {
-  0%,
-  100% {
-    transform: translateY(0) rotate(var(--float-rotation));
-  }
+.project-card:nth-child(even) {
+  animation-delay: 0.08s;
+}
+@keyframes beacon {
   50% {
-    transform: translateY(-13px) rotate(calc(var(--float-rotation) + 3deg));
-  }
-}
-@keyframes step-glow {
-  0%,
-  25%,
-  100% {
-    color: #dcded1;
-  }
-  12% {
-    color: #ffad85;
+    opacity: 0.4;
+    box-shadow: 0 0 3px #76aaff;
   }
 }
 @keyframes timeline-signal {
@@ -148,8 +243,141 @@
     opacity: 1;
   }
   85% {
-    transform: translateY(180px);
+    transform: translateY(210px);
     opacity: 0;
+  }
+}
+@keyframes project-arrive {
+  from {
+    opacity: 0.2;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (min-width: 1700px) {
+  .world-hero .hero-copy {
+    padding-left: 72px;
+  }
+  .world-hero {
+    min-height: 880px;
+  }
+}
+@media (max-width: 1050px) and (min-width: 761px) {
+  .world-hero .hero-copy {
+    padding-left: 32px;
+    width: 50%;
+  }
+  .world-hero h1 {
+    font-size: 66px;
+    letter-spacing: -4px;
+  }
+  .world-portrait {
+    right: 32px;
+    bottom: 160px;
+  }
+  .world-controls,
+  .world-coordinate,
+  .world-caption {
+    right: 32px;
+  }
+  .world-portrait img {
+    width: 72px;
+    height: 90px;
+  }
+  .world-portrait strong {
+    font-size: 16px;
+  }
+  .world-portrait {
+    gap: 10px;
+    padding-right: 10px;
+  }
+  .world-controls button {
+    padding-inline: 11px;
+  }
+}
+@media (max-width: 760px) {
+  .world-hero {
+    min-height: 1060px;
+    padding-top: 410px;
+  }
+  .world-scene {
+    inset: 0;
+  }
+  .orbital-canvas {
+    height: 450px;
+  }
+  .world-hero .hero-copy {
+    width: 100%;
+    max-width: none;
+    padding: 24px 20px 100px;
+    background: linear-gradient(#070d1800, #070d18 14%);
+  }
+  .world-hero h1 {
+    font-size: clamp(58px, 12vw, 80px);
+  }
+  .world-hero .hero-bottom {
+    left: 20px;
+    right: 20px;
+  }
+  .world-coordinate {
+    top: 18px;
+    right: 20px;
+    left: 20px;
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+  .world-coordinate > span:last-child {
+    text-align: left;
+    font-size: 8px;
+  }
+  .world-caption {
+    top: 71px;
+    right: 20px;
+    font-size: 8px;
+  }
+  .world-caption > span {
+    font-size: 10px;
+  }
+  .world-portrait {
+    top: 282px;
+    bottom: auto;
+    left: 20px;
+    right: auto;
+    gap: 12px;
+    padding: 7px 14px 7px 7px;
+  }
+  .world-portrait img {
+    width: 64px;
+    height: 77px;
+  }
+  .world-portrait strong {
+    font-size: 16px;
+  }
+  .world-portrait span:first-child {
+    font-size: 7px;
+  }
+  .world-portrait span {
+    font-size: 10px;
+  }
+  .world-portrait > div {
+    gap: 6px;
+  }
+  .world-controls {
+    top: 385px;
+    bottom: auto;
+    left: 20px;
+    right: auto;
+    max-width: calc(100% - 40px);
+    gap: 0;
+    padding: 3px;
+  }
+  .world-controls button {
+    padding: 0 10px;
+    font-size: 11px;
+    min-height: 38px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -161,8 +389,5 @@
   }
   .career-timeline::after {
     display: none;
-  }
-  .floating-skill {
-    transform: rotate(var(--float-rotation));
   }
 }

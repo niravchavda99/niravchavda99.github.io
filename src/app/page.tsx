@@ -38,7 +38,8 @@ function SectionLabel({
 export default function HomePage() {
   return (
     <main id="main">
-      <section className="hero container" aria-labelledby="hero-title">
+      <section className="hero world-hero" aria-labelledby="hero-title">
+        <CraftEngine />
         <div className="hero-copy">
           <div className="hero-identity">
             <div>
@@ -53,7 +54,7 @@ export default function HomePage() {
             <br />
             <span className="serif-word">thoughtfully</span>
             <br />
-            crafted<span className="orange">.</span>
+            crafted<span className="accent">.</span>
           </h1>
           <p>
             I’m Nirav. I turn complex problems into useful,
@@ -85,7 +86,6 @@ export default function HomePage() {
             </a>
           </div>
         </div>
-        <CraftEngine />
         <div className="hero-bottom">
           <span>INDEPENDENT MIND. COLLABORATIVE SPIRIT.</span>
           <a href="#work">
@@ -95,7 +95,7 @@ export default function HomePage() {
       </section>
       <nav className="quick-navigation" aria-label="Section shortcuts">
         <div className="container">
-          <span>GET TO KNOW ME</span>
+          <span>EXPLORE THE WORLD</span>
           <a href="#about">About me</a>
           <a href="#toolkit">Skills</a>
           <a href="#journey">Experience</a>

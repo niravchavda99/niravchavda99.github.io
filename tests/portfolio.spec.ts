@@ -121,20 +121,45 @@ test("motion can be paused and reduced motion is respected", async ({
   page,
 }) => {
   await page.goto("/");
+  const canvas = page.locator(".orbital-canvas");
+  await expect(canvas).toBeVisible();
+  const initial = await canvas.evaluate((element) =>
+    (element as HTMLCanvasElement).toDataURL(),
+  );
+  await expect
+    .poll(() =>
+      canvas.evaluate((element) => (element as HTMLCanvasElement).toDataURL()),
+    )
+    .not.toBe(initial);
+  await page.getByRole("button", { name: "Binary field", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "Binary field", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Send a pulse", exact: true }).click();
   await page.getByRole("button", { name: "Pause animations" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-motion", "paused");
+  await page.waitForTimeout(80);
+  const paused = await canvas.evaluate((element) =>
+    (element as HTMLCanvasElement).toDataURL(),
+  );
+  await page.waitForTimeout(200);
   expect(
-    await page
-      .locator(".orbital-group")
-      .evaluate((el) => getComputedStyle(el).animationPlayState),
-  ).toBe("paused");
+    await canvas.evaluate((element) =>
+      (element as HTMLCanvasElement).toDataURL(),
+    ),
+  ).toBe(paused);
   await page.getByRole("button", { name: "Play animations" }).click();
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.waitForTimeout(80);
+  const reduced = await canvas.evaluate((element) =>
+    (element as HTMLCanvasElement).toDataURL(),
+  );
+  await page.waitForTimeout(200);
   expect(
-    await page
-      .locator(".orbital-group")
-      .evaluate((el) => getComputedStyle(el).animationName),
-  ).toBe("none");
+    await canvas.evaluate((element) =>
+      (element as HTMLCanvasElement).toDataURL(),
+    ),
+  ).toBe(reduced);
 });
 
 test("mobile navigation opens, closes, and reaches a section", async ({

@@ -1,149 +1,61 @@
 "use client";
-import { useRef, type PointerEvent } from "react";
+import { useState } from "react";
 import Image from "next/image";
+import { Orbit, Radio } from "lucide-react";
 import portrait from "@/src/assets/images/profile.jpg";
+import { OrbitalWorld } from "./orbital-world";
+import type { FieldMode } from "@/src/lib/orbital-physics";
+import { profile } from "@/src/content/portfolio";
 
-/** Original SVG sculpture. CSS owns animation; pointer events only update transforms. */
 export function CraftEngine() {
-  const card = useRef<HTMLDivElement>(null);
-  function move(event: PointerEvent<HTMLDivElement>) {
-    if (
-      event.pointerType !== "mouse" ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
-    const bounds = event.currentTarget.getBoundingClientRect();
-    card.current?.style.setProperty(
-      "--tilt-x",
-      `${((event.clientY - bounds.top) / bounds.height - 0.5) * -9}deg`,
-    );
-    card.current?.style.setProperty(
-      "--tilt-y",
-      `${((event.clientX - bounds.left) / bounds.width - 0.5) * 9}deg`,
-    );
-  }
-  function reset() {
-    card.current?.style.setProperty("--tilt-x", "0deg");
-    card.current?.style.setProperty("--tilt-y", "0deg");
-  }
+  const [mode, setMode] = useState<FieldMode>("orbit");
+  const [pulse, setPulse] = useState(0);
   return (
-    <div className="engine-wrap" onPointerMove={move} onPointerLeave={reset}>
-      <div className="engine" ref={card}>
-        <div className="engine-top">
+    <div className="world-scene">
+      <OrbitalWorld mode={mode} pulse={pulse} />
+      <div className="world-coordinate">
+        <span className="live-light" />N / C · ORBITAL OBSERVATORY
+        <span>01 — A WORLD IN MOTION</span>
+      </div>
+      <div className="world-portrait">
+        <Image
+          src={portrait}
+          alt="Portrait of Nirav Chavda"
+          sizes="(max-width: 760px) 88px, 120px"
+          priority
+        />
+        <div>
+          <span>THE HUMAN IN THE LOOP</span>
+          <strong>{profile.name}</strong>
           <span>
-            <i /> THE CRAFT ENGINE
+            {profile.role} · {profile.company}
           </span>
-          <span>FIG. 001</span>
-        </div>
-        <div className="portrait-stage">
-          <svg
-            className="engine-art"
-            viewBox="0 0 500 440"
-            fill="none"
-            role="img"
-            aria-label="An original rotating orange orbital sculpture, representing ideas becoming software"
-          >
-            <defs>
-              <linearGradient
-                id="orbital"
-                x1="100"
-                y1="80"
-                x2="390"
-                y2="350"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#ffba7b" />
-                <stop offset=".45" stopColor="#ff6b35" />
-                <stop offset="1" stopColor="#ca3813" />
-              </linearGradient>
-              <radialGradient id="halo">
-                <stop stopColor="#f46535" stopOpacity=".15" />
-                <stop offset="1" stopColor="#f46535" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <circle cx="250" cy="216" r="205" fill="url(#halo)" />
-            <g
-              className="signal-orbit"
-              stroke="#e9efb4"
-              strokeOpacity=".5"
-              strokeDasharray="3 12"
-            >
-              <ellipse
-                cx="250"
-                cy="213"
-                rx="219"
-                ry="132"
-                transform="rotate(-28 250 213)"
-              />
-            </g>
-            <g stroke="#ffffff" strokeOpacity=".08">
-              {Array.from({ length: 9 }, (_, i) => (
-                <path key={i} d={`M ${-200 + i * 110} 440 L 250 290`} />
-              ))}
-              {[315, 335, 365, 405, 439].map((y) => (
-                <path key={y} d={`M 0 ${y} H 500`} />
-              ))}
-            </g>
-            <g
-              className="orbital-group"
-              stroke="url(#orbital)"
-              strokeWidth="1.6"
-            >
-              {Array.from({ length: 24 }, (_, i) => (
-                <ellipse
-                  key={i}
-                  cx="250"
-                  cy="213"
-                  rx={35 + Math.sin((i / 23) * Math.PI) * 123}
-                  ry="158"
-                  transform={`rotate(${i * 7.5} 250 213)`}
-                />
-              ))}
-            </g>
-            <g stroke="#f4f0e8" strokeWidth="1" opacity=".5">
-              <path d="M34 72h18m-9-9v18M449 348h18m-9-9v18" />
-              <circle cx="420" cy="112" r="4" />
-              <path d="M391 113h19M420 122v19" />
-            </g>
-            <circle
-              className="orbit-dot"
-              cx="250"
-              cy="28"
-              r="6"
-              fill="#e9efb4"
-            />
-          </svg>
-          <div className="engine-portrait">
-            <Image
-              src={portrait}
-              alt="Portrait of Nirav Chavda"
-              sizes="(max-width: 760px) 45vw, 230px"
-              priority
-            />
-            <span>
-              NIRAV CHAVDA <i>↗</i>
-            </span>
-          </div>
-          <span className="floating-skill skill-react">✳ React</span>
-          <span className="floating-skill skill-java">⌘ Java</span>
-          <span className="floating-skill skill-flutter">↗ Flutter</span>
-        </div>
-        <div className="engine-bottom">
-          <span>
-            <span className="engine-step">IDEA</span> <b>→</b>{" "}
-            <span className="engine-step">ITERATE</span> <b>→</b>{" "}
-            <span className="engine-step">CRAFT</span>
-          </span>
-          <span>EST. 2022</span>
         </div>
       </div>
-      <div className="engine-sticker">
-        <span className="sticker-star">✳</span>
-        <span>
-          LESS NOISE.
-          <br />
-          MORE CRAFT.
-        </span>
+      <div className="world-controls" aria-label="Orbital simulation controls">
+        <button
+          aria-pressed={mode === "orbit"}
+          onClick={() => setMode("orbit")}
+        >
+          <Orbit size={15} />
+          Orbit
+        </button>
+        <button
+          aria-pressed={mode === "binary"}
+          onClick={() => setMode("binary")}
+        >
+          Binary field
+        </button>
+        <button onClick={() => setPulse((value) => value + 1)}>
+          <Radio size={15} />
+          Send a pulse
+        </button>
+      </div>
+      <div className="world-caption" aria-live="polite">
+        {mode === "orbit"
+          ? "ONE CENTER. INFINITE POSSIBILITIES."
+          : "TWO CENTERS. A NEW EQUILIBRIUM."}
+        <span>Explore the field. Change its gravity.</span>
       </div>
     </div>
   );
