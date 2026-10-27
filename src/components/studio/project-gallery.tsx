@@ -18,14 +18,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         className={`project-visual ${project.color}`}
         aria-label={`Open ${project.name} website (new tab)`}
       >
-        <div className="project-visual-label">
-          <span>
-            {String(index + 1).padStart(2, "0")} / {project.category}
-          </span>
-          <span className="project-open">
-            <ArrowUpRight size={21} />
-          </span>
-        </div>
         <div className="project-browser">
           <div className="browser-bar">
             <span />
@@ -37,7 +29,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <Image
               src={project.image}
               alt={`${project.name} application screenshot`}
-              sizes="(max-width: 700px) 90vw, 44vw"
+              sizes="(max-width: 760px) 90vw, (max-width: 1100px) 45vw, 50vw"
               className="project-image"
             />
           ) : (
@@ -49,31 +41,46 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           )}
         </div>
       </a>
-      <div className="project-heading">
-        <h3>
-          <a href={project.href} target="_blank" rel="noreferrer">
-            {project.name}
-            <ArrowUpRight size={21} />
-          </a>
-        </h3>
-        {project.source && (
-          <a
-            className="source-link"
-            href={project.source}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`${project.name} source code`}
-          >
-            <Code2 size={18} />
-          </a>
-        )}
+      <div className="project-details">
+        <div className="project-meta">
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <span>{project.category}</span>
+        </div>
+        <div className="project-heading">
+          <h3>
+            <a href={project.href} target="_blank" rel="noreferrer">
+              {project.name}
+              <ArrowUpRight size={21} />
+            </a>
+          </h3>
+          {project.source && (
+            <a
+              className="source-link"
+              href={project.source}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${project.name} source code`}
+            >
+              <Code2 size={18} />
+            </a>
+          )}
+        </div>
+        <p>{project.description}</p>
+        <ul className="project-tags" aria-label="Technologies">
+          {project.tags.map((tag) => (
+            <li key={tag}>{tag}</li>
+          ))}
+        </ul>
+        <a
+          className="project-visit"
+          href={project.href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Explore ${project.name} (new tab)`}
+        >
+          Explore project <ArrowUpRight size={16} />
+        </a>
       </div>
-      <p>{project.description}</p>
-      <ul className="project-tags" aria-label="Technologies">
-        {project.tags.map((tag) => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
     </article>
   );
 }
@@ -111,7 +118,11 @@ export function ProjectGallery({ featured = false }: { featured?: boolean }) {
           )}
         </div>
       )}
-      <div className="project-grid" aria-live="polite" aria-atomic="false">
+      <div
+        className={`project-grid${featured ? " project-grid-featured" : ""}`}
+        aria-live="polite"
+        aria-atomic="false"
+      >
         {visible.map((project) => (
           <ProjectCard
             key={project.name}

@@ -29,7 +29,9 @@ The preview serves the actual static export, including direct `/projects/` navig
 - `src/content/projects.ts`: project metadata, screenshot imports, and links.
 - `src/components/studio/`: original, focused interactive components.
 - `src/app/`: server-rendered page composition and metadata.
-- `src/index.css`: Tailwind import, design tokens, responsive layouts, and motion.
+- `src/index.css`: Tailwind import, design tokens, and shared layouts.
+- `src/sections.css`: project showcases, personal introduction, toolkit, and career timeline layouts.
+- `src/motion.css`: orbital controls and shared motion effects.
 - `CONTENT.md`: original content inventory and known information gaps.
 
 The full-width hero is a procedural Canvas world: three-dimensional softened Newtonian gravity drives an orbital debris belt using velocity-Verlet integration. Generated terrain, independently rotating clouds, ocean highlights, atmospheric scattering, and a day/night boundary give the planet depth. Moons link directly to portfolio sections. Drag with a mouse or use arrow keys to orbit the camera; Home restores the view. Controls switch to a binary field, send a pulse, or reset the simulation.

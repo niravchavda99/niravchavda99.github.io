@@ -1,6 +1,7 @@
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/space-grotesk";
 import "../index.css";
+import "../sections.css";
 import "../motion.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";

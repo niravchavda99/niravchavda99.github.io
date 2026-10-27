@@ -1,3 +1,4 @@
+import { SectionLabel } from "@/src/components/studio/section-label";
 import Link from "next/link";
 import {
   ArrowDown,
@@ -9,32 +10,14 @@ import {
 import { CraftEngine } from "@/src/components/studio/craft-engine";
 import { ProjectGallery } from "@/src/components/studio/project-gallery";
 import { Reveal } from "@/src/components/studio/reveal";
-import {
-  activities,
-  education,
-  experience,
-  profile,
-  skillGroups,
-} from "@/src/content/portfolio";
-import type { ReactNode } from "react";
+import { activities, profile } from "@/src/content/portfolio";
 import { projects } from "@/src/content/projects";
-import { ContentIcon } from "@/src/components/studio/content-icon";
-import { CareerDates } from "@/src/components/studio/career-dates";
+import {
+  AboutSection,
+  ToolkitSection,
+  JourneySection,
+} from "@/src/components/studio/portfolio-sections";
 
-function SectionLabel({
-  number,
-  children,
-}: {
-  number: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="section-label">
-      <span>{number}</span>
-      {children}
-    </div>
-  );
-}
 export default function HomePage() {
   return (
     <main id="main">
@@ -154,193 +137,9 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-      <section
-        className="about-section"
-        id="about"
-        aria-labelledby="about-title"
-      >
-        <div className="container">
-          <Reveal>
-            <SectionLabel number="02">
-              THE PERSON BEHIND THE PIXELS
-            </SectionLabel>
-            <div className="about-grid">
-              <div className="craft-principles">
-                <span className="eyebrow">HOW I APPROACH THE WORK</span>
-                <div>
-                  <span>01</span>
-                  <h3>Understand the person.</h3>
-                  <p>Start with the problem and the people behind it.</p>
-                </div>
-                <div>
-                  <span>02</span>
-                  <h3>Untangle the complexity.</h3>
-                  <p>Find a clear path through the moving parts.</p>
-                </div>
-                <div>
-                  <span>03</span>
-                  <h3>Build with care.</h3>
-                  <p>Make it useful today and maintainable tomorrow.</p>
-                </div>
-                <Asterisk
-                  className="principle-star"
-                  size={74}
-                  strokeWidth={1}
-                />
-              </div>
-              <div className="about-copy">
-                <h2 id="about-title">
-                  Good software
-                  <br />
-                  starts with <span className="serif-word">care.</span>
-                </h2>
-                <p className="about-lead">
-                  For the people using it.
-                  <br />
-                  For the people building it.
-                  <br />
-                  For whoever comes next.
-                </p>
-                <p>
-                  I’m a Tech Lead at Incubyte and a software craftsperson at
-                  heart, working remotely across interfaces, backend systems,
-                  and mobile apps. I like asking why, untangling complexity, and
-                  leaving code a little better than I found it.
-                </p>
-                <p>
-                  Outside of work, that same curiosity becomes browser
-                  extensions, creative experiments, and tools that make everyday
-                  things easier.
-                </p>
-                <div className="about-signoff">
-                  <span className="signature">Nirav.</span>
-                  <span>ALWAYS A WORK IN PROGRESS ↗</span>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-      <section
-        className="section container"
-        id="toolkit"
-        aria-labelledby="toolkit-title"
-      >
-        <Reveal>
-          <SectionLabel number="03">THE TOOLKIT</SectionLabel>
-          <div className="section-heading">
-            <h2 id="toolkit-title">
-              Different tools.
-              <br />
-              Same <span className="serif-word">intention.</span>
-            </h2>
-            <p>
-              The right technology for the problem.
-              <br />
-              The same attention to every layer.
-            </p>
-          </div>
-          <div className="skills-grid">
-            {skillGroups.map((group) => (
-              <article className="skill-group" key={group.number}>
-                <span className="skill-number">/{group.number}</span>
-                <h3>{group.title}</h3>
-                <p>{group.description}</p>
-                <ul>
-                  {group.skills.map((skill) => (
-                    <li key={skill}>
-                      <ContentIcon name={skill} />
-                      <span>{skill}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </Reveal>
-      </section>
-      <section
-        className="journey-section"
-        id="journey"
-        aria-labelledby="journey-title"
-      >
-        <div className="container">
-          <Reveal>
-            <SectionLabel number="04">THE JOURNEY</SectionLabel>
-            <div className="journey-grid">
-              <div className="journey-intro">
-                <h2 id="journey-title">
-                  Keep learning.
-                  <br />
-                  Keep <span className="serif-word">making.</span>
-                </h2>
-                <p>
-                  Every chapter adds a new way
-                  <br />
-                  to look at the next problem.
-                </p>
-                <Asterisk className="journey-star" size={110} strokeWidth={1} />
-              </div>
-              <div>
-                <h3 className="list-heading">EXPERIENCE</h3>
-                <div className="career-timeline">
-                  {experience.map((job) => (
-                    <article className="journey-item" key={job.role}>
-                      <ContentIcon name={job.company} organization />
-                      <div className="item-meta">
-                        <CareerDates start={job.start} end={job.end} />
-                        <span>{job.location ?? "Remote"}</span>
-                      </div>
-                      <h4>{job.role}</h4>
-                      <a
-                        className="company-link"
-                        href={job.href}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {job.company}
-                        <ArrowUpRight size={14} />
-                      </a>
-                      {job.description && <p>{job.description}</p>}
-                    </article>
-                  ))}
-                </div>
-                <h3 className="list-heading education-heading" id="education">
-                  EDUCATION
-                </h3>
-                <div className="career-timeline">
-                  {education.map((item) => (
-                    <article
-                      className="journey-item education-item"
-                      key={item.degree}
-                    >
-                      <ContentIcon name={item.school} organization />
-                      <div className="item-meta">
-                        <CareerDates start={item.start} end={item.end} />
-                        <span>{item.location}</span>
-                      </div>
-                      <h4>{item.degree}</h4>
-                      <a
-                        className="company-link"
-                        href={item.href}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {item.school}
-                        <ArrowUpRight size={14} />
-                      </a>
-                      <div className="distinction">
-                        <Award size={16} />
-                        {item.distinction}
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <AboutSection />
+      <ToolkitSection />
+      <JourneySection />
       <section className="section container" aria-labelledby="activities-title">
         <Reveal>
           <SectionLabel number="05">BEYOND THE DAY JOB</SectionLabel>
