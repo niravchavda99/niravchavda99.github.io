@@ -32,7 +32,7 @@ The preview serves the actual static export, including direct `/projects/` navig
 - `src/index.css`: Tailwind import, design tokens, responsive layouts, and motion.
 - `CONTENT.md`: original content inventory and known information gaps.
 
-Only navigation, project filtering, pointer interaction, and scroll observation require client JavaScript. Animation uses CSS and SVG; no animation runtime is shipped. Fonts are self-hosted. Reduced motion and manual pause are supported. The existing custom-domain metadata is retained.
+Only navigation, project filtering, current-role duration, pointer interaction, and scroll observation require client JavaScript. Animation uses original CSS and SVG systems in `src/motion.css`; no animation runtime is shipped. Fonts are self-hosted. Reduced motion and manual pause are supported. The existing custom-domain metadata is retained.
 
 ## Add content in code
 
@@ -55,16 +55,19 @@ Add an object to `experience` in `src/content/portfolio.ts`, newest first:
 
 ```ts
 {
-  period: "NOV 2026 — PRESENT",
+  start: "2026-11", // YYYY-MM
+  // end: "2027-05", // omit for a current role
   role: "Your role",
   company: "Company",
   location: "Remote", // optional; defaults to Remote
   href: "https://example.com",
-  description: "The work you do and what matters about it.",
+  description: "The work you do and what matters about it.", // optional
 },
 ```
 
 Education, skills, activities, and social links follow the same array-of-objects structure. Run `pnpm build` after editing; TypeScript checks the content shape. Browser tests adapt to project counts so routine additions do not require test edits.
+
+Career and education date ranges and durations are generated from start/end months. End months are **exclusive**: January–July is six months. Current roles update their duration when the page is visited, even between static deployments. `src/content/visuals.ts` maps names to optional existing logos: unknown organizations and technologies get a generic icon automatically, so content additions never require component edits.
 
 ## GitHub Pages deployment
 

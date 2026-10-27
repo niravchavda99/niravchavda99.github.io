@@ -13,4 +13,6 @@ Audited from the existing repository on 27 October 2026. Personal facts and link
 - **Activities:** IIT Bombay Virtual Labs Heat Transfer Lab experiments and Bootathon junior training, 2020.
 - **Personal details:** Original portrait retained. No phone, résumé file, current city, availability status, client names, or quantified project impact was supplied; none is invented.
 
+User update: Tech Lead at Incubyte from August 2026 to present. The Software Craftsperson role ends August 2026. Durations use exclusive end months, as requested (January–July internship = six months).
+
 Editable site content lives in `src/content/portfolio.ts` and `src/content/projects.ts`.

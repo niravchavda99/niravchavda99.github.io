@@ -1,6 +1,56 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+test("portrait is shown once in the opening view and career details are reachable", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const portrait = page.getByRole("img", {
+    name: "Portrait of Nirav Chavda",
+    exact: true,
+  });
+  await expect(portrait).toHaveCount(1);
+  await expect(portrait).toBeInViewport();
+  await expect(page.locator(".hero-identity")).toContainText(
+    "Tech Lead at Incubyte",
+  );
+  await page.locator("#toolkit").scrollIntoViewIfNeeded();
+  await page.evaluate(() =>
+    Promise.all(
+      [
+        ...document.querySelectorAll<HTMLImageElement>(".technology-icon img"),
+      ].map((image) => {
+        image.loading = "eager";
+        return image.decode();
+      }),
+    ),
+  );
+  await expect(page.locator(".technology-icon")).not.toHaveCount(0);
+  await page
+    .locator(".quick-navigation")
+    .getByRole("link", { name: "Experience", exact: true })
+    .click();
+  const currentRole = page.locator(".journey-item").filter({
+    has: page.getByRole("heading", { name: "Tech Lead", exact: true }),
+  });
+  await expect(currentRole).toContainText("Aug 2026");
+  await expect(currentRole.locator(".organization-logo img")).toBeVisible();
+  await expect(currentRole.locator(".career-duration")).not.toBeEmpty();
+  await page
+    .locator(".quick-navigation")
+    .getByRole("link", { name: "Education", exact: true })
+    .click();
+  await expect(page).toHaveURL(/#education$/);
+  const education = page.locator(".education-item");
+  await expect(education.first().locator(".career-duration")).toHaveText(
+    "3 years",
+  );
+  await expect(
+    education.first().locator(".organization-logo img"),
+  ).toBeVisible();
+});
+
 test("static assets and custom 404 are exported", async ({ request }) => {
   for (const path of [
     "/",

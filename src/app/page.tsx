@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowDown,
@@ -7,7 +6,6 @@ import {
   Asterisk,
   Award,
 } from "lucide-react";
-import portrait from "@/src/assets/images/profile.jpg";
 import { CraftEngine } from "@/src/components/studio/craft-engine";
 import { ProjectGallery } from "@/src/components/studio/project-gallery";
 import { Reveal } from "@/src/components/studio/reveal";
@@ -20,6 +18,8 @@ import {
 } from "@/src/content/portfolio";
 import type { ReactNode } from "react";
 import { projects } from "@/src/content/projects";
+import { ContentIcon } from "@/src/components/studio/content-icon";
+import { CareerDates } from "@/src/components/studio/career-dates";
 
 function SectionLabel({
   number,
@@ -40,8 +40,13 @@ export default function HomePage() {
     <main id="main">
       <section className="hero container" aria-labelledby="hero-title">
         <div className="hero-copy">
-          <div className="eyebrow">
-            <span className="status-dot" /> SOFTWARE CRAFTSPERSON AT INCUBYTE
+          <div className="hero-identity">
+            <div>
+              <strong>{profile.name}</strong>
+              <span>
+                <i className="status-dot" /> {profile.role} at {profile.company}
+              </span>
+            </div>
           </div>
           <h1 id="hero-title">
             Software,
@@ -63,8 +68,21 @@ export default function HomePage() {
               Say hello <ArrowUpRight size={18} />
             </a>
           </div>
-          <div className="hero-footnote">
-            <span>+</span> CLEAN CODE. CLEAR THINKING. HUMAN EXPERIENCES.
+          <div className="hero-socials" aria-label="Social profiles">
+            {profile.socials.slice(0, 2).map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {social.label}
+                <ArrowUpRight size={15} />
+              </a>
+            ))}
+            <a href="#education">
+              <Award size={16} /> MCA gold medallist
+            </a>
           </div>
         </div>
         <CraftEngine />
@@ -75,6 +93,21 @@ export default function HomePage() {
           </a>
         </div>
       </section>
+      <nav className="quick-navigation" aria-label="Section shortcuts">
+        <div className="container">
+          <span>GET TO KNOW ME</span>
+          <a href="#about">About me</a>
+          <a href="#toolkit">Skills</a>
+          <a href="#journey">Experience</a>
+          <a href="#education">Education</a>
+          <a href="#work">
+            Projects <span>{projects.length}</span>
+          </a>
+          <a href="#contact">
+            Contact <ArrowUpRight size={14} />
+          </a>
+        </div>
+      </nav>
       <div
         className="craft-ribbon"
         aria-label="Thoughtful interfaces, dependable systems, useful little things"
@@ -132,19 +165,28 @@ export default function HomePage() {
               THE PERSON BEHIND THE PIXELS
             </SectionLabel>
             <div className="about-grid">
-              <div className="portrait-block">
-                <div className="portrait-frame">
-                  <Image
-                    src={portrait}
-                    alt="Nirav Chavda"
-                    sizes="(max-width: 700px) 85vw, 34vw"
-                  />
-                  <span className="portrait-note">CURIOUS BY DEFAULT.</span>
+              <div className="craft-principles">
+                <span className="eyebrow">HOW I APPROACH THE WORK</span>
+                <div>
+                  <span>01</span>
+                  <h3>Understand the person.</h3>
+                  <p>Start with the problem and the people behind it.</p>
                 </div>
-                <div className="portrait-caption">
-                  <span>NIRAV CHAVDA</span>
-                  <span>DEVELOPER / LEARNER / MAKER</span>
+                <div>
+                  <span>02</span>
+                  <h3>Untangle the complexity.</h3>
+                  <p>Find a clear path through the moving parts.</p>
                 </div>
+                <div>
+                  <span>03</span>
+                  <h3>Build with care.</h3>
+                  <p>Make it useful today and maintainable tomorrow.</p>
+                </div>
+                <Asterisk
+                  className="principle-star"
+                  size={74}
+                  strokeWidth={1}
+                />
               </div>
               <div className="about-copy">
                 <h2 id="about-title">
@@ -160,10 +202,10 @@ export default function HomePage() {
                   For whoever comes next.
                 </p>
                 <p>
-                  I’m a software craftsperson at Incubyte, working remotely
-                  across interfaces, backend systems, and mobile apps. I like
-                  asking why, untangling complexity, and leaving code a little
-                  better than I found it.
+                  I’m a Tech Lead at Incubyte and a software craftsperson at
+                  heart, working remotely across interfaces, backend systems,
+                  and mobile apps. I like asking why, untangling complexity, and
+                  leaving code a little better than I found it.
                 </p>
                 <p>
                   Outside of work, that same curiosity becomes browser
@@ -206,7 +248,10 @@ export default function HomePage() {
                 <p>{group.description}</p>
                 <ul>
                   {group.skills.map((skill) => (
-                    <li key={skill}>{skill}</li>
+                    <li key={skill}>
+                      <ContentIcon name={skill} />
+                      <span>{skill}</span>
+                    </li>
                   ))}
                 </ul>
               </article>
@@ -238,51 +283,59 @@ export default function HomePage() {
               </div>
               <div>
                 <h3 className="list-heading">EXPERIENCE</h3>
-                {experience.map((job) => (
-                  <article className="journey-item" key={job.role}>
-                    <div className="item-meta">
-                      <span>{job.period}</span>
-                      <span>{job.location ?? "Remote"}</span>
-                    </div>
-                    <h4>{job.role}</h4>
-                    <a
-                      className="company-link"
-                      href={job.href}
-                      target="_blank"
-                      rel="noreferrer"
+                <div className="career-timeline">
+                  {experience.map((job) => (
+                    <article className="journey-item" key={job.role}>
+                      <ContentIcon name={job.company} organization />
+                      <div className="item-meta">
+                        <CareerDates start={job.start} end={job.end} />
+                        <span>{job.location ?? "Remote"}</span>
+                      </div>
+                      <h4>{job.role}</h4>
+                      <a
+                        className="company-link"
+                        href={job.href}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {job.company}
+                        <ArrowUpRight size={14} />
+                      </a>
+                      {job.description && <p>{job.description}</p>}
+                    </article>
+                  ))}
+                </div>
+                <h3 className="list-heading education-heading" id="education">
+                  EDUCATION
+                </h3>
+                <div className="career-timeline">
+                  {education.map((item) => (
+                    <article
+                      className="journey-item education-item"
+                      key={item.degree}
                     >
-                      {job.company}
-                      <ArrowUpRight size={14} />
-                    </a>
-                    <p>{job.description}</p>
-                  </article>
-                ))}
-                <h3 className="list-heading education-heading">EDUCATION</h3>
-                {education.map((item) => (
-                  <article
-                    className="journey-item education-item"
-                    key={item.degree}
-                  >
-                    <div className="item-meta">
-                      <span>{item.period}</span>
-                      <span>{item.location}</span>
-                    </div>
-                    <h4>{item.degree}</h4>
-                    <a
-                      className="company-link"
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {item.school}
-                      <ArrowUpRight size={14} />
-                    </a>
-                    <div className="distinction">
-                      <Award size={16} />
-                      {item.distinction}
-                    </div>
-                  </article>
-                ))}
+                      <ContentIcon name={item.school} organization />
+                      <div className="item-meta">
+                        <CareerDates start={item.start} end={item.end} />
+                        <span>{item.location}</span>
+                      </div>
+                      <h4>{item.degree}</h4>
+                      <a
+                        className="company-link"
+                        href={item.href}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {item.school}
+                        <ArrowUpRight size={14} />
+                      </a>
+                      <div className="distinction">
+                        <Award size={16} />
+                        {item.distinction}
+                      </div>
+                    </article>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>

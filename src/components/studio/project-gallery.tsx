@@ -48,9 +48,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </div>
           )}
         </div>
-        <span className="project-visual-caption">
-          BUILT TO BE USED. MADE WITH CARE.
-        </span>
       </a>
       <div className="project-heading">
         <h3>

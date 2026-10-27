@@ -1,5 +1,7 @@
 "use client";
 import { useRef, type PointerEvent } from "react";
+import Image from "next/image";
+import portrait from "@/src/assets/images/profile.jpg";
 
 /** Original SVG sculpture. CSS owns animation; pointer events only update transforms. */
 export function CraftEngine() {
@@ -33,62 +35,104 @@ export function CraftEngine() {
           </span>
           <span>FIG. 001</span>
         </div>
-        <svg
-          className="engine-art"
-          viewBox="0 0 500 440"
-          fill="none"
-          role="img"
-          aria-label="An original rotating orange orbital sculpture, representing ideas becoming software"
-        >
-          <defs>
-            <linearGradient
-              id="orbital"
-              x1="100"
-              y1="80"
-              x2="390"
-              y2="350"
-              gradientUnits="userSpaceOnUse"
+        <div className="portrait-stage">
+          <svg
+            className="engine-art"
+            viewBox="0 0 500 440"
+            fill="none"
+            role="img"
+            aria-label="An original rotating orange orbital sculpture, representing ideas becoming software"
+          >
+            <defs>
+              <linearGradient
+                id="orbital"
+                x1="100"
+                y1="80"
+                x2="390"
+                y2="350"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#ffba7b" />
+                <stop offset=".45" stopColor="#ff6b35" />
+                <stop offset="1" stopColor="#ca3813" />
+              </linearGradient>
+              <radialGradient id="halo">
+                <stop stopColor="#f46535" stopOpacity=".15" />
+                <stop offset="1" stopColor="#f46535" stopOpacity="0" />
+              </radialGradient>
+            </defs>
+            <circle cx="250" cy="216" r="205" fill="url(#halo)" />
+            <g
+              className="signal-orbit"
+              stroke="#e9efb4"
+              strokeOpacity=".5"
+              strokeDasharray="3 12"
             >
-              <stop stopColor="#ffba7b" />
-              <stop offset=".45" stopColor="#ff6b35" />
-              <stop offset="1" stopColor="#ca3813" />
-            </linearGradient>
-            <radialGradient id="halo">
-              <stop stopColor="#f46535" stopOpacity=".15" />
-              <stop offset="1" stopColor="#f46535" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <circle cx="250" cy="216" r="205" fill="url(#halo)" />
-          <g stroke="#ffffff" strokeOpacity=".08">
-            {Array.from({ length: 9 }, (_, i) => (
-              <path key={i} d={`M ${-200 + i * 110} 440 L 250 290`} />
-            ))}
-            {[315, 335, 365, 405, 439].map((y) => (
-              <path key={y} d={`M 0 ${y} H 500`} />
-            ))}
-          </g>
-          <g className="orbital-group" stroke="url(#orbital)" strokeWidth="1.6">
-            {Array.from({ length: 24 }, (_, i) => (
               <ellipse
-                key={i}
                 cx="250"
                 cy="213"
-                rx={35 + Math.sin((i / 23) * Math.PI) * 123}
-                ry="158"
-                transform={`rotate(${i * 7.5} 250 213)`}
+                rx="219"
+                ry="132"
+                transform="rotate(-28 250 213)"
               />
-            ))}
-          </g>
-          <g stroke="#f4f0e8" strokeWidth="1" opacity=".5">
-            <path d="M34 72h18m-9-9v18M449 348h18m-9-9v18" />
-            <circle cx="420" cy="112" r="4" />
-            <path d="M391 113h19M420 122v19" />
-          </g>
-          <circle className="orbit-dot" cx="250" cy="28" r="6" fill="#e9efb4" />
-        </svg>
+            </g>
+            <g stroke="#ffffff" strokeOpacity=".08">
+              {Array.from({ length: 9 }, (_, i) => (
+                <path key={i} d={`M ${-200 + i * 110} 440 L 250 290`} />
+              ))}
+              {[315, 335, 365, 405, 439].map((y) => (
+                <path key={y} d={`M 0 ${y} H 500`} />
+              ))}
+            </g>
+            <g
+              className="orbital-group"
+              stroke="url(#orbital)"
+              strokeWidth="1.6"
+            >
+              {Array.from({ length: 24 }, (_, i) => (
+                <ellipse
+                  key={i}
+                  cx="250"
+                  cy="213"
+                  rx={35 + Math.sin((i / 23) * Math.PI) * 123}
+                  ry="158"
+                  transform={`rotate(${i * 7.5} 250 213)`}
+                />
+              ))}
+            </g>
+            <g stroke="#f4f0e8" strokeWidth="1" opacity=".5">
+              <path d="M34 72h18m-9-9v18M449 348h18m-9-9v18" />
+              <circle cx="420" cy="112" r="4" />
+              <path d="M391 113h19M420 122v19" />
+            </g>
+            <circle
+              className="orbit-dot"
+              cx="250"
+              cy="28"
+              r="6"
+              fill="#e9efb4"
+            />
+          </svg>
+          <div className="engine-portrait">
+            <Image
+              src={portrait}
+              alt="Portrait of Nirav Chavda"
+              sizes="(max-width: 760px) 45vw, 230px"
+              priority
+            />
+            <span>
+              NIRAV CHAVDA <i>↗</i>
+            </span>
+          </div>
+          <span className="floating-skill skill-react">✳ React</span>
+          <span className="floating-skill skill-java">⌘ Java</span>
+          <span className="floating-skill skill-flutter">↗ Flutter</span>
+        </div>
         <div className="engine-bottom">
           <span>
-            IDEA <b>→</b> ITERATE <b>→</b> CRAFT
+            <span className="engine-step">IDEA</span> <b>→</b>{" "}
+            <span className="engine-step">ITERATE</span> <b>→</b>{" "}
+            <span className="engine-step">CRAFT</span>
           </span>
           <span>EST. 2022</span>
         </div>

@@ -1,6 +1,8 @@
+import type { MonthDate } from "./dates";
+
 export const profile = {
   name: "Nirav Chavda",
-  role: "Software Craftsperson",
+  role: "Tech Lead",
   email: "niravchavda.dev@gmail.com",
   company: "Incubyte",
   socials: [
@@ -12,17 +14,25 @@ export const profile = {
 };
 
 export interface Experience {
-  period: string;
+  start: MonthDate;
+  end?: MonthDate;
   role: string;
   company: string;
   href: string;
   location?: string;
-  description: string;
+  description?: string;
 }
 
 export const experience: Experience[] = [
   {
-    period: "JUL 2022 — PRESENT",
+    start: "2026-08",
+    role: "Tech Lead",
+    company: "Incubyte",
+    href: "https://www.incubyte.co/",
+  },
+  {
+    start: "2022-07",
+    end: "2026-08",
     role: "Software Craftsperson",
     company: "Incubyte",
     href: "https://www.incubyte.co/",
@@ -30,7 +40,8 @@ export const experience: Experience[] = [
       "Building well-crafted software, from expressive interfaces to dependable backend services. Working across React, Next.js, Angular, Spring Boot, Micronaut, Flutter, Chrome extensions, Azure, and GCP.",
   },
   {
-    period: "JAN — JUL 2022",
+    start: "2022-01",
+    end: "2022-07",
     role: "Software Craftsperson in Training",
     company: "Incubyte",
     href: "https://www.incubyte.co/",
@@ -51,7 +62,8 @@ export const skillGroups = [
       "Next.js",
       "Angular",
       "Tailwind CSS",
-      "HTML & CSS",
+      "HTML",
+      "CSS",
       "Chrome Extensions",
     ],
   },
@@ -86,9 +98,20 @@ export const skillGroups = [
   },
 ];
 
-export const education = [
+export interface Education {
+  start: MonthDate;
+  end: MonthDate;
+  degree: string;
+  school: string;
+  location: string;
+  distinction: string;
+  href: string;
+}
+
+export const education: Education[] = [
   {
-    period: "2019 — 2022",
+    start: "2019-08",
+    end: "2022-08",
     degree: "Master of Computer Applications",
     school: "Gujarat University",
     location: "Ahmedabad, Gujarat",
@@ -96,7 +119,8 @@ export const education = [
     href: "https://www.gujaratuniversity.ac.in/",
   },
   {
-    period: "2016 — 2019",
+    start: "2016-07",
+    end: "2019-07",
     degree: "Bachelor of Computer Applications",
     school: "KSKV Kachchh University",
     location: "Kachchh, Gujarat",

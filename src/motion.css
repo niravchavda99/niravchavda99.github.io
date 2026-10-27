@@ -1,0 +1,168 @@
+/* Original motion systems, isolated from layout and typography. */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--orange);
+  transform: scaleX(var(--reading-progress, 0));
+  transform-origin: left;
+  z-index: 60;
+  pointer-events: none;
+}
+.portrait-stage {
+  position: relative;
+}
+.principle-star {
+  animation: orbital 36s linear infinite;
+}
+.engine-portrait {
+  position: absolute;
+  width: 44%;
+  left: 28%;
+  top: 17%;
+  padding: 7px;
+  background: #f6f4ed;
+  transform: rotate(4deg);
+  box-shadow: 0 14px 32px #0006;
+}
+.engine-portrait img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 0.82;
+  object-fit: cover;
+  object-position: center 30%;
+}
+.engine-portrait > span {
+  padding: 10px 2px 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--ink);
+  font: 9px monospace;
+  letter-spacing: 0.7px;
+}
+.engine-portrait i {
+  color: #9e391b;
+  font-size: 15px;
+  font-style: normal;
+}
+.signal-orbit {
+  animation: signal-flow 14s linear infinite;
+}
+.floating-skill {
+  position: absolute;
+  display: inline-block;
+  padding: 10px 14px;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid #24242020;
+  box-shadow: 0 6px 18px #0002;
+  animation: float-skill 6s ease-in-out infinite;
+}
+.skill-react {
+  top: 19%;
+  left: 5%;
+  background: #e0ddf0;
+  --float-rotation: -9deg;
+}
+.skill-java {
+  top: 39%;
+  right: 3%;
+  background: #e8ecad;
+  animation-delay: -2s;
+  --float-rotation: 8deg;
+}
+.skill-flutter {
+  bottom: 16%;
+  left: 6%;
+  background: #f3dcd0;
+  animation-delay: -4s;
+  --float-rotation: -5deg;
+}
+.engine-step {
+  animation: step-glow 6s ease-in-out infinite;
+}
+.engine-step:nth-of-type(2) {
+  animation-delay: 2s;
+}
+.engine-step:nth-of-type(3) {
+  animation-delay: 4s;
+}
+.career-timeline::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 24px;
+  width: 3px;
+  height: 54px;
+  background: linear-gradient(transparent, #e8ecad, transparent);
+  animation: timeline-signal 6s ease-in-out infinite;
+  pointer-events: none;
+}
+.skill-group li {
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s,
+    background 0.25s;
+}
+.skill-group li:hover {
+  transform: translateY(-3px);
+  background: white;
+  box-shadow: 0 6px 13px #24242010;
+}
+@keyframes signal-flow {
+  to {
+    stroke-dashoffset: -300;
+  }
+}
+@keyframes float-skill {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--float-rotation));
+  }
+  50% {
+    transform: translateY(-13px) rotate(calc(var(--float-rotation) + 3deg));
+  }
+}
+@keyframes step-glow {
+  0%,
+  25%,
+  100% {
+    color: #dcded1;
+  }
+  12% {
+    color: #ffad85;
+  }
+}
+@keyframes timeline-signal {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15%,
+  70% {
+    opacity: 1;
+  }
+  85% {
+    transform: translateY(180px);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .career-timeline::after {
+    display: none;
+  }
+  .floating-skill {
+    transform: rotate(var(--float-rotation));
+  }
+}

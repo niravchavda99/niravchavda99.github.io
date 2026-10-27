@@ -32,13 +32,15 @@ export function SiteHeader() {
           </span>
           <span>
             NIRAV CHAVDA
-            <span className="brand-caption">SOFTWARE CRAFTSPERSON</span>
+            <span className="brand-caption">{profile.role.toUpperCase()}</span>
           </span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href="/#work">Work</Link>
           <Link href="/#about">About</Link>
+          <Link href="/#toolkit">Skills</Link>
           <Link href="/#journey">Journey</Link>
+          <Link href="/#education">Education</Link>
         </nav>
         <div className="header-actions">
           <button
@@ -49,8 +51,13 @@ export function SiteHeader() {
           >
             {paused ? <Play size={15} /> : <Pause size={15} />}
           </button>
-          <a className="contact-link" href={`mailto:${profile.email}`}>
-            Let’s talk <ArrowUpRight size={16} />
+          <a
+            className="contact-link"
+            href={`mailto:${profile.email}`}
+            aria-label="Email Nirav"
+          >
+            <span className="contact-label">Let’s talk</span>{" "}
+            <ArrowUpRight size={16} />
           </a>
           <button
             className="icon-button menu-toggle"
@@ -72,7 +79,9 @@ export function SiteHeader() {
           {[
             { label: "Work", href: "/#work" },
             { label: "About", href: "/#about" },
+            { label: "Skills", href: "/#toolkit" },
             { label: "Journey", href: "/#journey" },
+            { label: "Education", href: "/#education" },
             { label: "All projects", href: "/projects/" },
           ].map((link) => (
             <Link
