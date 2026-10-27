@@ -164,8 +164,8 @@ p {
   color: var(--ink);
 }
 .motion-toggle {
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
 }
 .contact-link {
   display: flex;
@@ -217,7 +217,7 @@ p {
   color: var(--orange);
 }
 .hero-copy > p {
-  font-size: 13px;
+  font-size: 14px;
 }
 .hero-actions {
   display: flex;
@@ -524,7 +524,7 @@ h2 {
 .browser-bar i {
   font-style: normal;
   font-size: 6px;
-  color: #777;
+  color: #65655c;
   margin: auto;
   padding-right: 26px;
 }
@@ -533,6 +533,28 @@ h2 {
   height: 210px;
   object-fit: cover;
   object-position: top;
+}
+.project-placeholder {
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background: var(--ink);
+  color: var(--paper);
+}
+.project-placeholder > span:first-child {
+  font-size: 45px;
+  color: var(--orange);
+}
+.project-placeholder strong {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+}
+.project-placeholder > span:last-child {
+  font-size: 9px;
 }
 .project-visual-caption {
   position: absolute;
@@ -572,7 +594,7 @@ h2 {
   height: 35px;
 }
 .project-card > p {
-  font-size: 12px;
+  font-size: 14px;
   max-width: 95%;
 }
 .project-tags {
@@ -656,7 +678,7 @@ h2 {
   margin: 25px 0 18px;
 }
 .about-copy > p:not(.about-lead) {
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 14px;
 }
 .about-signoff {
@@ -781,7 +803,7 @@ h2 {
 }
 .journey-item p {
   color: #bdc0b0;
-  font-size: 11px;
+  font-size: 13px;
   margin-top: 13px;
 }
 .education-heading {
@@ -821,7 +843,7 @@ h2 {
   margin: 15px 0 14px;
 }
 .activity-card p {
-  font-size: 12px;
+  font-size: 14px;
 }
 .contact-section {
   background: var(--orange);
@@ -954,6 +976,7 @@ h2 {
   flex-wrap: wrap;
 }
 .project-filters button {
+  min-height: 44px;
   border: 1px solid var(--line);
   background: transparent;
   padding: 11px 17px;
@@ -1106,15 +1129,15 @@ html[data-motion="paused"] .reveal {
   .menu-toggle {
     display: grid;
     border: 0;
-    width: 30px;
+    width: 44px;
   }
   .contact-link {
     font-size: 11px;
     gap: 7px;
   }
   .motion-toggle {
-    width: 30px;
-    height: 30px;
+    width: 44px;
+    height: 44px;
   }
   .mobile-nav {
     position: absolute;
@@ -1149,7 +1172,7 @@ html[data-motion="paused"] .reveal {
     letter-spacing: 1px;
   }
   .hero-copy > p {
-    font-size: 13px;
+    font-size: 14px;
   }
   .hero-actions {
     margin-top: 25px;
@@ -1352,7 +1375,7 @@ html[data-motion="paused"] .reveal {
     font-size: 6px;
   }
   .journey-item p {
-    font-size: 12px;
+    font-size: 13px;
   }
   .activities-grid {
     grid-template-columns: 1fr;

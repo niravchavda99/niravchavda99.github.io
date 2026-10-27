@@ -19,6 +19,7 @@ import {
   skillGroups,
 } from "@/src/content/portfolio";
 import type { ReactNode } from "react";
+import { projects } from "@/src/content/projects";
 
 function SectionLabel({
   number,
@@ -116,7 +117,7 @@ export default function HomePage() {
         <div className="work-bottom">
           <span>A FEW IDEAS THAT MADE IT OUT OF THE NOTEBOOK.</span>
           <Link href="/projects/" className="button button-outline">
-            All 8 projects <ArrowRight size={17} />
+            All {projects.length} projects <ArrowRight size={17} />
           </Link>
         </div>
       </section>
@@ -241,7 +242,7 @@ export default function HomePage() {
                   <article className="journey-item" key={job.role}>
                     <div className="item-meta">
                       <span>{job.period}</span>
-                      <span>REMOTE</span>
+                      <span>{job.location ?? "Remote"}</span>
                     </div>
                     <h4>{job.role}</h4>
                     <a

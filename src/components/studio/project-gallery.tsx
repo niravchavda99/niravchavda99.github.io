@@ -33,12 +33,20 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <span />
             <i>{new URL(project.href).hostname}</i>
           </div>
-          <Image
-            src={project.image}
-            alt={`${project.name} application screenshot`}
-            sizes="(max-width: 700px) 90vw, 44vw"
-            className="project-image"
-          />
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={`${project.name} application screenshot`}
+              sizes="(max-width: 700px) 90vw, 44vw"
+              className="project-image"
+            />
+          ) : (
+            <div className="project-placeholder">
+              <span aria-hidden="true">✳</span>
+              <strong>{project.name}</strong>
+              <span>{project.category}</span>
+            </div>
+          )}
         </div>
         <span className="project-visual-caption">
           BUILT TO BE USED. MADE WITH CARE.

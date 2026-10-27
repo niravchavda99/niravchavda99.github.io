@@ -11,7 +11,16 @@ export const profile = {
   ],
 };
 
-export const experience = [
+export interface Experience {
+  period: string;
+  role: string;
+  company: string;
+  href: string;
+  location?: string;
+  description: string;
+}
+
+export const experience: Experience[] = [
   {
     period: "JUL 2022 — PRESENT",
     role: "Software Craftsperson",

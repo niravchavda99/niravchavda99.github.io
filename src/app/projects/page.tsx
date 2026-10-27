@@ -2,10 +2,10 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { ProjectGallery } from "@/src/components/studio/project-gallery";
 import type { Metadata } from "next";
+import { projects } from "@/src/content/projects";
 export const metadata: Metadata = {
   title: "Projects",
-  description:
-    "Eight tools, web apps, and creative experiments by Nirav Chavda.",
+  description: `${projects.length} tools, web apps, and creative experiments by Nirav Chavda.`,
   alternates: { canonical: "/projects/" },
 };
 export default function ProjectsPage() {
@@ -14,7 +14,9 @@ export default function ProjectsPage() {
       <Link href="/" className="text-link">
         <ArrowLeft size={16} /> Back to the studio
       </Link>
-      <div className="eyebrow archive-label">THE COLLECTION / 08 PROJECTS</div>
+      <div className="eyebrow archive-label">
+        THE COLLECTION / {String(projects.length).padStart(2, "0")} PROJECTS
+      </div>
       <h1>
         Curiosity,
         <br />

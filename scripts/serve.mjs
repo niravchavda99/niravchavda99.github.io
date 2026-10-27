@@ -27,10 +27,11 @@ createServer(async (request, response) => {
       return;
     }
     if ((await stat(file)).isDirectory()) file = resolve(file, "index.html");
+    const content = await readFile(file);
     response.writeHead(200, {
       "Content-Type": types[extname(file)] || "application/octet-stream",
     });
-    response.end(await readFile(file));
+    response.end(content);
   } catch {
     response.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
     response.end(

@@ -13,11 +13,11 @@ export interface Project {
   name: string;
   category: ProjectCategory;
   description: string;
-  image: StaticImageData;
+  image?: StaticImageData;
   href: string;
   source?: string;
   tags: string[];
-  color: string;
+  color: "lavender" | "mint" | "peach" | "yellow";
 }
 
 export const projects: Project[] = [

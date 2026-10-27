@@ -7,6 +7,7 @@ import { SiteFooter, SiteHeader } from "@/src/components/studio/site-shell";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://niravchavda.in"),
+  alternates: { canonical: "/" },
   title: {
     default: "Nirav Chavda — Software, thoughtfully crafted.",
     template: "%s | Nirav Chavda",

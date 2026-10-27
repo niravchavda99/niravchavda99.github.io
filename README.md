@@ -34,7 +34,39 @@ The preview serves the actual static export, including direct `/projects/` navig
 
 Only navigation, project filtering, pointer interaction, and scroll observation require client JavaScript. Animation uses CSS and SVG; no animation runtime is shipped. Fonts are self-hosted. Reduced motion and manual pause are supported. The existing custom-domain metadata is retained.
 
-## GitHub Pages
+## Add content in code
+
+Add an object to `projects` in `src/content/projects.ts`. No component edits are needed. The first four entries appear on the homepage; every entry appears in the collection. Counts, filter totals, and collection metadata update automatically. Screenshots and source links are optional; projects without screenshots get a branded graphic.
+
+```ts
+{
+  name: "New project",
+  category: "Tools", // "Tools" | "Web apps" | "Experiments"
+  description: "What it does and who it helps.",
+  href: "https://example.com",
+  tags: ["React", "TypeScript"],
+  color: "mint", // "mint" | "lavender" | "peach" | "yellow"
+  // image: importedScreenshot, // optional static image import
+  // source: "https://github.com/...", // optional
+},
+```
+
+Add an object to `experience` in `src/content/portfolio.ts`, newest first:
+
+```ts
+{
+  period: "NOV 2026 — PRESENT",
+  role: "Your role",
+  company: "Company",
+  location: "Remote", // optional; defaults to Remote
+  href: "https://example.com",
+  description: "The work you do and what matters about it.",
+},
+```
+
+Education, skills, activities, and social links follow the same array-of-objects structure. Run `pnpm build` after editing; TypeScript checks the content shape. Browser tests adapt to project counts so routine additions do not require test edits.
+
+## GitHub Pages deployment
 
 `next.config.mjs` retains `output: 'export'` and `distDir: 'dist'`. Trailing slashes generate a real `projects/index.html` for Pages. `public/.nojekyll` preserves Next.js underscore asset paths.
 

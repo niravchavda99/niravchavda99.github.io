@@ -1,4 +1,32 @@
 import { expect, test } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+
+test("static assets and custom 404 are exported", async ({ request }) => {
+  for (const path of [
+    "/",
+    "/projects/",
+    "/icon.svg",
+    "/robots.txt",
+    "/sitemap.xml",
+    "/.nojekyll",
+  ]) {
+    expect((await request.get(path)).status()).toBe(200);
+  }
+  const missing = await request.get("/this-page-does-not-exist/");
+  expect(missing.status()).toBe(404);
+  expect(await missing.text()).toContain("A little");
+});
+
+test("pages meet automated WCAG accessibility checks", async ({ page }) => {
+  for (const path of ["/", "/projects/"]) {
+    await page.goto(path);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+      .analyze();
+    expect(results.violations).toEqual([]);
+  }
+});
 
 test("static home preserves content and fits the viewport", async ({
   page,
@@ -9,7 +37,7 @@ test("static home preserves content and fits the viewport", async ({
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "Software,",
   );
-  await expect(page.locator(".project-card")).toHaveCount(4);
+  expect(await page.locator(".project-card").count()).toBeGreaterThan(0);
   for (const width of [320, 375, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     expect(
@@ -26,15 +54,13 @@ test("static home preserves content and fits the viewport", async ({
 
 test("all project filters and direct static route work", async ({ page }) => {
   await page.goto("/projects/");
-  await expect(page.locator(".project-card")).toHaveCount(8);
-  await page.getByRole("button", { name: "Tools" }).click();
-  await expect(page.locator(".project-card")).toHaveCount(3);
-  await page.getByRole("button", { name: "Experiments" }).click();
-  await expect(page.locator(".project-card")).toHaveCount(2);
-  await page.getByRole("button", { name: "Web apps" }).click();
-  await expect(page.locator(".project-card")).toHaveCount(3);
-  await page.getByRole("button", { name: "All", exact: false }).click();
-  await expect(page.locator(".project-card")).toHaveCount(8);
+  for (const name of ["All", "Tools", "Experiments", "Web apps", "All"]) {
+    const filter = page.getByRole("button", { name, exact: false });
+    const count = Number(await filter.locator("span").textContent());
+    await filter.click();
+    await expect(page.locator(".project-card")).toHaveCount(count);
+    await expect(filter).toHaveAttribute("aria-pressed", "true");
+  }
   await page.reload();
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "Curiosity",
