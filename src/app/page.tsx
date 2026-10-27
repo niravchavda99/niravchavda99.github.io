@@ -20,7 +20,7 @@ import {
 
 export default function HomePage() {
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1}>
       <section className="hero world-hero" aria-labelledby="hero-title">
         <CraftEngine />
         <div className="hero-copy">

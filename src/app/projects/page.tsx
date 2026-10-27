@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 export default function ProjectsPage() {
   return (
-    <main id="main" className="container projects-page">
+    <main id="main" tabIndex={-1} className="container projects-page">
       <Link href="/" className="text-link">
         <ArrowLeft size={16} /> Back to the studio
       </Link>

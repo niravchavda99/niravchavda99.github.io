@@ -50,7 +50,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <h3>
             <a href={project.href} target="_blank" rel="noreferrer">
               {project.name}
-              <ArrowUpRight size={21} />
             </a>
           </h3>
           {project.source && (

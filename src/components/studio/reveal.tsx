@@ -24,7 +24,8 @@ export function Reveal({
             observer.unobserve(element);
           }
         }),
-      { threshold: 0.08 },
+      // A ratio threshold can never be reached by sections taller than the viewport.
+      { threshold: 0, rootMargin: "0px 0px -24px 0px" },
     );
     element.classList.add("reveal-ready");
     observer.observe(element);

@@ -93,7 +93,7 @@ p {
   left: 20px;
   top: -80px;
   background: var(--ink);
-  color: white;
+  color: var(--paper);
   padding: 14px 20px;
   z-index: 100;
 }
@@ -662,6 +662,11 @@ h2 {
   opacity: 1;
   transform: none;
 }
+.reveal-ready:focus-within {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
 @keyframes orbital {
   to {
     transform: rotate(360deg);
@@ -698,6 +703,9 @@ html[data-motion="paused"] .reveal {
     display: grid;
   }
   .mobile-nav {
+    max-height: calc(100dvh - 88px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     position: absolute;
     top: 88px;
     left: 0;
@@ -769,6 +777,7 @@ html[data-motion="paused"] .reveal {
     height: 44px;
   }
   .mobile-nav {
+    max-height: calc(100dvh - 80px);
     position: absolute;
     top: 80px;
     left: 0;

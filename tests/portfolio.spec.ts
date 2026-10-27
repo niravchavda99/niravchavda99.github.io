@@ -197,8 +197,14 @@ test("mobile navigation opens, closes, and reaches a section", async ({
   await expect(
     page.getByRole("navigation", { name: "Mobile navigation" }),
   ).toBeVisible();
+  await page
+    .getByRole("navigation", { name: "Mobile navigation" })
+    .getByRole("link")
+    .first()
+    .focus();
   await page.keyboard.press("Escape");
   await expect(menu).toHaveAttribute("aria-expanded", "false");
+  await expect(menu).toBeFocused();
   await menu.click();
   await page
     .getByRole("navigation", { name: "Mobile navigation" })
@@ -206,4 +212,47 @@ test("mobile navigation opens, closes, and reaches a section", async ({
     .click();
   await expect(page).toHaveURL(/#journey$/);
   await expect(menu).toHaveAttribute("aria-expanded", "false");
+});
+
+test("keyboard visitors can skip navigation and reveal long sections", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.keyboard.press("Tab");
+  const skip = page.getByRole("link", { name: "Skip to content" });
+  await expect(skip).toBeFocused();
+  const results = await new AxeBuilder({ page })
+    .include(".skip-link")
+    .withTags(["wcag2aa"])
+    .analyze();
+  expect(results.violations).toEqual([]);
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#main")).toBeFocused();
+  const about = page.locator("#about .reveal");
+  await expect(about).toHaveClass(/reveal-ready/);
+  await page.addStyleTag({
+    content: "#about .reveal { min-height: 14000px; }",
+  });
+  await page.locator("#about").evaluate((element) => element.scrollIntoView());
+  await expect(about).toHaveClass(/is-revealed/);
+  await expect(about).toHaveCSS("opacity", "1");
+});
+
+test("navigation fits a short viewport and closes at desktop width", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 844, height: 390 });
+  await page.goto("/");
+  const toggle = page.getByRole("button", { name: "Open navigation" });
+  await toggle.click();
+  const navigation = page.getByRole("navigation", {
+    name: "Mobile navigation",
+  });
+  const bounds = await navigation.boundingBox();
+  expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(390);
+  await navigation.getByRole("link", { name: "All projects" }).click();
+  await expect(page).toHaveURL(/\/projects\/$/);
+  await toggle.click();
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await expect(navigation).toHaveCount(0);
 });

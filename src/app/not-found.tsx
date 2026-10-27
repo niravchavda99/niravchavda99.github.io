@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 export default function NotFound() {
   return (
-    <main id="main" className="container not-found">
+    <main id="main" tabIndex={-1} className="container not-found">
       <span className="eyebrow">A SMALL DETOUR / 404</span>
       <h1>
         A little <span className="serif-word">lost?</span>

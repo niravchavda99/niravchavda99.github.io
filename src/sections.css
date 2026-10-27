@@ -17,7 +17,14 @@
 .project-card:hover {
   border-color: #566f92;
 }
+.project-card:focus-within {
+  border-color: #a7caff;
+}
+.project-visual:focus-visible {
+  outline-offset: -4px;
+}
 .project-visual {
+  aspect-ratio: 16 / 10;
   display: flex;
   align-items: center;
   padding: 28px;
@@ -76,10 +83,9 @@
 }
 .project-image {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: auto;
   height: auto;
   object-fit: contain;
-  background: #080f1b;
   object-position: top;
 }
 .project-placeholder {
@@ -136,9 +142,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-}
-.project-heading h3 svg {
-  display: none;
 }
 .source-link {
   display: grid;

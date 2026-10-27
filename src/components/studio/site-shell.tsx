@@ -1,25 +1,49 @@
 "use client";
 import Link from "next/link";
 import { ArrowUpRight, Menu, X, Pause, Play, ArrowUp } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { profile } from "@/src/content/portfolio";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [paused, setPaused] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     document.documentElement.dataset.motion = paused ? "paused" : "running";
   }, [paused]);
   useEffect(() => {
     if (!open) return;
     const close = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuRef.current?.focus();
+      }
+    };
+    const closeOutside = (event: Event) => {
+      if (
+        event.target instanceof Node &&
+        !headerRef.current?.contains(event.target)
+      )
+        setOpen(false);
+    };
+    const desktop = window.matchMedia("(min-width: 1051px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setOpen(false);
     };
     window.addEventListener("keydown", close);
-    return () => window.removeEventListener("keydown", close);
+    document.addEventListener("pointerdown", closeOutside);
+    document.addEventListener("focusin", closeOutside);
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => {
+      window.removeEventListener("keydown", close);
+      document.removeEventListener("pointerdown", closeOutside);
+      document.removeEventListener("focusin", closeOutside);
+      desktop.removeEventListener("change", closeOnDesktop);
+    };
   }, [open]);
   return (
-    <header className="site-header">
+    <header className="site-header" ref={headerRef}>
       <div className="container header-inner">
         <Link
           href="/"
@@ -60,6 +84,7 @@ export function SiteHeader() {
             <ArrowUpRight size={16} />
           </a>
           <button
+            ref={menuRef}
             className="icon-button menu-toggle"
             aria-label={open ? "Close navigation" : "Open navigation"}
             aria-expanded={open}
