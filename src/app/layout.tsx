@@ -1,45 +1,37 @@
+import "@fontsource-variable/manrope";
+import "@fontsource-variable/space-grotesk";
 import "../index.css";
-import React, { ReactNode } from "react";
-import { JetBrains_Mono, Inter } from "next/font/google";
-import { ThemeProvider } from "@/src/components/theme/theme-context";
-import { Home } from "./home";
 import type { Metadata } from "next";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["300", "400", "500", "600", "700"],
-});
+import type { ReactNode } from "react";
+import { SiteFooter, SiteHeader } from "@/src/components/studio/site-shell";
 
 export const metadata: Metadata = {
-  title: "Nirav Chavda",
+  metadataBase: new URL("https://niravchavda.in"),
+  title: {
+    default: "Nirav Chavda — Software, thoughtfully crafted.",
+    template: "%s | Nirav Chavda",
+  },
   description:
-    "Full-stack developer building thoughtful software, from backend services to mobile apps.",
+    "Software Craftsperson at Incubyte. I build thoughtful web apps, developer tools, and dependable systems. Explore my work and the thinking behind it.",
   openGraph: {
-    title: "Nirav Chavda",
+    title: "Nirav Chavda — Software, thoughtfully crafted.",
     description:
-      "Full-stack developer building thoughtful software, from backend services to mobile apps.",
+      "A software craftsperson’s collection of useful tools, thoughtful interfaces, and experiments.",
+    type: "website",
     url: "https://niravchavda.in",
-    siteName: "Nirav Chavda",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Nirav Chavda",
-    description:
-      "Full-stack developer building thoughtful software, from backend services to mobile apps.",
-  },
+  twitter: { card: "summary", creator: "@niravchavda99" },
 };
-
-type RootLayoutProps = { children?: ReactNode };
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body>
-        <ThemeProvider>
-          <Home>{children}</Home>
-        </ThemeProvider>
+    <html lang="en">
+      <body id="top">
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        <SiteHeader />
+        {children}
+        <SiteFooter />
       </body>
     </html>
   );

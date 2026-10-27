@@ -1,37 +1,41 @@
-import { projects } from "./constants";
-import { ProjectItem } from "./project-item/project-item";
-import { SectionContainer } from "@/src/components/common/section-container";
-import { HeadingText } from "@/src/components/common/heading-text";
+import Link from "next/link";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ProjectGallery } from "@/src/components/studio/project-gallery";
 import type { Metadata } from "next";
-
 export const metadata: Metadata = {
-  title: "Projects | Nirav Chavda",
+  title: "Projects",
   description:
-    "A selection of things Nirav Chavda has built: open-source projects, tools, and experiments.",
+    "Eight tools, web apps, and creative experiments by Nirav Chavda.",
+  alternates: { canonical: "/projects/" },
 };
-
 export default function ProjectsPage() {
-  const featured = projects.find((p) => p.featured);
-  const rest = projects.filter((p) => !p.featured);
-
   return (
-    <SectionContainer id="projects">
-      <HeadingText coloredText="Projects" />
-
-      <p className="mt-4 mb-14 text-slate-500 dark:text-slate-400 text-base max-w-2xl">
-        A selection of things I&apos;ve built, each one a step in my journey.
-        Many are open-source, so feel free to explore the code.
-      </p>
-
-      <div className="flex flex-col gap-6">
-        {featured && <ProjectItem project={featured} />}
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {rest.map((project) => (
-            <ProjectItem key={project.name} project={project} />
-          ))}
-        </div>
+    <main id="main" className="container projects-page">
+      <Link href="/" className="text-link">
+        <ArrowLeft size={16} /> Back to the studio
+      </Link>
+      <div className="eyebrow archive-label">THE COLLECTION / 08 PROJECTS</div>
+      <h1>
+        Curiosity,
+        <br />
+        put to <span className="serif-word">work.</span>
+      </h1>
+      <div className="archive-description">
+        <p>
+          Useful tools, personal projects, and a few experiments.
+          <br />
+          Each one started with “what if?”
+        </p>
+        <a
+          className="text-link"
+          href="https://github.com/niravchavda99"
+          target="_blank"
+          rel="noreferrer"
+        >
+          More on GitHub <ArrowUpRight size={17} />
+        </a>
       </div>
-    </SectionContainer>
+      <ProjectGallery />
+    </main>
   );
 }
