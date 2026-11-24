@@ -143,7 +143,7 @@ const About = () => {
                 <span className="text-cyan-400">role</span>
                 <span className="text-slate-400">: </span>
                 <span className="text-amber-300">
-                  &quot;Software Craftsperson&quot;
+                  &quot;Tech Lead&quot;
                 </span>
                 <span className="text-slate-500">,</span>
               </div>

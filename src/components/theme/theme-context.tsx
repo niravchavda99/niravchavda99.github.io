@@ -31,7 +31,12 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<ThemeMode>(ThemeMode.Dark);
-  useEffect(() => setTheme(getThemeFromLocalStorage()), []);
+  useEffect(() => {
+    setTheme(getThemeFromLocalStorage());
+  }, []);
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === ThemeMode.Dark);
+  }, [theme]);
   const toggleTheme = () => {
     const updatedTheme =
       theme === ThemeMode.Dark ? ThemeMode.Light : ThemeMode.Dark;
@@ -40,13 +45,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   };
   return (
     <ThemeContext.Provider value={{ mode: theme, toggle: toggleTheme }}>
-      <div
-        id="root"
-        className={cn(
-          theme === ThemeMode.Dark && "dark",
-          "transition-all font-inter",
-        )}
-      >
+      <div id="root" className={cn("font-sans")}>
         {children}
       </div>
     </ThemeContext.Provider>
