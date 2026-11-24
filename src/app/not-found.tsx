@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function CustomNotFoundPage() {
   return (
-    <div className="flex items-center justify-center min-h-screen px-6">
+    <div className="flex items-center justify-center flex-1 px-6">
       <div className="text-center max-w-md">
         <div className="font-mono text-xs text-slate-400 dark:text-slate-500 mb-6 flex items-center justify-center gap-2">
           <span className="text-cyan-400/60">//</span>

@@ -3,6 +3,7 @@ import { BsGithub, BsInstagram, BsLinkedin, BsTwitterX } from "react-icons/bs";
 import { IoMail } from "react-icons/io5";
 import SocialMediaLink from "@/src/components/common/social-media-link";
 import Image from "next/image";
+import Link from "next/link";
 import { SocialMediaPlatform } from "../common/social-media-platform";
 import { ScrollHint } from "../common/scroll-hint";
 
@@ -180,18 +181,26 @@ const About = () => {
             </div>
           </div>
 
-          {/* Social icons */}
-          <div className="flex items-center justify-center sm:justify-start gap-2">
-            {SOCIAL_ICONS.map(({ platform, icon, label }) => (
-              <SocialMediaLink key={platform} platform={platform}>
-                <span
-                  className="w-10 h-10 rounded-lg flex items-center justify-center border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 hover:border-cyan-400/50 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-400/5 transition-all duration-200"
-                  title={label}
-                >
-                  {icon}
-                </span>
-              </SocialMediaLink>
-            ))}
+          {/* CTA + Social icons */}
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-violet-500 text-white text-sm font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/35 hover:-translate-y-0.5 transition-all duration-200"
+            >
+              View Projects <span aria-hidden="true">→</span>
+            </Link>
+            <div className="flex items-center gap-2">
+              {SOCIAL_ICONS.map(({ platform, icon, label }) => (
+                <SocialMediaLink key={platform} platform={platform}>
+                  <span
+                    className="w-10 h-10 rounded-lg flex items-center justify-center border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 hover:border-cyan-400/50 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-400/5 transition-all duration-200"
+                    title={label}
+                  >
+                    {icon}
+                  </span>
+                </SocialMediaLink>
+              ))}
+            </div>
           </div>
         </div>
       </div>

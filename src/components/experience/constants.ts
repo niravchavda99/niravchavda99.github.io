@@ -26,8 +26,8 @@ export const jobs: JobProfile[] = [
     url: "https://www.incubyte.co/",
     points: [
       "Focus on writing quality code and deliver well crafted software",
-      "Delivered projects in Nextjs, React, Angular, Micronaut, Spring Boot, Chrome Extensions, Flutter, Azure, GCP etc.",
-      "Published a Chrome Extension for xpath evaluation",
+      "Delivered projects in Next.js, React, Angular, Micronaut, Spring Boot, Chrome Extensions, Flutter, Azure, GCP etc.",
+      "Published a Chrome Extension for XPath evaluation",
     ],
   },
   {

@@ -47,6 +47,7 @@ export const technologies: Technology[] = [
     category: "Backend",
   },
   { name: "NestJS", icon: nestjs.src, category: "Backend" },
+  { name: "NodeJS", icon: nodejs.src, category: "Backend" },
 
   { name: "JavaScript", icon: javascript.src, category: "Frontend" },
   { name: "TypeScript", icon: typescript.src, category: "Frontend" },
@@ -75,7 +76,6 @@ export const technologies: Technology[] = [
   { name: "Flutter", icon: flutter.src, category: "Mobile" },
 
   { name: "Git", icon: git.src, category: "Tools" },
-  { name: "NodeJS", icon: nodejs.src, category: "Tools" },
   { name: "IntelliJ", icon: intellijIdea.src, category: "Tools" },
   { name: "VSCode", icon: vsCode.src, category: "Tools" },
 ];
