@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ThemeSwitch } from "@/src/components/theme/theme-switch";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -103,10 +103,29 @@ const Navbar = () => {
   const isHome = pathname === "/";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMenuOpen(false);
+    };
+    const handleClickOutside = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   useEffect(() => {
     if (!isHome) return;
@@ -129,7 +148,10 @@ const Navbar = () => {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <nav className="w-full fixed top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/80 dark:bg-[#060b14]/80 backdrop-blur-md">
+    <nav
+      ref={navRef}
+      className="w-full fixed top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/80 dark:bg-[#060b14]/80 backdrop-blur-md"
+    >
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="group flex items-center gap-2">
@@ -173,6 +195,8 @@ const Navbar = () => {
           <button
             onClick={() => setIsMenuOpen((v) => !v)}
             aria-label="Toggle navigation menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav-menu"
             className="w-9 h-9 rounded-lg flex items-center justify-center border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 hover:border-cyan-400/50 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-200"
           >
             {isMenuOpen ? <X size={15} /> : <Menu size={15} />}
@@ -182,7 +206,10 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden border-t border-slate-200/60 dark:border-slate-800/60 bg-white/95 dark:bg-[#060b14]/95 backdrop-blur-md px-6 py-3 flex flex-col gap-1">
+        <div
+          id="mobile-nav-menu"
+          className="md:hidden border-t border-slate-200/60 dark:border-slate-800/60 bg-white/95 dark:bg-[#060b14]/95 backdrop-blur-md px-6 py-3 flex flex-col gap-1"
+        >
           {isHome ? (
             NAV_LINKS_HOME.map(({ label, href, id }) => (
               <MobileNavLink

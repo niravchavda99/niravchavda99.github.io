@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SocialMediaPlatform } from "../common/social-media-platform";
 import { ScrollHint } from "../common/scroll-hint";
+import { YoeValue } from "./yoe-value";
 
 const SOCIAL_ICONS = [
   {
@@ -35,20 +36,7 @@ const SOCIAL_ICONS = [
   },
 ];
 
-// Internship completed July 2022, YOE counted from there
-const CAREER_START = new Date(2022, 6, 1);
-
-function calculateYOE(): string {
-  const now = new Date();
-  const months =
-    (now.getFullYear() - CAREER_START.getFullYear()) * 12 +
-    (now.getMonth() - CAREER_START.getMonth());
-  return (months / 12).toFixed(1);
-}
-
 const About = () => {
-  const yoe = calculateYOE();
-
   return (
     <section
       id="about"
@@ -97,7 +85,7 @@ const About = () => {
             <span className="text-base">☕</span>
             <div>
               <p className="text-xs font-bold text-slate-800 dark:text-slate-200 font-mono leading-none">
-                {yoe} yrs
+                <YoeValue />
               </p>
               <p className="text-[10px] text-slate-400 dark:text-slate-500 font-mono leading-none mt-0.5">
                 experience
