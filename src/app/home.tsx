@@ -1,65 +1,76 @@
 "use client";
 
-import ScrollToTop from "react-scroll-to-top";
-import { ChevronUpIcon } from "lucide-react";
+import { ArrowUp } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "@/src/components/navbar/navbar";
 import Footer from "@/src/components/footer/footer";
-import { ReactNode } from "react";
+import { CommandPalette } from "@/src/components/command-palette/command-palette";
+import { SpatialScene3D } from "@/src/components/motion/spatial-scene-3d";
+import { CustomCursor } from "@/src/components/motion/custom-cursor";
+import { ReactNode, useEffect, useState } from "react";
 
 interface HomeProps {
   children: ReactNode;
 }
 
 export function Home({ children }: HomeProps) {
-  return (
-    <>
-      <ScrollToTop
-        smooth
-        style={{
-          borderRadius: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          bottom: "24px",
-          right: "24px",
-          width: "40px",
-          height: "40px",
-          boxShadow:
-            "0 0 0 1px rgba(34,211,238,0.3), 0 0 20px rgba(34,211,238,0.15)",
-          background:
-            "linear-gradient(135deg, rgba(34,211,238,0.1), rgba(167,139,250,0.1))",
-          backdropFilter: "blur(8px)",
-          border: "1px solid rgba(34,211,238,0.3)",
-        }}
-        component={<ChevronUpIcon size={16} color="#22d3ee" />}
-      />
-      <Navbar />
-      <div className="relative min-h-screen flex flex-col bg-[#f8fafc] dark:bg-[#060b14] text-left">
-        {/* Dot grid background */}
-        <div
-          className="fixed inset-0 pointer-events-none -z-10"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, rgba(148,163,184,0.12) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        <div
-          className="fixed inset-0 pointer-events-none -z-10 dark:opacity-100 opacity-0 transition-opacity duration-500"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        {/* Ambient gradient orbs */}
-        <div className="fixed top-[-10%] right-[-5%] w-[700px] h-[700px] rounded-full pointer-events-none -z-10 bg-cyan-300/10 dark:bg-cyan-400/5 blur-[140px]" />
-        <div className="fixed bottom-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full pointer-events-none -z-10 bg-violet-300/10 dark:bg-violet-500/5 blur-[120px]" />
-        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full pointer-events-none -z-10 bg-emerald-300/5 dark:bg-emerald-400/3 blur-[160px]" />
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
-        <div className="flex flex-col flex-1">{children}</div>
+  useEffect(() => {
+    const onScroll = () => {
+      setShowScrollTop(window.scrollY > 480);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <div className="relative min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/25">
+      {/* Subtle perspective spatial grid */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 pointer-events-none z-0 bg-spatial-grid opacity-30 [mask-image:radial-gradient(ellipse_80%_70%_at_50%_35%,#000_35%,transparent_100%)]"
+      />
+
+      {/* Live 60fps 3D Tensegrity Sculpture & Warp Starfield */}
+      <SpatialScene3D />
+
+      {/* Spring-Physics Kinetic Cursor Follower (Desktop) */}
+      <CustomCursor />
+
+      {/* Floating Spatial Dock & Command HUD */}
+      <Navbar />
+      <CommandPalette />
+
+      {/* Spatial Content Layer */}
+      <main className="relative z-10 max-w-6xl w-full mx-auto flex-1 flex flex-col">
+        {children}
+      </main>
+
+      <div className="relative z-10">
         <Footer />
       </div>
-    </>
+
+      {/* Spring-Animated Back-to-Top Capsule */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            type="button"
+            initial={{ opacity: 0, scale: 0.7, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.7, y: 16 }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.94 }}
+            transition={{ type: "spring", stiffness: 360, damping: 24 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label="Scroll back to top"
+            className="fixed bottom-6 right-6 z-40 h-11 w-11 rounded-full border border-border bg-card/90 backdrop-blur-md text-foreground shadow-xl flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
+          >
+            <ArrowUp size={16} />
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

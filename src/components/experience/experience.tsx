@@ -1,16 +1,20 @@
 "use client";
 
+import React, { useRef, useState } from "react";
 import {
   EducationProfile,
   JobProfile,
-  Profile,
   educations,
   jobs,
 } from "@/src/data/experience";
 import Image from "next/image";
+import { ArrowUpRight, Briefcase, GraduationCap } from "lucide-react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";
 import MonthYear from "@/src/components/common/month-year";
+import { Tilt3DCard } from "@/src/components/motion/tilt-3d-card";
+import { cn } from "@/src/lib/utils";
 
 interface JobGroup {
   organizationName: string;
@@ -41,127 +45,131 @@ function groupConsecutiveJobs(jobList: JobProfile[]): JobGroup[] {
   return groups;
 }
 
-const TimelineMarker = ({
-  url,
-  label,
-  icon,
-  accentColor,
-  isLast,
-}: {
-  url: string;
-  label: string;
-  icon: string;
-  accentColor: string;
-  isLast: boolean;
-}) => (
-  <div className="flex flex-col items-center shrink-0">
-    <div
-      className="w-11 h-11 rounded-full border-2 flex items-center justify-center bg-white dark:bg-slate-900 z-10 shadow-md transition-shadow duration-300 group-hover:shadow-lg"
-      style={{ borderColor: `${accentColor}60` }}
-    >
-      <a href={url} target="_blank" rel="noopener noreferrer" aria-label={label}>
-        <Image
-          src={icon}
-          alt={label}
-          width={28}
-          height={28}
-          className="w-7 h-7 rounded-full object-contain"
-        />
-      </a>
-    </div>
-    {!isLast && (
-      <div className="w-px flex-1 mt-2 bg-gradient-to-b from-slate-300/60 to-transparent dark:from-slate-700/60" />
-    )}
-  </div>
-);
+type TrackFilter = "all" | "work" | "education";
 
-const GroupedJobItem = ({
-  group,
-  isLast,
-}: {
-  group: JobGroup;
-  isLast: boolean;
-}) => {
+const GroupedWorkCard = ({ group }: { group: JobGroup }) => {
   const firstRole = group.roles[group.roles.length - 1];
   const latestRole = group.roles[0];
-  const totalRange = `${firstRole.dateStarted} to ${latestRole.dateEnded ?? "Present"}`;
+  const totalRange = `${firstRole.dateStarted} — ${latestRole.dateEnded ?? "Present"}`;
   const totalDuration = (latestRole.dateEnded ?? MonthYear.present())
     .diff(firstRole.dateStarted)
     .toCountString();
 
   return (
-    <div className="flex gap-5 group">
-      <TimelineMarker
-        url={group.url}
-        label={group.organizationName}
-        icon={group.icon}
-        accentColor={group.iconBg}
-        isLast={isLast}
-      />
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="relative pl-8 sm:pl-12"
+    >
+      {/* Laser Spine Node */}
+      <span className="absolute left-0 top-8 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-primary ring-4 ring-primary/20 shadow-lg shadow-primary/40" />
 
-      <div className="flex-1 mb-8 rounded-xl border border-slate-200 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 backdrop-blur-sm p-5 hover:border-cyan-400/30 dark:hover:border-cyan-400/20 hover:shadow-lg hover:shadow-cyan-400/5 transition-all duration-300">
-        {/* Company header */}
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 pb-4 mb-4 border-b border-slate-100 dark:border-slate-800/80">
-          <div>
-            <h3 className="font-bold text-slate-900 dark:text-white text-lg leading-tight">
-              {group.organizationName}
-            </h3>
-            {group.location && (
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">
-                {group.location}
-              </p>
-            )}
+      <Tilt3DCard
+        maxTilt={5}
+        glareOpacity={0.14}
+        className="rounded-2xl border border-border/90 bg-card/85 backdrop-blur-xl overflow-hidden shadow-xl shadow-black/5 dark:shadow-black/35"
+      >
+        {/* Organization Banner */}
+        <div className="p-6 sm:p-7 border-b border-border/80 bg-surface/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <a
+              href={group.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={group.organizationName}
+              className="w-12 h-12 rounded-xl border border-border bg-white flex items-center justify-center shrink-0 overflow-hidden p-1.5 shadow-sm"
+            >
+              <Image
+                src={group.icon}
+                alt={group.organizationName}
+                width={36}
+                height={36}
+                className="w-full h-full object-contain rounded-lg"
+              />
+            </a>
+            <div>
+              <a
+                href={group.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/link inline-flex items-center gap-1.5 text-xl font-semibold tracking-tight text-foreground hover:text-primary transition-colors"
+              >
+                <span>{group.organizationName}</span>
+                <ArrowUpRight
+                  size={15}
+                  className="text-muted-foreground group-hover/link:text-primary transition-colors"
+                />
+              </a>
+              {group.location && (
+                <p className="font-mono text-xs text-muted-foreground mt-0.5">
+                  {group.location}
+                </p>
+              )}
+            </div>
           </div>
-          <div className="flex flex-col items-start sm:items-end gap-1 shrink-0">
-            <span className="font-mono text-xs text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-400/10 border border-cyan-200/60 dark:border-cyan-400/20 px-2.5 py-1 rounded-md whitespace-nowrap">
+
+          <div className="flex items-center gap-2.5 font-mono text-xs">
+            <span className="px-3 py-1 rounded-lg border border-border bg-card text-foreground">
               {totalRange}
             </span>
-            <span className="font-mono text-xs text-slate-400 dark:text-slate-500 px-1">
+            <span className="px-2.5 py-1 rounded-lg bg-primary/15 text-primary font-semibold">
               {totalDuration}
             </span>
           </div>
         </div>
 
-        {/* Roles */}
-        <div className="space-y-5">
-          {group.roles.map((role, idx) => {
-            const dateRange = `${role.dateStarted} to ${role.dateEnded ?? "Present"}`;
+        {/* Stepped Career Progression */}
+        <div className="divide-y divide-border/70">
+          {group.roles.map((role) => {
+            const isCurrent = !role.dateEnded;
+            const dateRange = `${role.dateStarted} — ${role.dateEnded ?? "Present"}`;
             const duration = (role.dateEnded ?? MonthYear.present())
               .diff(role.dateStarted)
               .toCountString();
-            const isLastRole = idx === group.roles.length - 1;
 
             return (
               <div
                 key={`${role.designation}-${role.dateStarted}`}
-                className="relative pl-5"
+                className="p-6 sm:p-7 hover:bg-surface/30 transition-colors"
               >
-                {/* Sub-timeline dot and connector */}
-                <span className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-cyan-400/80 ring-4 ring-cyan-400/10" />
-                {!isLastRole && (
-                  <span className="absolute left-[3.5px] top-4 bottom-[-20px] w-px bg-slate-200 dark:bg-slate-700/70" />
-                )}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <span
+                      className={cn(
+                        "w-2 h-2 rounded-full shrink-0",
+                        isCurrent ? "bg-emerald-500" : "bg-muted-foreground/45",
+                      )}
+                    />
+                    <h4 className="text-base sm:text-lg font-semibold tracking-tight text-foreground">
+                      {role.designation}
+                    </h4>
+                    {isCurrent && (
+                      <span className="px-2 py-0.5 rounded-full font-mono text-[10px] uppercase tracking-[0.14em] bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-semibold">
+                        Active Role
+                      </span>
+                    )}
+                  </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                  <h4 className="font-semibold text-slate-800 dark:text-slate-100 text-base leading-snug">
-                    {role.designation}
-                  </h4>
-                  <span className="font-mono text-xs text-slate-400 dark:text-slate-500 whitespace-nowrap">
-                    {dateRange} · {duration}
-                  </span>
+                  <div className="font-mono text-xs text-muted-foreground pl-4 sm:pl-0">
+                    <span>{dateRange}</span>
+                    <span className="mx-1.5 text-border">·</span>
+                    <span>{duration}</span>
+                  </div>
                 </div>
 
                 {role.points.length > 0 && (
-                  <ul className="space-y-1.5">
+                  <ul className="mt-4 space-y-2 pl-4">
                     {role.points.map((point) => (
                       <li
                         key={point}
-                        className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed"
+                        className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed"
                       >
-                        <span className="text-cyan-400 mt-0.5 shrink-0 text-xs">
-                          ▸
+                        <span className="font-mono text-primary select-none mt-0.5 text-xs">
+                          →
                         </span>
-                        {point}
+                        <span>{point}</span>
                       </li>
                     ))}
                   </ul>
@@ -170,124 +178,226 @@ const GroupedJobItem = ({
             );
           })}
         </div>
-      </div>
-    </div>
+      </Tilt3DCard>
+    </motion.div>
   );
 };
 
-const TimelineItem = ({
-  profile,
-  primaryLabel,
-  secondaryLabel,
-  accentColor,
-  isLast,
-}: {
-  profile: Profile;
-  primaryLabel: string;
-  secondaryLabel: string;
-  accentColor: string;
-  isLast: boolean;
-}) => {
-  const dateRange = `${profile.dateStarted} to ${profile.dateEnded ?? "Present"}`;
-  const duration = (profile.dateEnded ?? MonthYear.present())
-    .diff(profile.dateStarted)
+const EducationTimelineCard = ({ edu }: { edu: EducationProfile }) => {
+  const dateRange = `${edu.dateStarted} — ${edu.dateEnded ?? "Present"}`;
+  const duration = (edu.dateEnded ?? MonthYear.present())
+    .diff(edu.dateStarted)
     .toCountString();
 
   return (
-    <div className="flex gap-5 group">
-      <TimelineMarker
-        url={profile.url}
-        label={primaryLabel}
-        icon={profile.icon}
-        accentColor={accentColor}
-        isLast={isLast}
-      />
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="relative pl-8 sm:pl-12"
+    >
+      <span className="absolute left-0 top-8 -translate-x-1/2 w-3 h-3 rounded-full bg-accent ring-4 ring-accent/20" />
 
-      {/* Content card */}
-      <div className="flex-1 mb-8 rounded-xl border border-slate-200 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 backdrop-blur-sm p-5 hover:border-cyan-400/30 dark:hover:border-cyan-400/20 hover:shadow-lg hover:shadow-cyan-400/5 transition-all duration-300">
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
-          <div>
-            <h3 className="font-bold text-slate-900 dark:text-white text-lg leading-tight">
-              {primaryLabel}
-            </h3>
-            <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">
-              {secondaryLabel}
-              {profile.location && (
-                <span className="text-slate-400 dark:text-slate-500">
-                  {" "}
-                  · {profile.location}
-                </span>
+      <Tilt3DCard
+        maxTilt={6}
+        glareOpacity={0.14}
+        className="rounded-2xl border border-border/90 bg-card/85 backdrop-blur-xl p-6 sm:p-7 shadow-xl shadow-black/5 dark:shadow-black/35"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5">
+          <div className="flex items-start gap-4">
+            <a
+              href={edu.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={edu.instituteName}
+              className="w-12 h-12 rounded-xl border border-border bg-white flex items-center justify-center shrink-0 overflow-hidden p-1.5 shadow-sm"
+            >
+              <Image
+                src={edu.icon}
+                alt={edu.instituteName}
+                width={34}
+                height={34}
+                className="w-full h-full object-contain"
+              />
+            </a>
+            <div>
+              <h4 className="text-lg sm:text-xl font-semibold tracking-tight text-foreground leading-snug">
+                {edu.degree}
+              </h4>
+              <a
+                href={edu.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors mt-1"
+              >
+                <span>{edu.instituteName}</span>
+                <ArrowUpRight size={13} className="shrink-0" />
+              </a>
+              {edu.location && (
+                <p className="font-mono text-xs text-muted-foreground mt-0.5">
+                  {edu.location}
+                </p>
               )}
-            </p>
+            </div>
           </div>
-          <div className="flex flex-col items-start sm:items-end gap-1 shrink-0">
-            <span className="font-mono text-xs text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-400/10 border border-cyan-200/60 dark:border-cyan-400/20 px-2.5 py-1 rounded-md whitespace-nowrap">
+
+          <div className="flex flex-wrap items-center gap-2 font-mono text-xs shrink-0">
+            <span className="px-3 py-1 rounded-lg border border-border bg-surface text-foreground">
               {dateRange}
             </span>
-            <span className="font-mono text-xs text-slate-400 dark:text-slate-500 px-1">
-              {duration}
-            </span>
+            <span className="text-muted-foreground">{duration}</span>
           </div>
         </div>
 
-        {profile.points.length > 0 && (
-          <ul className="space-y-2">
-            {profile.points.map((point) => (
-              <li
-                key={point}
-                className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed"
-              >
-                <span className="text-cyan-400 mt-0.5 shrink-0 text-xs">▸</span>
-                {point}
-              </li>
-            ))}
+        {edu.points.length > 0 && (
+          <ul className="space-y-2 pt-4 border-t border-border/70">
+            {edu.points.map((point) => {
+              const isMedal = point.startsWith("🥇") || point.startsWith("🥈");
+              if (isMedal) {
+                return (
+                  <li key={point} className="pb-1">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full border border-amber-500/35 bg-amber-500/12 text-amber-700 dark:text-amber-300 text-xs font-semibold">
+                      {point}
+                    </span>
+                  </li>
+                );
+              }
+              return (
+                <li
+                  key={point}
+                  className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed"
+                >
+                  <span className="font-mono text-primary select-none mt-0.5 text-xs">
+                    →
+                  </span>
+                  <span>{point}</span>
+                </li>
+              );
+            })}
           </ul>
         )}
-      </div>
-    </div>
+      </Tilt3DCard>
+    </motion.div>
   );
 };
 
 const Experience = () => {
+  const [filter, setFilter] = useState<TrackFilter>("all");
+  const timelineRef = useRef<HTMLDivElement>(null);
   const jobGroups = groupConsecutiveJobs(jobs);
+
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start 75%", "end 65%"],
+  });
+
+  const beamScaleY = useSpring(scrollYProgress, {
+    stiffness: 200,
+    damping: 30,
+  });
 
   return (
     <SectionContainer id="experience">
-      <HeadingText coloredText="Experience" />
-      <p className="mt-4 mb-14 text-slate-500 dark:text-slate-400 text-base max-w-xl">
-        My professional journey, from learning the craft to delivering
-        production software.
-      </p>
+      <HeadingText
+        index="02"
+        eyebrow="Kinetic Trajectory"
+        coloredText="Career &"
+        italicAccent="academia"
+        subtitle="My professional journey, from learning the craft to leading software delivery and earning top university honors."
+        rightSlot={
+          <div
+            role="group"
+            aria-label="Filter trajectory"
+            className="inline-flex items-center p-1 rounded-xl border border-border bg-card/80 backdrop-blur-md"
+          >
+            {(
+              [
+                { id: "all", label: "All" },
+                { id: "work", label: "Work" },
+                { id: "education", label: "Education" },
+              ] as const
+            ).map((tab) => {
+              const active = filter === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setFilter(tab.id)}
+                  aria-pressed={active}
+                  className="relative px-3.5 py-1.5 rounded-lg text-xs font-mono"
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="trajectory-filter-pill"
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
+                      className="absolute inset-0 rounded-lg bg-foreground shadow-sm"
+                    />
+                  )}
+                  <span
+                    className={cn(
+                      "relative z-10 transition-colors",
+                      active
+                        ? "text-background font-semibold"
+                        : "text-muted-foreground hover:text-foreground",
+                    )}
+                  >
+                    {tab.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        }
+      />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16">
-        <div>
-          <h3 className="font-mono text-xs text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-8 flex items-center gap-2">
-            <span className="text-cyan-400">▸</span> Work
-          </h3>
-          {jobGroups.map((group, i) => (
-            <GroupedJobItem
-              key={`${group.organizationName}-${group.roles[0].dateStarted}`}
-              group={group}
-              isLast={i === jobGroups.length - 1}
-            />
-          ))}
-        </div>
+      {/* Scroll-Driven Laser Spine Container */}
+      <div ref={timelineRef} className="relative ml-2 sm:ml-4 space-y-12">
+        {/* Background static rail */}
+        <div
+          aria-hidden="true"
+          className="absolute left-0 top-4 bottom-4 w-px bg-border"
+        />
+        {/* Scroll-progress glowing laser beam */}
+        <motion.div
+          aria-hidden="true"
+          style={{ scaleY: beamScaleY }}
+          className="absolute left-[-0.5px] top-4 bottom-4 w-[2px] origin-top bg-gradient-to-b from-primary via-accent to-primary shadow-[0_0_12px_rgba(255,88,42,0.7)]"
+        />
 
-        <div>
-          <h3 className="font-mono text-xs text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-8 flex items-center gap-2">
-            <span className="text-violet-400">▸</span> Education
-          </h3>
-          {educations.map((edu: EducationProfile, i) => (
-            <TimelineItem
-              key={`${edu.instituteName}-${edu.dateStarted}`}
-              profile={edu}
-              primaryLabel={edu.degree}
-              secondaryLabel={edu.instituteName}
-              accentColor={edu.iconBg}
-              isLast={i === educations.length - 1}
-            />
-          ))}
-        </div>
+        {(filter === "all" || filter === "work") && (
+          <div className="space-y-6">
+            <div className="pl-8 sm:pl-12 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+              <Briefcase size={13} className="text-primary" />
+              <span>Work Progression</span>
+            </div>
+            {jobGroups.map((group) => (
+              <GroupedWorkCard
+                key={`${group.organizationName}-${group.roles[0].dateStarted}`}
+                group={group}
+              />
+            ))}
+          </div>
+        )}
+
+        {(filter === "all" || filter === "education") && (
+          <div className="space-y-6">
+            <div className="pl-8 sm:pl-12 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+              <GraduationCap size={14} className="text-accent" />
+              <span>Academic Milestones</span>
+            </div>
+            {educations.map((edu) => (
+              <EducationTimelineCard
+                key={`${edu.instituteName}-${edu.dateStarted}`}
+                edu={edu}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </SectionContainer>
   );

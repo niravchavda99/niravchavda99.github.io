@@ -13,14 +13,14 @@ export function SectionContainer({
   className,
 }: SectionContainerProps) {
   return (
-    <div
+    <section
       id={id}
       className={cn(
-        "max-w-6xl mx-auto w-full px-6 sm:px-12 pt-24 pb-16",
+        "relative w-full scroll-mt-24 px-5 sm:px-8 lg:px-10 py-20 sm:py-28",
         className,
       )}
     >
       {children}
-    </div>
+    </section>
   );
 }

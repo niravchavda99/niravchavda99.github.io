@@ -1,36 +1,54 @@
 import Image from "next/image";
 import React from "react";
 import { Technology } from "@/src/data/skills";
+import { cn } from "@/src/lib/utils";
 
 export interface SkillBlockProps {
   technology: Technology;
+  highlighted?: boolean;
+  onHover?: (name: string | null) => void;
 }
 
-export function SkillBlock({ technology }: SkillBlockProps) {
+export function SkillBlock({
+  technology,
+  highlighted = false,
+  onHover,
+}: SkillBlockProps) {
   return (
-    <div className="flex flex-col items-center gap-2 group cursor-default select-none">
-      <div className="relative">
-        <div className="absolute inset-0 rounded-xl bg-cyan-400/0 group-hover:bg-cyan-400/10 blur-md transition-all duration-300" />
-        <div className="relative w-14 h-14 flex items-center justify-center rounded-xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/60 group-hover:border-cyan-400/50 group-hover:shadow-lg group-hover:shadow-cyan-400/10 group-hover:-translate-y-0.5 transition-all duration-300">
-          {/* Light mode icon */}
-          <Image
-            src={technology.darkIcon ?? technology.icon}
-            alt={technology.name}
-            width={34}
-            height={34}
-            className="w-[34px] h-[34px] object-contain dark:hidden"
-          />
-          {/* Dark mode icon */}
-          <Image
-            src={technology.icon}
-            alt={technology.name}
-            width={34}
-            height={34}
-            className="w-[34px] h-[34px] object-contain hidden dark:block"
-          />
-        </div>
+    <div
+      onMouseEnter={() => onHover?.(technology.name)}
+      onMouseLeave={() => onHover?.(null)}
+      className={cn(
+        "group flex items-center gap-2.5 px-3 py-2 rounded-xl border transition-all duration-200 select-none",
+        highlighted
+          ? "border-primary bg-primary/10 shadow-sm shadow-primary/15 -translate-y-0.5"
+          : "border-border/80 bg-card/80 hover:border-primary/45 hover:bg-surface/70",
+      )}
+    >
+      <div className="w-7 h-7 rounded-lg bg-surface border border-border/70 flex items-center justify-center shrink-0 p-1">
+        <Image
+          src={technology.darkIcon ?? technology.icon}
+          alt={technology.name}
+          width={18}
+          height={18}
+          className="w-[18px] h-[18px] object-contain dark:hidden"
+        />
+        <Image
+          src={technology.icon}
+          alt={technology.name}
+          width={18}
+          height={18}
+          className="w-[18px] h-[18px] object-contain hidden dark:block"
+        />
       </div>
-      <span className="text-[11px] text-slate-500 dark:text-slate-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-300 font-mono text-center leading-tight max-w-[70px]">
+      <span
+        className={cn(
+          "text-xs font-medium transition-colors truncate",
+          highlighted
+            ? "text-primary"
+            : "text-foreground group-hover:text-primary",
+        )}
+      >
         {technology.name}
       </span>
     </div>

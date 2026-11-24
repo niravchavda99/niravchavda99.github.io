@@ -10,10 +10,12 @@ export const ThemeSwitch = () => {
   return (
     <button
       onClick={toggle}
+      type="button"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className="w-9 h-9 rounded-lg flex items-center justify-center border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/60 hover:border-cyan-400/50 hover:bg-slate-50 dark:hover:bg-slate-700/60 transition-all duration-200 text-slate-500 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400"
+      title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      className="h-8 w-8 rounded-md flex items-center justify-center border border-border bg-card hover:bg-muted text-muted-foreground hover:text-foreground transition-colors duration-150"
     >
-      {isDark ? <Sun size={15} /> : <Moon size={15} />}
+      {isDark ? <Sun size={14} /> : <Moon size={14} />}
     </button>
   );
 };

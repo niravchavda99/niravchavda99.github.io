@@ -4,106 +4,36 @@ import React, { useEffect, useRef, useState } from "react";
 import { ThemeSwitch } from "@/src/components/theme/theme-switch";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Command, Menu, X } from "lucide-react";
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { cn } from "@/src/lib/utils";
+import { projects } from "@/src/data/projects";
+import { CURRENT_ROLE } from "@/src/data/profile";
+import { triggerCommandPalette } from "@/src/components/command-palette/command-palette";
+import { Magnetic } from "@/src/components/motion/magnetic";
 
-const NAV_LINKS_HOME = [
-  { label: "experience", href: "/#experience", id: "experience" },
-  { label: "skills", href: "/#skills", id: "skills" },
-  { label: "activities", href: "/#activities", id: "activities" },
+const HOME_SECTIONS = [
+  { label: "Work", href: "/#work", id: "work" },
+  { label: "Trajectory", href: "/#experience", id: "experience" },
+  { label: "Constellation", href: "/#skills", id: "skills" },
+  { label: "Labs", href: "/#activities", id: "activities" },
 ];
-
-const NavLink = ({
-  href,
-  children,
-  active,
-  onClick,
-  isAnchor = false,
-}: {
-  href: string;
-  children: React.ReactNode;
-  active: boolean;
-  onClick?: () => void;
-  isAnchor?: boolean;
-}) => {
-  const base =
-    "relative px-3 py-1.5 text-sm font-mono transition-colors duration-200 group";
-  const activeStyle = "text-cyan-500 dark:text-cyan-400";
-  const inactiveStyle =
-    "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100";
-  const underline = cn(
-    "absolute bottom-0 left-3 right-3 h-px bg-gradient-to-r from-cyan-400 to-violet-400 transition-transform duration-300",
-    active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100 origin-left",
-  );
-
-  const content = (
-    <>
-      {children}
-      <span className={underline} />
-    </>
-  );
-
-  if (isAnchor) {
-    return (
-      <a
-        href={href}
-        onClick={onClick}
-        className={cn(base, active ? activeStyle : inactiveStyle)}
-      >
-        {content}
-      </a>
-    );
-  }
-  return (
-    <Link
-      href={href}
-      onClick={onClick}
-      className={cn(base, active ? activeStyle : inactiveStyle)}
-    >
-      {content}
-    </Link>
-  );
-};
-
-const MobileNavLink = ({
-  href,
-  children,
-  active,
-  onClick,
-  isAnchor = false,
-}: {
-  href: string;
-  children: React.ReactNode;
-  active: boolean;
-  onClick: () => void;
-  isAnchor?: boolean;
-}) => {
-  const className = cn(
-    "px-3 py-2.5 text-sm font-mono rounded-lg transition-colors duration-200",
-    active
-      ? "text-cyan-500 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-400/10"
-      : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800",
-  );
-  if (isAnchor) {
-    return (
-      <a href={href} onClick={onClick} className={className}>
-        {children}
-      </a>
-    );
-  }
-  return (
-    <Link href={href} onClick={onClick} className={className}>
-      {children}
-    </Link>
-  );
-};
 
 const Navbar = () => {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const isProjects = pathname === "/projects" || pathname === "/projects/";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 240,
+    damping: 32,
+    restDelta: 0.001,
+  });
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -128,14 +58,24 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   useEffect(() => {
-    if (!isHome) return;
-    const NAVBAR_OFFSET = 100;
+    const NAVBAR_OFFSET = 160;
 
     const handleScroll = () => {
+      setScrolled(window.scrollY > 24);
+      if (!isHome) {
+        setActiveSection("");
+        return;
+      }
+      if (window.scrollY < 200) {
+        setActiveSection("");
+        return;
+      }
       let current = "";
-      for (const { id } of NAV_LINKS_HOME) {
+      for (const { id } of HOME_SECTIONS) {
         const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= NAVBAR_OFFSET) current = id;
+        if (el && el.getBoundingClientRect().top <= NAVBAR_OFFSET) {
+          current = id;
+        }
       }
       setActiveSection(current);
     };
@@ -148,96 +88,251 @@ const Navbar = () => {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <nav
+    <header
       ref={navRef}
-      className="w-full fixed top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/80 dark:bg-[#060b14]/80 backdrop-blur-md"
+      className="fixed top-0 inset-x-0 z-50 px-4 sm:px-6 pt-3 sm:pt-4 pointer-events-none"
     >
-      <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="group flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center shadow-lg shadow-cyan-400/20">
-            <span className="font-mono text-xs font-bold text-white">NC</span>
+      <motion.div
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className={cn(
+          "pointer-events-auto relative max-w-5xl mx-auto rounded-2xl border transition-all duration-300 overflow-hidden",
+          scrolled
+            ? "border-border/90 bg-card/80 backdrop-blur-xl shadow-2xl shadow-black/10 dark:shadow-black/50"
+            : "border-border/60 bg-card/55 backdrop-blur-md",
+        )}
+      >
+        <div className="px-4 sm:px-5 h-14 flex items-center justify-between gap-3">
+          {/* Identity Capsule */}
+          <Magnetic strength={0.18}>
+            <Link href="/" className="group flex items-center gap-3">
+              <div className="relative w-8 h-8 rounded-xl bg-foreground text-background flex items-center justify-center shrink-0 overflow-hidden">
+                <span className="font-mono text-[11px] font-bold tracking-tight relative z-10">
+                  NC
+                </span>
+                <span className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-semibold tracking-tight text-foreground leading-none">
+                  Nirav Chavda
+                </span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground mt-1 leading-none">
+                  {CURRENT_ROLE}
+                </span>
+              </div>
+            </Link>
+          </Magnetic>
+
+          {/* Spatial Pill Navigation with Spring LayoutId */}
+          <nav
+            aria-label="Primary"
+            className="hidden md:flex items-center gap-0.5 p-1 rounded-xl border border-border/70 bg-surface/50"
+          >
+            {HOME_SECTIONS.map(({ label, href, id }) => {
+              const active = isHome && activeSection === id;
+              const inner = (
+                <>
+                  {active && (
+                    <motion.span
+                      layoutId="spatial-nav-pill"
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
+                      className="absolute inset-0 rounded-lg bg-foreground shadow-sm"
+                    />
+                  )}
+                  <span
+                    className={cn(
+                      "relative z-10 transition-colors duration-150",
+                      active
+                        ? "text-background"
+                        : "text-muted-foreground hover:text-foreground",
+                    )}
+                  >
+                    {label}
+                  </span>
+                </>
+              );
+
+              const itemClass =
+                "relative px-3.5 py-1.5 rounded-lg text-xs font-medium";
+
+              return isHome ? (
+                <a key={id} href={href} className={itemClass}>
+                  {inner}
+                </a>
+              ) : (
+                <Link key={id} href={href} className={itemClass}>
+                  {inner}
+                </Link>
+              );
+            })}
+
+            <Link
+              href="/projects"
+              className="relative px-3.5 py-1.5 rounded-lg text-xs font-medium inline-flex items-center gap-1.5"
+            >
+              {isProjects && (
+                <motion.span
+                  layoutId="spatial-nav-pill"
+                  transition={{
+                    type: "spring",
+                    stiffness: 380,
+                    damping: 30,
+                  }}
+                  className="absolute inset-0 rounded-lg bg-foreground shadow-sm"
+                />
+              )}
+              <span
+                className={cn(
+                  "relative z-10 transition-colors duration-150",
+                  isProjects
+                    ? "text-background"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                Archive
+              </span>
+              <span
+                className={cn(
+                  "relative z-10 font-mono text-[10px] px-1.5 py-0.5 rounded leading-none",
+                  isProjects
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground",
+                )}
+              >
+                {projects.length}
+              </span>
+            </Link>
+          </nav>
+
+          {/* Controls */}
+          <div className="flex items-center gap-2">
+            <Magnetic strength={0.22}>
+              <button
+                type="button"
+                onClick={triggerCommandPalette}
+                aria-label="Open command menu"
+                className="hidden sm:inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border border-border bg-card/80 hover:border-primary/50 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Command size={12} className="text-primary" />
+                <span className="font-mono text-[11px]">K</span>
+              </button>
+            </Magnetic>
+
+            <Magnetic strength={0.22}>
+              <ThemeSwitch />
+            </Magnetic>
+
+            <button
+              type="button"
+              onClick={() => setIsMenuOpen((v) => !v)}
+              aria-label="Toggle navigation menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav-menu"
+              className="md:hidden h-8 w-8 rounded-lg flex items-center justify-center border border-border bg-card text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {isMenuOpen ? <X size={15} /> : <Menu size={15} />}
+            </button>
           </div>
-          <span className="font-mono text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
-            Nirav Chavda
-          </span>
-        </Link>
+        </div>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-1">
-          {isHome ? (
-            NAV_LINKS_HOME.map(({ label, href, id }) => (
-              <NavLink
-                key={id}
-                href={href}
-                active={activeSection === id}
-                isAnchor
-              >
-                <span className="text-cyan-400/60 select-none">./</span>
-                {label}
-              </NavLink>
-            ))
-          ) : (
-            <NavLink href="/" active={false}>
-              <span className="text-cyan-400/60 select-none">~/</span>home
-            </NavLink>
+        {/* Live Scroll Laser Progress Bar */}
+        <motion.div
+          aria-hidden="true"
+          style={{ scaleX: smoothProgress }}
+          className="h-[2px] w-full origin-left bg-gradient-to-r from-primary via-accent to-primary"
+        />
+
+        {/* Animated Mobile Drawer */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              id="mobile-nav-menu"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="md:hidden border-t border-border bg-card/95 backdrop-blur-xl overflow-hidden"
+            >
+              <div className="p-4 flex flex-col gap-1">
+                {!isHome && (
+                  <Link
+                    href="/"
+                    onClick={closeMenu}
+                    className="px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                  >
+                    Overview
+                  </Link>
+                )}
+                {HOME_SECTIONS.map(({ label, href, id }) => {
+                  const active = isHome && activeSection === id;
+                  const classes = cn(
+                    "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-between",
+                    active
+                      ? "bg-primary/15 text-primary"
+                      : "text-foreground/85 hover:text-foreground hover:bg-muted",
+                  );
+                  return isHome ? (
+                    <a
+                      key={id}
+                      href={href}
+                      onClick={closeMenu}
+                      className={classes}
+                    >
+                      <span>{label}</span>
+                      {active && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      )}
+                    </a>
+                  ) : (
+                    <Link
+                      key={id}
+                      href={href}
+                      onClick={closeMenu}
+                      className={classes}
+                    >
+                      <span>{label}</span>
+                    </Link>
+                  );
+                })}
+
+                <Link
+                  href="/projects"
+                  onClick={closeMenu}
+                  className={cn(
+                    "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-between",
+                    isProjects
+                      ? "bg-primary/15 text-primary"
+                      : "text-foreground/85 hover:text-foreground hover:bg-muted",
+                  )}
+                >
+                  <span>Projects Archive</span>
+                  <span className="font-mono text-xs text-muted-foreground">
+                    [{projects.length}]
+                  </span>
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    closeMenu();
+                    triggerCommandPalette();
+                  }}
+                  className="mt-2 w-full flex items-center justify-between px-3 py-2.5 rounded-lg border border-border bg-surface text-xs font-mono text-muted-foreground hover:text-foreground"
+                >
+                  <span>Command HUD</span>
+                  <span>⌘K</span>
+                </button>
+              </div>
+            </motion.div>
           )}
-          <NavLink href="/projects" active={pathname === "/projects"}>
-            <span className="text-cyan-400/60 select-none">./</span>projects
-          </NavLink>
-          <div className="w-px h-4 bg-slate-200 dark:bg-slate-700 mx-1" />
-          <ThemeSwitch />
-        </div>
-
-        {/* Mobile: theme toggle + hamburger */}
-        <div className="flex md:hidden items-center gap-2">
-          <ThemeSwitch />
-          <button
-            onClick={() => setIsMenuOpen((v) => !v)}
-            aria-label="Toggle navigation menu"
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-nav-menu"
-            className="w-9 h-9 rounded-lg flex items-center justify-center border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 hover:border-cyan-400/50 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-200"
-          >
-            {isMenuOpen ? <X size={15} /> : <Menu size={15} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile menu */}
-      {isMenuOpen && (
-        <div
-          id="mobile-nav-menu"
-          className="md:hidden border-t border-slate-200/60 dark:border-slate-800/60 bg-white/95 dark:bg-[#060b14]/95 backdrop-blur-md px-6 py-3 flex flex-col gap-1"
-        >
-          {isHome ? (
-            NAV_LINKS_HOME.map(({ label, href, id }) => (
-              <MobileNavLink
-                key={id}
-                href={href}
-                active={activeSection === id}
-                onClick={closeMenu}
-                isAnchor
-              >
-                <span className="text-cyan-400/60">./</span>
-                {label}
-              </MobileNavLink>
-            ))
-          ) : (
-            <MobileNavLink href="/" active={false} onClick={closeMenu}>
-              <span className="text-cyan-400/60">~/</span>home
-            </MobileNavLink>
-          )}
-          <MobileNavLink
-            href="/projects"
-            active={pathname === "/projects"}
-            onClick={closeMenu}
-          >
-            <span className="text-cyan-400/60">./</span>projects
-          </MobileNavLink>
-        </div>
-      )}
-    </nav>
+        </AnimatePresence>
+      </motion.div>
+    </header>
   );
 };
 
