@@ -6,6 +6,17 @@ import gujaratUniversityLogo from "@/src/assets/images/gujarat_university_logo.p
 
 export const jobs: JobProfile[] = [
   {
+    dateStarted: MonthYear.of(8, 2026),
+    designation: "Tech Lead",
+    icon: incubyteLogo.src,
+    iconBg: "#5EC5D6",
+    location: "Remote",
+    organizationName: "Incubyte",
+    url: "https://www.incubyte.co/",
+    points: [],
+  },
+  {
+    dateEnded: MonthYear.of(8, 2026),
     dateStarted: MonthYear.of(7, 2022),
     designation: "Software Craftsperson",
     icon: incubyteLogo.src,
