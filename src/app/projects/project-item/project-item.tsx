@@ -1,5 +1,5 @@
 import { FaArrowUpRightFromSquare, FaGithub } from "react-icons/fa6";
-import { Project } from "@/src/app/projects/constants";
+import { Project } from "@/src/data/projects";
 import Image from "next/image";
 
 interface ProjectCardProps {

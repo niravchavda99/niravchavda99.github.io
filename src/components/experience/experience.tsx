@@ -1,7 +1,12 @@
 "use client";
 
-import { educations, jobs } from "./constants";
-import { EducationProfile, JobProfile, Profile } from "./profile";
+import {
+  EducationProfile,
+  JobProfile,
+  Profile,
+  educations,
+  jobs,
+} from "@/src/data/experience";
 import Image from "next/image";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";

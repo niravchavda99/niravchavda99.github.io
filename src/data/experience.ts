@@ -1,8 +1,27 @@
-import { EducationProfile, JobProfile } from "./profile";
 import MonthYear from "@/src/components/common/month-year";
 import incubyteLogo from "@/src/assets/images/incubyte_logo.jpg";
 import kskvkuLogo from "@/src/assets/images/kskvku_logo.png";
 import gujaratUniversityLogo from "@/src/assets/images/gujarat_university_logo.png";
+
+export interface Profile {
+  dateEnded?: MonthYear;
+  dateStarted: MonthYear;
+  icon: string;
+  iconBg: string;
+  location: string;
+  points: string[];
+  url: string;
+}
+
+export interface JobProfile extends Profile {
+  designation: string;
+  organizationName: string;
+}
+
+export interface EducationProfile extends Profile {
+  degree: string;
+  instituteName: string;
+}
 
 export const jobs: JobProfile[] = [
   {

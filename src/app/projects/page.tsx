@@ -1,4 +1,4 @@
-import { projects } from "./constants";
+import { projects } from "@/src/data/projects";
 import { ProjectItem } from "./project-item/project-item";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";

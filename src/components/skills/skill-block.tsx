@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { Technology } from "./constants";
+import { Technology } from "@/src/data/skills";
 
 export interface SkillBlockProps {
   technology: Technology;

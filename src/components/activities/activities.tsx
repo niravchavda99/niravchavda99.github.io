@@ -1,4 +1,4 @@
-import { activities } from "./all-activities";
+import { activities } from "@/src/data/activities";
 import React from "react";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";

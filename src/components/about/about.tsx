@@ -7,6 +7,7 @@ import Link from "next/link";
 import { SocialMediaPlatform } from "../common/social-media-platform";
 import { ScrollHint } from "../common/scroll-hint";
 import { YoeValue } from "./yoe-value";
+import { CURRENT_ROLE } from "@/src/data/profile";
 
 const SOCIAL_ICONS = [
   {
@@ -132,7 +133,7 @@ const About = () => {
                 <span className="text-cyan-400">role</span>
                 <span className="text-slate-400">: </span>
                 <span className="text-amber-300">
-                  &quot;Tech Lead&quot;
+                  &quot;{CURRENT_ROLE}&quot;
                 </span>
                 <span className="text-slate-500">,</span>
               </div>

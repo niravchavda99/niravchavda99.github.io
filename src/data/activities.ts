@@ -1,4 +1,10 @@
-export const activities = [
+export interface Activity {
+  title: string;
+  subtitle: string;
+  description: string;
+}
+
+export const activities: Activity[] = [
   {
     title: "Heat Transfer Lab",
     subtitle: "Virtual Labs, IIT Bombay - 2020",

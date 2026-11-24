@@ -3,7 +3,7 @@ import {
   SkillCategory,
   technologies,
   Technology,
-} from "./constants";
+} from "@/src/data/skills";
 import React from "react";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";

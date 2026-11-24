@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-// Internship completed July 2022, YOE counted from there
-const CAREER_START = new Date(2022, 6, 1);
+import { CAREER_START } from "@/src/data/profile";
 
 function calculateYOE(): string {
   const now = new Date();
