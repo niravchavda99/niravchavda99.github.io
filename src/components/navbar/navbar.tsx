@@ -5,7 +5,8 @@ import { ThemeSwitch } from "@/src/components/theme/theme-switch";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Command, Menu, X } from "lucide-react";
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import { animate, createAnimatable, createSpring } from "animejs";
+import type { AnimatableObject } from "animejs";
 import { cn } from "@/src/lib/utils";
 import { projects } from "@/src/data/projects";
 import { CURRENT_ROLE } from "@/src/data/profile";
@@ -26,18 +27,49 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [scrolled, setScrolled] = useState(false);
-  const navRef = useRef<HTMLElement>(null);
 
-  const { scrollYProgress } = useScroll();
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 240,
-    damping: 32,
-    restDelta: 0.001,
-  });
+  const navRef = useRef<HTMLElement>(null);
+  const dockRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const mobileDrawerRef = useRef<HTMLDivElement>(null);
+  const progressAnimRef = useRef<AnimatableObject | null>(null);
 
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname]);
+
+  // Anime.js Dock Entrance + Scroll Progress Laser Animatable
+  useEffect(() => {
+    if (dockRef.current) {
+      animate(dockRef.current, {
+        y: [-24, 0],
+        opacity: [0, 1],
+        ease: createSpring({ stiffness: 240, damping: 22 }),
+      });
+    }
+
+    if (progressRef.current) {
+      progressAnimRef.current = createAnimatable(progressRef.current, {
+        scaleX: { duration: 220, ease: "out(3)" },
+      });
+    }
+
+    return () => {
+      progressAnimRef.current?.revert();
+      progressAnimRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMenuOpen && mobileDrawerRef.current) {
+      animate(mobileDrawerRef.current, {
+        opacity: [0, 1],
+        y: [-8, 0],
+        duration: 240,
+        ease: "outCubic",
+      });
+    }
+  }, [isMenuOpen]);
 
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -61,12 +93,21 @@ const Navbar = () => {
     const NAVBAR_OFFSET = 160;
 
     const handleScroll = () => {
-      setScrolled(window.scrollY > 24);
+      const y = window.scrollY;
+      setScrolled(y > 24);
+
+      const maxScroll = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
+      const ratio = Math.min(1, Math.max(0, y / maxScroll));
+      progressAnimRef.current?.scaleX(ratio);
+
       if (!isHome) {
         setActiveSection("");
         return;
       }
-      if (window.scrollY < 200) {
+      if (y < 200) {
         setActiveSection("");
         return;
       }
@@ -92,10 +133,8 @@ const Navbar = () => {
       ref={navRef}
       className="fixed top-0 inset-x-0 z-50 px-4 sm:px-6 pt-3 sm:pt-4 pointer-events-none"
     >
-      <motion.div
-        initial={{ y: -24, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      <div
+        ref={dockRef}
         className={cn(
           "pointer-events-auto relative max-w-5xl mx-auto rounded-2xl border transition-all duration-300 overflow-hidden",
           scrolled
@@ -124,81 +163,44 @@ const Navbar = () => {
             </Link>
           </Magnetic>
 
-          {/* Spatial Pill Navigation with Spring LayoutId */}
+          {/* Spatial Pill Navigation */}
           <nav
             aria-label="Primary"
             className="hidden md:flex items-center gap-0.5 p-1 rounded-xl border border-border/70 bg-surface/50"
           >
             {HOME_SECTIONS.map(({ label, href, id }) => {
               const active = isHome && activeSection === id;
-              const inner = (
-                <>
-                  {active && (
-                    <motion.span
-                      layoutId="spatial-nav-pill"
-                      transition={{
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 30,
-                      }}
-                      className="absolute inset-0 rounded-lg bg-foreground shadow-sm"
-                    />
-                  )}
-                  <span
-                    className={cn(
-                      "relative z-10 transition-colors duration-150",
-                      active
-                        ? "text-background"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                  >
-                    {label}
-                  </span>
-                </>
+              const itemClass = cn(
+                "px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200",
+                active
+                  ? "bg-foreground text-background shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
               );
-
-              const itemClass =
-                "relative px-3.5 py-1.5 rounded-lg text-xs font-medium";
 
               return isHome ? (
                 <a key={id} href={href} className={itemClass}>
-                  {inner}
+                  {label}
                 </a>
               ) : (
                 <Link key={id} href={href} className={itemClass}>
-                  {inner}
+                  {label}
                 </Link>
               );
             })}
 
             <Link
               href="/projects"
-              className="relative px-3.5 py-1.5 rounded-lg text-xs font-medium inline-flex items-center gap-1.5"
-            >
-              {isProjects && (
-                <motion.span
-                  layoutId="spatial-nav-pill"
-                  transition={{
-                    type: "spring",
-                    stiffness: 380,
-                    damping: 30,
-                  }}
-                  className="absolute inset-0 rounded-lg bg-foreground shadow-sm"
-                />
+              className={cn(
+                "px-3.5 py-1.5 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition-all duration-200",
+                isProjects
+                  ? "bg-foreground text-background shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
               )}
+            >
+              <span>Archive</span>
               <span
                 className={cn(
-                  "relative z-10 transition-colors duration-150",
-                  isProjects
-                    ? "text-background"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                Archive
-              </span>
-              <span
-                className={cn(
-                  "relative z-10 font-mono text-[10px] px-1.5 py-0.5 rounded leading-none",
+                  "font-mono text-[10px] px-1.5 py-0.5 rounded leading-none",
                   isProjects
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground",
@@ -240,98 +242,94 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Live Scroll Laser Progress Bar */}
-        <motion.div
+        {/* Anime.js Live Scroll Laser Progress Bar */}
+        <div
+          ref={progressRef}
           aria-hidden="true"
-          style={{ scaleX: smoothProgress }}
-          className="h-[2px] w-full origin-left bg-gradient-to-r from-primary via-accent to-primary"
+          style={{ transform: "scaleX(0)" }}
+          className="h-[2px] w-full origin-left bg-gradient-to-r from-primary via-accent to-primary will-change-transform"
         />
 
-        {/* Animated Mobile Drawer */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              id="mobile-nav-menu"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="md:hidden border-t border-border bg-card/95 backdrop-blur-xl overflow-hidden"
-            >
-              <div className="p-4 flex flex-col gap-1">
-                {!isHome && (
-                  <Link
-                    href="/"
-                    onClick={closeMenu}
-                    className="px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                  >
-                    Overview
-                  </Link>
-                )}
-                {HOME_SECTIONS.map(({ label, href, id }) => {
-                  const active = isHome && activeSection === id;
-                  const classes = cn(
-                    "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-between",
-                    active
-                      ? "bg-primary/15 text-primary"
-                      : "text-foreground/85 hover:text-foreground hover:bg-muted",
-                  );
-                  return isHome ? (
-                    <a
-                      key={id}
-                      href={href}
-                      onClick={closeMenu}
-                      className={classes}
-                    >
-                      <span>{label}</span>
-                      {active && (
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      )}
-                    </a>
-                  ) : (
-                    <Link
-                      key={id}
-                      href={href}
-                      onClick={closeMenu}
-                      className={classes}
-                    >
-                      <span>{label}</span>
-                    </Link>
-                  );
-                })}
-
+        {/* Mobile Drawer */}
+        {isMenuOpen && (
+          <div
+            ref={mobileDrawerRef}
+            id="mobile-nav-menu"
+            className="md:hidden border-t border-border bg-card/95 backdrop-blur-xl overflow-hidden"
+          >
+            <div className="p-4 flex flex-col gap-1">
+              {!isHome && (
                 <Link
-                  href="/projects"
+                  href="/"
                   onClick={closeMenu}
-                  className={cn(
-                    "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-between",
-                    isProjects
-                      ? "bg-primary/15 text-primary"
-                      : "text-foreground/85 hover:text-foreground hover:bg-muted",
-                  )}
+                  className="px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                 >
-                  <span>Projects Archive</span>
-                  <span className="font-mono text-xs text-muted-foreground">
-                    [{projects.length}]
-                  </span>
+                  Overview
                 </Link>
+              )}
+              {HOME_SECTIONS.map(({ label, href, id }) => {
+                const active = isHome && activeSection === id;
+                const classes = cn(
+                  "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-between",
+                  active
+                    ? "bg-primary/15 text-primary"
+                    : "text-foreground/85 hover:text-foreground hover:bg-muted",
+                );
+                return isHome ? (
+                  <a
+                    key={id}
+                    href={href}
+                    onClick={closeMenu}
+                    className={classes}
+                  >
+                    <span>{label}</span>
+                    {active && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                    )}
+                  </a>
+                ) : (
+                  <Link
+                    key={id}
+                    href={href}
+                    onClick={closeMenu}
+                    className={classes}
+                  >
+                    <span>{label}</span>
+                  </Link>
+                );
+              })}
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    closeMenu();
-                    triggerCommandPalette();
-                  }}
-                  className="mt-2 w-full flex items-center justify-between px-3 py-2.5 rounded-lg border border-border bg-surface text-xs font-mono text-muted-foreground hover:text-foreground"
-                >
-                  <span>Command HUD</span>
-                  <span>⌘K</span>
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
+              <Link
+                href="/projects"
+                onClick={closeMenu}
+                className={cn(
+                  "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-between",
+                  isProjects
+                    ? "bg-primary/15 text-primary"
+                    : "text-foreground/85 hover:text-foreground hover:bg-muted",
+                )}
+              >
+                <span>Projects Archive</span>
+                <span className="font-mono text-xs text-muted-foreground">
+                  [{projects.length}]
+                </span>
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => {
+                  closeMenu();
+                  triggerCommandPalette();
+                }}
+                className="mt-2 w-full flex items-center justify-between px-3 py-2.5 rounded-lg border border-border bg-surface text-xs font-mono text-muted-foreground hover:text-foreground"
+              >
+                <span>Command HUD</span>
+                <span>⌘K</span>
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </header>
   );
 };

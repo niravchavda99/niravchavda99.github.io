@@ -24,9 +24,8 @@ import {
   Search,
   Sparkles,
   Sun,
-  X,
 } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { animate, createSpring } from "animejs";
 import { projects } from "@/src/data/projects";
 import { ThemeMode, useTheme } from "@/src/components/theme/theme-context";
 import { getSocialMediaLink } from "@/src/app/links";
@@ -57,7 +56,10 @@ export function CommandPalette() {
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [copiedEmail, setCopiedEmail] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { mode, toggle } = useTheme();
 
@@ -94,6 +96,21 @@ export function CommandPalette() {
     if (open) {
       setActiveIndex(0);
       requestAnimationFrame(() => inputRef.current?.focus());
+      if (backdropRef.current) {
+        animate(backdropRef.current, {
+          opacity: [0, 1],
+          duration: 180,
+          ease: "outQuad",
+        });
+      }
+      if (modalRef.current) {
+        animate(modalRef.current, {
+          opacity: [0, 1],
+          scale: [0.95, 1],
+          y: [-10, 0],
+          ease: createSpring({ stiffness: 340, damping: 24 }),
+        });
+      }
     }
   }, [open]);
 
@@ -165,7 +182,7 @@ export function CommandPalette() {
         group: "Navigate",
         label: "Activities & Labs",
         hint: "Section 04",
-        keywords: "activities bootathon iit bombay virtual labs",
+        keywords: "activities bootathon iit bombay virtual labs chandrayaan",
         icon: <GraduationCap size={14} />,
         onSelect: () => navigateTo("/#activities"),
       },
@@ -329,143 +346,135 @@ export function CommandPalette() {
       .filter((g) => g.entries.length > 0);
   }, [filtered]);
 
+  if (!open) return null;
+
   return (
-    <AnimatePresence>
-      {open && (
-        <div
-          className="fixed inset-0 z-[100] flex items-start justify-center pt-[12vh] px-4"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Command menu"
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="fixed inset-0 bg-black/55 backdrop-blur-sm"
-            onClick={closePalette}
+    <div
+      className="fixed inset-0 z-[100] flex items-start justify-center pt-[12vh] px-4"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Command menu"
+    >
+      <div
+        ref={backdropRef}
+        className="fixed inset-0 bg-black/55 backdrop-blur-sm"
+        onClick={closePalette}
+      />
+
+      <div
+        ref={modalRef}
+        onKeyDown={handleListKeyDown}
+        className="relative z-10 w-full max-w-xl rounded-xl border border-border bg-card text-card-foreground shadow-2xl overflow-hidden will-change-transform"
+      >
+        {/* Search input bar */}
+        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border">
+          <Search size={16} className="text-muted-foreground shrink-0" />
+          <input
+            ref={inputRef}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Jump to section, open a project, or run an action..."
+            className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
           />
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97, y: -8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.97, y: -8 }}
-            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            onKeyDown={handleListKeyDown}
-            className="relative z-10 w-full max-w-xl rounded-xl border border-border bg-card text-card-foreground shadow-2xl overflow-hidden"
+          <button
+            type="button"
+            onClick={closePalette}
+            aria-label="Close command menu"
+            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-border bg-muted/60 font-mono text-[10px] text-muted-foreground hover:text-foreground transition-colors"
           >
-            {/* Search input bar */}
-            <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border">
-              <Search size={16} className="text-muted-foreground shrink-0" />
-              <input
-                ref={inputRef}
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Jump to section, open a project, or run an action..."
-                className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
-              />
-              <button
-                type="button"
-                onClick={closePalette}
-                aria-label="Close command menu"
-                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-border bg-muted/60 font-mono text-[10px] text-muted-foreground hover:text-foreground transition-colors"
-              >
-                ESC
-              </button>
-            </div>
+            ESC
+          </button>
+        </div>
 
-            {/* Results */}
-            <div className="max-h-[360px] overflow-y-auto p-2">
-              {groups.length === 0 ? (
-                <div className="py-12 text-center">
-                  <p className="font-mono text-xs text-muted-foreground">
-                    No matching commands or projects for &ldquo;{query}&rdquo;
-                  </p>
+        {/* Results */}
+        <div className="max-h-[360px] overflow-y-auto p-2">
+          {groups.length === 0 ? (
+            <div className="py-12 text-center">
+              <p className="font-mono text-xs text-muted-foreground">
+                No matching commands or projects for &ldquo;{query}&rdquo;
+              </p>
+            </div>
+          ) : (
+            groups.map(({ group, entries }) => (
+              <div key={group} className="mb-2 last:mb-0">
+                <div className="px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                  {group}
                 </div>
-              ) : (
-                groups.map(({ group, entries }) => (
-                  <div key={group} className="mb-2 last:mb-0">
-                    <div className="px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                      {group}
-                    </div>
-                    <div className="space-y-0.5">
-                      {entries.map((entry) => {
-                        const globalIndex = filtered.indexOf(entry);
-                        const isActive = globalIndex === activeIndex;
-                        return (
-                          <button
-                            key={entry.id}
-                            type="button"
-                            onMouseEnter={() => setActiveIndex(globalIndex)}
-                            onClick={entry.onSelect}
+                <div className="space-y-0.5">
+                  {entries.map((entry) => {
+                    const globalIndex = filtered.indexOf(entry);
+                    const isActive = globalIndex === activeIndex;
+                    return (
+                      <button
+                        key={entry.id}
+                        type="button"
+                        onMouseEnter={() => setActiveIndex(globalIndex)}
+                        onClick={entry.onSelect}
+                        className={cn(
+                          "w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-left text-sm transition-colors",
+                          isActive
+                            ? "bg-primary text-primary-foreground"
+                            : "text-foreground hover:bg-muted",
+                        )}
+                      >
+                        <span className="flex items-center gap-2.5 min-w-0">
+                          <span
                             className={cn(
-                              "w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-left text-sm transition-colors",
+                              "shrink-0",
                               isActive
-                                ? "bg-primary text-primary-foreground"
-                                : "text-foreground hover:bg-muted",
+                                ? "text-primary-foreground"
+                                : "text-muted-foreground",
                             )}
                           >
-                            <span className="flex items-center gap-2.5 min-w-0">
-                              <span
-                                className={cn(
-                                  "shrink-0",
-                                  isActive
-                                    ? "text-primary-foreground"
-                                    : "text-muted-foreground",
-                                )}
-                              >
-                                {entry.icon}
-                              </span>
-                              <span className="truncate font-medium">
-                                {entry.label}
-                              </span>
-                            </span>
+                            {entry.icon}
+                          </span>
+                          <span className="truncate font-medium">
+                            {entry.label}
+                          </span>
+                        </span>
 
-                            <span className="flex items-center gap-1.5 shrink-0">
-                              {entry.hint && (
-                                <span
-                                  className={cn(
-                                    "font-mono text-[11px]",
-                                    isActive
-                                      ? "text-primary-foreground/80"
-                                      : "text-muted-foreground",
-                                  )}
-                                >
-                                  {entry.hint}
-                                </span>
+                        <span className="flex items-center gap-1.5 shrink-0">
+                          {entry.hint && (
+                            <span
+                              className={cn(
+                                "font-mono text-[11px]",
+                                isActive
+                                  ? "text-primary-foreground/80"
+                                  : "text-muted-foreground",
                               )}
-                              {entry.external && (
-                                <ArrowUpRight
-                                  size={13}
-                                  className={cn(
-                                    isActive
-                                      ? "text-primary-foreground/80"
-                                      : "text-muted-foreground",
-                                  )}
-                                />
-                              )}
+                            >
+                              {entry.hint}
                             </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-
-            {/* Footer */}
-            <div className="flex items-center justify-between px-4 py-2 border-t border-border bg-muted/40 font-mono text-[10px] text-muted-foreground">
-              <div className="flex items-center gap-3">
-                <span>↑↓ Navigate</span>
-                <span>↵ Select</span>
+                          )}
+                          {entry.external && (
+                            <ArrowUpRight
+                              size={13}
+                              className={cn(
+                                isActive
+                                  ? "text-primary-foreground/80"
+                                  : "text-muted-foreground",
+                              )}
+                            />
+                          )}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-              <span>Nirav Chavda · Quick Index</span>
-            </div>
-          </motion.div>
+            ))
+          )}
         </div>
-      )}
-    </AnimatePresence>
+
+        {/* Footer */}
+        <div className="flex items-center justify-between px-4 py-2 border-t border-border bg-muted/40 font-mono text-[10px] text-muted-foreground">
+          <div className="flex items-center gap-3">
+            <span>↑↓ Navigate</span>
+            <span>↵ Select</span>
+          </div>
+          <span>Nirav Chavda · Quick Index</span>
+        </div>
+      </div>
+    </div>
   );
 }

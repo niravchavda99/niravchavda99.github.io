@@ -1,13 +1,58 @@
 "use client";
 
 import { activities } from "@/src/data/activities";
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { animate, createScope, onScroll, stagger, svg } from "animejs";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";
 import { Tilt3DCard } from "@/src/components/motion/tilt-3d-card";
 
 const Activities = () => {
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = gridRef.current;
+    if (!root) return;
+
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReduced) return;
+
+    const scope = createScope({ root }).add(() => {
+      animate(".anime-activity-card", {
+        y: [32, 0],
+        opacity: [0, 1],
+        scale: [0.95, 1],
+        duration: 780,
+        delay: stagger(120),
+        ease: "outExpo",
+        autoplay: onScroll({
+          target: root,
+          enter: "bottom-=80 top",
+        }),
+      });
+
+      const rings = svg.createDrawable(".anime-activity-ring");
+      if (rings.length > 0) {
+        animate(rings, {
+          draw: ["0 0", "0 1"],
+          duration: 1600,
+          delay: stagger(180),
+          ease: "inOutCubic",
+          autoplay: onScroll({
+            target: root,
+            enter: "bottom-=80 top",
+          }),
+        });
+      }
+    });
+
+    return () => {
+      scope.revert();
+    };
+  }, []);
+
   return (
     <SectionContainer id="activities">
       <HeadingText
@@ -18,34 +63,41 @@ const Activities = () => {
         subtitle="Engineering publications, open education labs, and student mentorship experiences beyond day-to-day product delivery."
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        ref={gridRef}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
         {activities.map((activity, index) => (
-          <motion.div
-            key={activity.title}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{
-              duration: 0.6,
-              delay: index * 0.08,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="h-full"
-          >
+          <div key={activity.title} className="anime-activity-card h-full">
             <Tilt3DCard
               maxTilt={9}
               glareOpacity={0.18}
               className="relative h-full rounded-2xl border border-border/90 bg-card/80 backdrop-blur-xl p-6 sm:p-8 overflow-hidden shadow-xl shadow-black/5 dark:shadow-black/35 flex flex-col justify-between gap-6"
             >
-              {/* Subtle orbital ring decoration */}
-              <div
+              {/* Anime.js Drawable SVG Orbital Corner Rings */}
+              <svg
                 aria-hidden="true"
-                className="pointer-events-none absolute -right-12 -bottom-12 w-44 h-44 rounded-full border border-primary/15"
-              />
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-6 -bottom-6 w-28 h-28 rounded-full border border-accent/20"
-              />
+                viewBox="0 0 180 180"
+                fill="none"
+                className="pointer-events-none absolute -right-12 -bottom-12 w-44 h-44"
+              >
+                <circle
+                  className="anime-activity-ring"
+                  cx="90"
+                  cy="90"
+                  r="82"
+                  stroke="hsl(var(--primary) / 0.2)"
+                  strokeWidth="1.2"
+                />
+                <circle
+                  className="anime-activity-ring"
+                  cx="90"
+                  cy="90"
+                  r="54"
+                  stroke="hsl(var(--accent) / 0.25)"
+                  strokeWidth="1.2"
+                />
+              </svg>
 
               <div className="relative z-10 translate-z-10">
                 <div className="flex items-center justify-between gap-3 mb-5">
@@ -66,7 +118,7 @@ const Activities = () => {
                 </p>
               </div>
             </Tilt3DCard>
-          </motion.div>
+          </div>
         ))}
       </div>
     </SectionContainer>

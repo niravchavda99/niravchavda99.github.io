@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { animate, createAnimatable, createSpring } from "animejs";
+import type { AnimatableObject } from "animejs";
 import { cn } from "@/src/lib/utils";
 
 interface MagneticProps {
@@ -16,36 +17,47 @@ export function Magnetic({
   className,
 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  const animRef = useRef<AnimatableObject | null>(null);
 
-  const springX = useSpring(x, { stiffness: 280, damping: 18, mass: 0.4 });
-  const springY = useSpring(y, { stiffness: 280, damping: 18, mass: 0.4 });
+  useEffect(() => {
+    if (!ref.current) return;
+    animRef.current = createAnimatable(ref.current, {
+      x: { duration: 260, ease: "out(3)" },
+      y: { duration: 260, ease: "out(3)" },
+    });
+    return () => {
+      animRef.current?.revert();
+      animRef.current = null;
+    };
+  }, []);
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !animRef.current) return;
     const rect = el.getBoundingClientRect();
-    const dx = e.clientX - (rect.left + rect.width / 2);
-    const dy = e.clientY - (rect.top + rect.height / 2);
-    x.set(dx * strength);
-    y.set(dy * strength);
+    const dx = (e.clientX - (rect.left + rect.width / 2)) * strength;
+    const dy = (e.clientY - (rect.top + rect.height / 2)) * strength;
+    animRef.current.x(dx);
+    animRef.current.y(dy);
   };
 
   const onPointerLeave = () => {
-    x.set(0);
-    y.set(0);
+    if (!ref.current) return;
+    animate(ref.current, {
+      x: 0,
+      y: 0,
+      ease: createSpring({ stiffness: 280, damping: 14, mass: 0.6 }),
+    });
   };
 
   return (
-    <motion.div
+    <div
       ref={ref}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      style={{ x: springX, y: springY }}
-      className={cn("inline-flex", className)}
+      className={cn("inline-flex will-change-transform", className)}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

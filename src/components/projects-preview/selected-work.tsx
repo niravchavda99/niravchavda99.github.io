@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, Layers, LayoutGrid } from "lucide-react";
 import { FaArrowUpRightFromSquare, FaGithub } from "react-icons/fa6";
-import { motion } from "framer-motion";
+import { animate, createSpring, stagger } from "animejs";
 import { projects } from "@/src/data/projects";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";
@@ -17,6 +17,10 @@ type StageMode = "orbital" | "grid";
 export default function SelectedWork() {
   const [stageMode, setStageMode] = useState<StageMode>("orbital");
   const [activeIndex, setActiveIndex] = useState(0);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const detailRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const dragStartX = useRef<number | null>(null);
 
   const total = projects.length;
 
@@ -44,15 +48,61 @@ export default function SelectedWork() {
     return () => window.removeEventListener("keydown", onKey);
   }, [stageMode, stepNext, stepPrev]);
 
-  const activeProject = projects[activeIndex];
+  // Anime.js v4.5 3D Perspective Orbital Spring Choreography
+  useEffect(() => {
+    if (stageMode !== "orbital") return;
 
-  // Calculate shortest circular offset in [-total/2, total/2]
-  const getCircularOffset = (index: number) => {
-    let diff = index - activeIndex;
-    if (diff > total / 2) diff -= total;
-    if (diff < -total / 2) diff += total;
-    return diff;
-  };
+    projects.forEach((_, idx) => {
+      const el = cardRefs.current[idx];
+      if (!el) return;
+
+      let offset = idx - activeIndex;
+      if (offset > total / 2) offset -= total;
+      if (offset < -total / 2) offset += total;
+
+      const absOffset = Math.abs(offset);
+      const isVisible = absOffset <= 2;
+      const isCenter = offset === 0;
+
+      el.style.zIndex = String(20 - absOffset);
+      el.style.pointerEvents = isVisible ? "auto" : "none";
+
+      animate(el, {
+        x: `${offset * 54}%`,
+        z: -absOffset * 210,
+        rotateY: offset * -28,
+        scale: isCenter ? 1 : Math.max(0.72, 1 - absOffset * 0.14),
+        opacity: !isVisible ? 0 : isCenter ? 1 : 0.55 / absOffset,
+        ease: createSpring({ stiffness: 220, damping: 24, mass: 0.8 }),
+      });
+    });
+
+    if (detailRef.current) {
+      animate(detailRef.current, {
+        y: [8, 0],
+        opacity: [0.45, 1],
+        duration: 380,
+        ease: "outCubic",
+      });
+    }
+  }, [activeIndex, stageMode, total]);
+
+  // Anime.js staggered entrance when toggling to Spatial Grid mode
+  useEffect(() => {
+    if (stageMode === "grid" && gridRef.current) {
+      const cards = gridRef.current.querySelectorAll(".anime-work-grid-item");
+      animate(cards, {
+        y: [28, 0],
+        opacity: [0, 1],
+        scale: [0.95, 1],
+        delay: stagger(80),
+        duration: 620,
+        ease: "outExpo",
+      });
+    }
+  }, [stageMode]);
+
+  const activeProject = projects[activeIndex];
 
   return (
     <SectionContainer id="work">
@@ -112,48 +162,36 @@ export default function SelectedWork() {
 
       {stageMode === "orbital" ? (
         <div className="relative select-none overflow-x-clip py-4">
-          {/* 3D Perspective Orbital Carousel Stage */}
-          <motion.div
+          {/* Anime.js 3D Perspective Orbital Carousel Stage */}
+          <div
             data-cursor="SWIPE / CLICK"
-            onPanEnd={(_, info) => {
-              if (info.offset.x < -45) stepNext();
-              else if (info.offset.x > 45) stepPrev();
+            onPointerDown={(e) => {
+              dragStartX.current = e.clientX;
+            }}
+            onPointerUp={(e) => {
+              if (dragStartX.current === null) return;
+              const delta = e.clientX - dragStartX.current;
+              dragStartX.current = null;
+              if (delta < -45) stepNext();
+              else if (delta > 45) stepPrev();
             }}
             className="relative h-[320px] sm:h-[430px] lg:h-[470px] w-full perspective-1600 flex items-center justify-center touch-pan-y"
           >
             {projects.map((project, idx) => {
-              const offset = getCircularOffset(idx);
-              const absOffset = Math.abs(offset);
-              const isVisible = absOffset <= 2;
-              const isCenter = offset === 0;
+              const isCenter = idx === activeIndex;
 
               return (
-                <motion.div
+                <div
                   key={project.name}
-                  initial={false}
-                  animate={{
-                    x: `${offset * 54}%`,
-                    z: -absOffset * 210,
-                    rotateY: offset * -28,
-                    scale: isCenter ? 1 : Math.max(0.72, 1 - absOffset * 0.14),
-                    opacity: !isVisible ? 0 : isCenter ? 1 : 0.55 / absOffset,
+                  ref={(el) => {
+                    cardRefs.current[idx] = el;
                   }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 240,
-                    damping: 28,
-                    mass: 0.75,
-                  }}
-                  style={{
-                    zIndex: 20 - absOffset,
-                    transformStyle: "preserve-3d",
-                    pointerEvents: isVisible ? "auto" : "none",
-                  }}
+                  style={{ transformStyle: "preserve-3d" }}
                   onClick={() => {
                     if (!isCenter) setActiveIndex(idx);
                   }}
                   className={cn(
-                    "absolute w-[88%] sm:w-[68%] lg:w-[60%] max-w-[660px] rounded-2xl border overflow-hidden shadow-2xl transition-colors",
+                    "absolute w-[88%] sm:w-[68%] lg:w-[60%] max-w-[660px] rounded-2xl border overflow-hidden shadow-2xl transition-colors will-change-transform",
                     isCenter
                       ? "border-primary/50 bg-card shadow-black/25 dark:shadow-black/70 cursor-default"
                       : "border-border/80 bg-card/80 cursor-pointer hover:border-foreground/40",
@@ -210,13 +248,16 @@ export default function SelectedWork() {
                       className="object-cover object-top"
                     />
                   </div>
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
+          </div>
 
           {/* Active Artifact Telemetry Dock */}
-          <div className="mt-6 max-w-3xl mx-auto rounded-2xl border border-border bg-card/80 backdrop-blur-xl p-5 sm:p-6 shadow-xl">
+          <div
+            ref={detailRef}
+            className="mt-6 max-w-3xl mx-auto rounded-2xl border border-border bg-card/80 backdrop-blur-xl p-5 sm:p-6 shadow-xl"
+          >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="min-w-0">
                 <div className="flex items-center gap-2.5 flex-wrap">
@@ -310,16 +351,13 @@ export default function SelectedWork() {
           </div>
         </div>
       ) : (
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-7"
-        >
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-7">
           {projects.slice(0, 4).map((project, idx) => (
-            <ProjectItem key={project.name} project={project} index={idx + 1} />
+            <div key={project.name} className="anime-work-grid-item">
+              <ProjectItem project={project} index={idx + 1} />
+            </div>
           ))}
-        </motion.div>
+        </div>
       )}
     </SectionContainer>
   );

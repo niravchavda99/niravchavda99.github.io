@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   EducationProfile,
   JobProfile,
@@ -9,7 +9,7 @@ import {
 } from "@/src/data/experience";
 import Image from "next/image";
 import { ArrowUpRight, Briefcase, GraduationCap } from "lucide-react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { animate, createScope, onScroll, stagger } from "animejs";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";
 import MonthYear from "@/src/components/common/month-year";
@@ -56,13 +56,7 @@ const GroupedWorkCard = ({ group }: { group: JobGroup }) => {
     .toCountString();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="relative pl-8 sm:pl-12"
-    >
+    <div className="anime-trajectory-card relative pl-8 sm:pl-12">
       {/* Laser Spine Node */}
       <span className="absolute left-0 top-8 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-primary ring-4 ring-primary/20 shadow-lg shadow-primary/40" />
 
@@ -179,7 +173,7 @@ const GroupedWorkCard = ({ group }: { group: JobGroup }) => {
           })}
         </div>
       </Tilt3DCard>
-    </motion.div>
+    </div>
   );
 };
 
@@ -190,13 +184,7 @@ const EducationTimelineCard = ({ edu }: { edu: EducationProfile }) => {
     .toCountString();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="relative pl-8 sm:pl-12"
-    >
+    <div className="anime-trajectory-card relative pl-8 sm:pl-12">
       <span className="absolute left-0 top-8 -translate-x-1/2 w-3 h-3 rounded-full bg-accent ring-4 ring-accent/20" />
 
       <Tilt3DCard
@@ -278,24 +266,57 @@ const EducationTimelineCard = ({ edu }: { edu: EducationProfile }) => {
           </ul>
         )}
       </Tilt3DCard>
-    </motion.div>
+    </div>
   );
 };
 
 const Experience = () => {
   const [filter, setFilter] = useState<TrackFilter>("all");
   const timelineRef = useRef<HTMLDivElement>(null);
+  const beamRef = useRef<HTMLDivElement>(null);
   const jobGroups = groupConsecutiveJobs(jobs);
 
-  const { scrollYProgress } = useScroll({
-    target: timelineRef,
-    offset: ["start 75%", "end 65%"],
-  });
+  // Anime.js v4.5 Scroll-Linked Laser Spine + Staggered Milestone Reveals
+  useEffect(() => {
+    const root = timelineRef.current;
+    if (!root) return;
 
-  const beamScaleY = useSpring(scrollYProgress, {
-    stiffness: 200,
-    damping: 30,
-  });
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReduced) return;
+
+    const scope = createScope({ root }).add(() => {
+      if (beamRef.current) {
+        animate(beamRef.current, {
+          scaleY: [0, 1],
+          ease: "linear",
+          autoplay: onScroll({
+            target: root,
+            enter: "bottom-=180 top",
+            leave: "top+=200 bottom",
+            sync: 0.25,
+          }),
+        });
+      }
+
+      animate(".anime-trajectory-card", {
+        y: [28, 0],
+        opacity: [0, 1],
+        duration: 720,
+        delay: stagger(110),
+        ease: "outExpo",
+        autoplay: onScroll({
+          target: root,
+          enter: "bottom-=90 top",
+        }),
+      });
+    });
+
+    return () => {
+      scope.revert();
+    };
+  }, [filter]);
 
   return (
     <SectionContainer id="experience">
@@ -325,29 +346,14 @@ const Experience = () => {
                   type="button"
                   onClick={() => setFilter(tab.id)}
                   aria-pressed={active}
-                  className="relative px-3.5 py-1.5 rounded-lg text-xs font-mono"
-                >
-                  {active && (
-                    <motion.span
-                      layoutId="trajectory-filter-pill"
-                      transition={{
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 30,
-                      }}
-                      className="absolute inset-0 rounded-lg bg-foreground shadow-sm"
-                    />
+                  className={cn(
+                    "px-3.5 py-1.5 rounded-lg text-xs font-mono transition-colors",
+                    active
+                      ? "bg-foreground text-background font-semibold shadow-sm"
+                      : "text-muted-foreground hover:text-foreground",
                   )}
-                  <span
-                    className={cn(
-                      "relative z-10 transition-colors",
-                      active
-                        ? "text-background font-semibold"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                  >
-                    {tab.label}
-                  </span>
+                >
+                  {tab.label}
                 </button>
               );
             })}
@@ -355,18 +361,17 @@ const Experience = () => {
         }
       />
 
-      {/* Scroll-Driven Laser Spine Container */}
+      {/* Anime.js Scroll-Synced Laser Spine Container */}
       <div ref={timelineRef} className="relative ml-2 sm:ml-4 space-y-12">
-        {/* Background static rail */}
         <div
           aria-hidden="true"
           className="absolute left-0 top-4 bottom-4 w-px bg-border"
         />
-        {/* Scroll-progress glowing laser beam */}
-        <motion.div
+        <div
+          ref={beamRef}
           aria-hidden="true"
-          style={{ scaleY: beamScaleY }}
-          className="absolute left-[-0.5px] top-4 bottom-4 w-[2px] origin-top bg-gradient-to-b from-primary via-accent to-primary shadow-[0_0_12px_rgba(255,88,42,0.7)]"
+          style={{ transform: "scaleY(0)" }}
+          className="absolute left-[-0.5px] top-4 bottom-4 w-[2px] origin-top bg-gradient-to-b from-primary via-accent to-primary shadow-[0_0_12px_rgba(255,88,42,0.7)] will-change-transform"
         />
 
         {(filter === "all" || filter === "work") && (

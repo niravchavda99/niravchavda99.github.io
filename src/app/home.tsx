@@ -1,13 +1,13 @@
 "use client";
 
 import { ArrowUp } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { animate, createSpring } from "animejs";
 import Navbar from "@/src/components/navbar/navbar";
 import Footer from "@/src/components/footer/footer";
 import { CommandPalette } from "@/src/components/command-palette/command-palette";
 import { SpatialScene3D } from "@/src/components/motion/spatial-scene-3d";
 import { CustomCursor } from "@/src/components/motion/custom-cursor";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 interface HomeProps {
   children: ReactNode;
@@ -15,6 +15,7 @@ interface HomeProps {
 
 export function Home({ children }: HomeProps) {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const topBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -24,6 +25,16 @@ export function Home({ children }: HomeProps) {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!topBtnRef.current) return;
+    animate(topBtnRef.current, {
+      opacity: showScrollTop ? 1 : 0,
+      scale: showScrollTop ? 1 : 0.7,
+      y: showScrollTop ? 0 : 18,
+      ease: createSpring({ stiffness: 320, damping: 22 }),
+    });
+  }, [showScrollTop]);
 
   return (
     <div className="relative min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/25">
@@ -36,7 +47,7 @@ export function Home({ children }: HomeProps) {
       {/* Live 60fps 3D Tensegrity Sculpture & Warp Starfield */}
       <SpatialScene3D />
 
-      {/* Spring-Physics Kinetic Cursor Follower (Desktop) */}
+      {/* Anime.js Kinetic Cursor Follower (Desktop) */}
       <CustomCursor />
 
       {/* Floating Spatial Dock & Command HUD */}
@@ -52,25 +63,20 @@ export function Home({ children }: HomeProps) {
         <Footer />
       </div>
 
-      {/* Spring-Animated Back-to-Top Capsule */}
-      <AnimatePresence>
-        {showScrollTop && (
-          <motion.button
-            type="button"
-            initial={{ opacity: 0, scale: 0.7, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.7, y: 16 }}
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.94 }}
-            transition={{ type: "spring", stiffness: 360, damping: 24 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            aria-label="Scroll back to top"
-            className="fixed bottom-6 right-6 z-40 h-11 w-11 rounded-full border border-border bg-card/90 backdrop-blur-md text-foreground shadow-xl flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
-          >
-            <ArrowUp size={16} />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      {/* Anime.js Spring Back-to-Top Capsule */}
+      <button
+        ref={topBtnRef}
+        type="button"
+        style={{
+          opacity: 0,
+          pointerEvents: showScrollTop ? "auto" : "none",
+        }}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll back to top"
+        className="fixed bottom-6 right-6 z-40 h-11 w-11 rounded-full border border-border bg-card/90 backdrop-blur-md text-foreground shadow-xl flex items-center justify-center hover:border-primary hover:text-primary transition-colors will-change-transform"
+      >
+        <ArrowUp size={16} />
+      </button>
     </div>
   );
 }

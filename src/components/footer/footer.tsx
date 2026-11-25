@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import nextjsDark from "@/src/assets/icons/tech/nextjs-dark.svg";
 import nextjsLight from "@/src/assets/icons/tech/nextjs-light.svg";
 import tailwind from "@/src/assets/icons/tech/tailwind.png";
 import Image from "next/image";
 import { ArrowUpRight, Check, Copy, Mail } from "lucide-react";
-import { motion } from "framer-motion";
+import { animate, createScope, onScroll } from "animejs";
 import { ThemeMode, useTheme } from "@/src/components/theme/theme-context";
 import { getSocialMediaLink } from "@/src/app/links";
 import { SocialMediaPlatform } from "@/src/components/common/social-media-platform";
@@ -23,10 +23,31 @@ const FOOTER_SOCIALS = [
 const Footer = () => {
   const { mode } = useTheme();
   const [copied, setCopied] = useState(false);
+  const footerCardRef = useRef<HTMLDivElement>(null);
   const year = new Date().getFullYear();
 
   const mailHref = getSocialMediaLink(SocialMediaPlatform.Mail);
   const email = mailHref.replace(/^mailto:/i, "");
+
+  useEffect(() => {
+    const root = footerCardRef.current;
+    if (!root) return;
+    const scope = createScope({ root }).add(() => {
+      animate(root, {
+        y: [28, 0],
+        opacity: [0, 1],
+        duration: 820,
+        ease: "outExpo",
+        autoplay: onScroll({
+          target: root,
+          enter: "bottom-=60 top",
+        }),
+      });
+    });
+    return () => {
+      scope.revert();
+    };
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard?.writeText(email);
@@ -37,11 +58,8 @@ const Footer = () => {
   return (
     <footer className="w-full px-5 sm:px-8 lg:px-10 pt-10 pb-10">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        <div
+          ref={footerCardRef}
           className="relative rounded-3xl border border-border bg-card/85 backdrop-blur-xl p-7 sm:p-12 overflow-hidden shadow-2xl shadow-black/10 dark:shadow-black/50"
         >
           {/* Ambient radial accent */}
@@ -133,7 +151,9 @@ const Footer = () => {
                 </a>
               </span>
               <span className="text-border">·</span>
-              <span className="font-mono text-[11px]">Crafted in motion</span>
+              <span className="font-mono text-[11px]">
+                Powered by Anime.js + Three.js
+              </span>
             </div>
 
             <div className="flex items-center gap-4">
@@ -149,7 +169,7 @@ const Footer = () => {
               </button>
 
               <div className="flex items-center gap-2 font-mono text-[11px]">
-                <span>Powered by</span>
+                <span>Built with</span>
                 <Image
                   width={14}
                   height={14}
@@ -170,7 +190,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

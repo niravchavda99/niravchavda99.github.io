@@ -1,67 +1,84 @@
 "use client";
 
-import React, { useRef } from "react";
-import {
-  motion,
-  useAnimationFrame,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-  useVelocity,
-} from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { animate, createAnimatable, createScope } from "animejs";
 
 interface VelocityMarqueeProps {
   items: string[];
   baseVelocity?: number;
 }
 
-function wrap(min: number, max: number, v: number): number {
-  const rangeSize = max - min;
-  return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
-}
-
 export function VelocityMarquee({
   items,
-  baseVelocity = -2.2,
+  baseVelocity = 1,
 }: VelocityMarqueeProps) {
-  const baseX = useMotionValue(0);
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, {
-    damping: 50,
-    stiffness: 380,
-  });
+  const rootRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 4.5], {
-    clamp: false,
-  });
-  const skewX = useTransform(smoothVelocity, [-1200, 1200], [6, -6]);
+  useEffect(() => {
+    const root = rootRef.current;
+    const track = trackRef.current;
+    if (!root || !track) return;
 
-  const directionFactor = useRef<number>(1);
+    const baseRate = Math.max(0.4, Math.abs(baseVelocity) * 0.55);
 
-  useAnimationFrame((_, delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
+    const scope = createScope({ root }).add(() => {
+      // Infinite seamless Anime.js v4 ticker
+      const loopAnim = animate(track, {
+        x: ["0%", "-50%"],
+        duration: 28000,
+        ease: "linear",
+        loop: true,
+      });
+      loopAnim.speed = baseRate;
 
-    if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
-    } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1;
-    }
+      const skewAnim = createAnimatable(track, {
+        skewX: { unit: "deg", duration: 320, ease: "out(3)" },
+      });
 
-    moveBy += directionFactor.current * moveBy * Math.abs(velocityFactor.get());
-    baseX.set(baseX.get() + moveBy);
-  });
+      let lastY = window.scrollY;
+      let decayTimer: ReturnType<typeof setTimeout> | null = null;
 
-  const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`);
+      const handleScroll = () => {
+        const currentY = window.scrollY;
+        const delta = currentY - lastY;
+        lastY = currentY;
+
+        const boost = Math.min(4.5, Math.abs(delta) * 0.08);
+        loopAnim.speed = baseRate + boost;
+        skewAnim.skewX(Math.max(-6, Math.min(6, -delta * 0.12)));
+
+        if (decayTimer) clearTimeout(decayTimer);
+        decayTimer = setTimeout(() => {
+          animate(loopAnim, {
+            speed: baseRate,
+            duration: 500,
+            ease: "outCubic",
+          });
+          skewAnim.skewX(0);
+        }, 90);
+      };
+
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      return () => {
+        if (decayTimer) clearTimeout(decayTimer);
+        window.removeEventListener("scroll", handleScroll);
+      };
+    });
+
+    return () => {
+      scope.revert();
+    };
+  }, [baseVelocity]);
 
   return (
     <div
+      ref={rootRef}
       aria-hidden="true"
       className="relative w-full overflow-hidden border-y border-border/80 bg-surface/50 backdrop-blur-sm py-3.5 select-none"
     >
-      <motion.div
-        style={{ x, skewX }}
+      <div
+        ref={trackRef}
         className="flex whitespace-nowrap w-max will-change-transform"
       >
         {[0, 1, 2, 3].map((rep) => (
@@ -77,7 +94,7 @@ export function VelocityMarquee({
             ))}
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }

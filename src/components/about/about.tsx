@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import profileImage from "@/src/assets/images/profile.jpg";
 import { BsGithub, BsInstagram, BsLinkedin, BsTwitterX } from "react-icons/bs";
 import { IoMail } from "react-icons/io5";
@@ -15,11 +15,14 @@ import {
   UserCheck,
 } from "lucide-react";
 import {
-  AnimatePresence,
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+  animate,
+  createScope,
+  createSpring,
+  createTimeline,
+  scrambleText,
+  splitText,
+  stagger,
+} from "animejs";
 import SocialMediaLink from "@/src/components/common/social-media-link";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,6 +37,7 @@ import { getSocialMediaLink } from "@/src/app/links";
 import { Tilt3DCard } from "@/src/components/motion/tilt-3d-card";
 import { Magnetic } from "@/src/components/motion/magnetic";
 import { VelocityMarquee } from "@/src/components/motion/velocity-marquee";
+import { AnimeCircuitBackdrop } from "@/src/components/motion/anime-grid-wave";
 import { cn } from "@/src/lib/utils";
 
 const SOCIAL_ICONS = [
@@ -64,23 +68,16 @@ const SOCIAL_ICONS = [
   },
 ];
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-
 type PortraitMode = "avatar" | "photo";
 
 const About = () => {
   const [copied, setCopied] = useState(false);
   const [portraitMode, setPortraitMode] = useState<PortraitMode>("avatar");
   const sectionRef = useRef<HTMLElement>(null);
+  const nameRef = useRef<HTMLSpanElement>(null);
+  const roleLabelRef = useRef<HTMLSpanElement>(null);
+  const viewportStageRef = useRef<HTMLDivElement>(null);
   const currentJob = jobs[0];
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const cardY = useTransform(scrollYProgress, [0, 1], [0, -40]);
 
   const emailAddress = getSocialMediaLink(SocialMediaPlatform.Mail).replace(
     /^mailto:/i,
@@ -92,6 +89,122 @@ const About = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  // Master Anime.js v4.5 Hero Entrance Choreography
+  useEffect(() => {
+    const root = sectionRef.current;
+    if (!root) return;
+
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReduced) return;
+
+    const scope = createScope({ root }).add(() => {
+      const tl = createTimeline({
+        defaults: { ease: "outExpo" },
+      });
+
+      // 1. Status capsule + scrambleText role decryption
+      tl.add(
+        ".anime-hero-badge",
+        {
+          y: [18, 0],
+          opacity: [0, 1],
+          duration: 650,
+        },
+        0,
+      );
+
+      if (roleLabelRef.current) {
+        tl.add(
+          roleLabelRef.current,
+          {
+            innerHTML: scrambleText({
+              text: CURRENT_ROLE,
+              chars: "uppercase",
+              revealRate: 42,
+              settleDuration: 260,
+            }),
+            duration: 720,
+          },
+          80,
+        );
+      }
+
+      // 2. Split character kinetic cascade on "Nirav Chavda"
+      if (nameRef.current) {
+        const splitted = splitText(nameRef.current, {
+          chars: { wrap: "clip" },
+        });
+        if (splitted.chars.length > 0) {
+          tl.add(
+            splitted.chars,
+            {
+              y: ["115%", "0%"],
+              rotateZ: [5, 0],
+              opacity: [0, 1],
+              ease: createSpring({ stiffness: 230, damping: 19 }),
+              delay: stagger(28, { from: "first" }),
+            },
+            110,
+          );
+        }
+      }
+
+      // 3. Tagline & bio lines stagger in
+      tl.add(
+        ".anime-hero-copy",
+        {
+          y: [24, 0],
+          opacity: [0, 1],
+          duration: 780,
+          delay: stagger(110),
+        },
+        260,
+      );
+
+      // 4. CTAs & magnetic social buttons spring pop
+      tl.add(
+        ".anime-hero-cta",
+        {
+          y: [20, 0],
+          scale: [0.92, 1],
+          opacity: [0, 1],
+          ease: createSpring({ stiffness: 260, damping: 18 }),
+          delay: stagger(48),
+        },
+        420,
+      );
+
+      // 5. Right 3D Monolith card entrance
+      tl.add(
+        ".anime-hero-monolith",
+        {
+          y: [32, 0],
+          scale: [0.93, 1],
+          opacity: [0, 1],
+          duration: 950,
+        },
+        180,
+      );
+    });
+
+    return () => {
+      scope.revert();
+    };
+  }, []);
+
+  // Smooth Anime.js cross-transition when toggling 3D Avatar <-> Photo
+  useEffect(() => {
+    if (!viewportStageRef.current) return;
+    animate(viewportStageRef.current, {
+      opacity: [0.25, 1],
+      scale: [0.97, 1],
+      duration: 340,
+      ease: "outCubic",
+    });
+  }, [portraitMode]);
 
   const marqueeItems = [
     `${CURRENT_ROLE} @ ${currentJob?.organizationName ?? "Incubyte"}`,
@@ -108,26 +221,24 @@ const About = () => {
       <section
         id="about"
         ref={sectionRef}
-        className="relative w-full px-5 sm:px-8 lg:px-10 pt-28 sm:pt-36 pb-16 sm:pb-24"
+        className="relative w-full px-5 sm:px-8 lg:px-10 pt-28 sm:pt-36 pb-16 sm:pb-24 overflow-hidden"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        {/* Signature Anime.js Drawable Circuits, MotionPath Sparks & 2D Stagger Lattice */}
+        <AnimeCircuitBackdrop />
+
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
           {/* Left Kinetic Typography Stage */}
-          <motion.div
-            style={{ y: textY }}
-            className="lg:col-span-7 flex flex-col items-start"
-          >
+          <div className="lg:col-span-7 flex flex-col items-start">
             {/* Animated Status Capsule */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: EASE }}
-              className="inline-flex flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-border bg-card/75 backdrop-blur-md mb-7 shadow-sm"
-            >
+            <div className="anime-hero-badge inline-flex flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-border bg-card/75 backdrop-blur-md mb-7 shadow-sm">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-foreground font-medium">
+              <span
+                ref={roleLabelRef}
+                className="font-mono text-[11px] uppercase tracking-[0.16em] text-foreground font-medium"
+              >
                 {CURRENT_ROLE}
               </span>
               {currentJob && (
@@ -148,120 +259,96 @@ const About = () => {
                   </span>
                 </>
               )}
-            </motion.div>
+            </div>
 
-            {/* Masked Kinetic Display Title */}
+            {/* SplitText Character Cascade Display Title */}
             <h1 className="text-5xl sm:text-7xl lg:text-[5.15rem] font-semibold tracking-[-0.045em] leading-[0.98] text-foreground">
-              <span className="block overflow-hidden pb-1">
-                <motion.span
-                  initial={{ y: "110%", rotateZ: 2 }}
-                  animate={{ y: "0%", rotateZ: 0 }}
-                  transition={{ duration: 0.75, delay: 0.06, ease: EASE }}
-                  className="block"
-                >
-                  Nirav Chavda
-                </motion.span>
+              <span ref={nameRef} className="block pb-1">
+                Nirav Chavda
               </span>
-              <span className="block overflow-hidden pt-1 pb-2 text-2xl sm:text-4xl lg:text-[2.65rem] font-normal tracking-[-0.03em] text-muted-foreground">
-                <motion.span
-                  initial={{ y: "115%" }}
-                  animate={{ y: "0%" }}
-                  transition={{ duration: 0.75, delay: 0.16, ease: EASE }}
-                  className="block"
-                >
-                  Engineering with{" "}
-                  <span className="font-serif italic text-primary">
-                    craftsmanship
-                  </span>{" "}
-                  &amp; care.
-                </motion.span>
+              <span className="anime-hero-copy block pt-1 pb-2 text-2xl sm:text-4xl lg:text-[2.65rem] font-normal tracking-[-0.03em] text-muted-foreground">
+                Engineering with{" "}
+                <span className="font-serif italic text-primary">
+                  craftsmanship
+                </span>{" "}
+                &amp; care.
               </span>
             </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.28, ease: EASE }}
-              className="mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl"
-            >
+            <p className="anime-hero-copy mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
               Learner and enthusiast at heart. Building resilient software
               across backend systems, modern web interfaces, browser extensions,
               and cross-platform mobile apps.
-            </motion.p>
+            </p>
 
             {/* Magnetic CTAs & Social Dock */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.38, ease: EASE }}
-              className="mt-9 flex flex-wrap items-center gap-3.5"
-            >
-              <Magnetic strength={0.2}>
-                <Link
-                  href="/projects"
-                  data-cursor="ARCHIVE"
-                  className="group relative inline-flex items-center gap-2.5 h-12 px-6 rounded-full bg-foreground text-background text-sm font-medium overflow-hidden shadow-lg shadow-black/10 dark:shadow-black/40"
-                >
-                  <span className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                  <span className="relative z-10 group-hover:text-primary-foreground transition-colors">
-                    Explore Projects
-                  </span>
-                  <span className="relative z-10 font-mono text-xs opacity-70 group-hover:text-primary-foreground">
-                    [{projects.length}]
-                  </span>
-                  <ArrowRight
-                    size={15}
-                    className="relative z-10 group-hover:translate-x-0.5 group-hover:text-primary-foreground transition-all"
-                  />
-                </Link>
-              </Magnetic>
+            <div className="mt-9 flex flex-wrap items-center gap-3.5">
+              <div className="anime-hero-cta">
+                <Magnetic strength={0.2}>
+                  <Link
+                    href="/projects"
+                    data-cursor="ARCHIVE"
+                    className="group relative inline-flex items-center gap-2.5 h-12 px-6 rounded-full bg-foreground text-background text-sm font-medium overflow-hidden shadow-lg shadow-black/10 dark:shadow-black/40"
+                  >
+                    <span className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                    <span className="relative z-10 group-hover:text-primary-foreground transition-colors">
+                      Explore Projects
+                    </span>
+                    <span className="relative z-10 font-mono text-xs opacity-70 group-hover:text-primary-foreground">
+                      [{projects.length}]
+                    </span>
+                    <ArrowRight
+                      size={15}
+                      className="relative z-10 group-hover:translate-x-0.5 group-hover:text-primary-foreground transition-all"
+                    />
+                  </Link>
+                </Magnetic>
+              </div>
 
-              <Magnetic strength={0.2}>
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="inline-flex items-center gap-2 h-12 px-5 rounded-full border border-border bg-card/80 backdrop-blur-md hover:border-primary/50 text-foreground text-sm font-medium transition-colors"
-                >
-                  {copied ? (
-                    <>
-                      <Check size={15} className="text-emerald-500" />
-                      <span>Email Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy size={14} className="text-muted-foreground" />
-                      <span>Copy Email</span>
-                    </>
-                  )}
-                </button>
-              </Magnetic>
+              <div className="anime-hero-cta">
+                <Magnetic strength={0.2}>
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className="inline-flex items-center gap-2 h-12 px-5 rounded-full border border-border bg-card/80 backdrop-blur-md hover:border-primary/50 text-foreground text-sm font-medium transition-colors"
+                  >
+                    {copied ? (
+                      <>
+                        <Check size={15} className="text-emerald-500" />
+                        <span>Email Copied</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={14} className="text-muted-foreground" />
+                        <span>Copy Email</span>
+                      </>
+                    )}
+                  </button>
+                </Magnetic>
+              </div>
 
               <div className="flex items-center gap-1.5 pl-1">
                 {SOCIAL_ICONS.map(({ platform, icon, label }) => (
-                  <Magnetic key={platform} strength={0.3}>
-                    <SocialMediaLink platform={platform}>
-                      <span
-                        className="w-10 h-10 rounded-full flex items-center justify-center border border-border bg-card/75 backdrop-blur-md text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
-                        title={label}
-                        aria-label={label}
-                      >
-                        {icon}
-                      </span>
-                    </SocialMediaLink>
-                  </Magnetic>
+                  <div key={platform} className="anime-hero-cta">
+                    <Magnetic strength={0.3}>
+                      <SocialMediaLink platform={platform}>
+                        <span
+                          className="w-10 h-10 rounded-full flex items-center justify-center border border-border bg-card/75 backdrop-blur-md text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
+                          title={label}
+                          aria-label={label}
+                        >
+                          {icon}
+                        </span>
+                      </SocialMediaLink>
+                    </Magnetic>
+                  </div>
                 ))}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right Animated 3D Character / Portrait Monolith */}
-          <motion.div
-            style={{ y: cardY }}
-            initial={{ opacity: 0, scale: 0.92, rotateY: -8 }}
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            transition={{ duration: 0.85, delay: 0.2, ease: EASE }}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
+          <div className="anime-hero-monolith lg:col-span-5 flex justify-center lg:justify-end">
             <div className="w-full max-w-[370px] sm:max-w-[405px]">
               <Tilt3DCard
                 maxTilt={portraitMode === "avatar" ? 5 : 13}
@@ -312,39 +399,24 @@ const About = () => {
                 </div>
 
                 {/* Viewport Plane */}
-                <div className="relative aspect-[4/4.35] rounded-2xl overflow-hidden border border-border bg-[#08080e]">
-                  <AnimatePresence mode="wait">
-                    {portraitMode === "avatar" ? (
-                      <motion.div
-                        key="3d-avatar"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="w-full h-full"
-                      >
-                        <AnimatedAvatar3D />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="photo"
-                        initial={{ opacity: 0, scale: 1.03 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="relative w-full h-full"
-                      >
-                        <Image
-                          src={profileImage.src}
-                          alt="Nirav Chavda"
-                          fill
-                          sizes="(max-width: 1024px) 370px, 405px"
-                          className="object-cover"
-                          priority
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                <div
+                  ref={viewportStageRef}
+                  className="relative aspect-[4/4.35] rounded-2xl overflow-hidden border border-border bg-[#08080e]"
+                >
+                  {portraitMode === "avatar" ? (
+                    <AnimatedAvatar3D />
+                  ) : (
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={profileImage.src}
+                        alt="Nirav Chavda"
+                        fill
+                        sizes="(max-width: 1024px) 370px, 405px"
+                        className="object-cover"
+                        priority
+                      />
+                    </div>
+                  )}
 
                   {/* Bottom Subtle Gradient + Caption */}
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-20" />
@@ -386,12 +458,12 @@ const About = () => {
                 </div>
               </Tilt3DCard>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Scroll-Velocity Kinetic Marquee */}
-      <VelocityMarquee items={marqueeItems} baseVelocity={-1.8} />
+      {/* Anime.js Scroll-Velocity Kinetic Marquee */}
+      <VelocityMarquee items={marqueeItems} baseVelocity={1} />
     </>
   );
 };

@@ -1,8 +1,8 @@
 "use client";
 
 import { SkillCategory, technologies, Technology } from "@/src/data/skills";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { animate, createSpring, stagger } from "animejs";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";
 import { SkillBlock } from "@/src/components/skills/skill-block";
@@ -35,10 +35,27 @@ const Skills = () => {
     "All",
   );
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+  const matrixRef = useRef<HTMLDivElement>(null);
   const grouped = groupByCategory(technologies);
 
   const visibleCategories =
     activeCategory === "All" ? CATEGORY_ORDER : [activeCategory];
+
+  // Anime.js staggered spring cascade when switching skill domain filters
+  useEffect(() => {
+    const container = matrixRef.current;
+    if (!container) return;
+    const blocks = container.querySelectorAll(".anime-skill-tile");
+    if (!blocks.length) return;
+
+    animate(blocks, {
+      scale: [0.88, 1],
+      opacity: [0, 1],
+      y: [14, 0],
+      delay: stagger(26, { from: "first" }),
+      ease: createSpring({ stiffness: 280, damping: 20 }),
+    });
+  }, [activeCategory]);
 
   return (
     <SectionContainer id="skills">
@@ -50,7 +67,7 @@ const Skills = () => {
         subtitle="Drag the interactive 3D constellation sphere or filter by domain — spanning backend services, web & 3D, cloud, mobile, and AI-native developer tooling."
       />
 
-      {/* Spring-Animated Category Filter Pills */}
+      {/* Category Filter Pills */}
       <div className="flex flex-wrap items-center gap-2 mb-8">
         {(["All", ...CATEGORY_ORDER] as const).map((cat) => {
           const count =
@@ -62,40 +79,28 @@ const Skills = () => {
               key={cat}
               type="button"
               onClick={() => setActiveCategory(cat)}
-              className="relative px-3.5 py-2 rounded-xl font-mono text-xs transition-colors"
+              className={cn(
+                "px-3.5 py-2 rounded-xl font-mono text-xs border transition-all duration-200",
+                active
+                  ? "bg-foreground text-background border-foreground font-semibold shadow-md"
+                  : "bg-card/70 text-foreground border-border hover:border-primary/45",
+              )}
             >
-              {active && (
-                <motion.span
-                  layoutId="skill-domain-pill"
-                  transition={{ type: "spring", stiffness: 360, damping: 28 }}
-                  className="absolute inset-0 rounded-xl bg-foreground shadow-md"
-                />
-              )}
-              {!active && (
-                <span className="absolute inset-0 rounded-xl border border-border bg-card/70 hover:border-primary/40 transition-colors" />
-              )}
+              {cat}{" "}
               <span
                 className={cn(
-                  "relative z-10",
-                  active ? "text-background font-semibold" : "text-foreground",
+                  "ml-0.5",
+                  active ? "opacity-75" : "text-muted-foreground",
                 )}
               >
-                {cat}{" "}
-                <span
-                  className={cn(
-                    "ml-0.5",
-                    active ? "opacity-75" : "text-muted-foreground",
-                  )}
-                >
-                  ({count})
-                </span>
+                ({count})
               </span>
             </button>
           );
         })}
       </div>
 
-      {/* Synchronized 3D Orbital Sphere + Tactile Spec Matrix */}
+      {/* Synchronized 3D Orbital Sphere + Anime.js Staggered Spec Matrix */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
         <div className="lg:col-span-6 lg:sticky lg:top-24">
           <SkillSphere3D
@@ -106,17 +111,13 @@ const Skills = () => {
           />
         </div>
 
-        <div className="lg:col-span-6 space-y-5">
+        <div ref={matrixRef} className="lg:col-span-6 space-y-5">
           {visibleCategories.map((category) => {
             const techs = grouped[category];
             if (!techs?.length) return null;
             return (
-              <motion.div
-                layout
+              <div
                 key={category}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
                 className="rounded-2xl border border-border bg-card/75 backdrop-blur-xl p-5"
               >
                 <div className="flex items-center justify-between gap-3 mb-4 pb-2.5 border-b border-border/70">
@@ -130,15 +131,16 @@ const Skills = () => {
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {techs.map((tech) => (
-                    <SkillBlock
-                      key={tech.name}
-                      technology={tech}
-                      highlighted={hoveredTech === tech.name}
-                      onHover={setHoveredTech}
-                    />
+                    <div key={tech.name} className="anime-skill-tile">
+                      <SkillBlock
+                        technology={tech}
+                        highlighted={hoveredTech === tech.name}
+                        onHover={setHoveredTech}
+                      />
+                    </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
