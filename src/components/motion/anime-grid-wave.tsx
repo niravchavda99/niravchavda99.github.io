@@ -1,143 +1,123 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import { animate, createScope, createTimeline, stagger, svg } from "animejs";
+import React, { useCallback, useEffect, useRef } from "react";
+import { animate, createScope, createSpring, stagger } from "animejs";
 
-const COLS = 15;
-const ROWS = 7;
-const TOTAL_CELLS = COLS * ROWS;
+const COLS = 16;
+const ROWS = 4;
+const TOTAL = COLS * ROWS;
+const PALETTE = ["#FF4B4B", "#FFC730", "#5CE68A", "#38BDF8", "#C084FC"];
 
-export function AnimeCircuitBackdrop() {
+export function AnimeStaggerPlayground() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const colorIdxRef = useRef(0);
+  const lastHoverCell = useRef<number>(-1);
 
+  const fireWaveFrom = useCallback((originIndex: number, strong = false) => {
+    const root = rootRef.current;
+    if (!root) return;
+    const cells = root.querySelectorAll(".stagger-play-cell");
+    if (!cells.length) return;
+
+    const accent = PALETTE[colorIdxRef.current % PALETTE.length];
+    colorIdxRef.current += 1;
+
+    animate(cells, {
+      scale: [
+        { to: strong ? 1.65 : 1.38, duration: 180, ease: "outQuad" },
+        {
+          to: 1,
+          ease: createSpring({ stiffness: 260, damping: 15 }),
+        },
+      ],
+      rotate: [
+        { to: strong ? 90 : 45, duration: 220, ease: "outCubic" },
+        { to: 0, duration: 480, ease: "outElastic(1, .6)" },
+      ],
+      backgroundColor: [
+        { to: accent, duration: 150, ease: "outQuad" },
+        { to: "rgba(150, 144, 136, 0.22)", duration: 650, ease: "outCubic" },
+      ],
+      delay: stagger(strong ? 28 : 22, {
+        grid: [COLS, ROWS],
+        from: originIndex,
+      }),
+    });
+  }, []);
+
+  // Gentle autonomous idle wave every few seconds so it's immediately alive
   useEffect(() => {
-    if (!rootRef.current) return;
+    const root = rootRef.current;
+    if (!root) return;
 
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
     if (prefersReduced) return;
 
-    const scope = createScope({ root: rootRef }).add(() => {
-      // 1. SVG Circuit Paths self-drawing via Anime.js v4 svg.createDrawable
-      const drawables = svg.createDrawable(".anime-circuit-line");
-      if (drawables.length > 0) {
-        createTimeline({
-          defaults: { ease: "inOutQuart" },
-          loop: true,
-          alternate: true,
-          loopDelay: 1200,
-        }).add(drawables, {
-          draw: ["0 0", "0 1", "1 1"],
-          opacity: [0.15, 0.65, 0.2],
-          duration: 4600,
-          delay: stagger(420),
-        });
-      }
+    const scope = createScope({ root }).add(() => {
+      // Initial center burst on mount
+      const initTimer = setTimeout(() => {
+        fireWaveFrom(Math.floor(TOTAL / 2), false);
+      }, 650);
 
-      // 2. Orbiting telemetry spark riding an SVG path via svg.createMotionPath
-      const motion1 = svg.createMotionPath("#anime-orbit-track-1");
-      animate(".anime-orbit-spark-1", {
-        ...motion1,
-        duration: 9500,
-        ease: "linear",
-        loop: true,
-      });
+      const interval = setInterval(() => {
+        const randomOrigin = Math.floor(Math.random() * TOTAL);
+        fireWaveFrom(randomOrigin, false);
+      }, 4800);
 
-      const motion2 = svg.createMotionPath("#anime-orbit-track-2");
-      animate(".anime-orbit-spark-2", {
-        ...motion2,
-        duration: 12500,
-        reversed: true,
-        ease: "linear",
-        loop: true,
-      });
-
-      // 3. Signature Anime.js 2D Stagger Grid ambient wave
-      animate(".anime-grid-dot", {
-        scale: [
-          { to: 1.85, ease: "outSine", duration: 700 },
-          { to: 1, ease: "inOutQuad", duration: 1100 },
-        ],
-        opacity: [
-          { to: 0.65, ease: "outSine", duration: 700 },
-          { to: 0.16, ease: "inOutQuad", duration: 1100 },
-        ],
-        delay: stagger(95, { grid: [COLS, ROWS], from: "center" }),
-        loop: true,
-        loopDelay: 1800,
-      });
+      return () => {
+        clearTimeout(initTimer);
+        clearInterval(interval);
+      };
     });
 
     return () => {
       scope.revert();
     };
-  }, []);
+  }, [fireWaveFrom]);
 
   return (
     <div
       ref={rootRef}
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 overflow-hidden z-0"
+      className="relative border-t border-border bg-surface/35 px-5 sm:px-8 lg:px-10 py-5 select-none"
     >
-      {/* Anime.js Drawable Architectural SVG Vector Traces */}
-      <svg
-        viewBox="0 0 1200 760"
-        fill="none"
-        preserveAspectRatio="xMidYMid slice"
-        className="absolute inset-0 w-full h-full opacity-75"
-      >
-        {/* Circuit blueprint lines */}
-        <path
-          id="anime-orbit-track-1"
-          className="anime-circuit-line"
-          d="M -40 160 H 260 L 330 230 H 680 L 760 150 H 1240"
-          stroke="hsl(var(--primary) / 0.35)"
-          strokeWidth="1.2"
-        />
-        <path
-          id="anime-orbit-track-2"
-          className="anime-circuit-line"
-          d="M 1240 560 H 840 L 770 490 H 410 L 340 560 H -40"
-          stroke="hsl(var(--accent) / 0.32)"
-          strokeWidth="1.2"
-        />
-        <path
-          className="anime-circuit-line"
-          d="M 180 -20 V 210 L 250 280 V 780"
-          stroke="hsl(var(--border))"
-          strokeWidth="1"
-        />
-        <path
-          className="anime-circuit-line"
-          d="M 980 -20 V 320 L 910 390 V 780"
-          stroke="hsl(var(--border))"
-          strokeWidth="1"
-        />
+      <div className="flex items-center justify-between mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+        <span className="flex items-center gap-2">
+          <span className="w-2 h-2 bg-[#FFC730]" />
+          INTERACTIVE STAGGER MATRIX // HOVER OR CLICK ANY NODE
+        </span>
+        <span className="hidden sm:inline">
+          GRID [{COLS} × {ROWS}] · STAGGER(FROM: INDEX)
+        </span>
+      </div>
 
-        {/* Sparks riding SVG motion paths */}
-        <g className="anime-orbit-spark-1">
-          <circle r="3.5" fill="hsl(var(--primary))" />
-          <circle r="9" fill="hsl(var(--primary) / 0.22)" />
-        </g>
-        <g className="anime-orbit-spark-2">
-          <circle r="3" fill="hsl(var(--accent))" />
-          <circle r="8" fill="hsl(var(--accent) / 0.22)" />
-        </g>
-      </svg>
-
-      {/* Signature Anime.js 2D Stagger Lattice */}
       <div
+        data-cursor="RIPPLE"
         style={{
           gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
         }}
-        className="absolute inset-x-8 top-24 bottom-12 grid place-items-center opacity-60 [mask-image:radial-gradient(ellipse_65%_60%_at_50%_45%,#000_25%,transparent_100%)]"
+        className="grid gap-2 sm:gap-2.5 py-1 cursor-pointer"
       >
-        {Array.from({ length: TOTAL_CELLS }).map((_, idx) => (
-          <span
+        {Array.from({ length: TOTAL }).map((_, idx) => (
+          <button
             key={idx}
-            className="anime-grid-dot w-1 h-1 rounded-full bg-primary opacity-15"
-          />
+            type="button"
+            aria-label={`Trigger stagger wave from node ${idx + 1}`}
+            onMouseEnter={() => {
+              if (lastHoverCell.current !== idx) {
+                lastHoverCell.current = idx;
+                if (idx % 2 === 0) fireWaveFrom(idx, false);
+              }
+            }}
+            onClick={() => fireWaveFrom(idx, true)}
+            className="h-5 sm:h-6 flex items-center justify-center group focus:outline-none"
+          >
+            <span
+              style={{ backgroundColor: "rgba(150, 144, 136, 0.22)" }}
+              className="stagger-play-cell w-2.5 h-2.5 sm:w-3 sm:h-3 block will-change-transform"
+            />
+          </button>
         ))}
       </div>
     </div>

@@ -7,7 +7,6 @@ import {
   onScroll,
   scrambleText,
   stagger,
-  svg,
 } from "animejs";
 import { cn } from "@/src/lib/utils";
 
@@ -18,6 +17,7 @@ export interface HeadingTextProps {
   coloredText: string;
   italicAccent?: string;
   subtitle?: string;
+  signalColor?: string;
   rightSlot?: ReactNode;
   className?: string;
 }
@@ -29,6 +29,7 @@ export function HeadingText({
   coloredText,
   italicAccent,
   subtitle,
+  signalColor = "#FF4B4B",
   rightSlot,
   className,
 }: HeadingTextProps) {
@@ -48,25 +49,11 @@ export function HeadingText({
       const tl = createTimeline({
         autoplay: onScroll({
           target: root,
-          enter: "bottom-=80 top",
+          enter: "bottom-=70 top",
         }),
         defaults: { ease: "outExpo" },
       });
 
-      // 1. SVG accent hairline draws itself via Anime.js createDrawable
-      const ruleDraw = svg.createDrawable(".anime-heading-rule");
-      if (ruleDraw.length > 0) {
-        tl.add(
-          ruleDraw,
-          {
-            draw: ["0 0", "0 1"],
-            duration: 900,
-          },
-          0,
-        );
-      }
-
-      // 2. Eyebrow text decrypts via Anime.js v4.5 scrambleText
       if (eyebrowRef.current && eyebrow) {
         tl.add(
           eyebrowRef.current,
@@ -74,25 +61,24 @@ export function HeadingText({
             innerHTML: scrambleText({
               text: eyebrow,
               chars: "uppercase",
-              revealRate: 52,
-              settleDuration: 240,
+              revealRate: 55,
+              settleDuration: 220,
             }),
-            duration: 750,
+            duration: 680,
           },
-          60,
+          0,
         );
       }
 
-      // 3. Staggered reveal of heading lines, subtitle, and right slot
       tl.add(
-        ".anime-heading-item",
+        ".anime-ch-reveal",
         {
-          y: [26, 0],
+          y: [22, 0],
           opacity: [0, 1],
-          duration: 820,
-          delay: stagger(90),
+          duration: 750,
+          delay: stagger(80),
         },
-        80,
+        40,
       );
     });
 
@@ -102,27 +88,48 @@ export function HeadingText({
   }, [eyebrow]);
 
   return (
-    <div ref={rootRef} className={cn("mb-12 sm:mb-16", className)}>
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div className="max-w-2xl">
-          {(index || eyebrow) && (
-            <div className="anime-heading-item inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground mb-4">
-              {index && (
-                <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full border border-primary/30 bg-primary/10 text-primary font-semibold">
-                  {index}
-                </span>
-              )}
-              {eyebrow && <span ref={eyebrowRef}>{eyebrow}</span>}
-            </div>
+    <div ref={rootRef} className={cn("border-b border-border", className)}>
+      {/* Top Module Track Strip with Millimeter Ruler */}
+      <div className="px-5 sm:px-8 lg:px-10 h-10 border-b border-border bg-surface/50 flex items-center justify-between gap-4 font-mono text-[11px]">
+        <div className="flex items-center gap-2.5">
+          <span
+            style={{ backgroundColor: signalColor }}
+            className="w-2.5 h-2.5 inline-block shrink-0"
+          />
+          {index && (
+            <span style={{ color: signalColor }} className="font-bold">
+              TRACK {index}
+            </span>
           )}
+          {eyebrow && (
+            <>
+              <span className="text-border">/</span>
+              <span
+                ref={eyebrowRef}
+                className="uppercase tracking-[0.16em] text-foreground"
+              >
+                {eyebrow}
+              </span>
+            </>
+          )}
+        </div>
 
-          <h2 className="anime-heading-item text-3xl sm:text-5xl lg:text-[3.1rem] font-semibold tracking-[-0.04em] text-foreground leading-[1.05]">
+        <div className="hidden sm:block flex-1 max-w-xs h-full bg-ruler-x opacity-65" />
+      </div>
+
+      {/* Main Chapter Display Header */}
+      <div className="px-5 sm:px-8 lg:px-10 py-10 sm:py-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="max-w-2xl">
+          <h2 className="anime-ch-reveal text-3xl sm:text-5xl lg:text-[3.35rem] font-bold tracking-[-0.045em] text-foreground leading-[1.02]">
             {precedingText && <span>{precedingText} </span>}
             <span>{coloredText}</span>
             {italicAccent && (
               <>
                 {" "}
-                <span className="font-serif italic font-normal text-primary">
+                <span
+                  style={{ color: signalColor }}
+                  className="font-normal tracking-[-0.03em]"
+                >
                   {italicAccent}
                 </span>
               </>
@@ -130,43 +137,16 @@ export function HeadingText({
           </h2>
 
           {subtitle && (
-            <p className="anime-heading-item mt-4 text-muted-foreground text-sm sm:text-base leading-relaxed max-w-xl">
+            <p className="anime-ch-reveal mt-3.5 text-muted-foreground text-sm sm:text-base leading-relaxed max-w-xl">
               {subtitle}
             </p>
           )}
         </div>
 
         {rightSlot && (
-          <div className="anime-heading-item shrink-0">{rightSlot}</div>
+          <div className="anime-ch-reveal shrink-0">{rightSlot}</div>
         )}
       </div>
-
-      {/* Anime.js Drawable Precision Vector Divider */}
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 1000 6"
-        preserveAspectRatio="none"
-        className="mt-7 w-full h-[3px] overflow-visible"
-      >
-        <line
-          className="anime-heading-rule"
-          x1="0"
-          y1="3"
-          x2="1000"
-          y2="3"
-          stroke="hsl(var(--border))"
-          strokeWidth="1.5"
-        />
-        <line
-          className="anime-heading-rule"
-          x1="0"
-          y1="3"
-          x2="180"
-          y2="3"
-          stroke="hsl(var(--primary))"
-          strokeWidth="2"
-        />
-      </svg>
     </div>
   );
 }

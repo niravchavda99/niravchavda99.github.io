@@ -64,11 +64,11 @@ export function AnimatedAvatar3D({ className }: AnimatedAvatar3DProps) {
     fillLight.position.set(-2.6, 1.2, 2.4);
     scene.add(fillLight);
 
-    const vermilionRim = new THREE.PointLight(0xff5526, 7.5, 8);
+    const vermilionRim = new THREE.PointLight(0xff4b4b, 7.8, 8);
     vermilionRim.position.set(1.9, 1.3, -1.5);
     scene.add(vermilionRim);
 
-    const goldRim = new THREE.PointLight(0xffb547, 5.2, 8);
+    const goldRim = new THREE.PointLight(0xffc730, 5.6, 8);
     goldRim.position.set(-1.9, 1.1, -1.4);
     scene.add(goldRim);
 
@@ -866,14 +866,14 @@ export function AnimatedAvatar3D({ className }: AnimatedAvatar3DProps) {
       data-cursor="CLICK TO WAVE"
       onClick={triggerWave}
       className={cn(
-        "relative w-full h-full bg-[#08080e] overflow-hidden select-none cursor-pointer",
+        "relative w-full h-full bg-[#191817] overflow-hidden select-none cursor-pointer",
         className,
       )}
     >
       {/* Studio Backdrop Radial Glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_36%,rgba(255,88,42,0.18),rgba(255,181,71,0.06)_45%,transparent_75%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgba(255,75,75,0.16),rgba(255,199,48,0.06)_45%,transparent_75%)]"
       />
 
       {/* Top-Left Live Interactive Hint */}

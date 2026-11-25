@@ -13,7 +13,7 @@ export const ThemeSwitch = () => {
       type="button"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className="h-8 w-8 rounded-md flex items-center justify-center border border-border bg-card hover:bg-muted text-muted-foreground hover:text-foreground transition-colors duration-150"
+      className="h-8 w-8 flex items-center justify-center border border-border bg-card hover:bg-surface text-muted-foreground hover:text-foreground transition-colors duration-150"
     >
       {isDark ? <Sun size={14} /> : <Moon size={14} />}
     </button>

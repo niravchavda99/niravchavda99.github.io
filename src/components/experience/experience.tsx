@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   EducationProfile,
   JobProfile,
@@ -8,12 +8,11 @@ import {
   jobs,
 } from "@/src/data/experience";
 import Image from "next/image";
-import { ArrowUpRight, Briefcase, GraduationCap } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { animate, createScope, onScroll, stagger } from "animejs";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";
 import MonthYear from "@/src/components/common/month-year";
-import { Tilt3DCard } from "@/src/components/motion/tilt-3d-card";
 import { cn } from "@/src/lib/utils";
 
 interface JobGroup {
@@ -45,240 +44,34 @@ function groupConsecutiveJobs(jobList: JobProfile[]): JobGroup[] {
   return groups;
 }
 
+function toYearFloat(my?: MonthYear): number {
+  const ref = my ?? MonthYear.present();
+  return ref.year + (ref.month - 1) / 12;
+}
+
 type TrackFilter = "all" | "work" | "education";
-
-const GroupedWorkCard = ({ group }: { group: JobGroup }) => {
-  const firstRole = group.roles[group.roles.length - 1];
-  const latestRole = group.roles[0];
-  const totalRange = `${firstRole.dateStarted} — ${latestRole.dateEnded ?? "Present"}`;
-  const totalDuration = (latestRole.dateEnded ?? MonthYear.present())
-    .diff(firstRole.dateStarted)
-    .toCountString();
-
-  return (
-    <div className="anime-trajectory-card relative pl-8 sm:pl-12">
-      {/* Laser Spine Node */}
-      <span className="absolute left-0 top-8 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-primary ring-4 ring-primary/20 shadow-lg shadow-primary/40" />
-
-      <Tilt3DCard
-        maxTilt={5}
-        glareOpacity={0.14}
-        className="rounded-2xl border border-border/90 bg-card/85 backdrop-blur-xl overflow-hidden shadow-xl shadow-black/5 dark:shadow-black/35"
-      >
-        {/* Organization Banner */}
-        <div className="p-6 sm:p-7 border-b border-border/80 bg-surface/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <a
-              href={group.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={group.organizationName}
-              className="w-12 h-12 rounded-xl border border-border bg-white flex items-center justify-center shrink-0 overflow-hidden p-1.5 shadow-sm"
-            >
-              <Image
-                src={group.icon}
-                alt={group.organizationName}
-                width={36}
-                height={36}
-                className="w-full h-full object-contain rounded-lg"
-              />
-            </a>
-            <div>
-              <a
-                href={group.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/link inline-flex items-center gap-1.5 text-xl font-semibold tracking-tight text-foreground hover:text-primary transition-colors"
-              >
-                <span>{group.organizationName}</span>
-                <ArrowUpRight
-                  size={15}
-                  className="text-muted-foreground group-hover/link:text-primary transition-colors"
-                />
-              </a>
-              {group.location && (
-                <p className="font-mono text-xs text-muted-foreground mt-0.5">
-                  {group.location}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2.5 font-mono text-xs">
-            <span className="px-3 py-1 rounded-lg border border-border bg-card text-foreground">
-              {totalRange}
-            </span>
-            <span className="px-2.5 py-1 rounded-lg bg-primary/15 text-primary font-semibold">
-              {totalDuration}
-            </span>
-          </div>
-        </div>
-
-        {/* Stepped Career Progression */}
-        <div className="divide-y divide-border/70">
-          {group.roles.map((role) => {
-            const isCurrent = !role.dateEnded;
-            const dateRange = `${role.dateStarted} — ${role.dateEnded ?? "Present"}`;
-            const duration = (role.dateEnded ?? MonthYear.present())
-              .diff(role.dateStarted)
-              .toCountString();
-
-            return (
-              <div
-                key={`${role.designation}-${role.dateStarted}`}
-                className="p-6 sm:p-7 hover:bg-surface/30 transition-colors"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div className="flex items-center gap-2.5 flex-wrap">
-                    <span
-                      className={cn(
-                        "w-2 h-2 rounded-full shrink-0",
-                        isCurrent ? "bg-emerald-500" : "bg-muted-foreground/45",
-                      )}
-                    />
-                    <h4 className="text-base sm:text-lg font-semibold tracking-tight text-foreground">
-                      {role.designation}
-                    </h4>
-                    {isCurrent && (
-                      <span className="px-2 py-0.5 rounded-full font-mono text-[10px] uppercase tracking-[0.14em] bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-semibold">
-                        Active Role
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="font-mono text-xs text-muted-foreground pl-4 sm:pl-0">
-                    <span>{dateRange}</span>
-                    <span className="mx-1.5 text-border">·</span>
-                    <span>{duration}</span>
-                  </div>
-                </div>
-
-                {role.points.length > 0 && (
-                  <ul className="mt-4 space-y-2 pl-4">
-                    {role.points.map((point) => (
-                      <li
-                        key={point}
-                        className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed"
-                      >
-                        <span className="font-mono text-primary select-none mt-0.5 text-xs">
-                          →
-                        </span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </Tilt3DCard>
-    </div>
-  );
-};
-
-const EducationTimelineCard = ({ edu }: { edu: EducationProfile }) => {
-  const dateRange = `${edu.dateStarted} — ${edu.dateEnded ?? "Present"}`;
-  const duration = (edu.dateEnded ?? MonthYear.present())
-    .diff(edu.dateStarted)
-    .toCountString();
-
-  return (
-    <div className="anime-trajectory-card relative pl-8 sm:pl-12">
-      <span className="absolute left-0 top-8 -translate-x-1/2 w-3 h-3 rounded-full bg-accent ring-4 ring-accent/20" />
-
-      <Tilt3DCard
-        maxTilt={6}
-        glareOpacity={0.14}
-        className="rounded-2xl border border-border/90 bg-card/85 backdrop-blur-xl p-6 sm:p-7 shadow-xl shadow-black/5 dark:shadow-black/35"
-      >
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5">
-          <div className="flex items-start gap-4">
-            <a
-              href={edu.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={edu.instituteName}
-              className="w-12 h-12 rounded-xl border border-border bg-white flex items-center justify-center shrink-0 overflow-hidden p-1.5 shadow-sm"
-            >
-              <Image
-                src={edu.icon}
-                alt={edu.instituteName}
-                width={34}
-                height={34}
-                className="w-full h-full object-contain"
-              />
-            </a>
-            <div>
-              <h4 className="text-lg sm:text-xl font-semibold tracking-tight text-foreground leading-snug">
-                {edu.degree}
-              </h4>
-              <a
-                href={edu.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors mt-1"
-              >
-                <span>{edu.instituteName}</span>
-                <ArrowUpRight size={13} className="shrink-0" />
-              </a>
-              {edu.location && (
-                <p className="font-mono text-xs text-muted-foreground mt-0.5">
-                  {edu.location}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2 font-mono text-xs shrink-0">
-            <span className="px-3 py-1 rounded-lg border border-border bg-surface text-foreground">
-              {dateRange}
-            </span>
-            <span className="text-muted-foreground">{duration}</span>
-          </div>
-        </div>
-
-        {edu.points.length > 0 && (
-          <ul className="space-y-2 pt-4 border-t border-border/70">
-            {edu.points.map((point) => {
-              const isMedal = point.startsWith("🥇") || point.startsWith("🥈");
-              if (isMedal) {
-                return (
-                  <li key={point} className="pb-1">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full border border-amber-500/35 bg-amber-500/12 text-amber-700 dark:text-amber-300 text-xs font-semibold">
-                      {point}
-                    </span>
-                  </li>
-                );
-              }
-              return (
-                <li
-                  key={point}
-                  className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed"
-                >
-                  <span className="font-mono text-primary select-none mt-0.5 text-xs">
-                    →
-                  </span>
-                  <span>{point}</span>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </Tilt3DCard>
-    </div>
-  );
-};
 
 const Experience = () => {
   const [filter, setFilter] = useState<TrackFilter>("all");
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const beamRef = useRef<HTMLDivElement>(null);
+  const [focusedId, setFocusedId] = useState<string | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const jobGroups = groupConsecutiveJobs(jobs);
 
-  // Anime.js v4.5 Scroll-Linked Laser Spine + Staggered Milestone Reveals
+  const minYear = 2016;
+  const maxYear = useMemo(() => {
+    const nowY = MonthYear.present().year + 1;
+    return Math.max(2027, nowY);
+  }, []);
+  const spanYears = maxYear - minYear;
+
+  const yearTicks = useMemo(() => {
+    const arr: number[] = [];
+    for (let y = minYear; y <= maxYear; y += 2) arr.push(y);
+    return arr;
+  }, [maxYear]);
+
   useEffect(() => {
-    const root = timelineRef.current;
+    const root = rootRef.current;
     if (!root) return;
 
     const prefersReduced = window.matchMedia(
@@ -287,28 +80,27 @@ const Experience = () => {
     if (prefersReduced) return;
 
     const scope = createScope({ root }).add(() => {
-      if (beamRef.current) {
-        animate(beamRef.current, {
-          scaleY: [0, 1],
-          ease: "linear",
-          autoplay: onScroll({
-            target: root,
-            enter: "bottom-=180 top",
-            leave: "top+=200 bottom",
-            sync: 0.25,
-          }),
-        });
-      }
-
-      animate(".anime-trajectory-card", {
-        y: [28, 0],
+      animate(".anime-gantt-clip", {
+        scaleX: [0, 1],
         opacity: [0, 1],
-        duration: 720,
-        delay: stagger(110),
+        duration: 850,
+        delay: stagger(90),
+        ease: "outQuart",
+        autoplay: onScroll({
+          target: root,
+          enter: "bottom-=80 top",
+        }),
+      });
+
+      animate(".anime-timeline-row", {
+        y: [20, 0],
+        opacity: [0, 1],
+        duration: 680,
+        delay: stagger(95),
         ease: "outExpo",
         autoplay: onScroll({
           target: root,
-          enter: "bottom-=90 top",
+          enter: "bottom-=80 top",
         }),
       });
     });
@@ -322,21 +114,22 @@ const Experience = () => {
     <SectionContainer id="experience">
       <HeadingText
         index="02"
-        eyebrow="Kinetic Trajectory"
+        eyebrow="KEYFRAME SEQUENCER"
         coloredText="Career &"
-        italicAccent="academia"
-        subtitle="My professional journey, from learning the craft to leading software delivery and earning top university honors."
+        italicAccent="academia."
+        signalColor="#5CE68A"
+        subtitle="Mapped across a multi-track timeline from university gold medals to leading engineering teams at Incubyte."
         rightSlot={
           <div
             role="group"
             aria-label="Filter trajectory"
-            className="inline-flex items-center p-1 rounded-xl border border-border bg-card/80 backdrop-blur-md"
+            className="inline-flex items-center border border-border bg-card divide-x divide-border font-mono text-xs"
           >
             {(
               [
-                { id: "all", label: "All" },
-                { id: "work", label: "Work" },
-                { id: "education", label: "Education" },
+                { id: "all", label: "ALL" },
+                { id: "work", label: "WORK" },
+                { id: "education", label: "ACADEMIA" },
               ] as const
             ).map((tab) => {
               const active = filter === tab.id;
@@ -347,10 +140,10 @@ const Experience = () => {
                   onClick={() => setFilter(tab.id)}
                   aria-pressed={active}
                   className={cn(
-                    "px-3.5 py-1.5 rounded-lg text-xs font-mono transition-colors",
+                    "px-3.5 py-2 transition-colors",
                     active
-                      ? "bg-foreground text-background font-semibold shadow-sm"
-                      : "text-muted-foreground hover:text-foreground",
+                      ? "bg-[#5CE68A] text-[#1D1C1B] font-bold"
+                      : "text-muted-foreground hover:text-foreground hover:bg-surface",
                   )}
                 >
                   {tab.label}
@@ -361,48 +154,338 @@ const Experience = () => {
         }
       />
 
-      {/* Anime.js Scroll-Synced Laser Spine Container */}
-      <div ref={timelineRef} className="relative ml-2 sm:ml-4 space-y-12">
-        <div
-          aria-hidden="true"
-          className="absolute left-0 top-4 bottom-4 w-px bg-border"
-        />
-        <div
-          ref={beamRef}
-          aria-hidden="true"
-          style={{ transform: "scaleY(0)" }}
-          className="absolute left-[-0.5px] top-4 bottom-4 w-[2px] origin-top bg-gradient-to-b from-primary via-accent to-primary shadow-[0_0_12px_rgba(255,88,42,0.7)] will-change-transform"
-        />
-
-        {(filter === "all" || filter === "work") && (
-          <div className="space-y-6">
-            <div className="pl-8 sm:pl-12 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              <Briefcase size={13} className="text-primary" />
-              <span>Work Progression</span>
+      <div ref={rootRef}>
+        {/* Visual Multi-Track Gantt Keyframe Editor (animejs.com Timeline UI!) */}
+        <div className="border-b border-border bg-surface/35 px-5 sm:px-8 lg:px-10 py-6 overflow-x-auto">
+          <div className="min-w-[560px]">
+            {/* Year Ruler Header */}
+            <div className="grid grid-cols-12 items-end pb-2 border-b border-border font-mono text-[10px] text-muted-foreground">
+              <div className="col-span-3 uppercase tracking-[0.14em]">
+                TIMELINE // {minYear}—PRESENT
+              </div>
+              <div className="col-span-9 flex justify-between relative">
+                {yearTicks.map((yr) => (
+                  <span key={yr}>{yr}</span>
+                ))}
+              </div>
             </div>
-            {jobGroups.map((group) => (
-              <GroupedWorkCard
-                key={`${group.organizationName}-${group.roles[0].dateStarted}`}
-                group={group}
-              />
-            ))}
-          </div>
-        )}
 
-        {(filter === "all" || filter === "education") && (
-          <div className="space-y-6">
-            <div className="pl-8 sm:pl-12 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              <GraduationCap size={14} className="text-accent" />
-              <span>Academic Milestones</span>
+            {/* Track A: Work Clips */}
+            <div className="grid grid-cols-12 items-center min-h-[46px] border-b border-border/70 font-mono text-xs">
+              <div className="col-span-3 pr-3 flex items-center gap-2 text-foreground">
+                <span className="w-2 h-2 bg-[#5CE68A]" />
+                <span>WORK_TRACK</span>
+              </div>
+              <div className="col-span-9 relative h-8 bg-ruler-x">
+                {jobs.map((job, idx) => {
+                  const id = `job-${job.designation}`;
+                  const s = Math.max(
+                    0,
+                    (toYearFloat(job.dateStarted) - minYear) / spanYears,
+                  );
+                  const e = Math.min(
+                    1,
+                    (toYearFloat(job.dateEnded) - minYear) / spanYears,
+                  );
+                  const widthPct = Math.max(4.5, (e - s) * 100);
+                  const colors = ["#FF4B4B", "#5CE68A", "#38BDF8"];
+                  const barColor = colors[idx % colors.length];
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      onMouseEnter={() => setFocusedId(id)}
+                      onMouseLeave={() => setFocusedId(null)}
+                      onClick={() =>
+                        setFocusedId((prev) => (prev === id ? null : id))
+                      }
+                      style={{
+                        left: `${(s * 100).toFixed(2)}%`,
+                        width: `${widthPct.toFixed(2)}%`,
+                        backgroundColor: barColor,
+                      }}
+                      title={`${job.designation} (${job.dateStarted} – ${job.dateEnded ?? "Present"})`}
+                      className="anime-gantt-clip absolute top-1.5 h-5 origin-left px-1.5 flex items-center text-[10px] font-bold text-[#1D1C1B] truncate hover:brightness-110 transition-all"
+                    >
+                      {job.designation}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            {educations.map((edu) => (
-              <EducationTimelineCard
-                key={`${edu.instituteName}-${edu.dateStarted}`}
-                edu={edu}
-              />
-            ))}
+
+            {/* Track B: Academia Clips */}
+            <div className="grid grid-cols-12 items-center min-h-[46px] font-mono text-xs">
+              <div className="col-span-3 pr-3 flex items-center gap-2 text-foreground">
+                <span className="w-2 h-2 bg-[#FFC730]" />
+                <span>EDU_TRACK</span>
+              </div>
+              <div className="col-span-9 relative h-8 bg-ruler-x">
+                {educations.map((edu, idx) => {
+                  const id = `edu-${edu.degree}`;
+                  const s = Math.max(
+                    0,
+                    (toYearFloat(edu.dateStarted) - minYear) / spanYears,
+                  );
+                  const e = Math.min(
+                    1,
+                    (toYearFloat(edu.dateEnded) - minYear) / spanYears,
+                  );
+                  const widthPct = Math.max(5, (e - s) * 100);
+                  const barColor = idx === 0 ? "#FFC730" : "#C084FC";
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      onMouseEnter={() => setFocusedId(id)}
+                      onMouseLeave={() => setFocusedId(null)}
+                      onClick={() =>
+                        setFocusedId((prev) => (prev === id ? null : id))
+                      }
+                      style={{
+                        left: `${(s * 100).toFixed(2)}%`,
+                        width: `${widthPct.toFixed(2)}%`,
+                        backgroundColor: barColor,
+                      }}
+                      title={`${edu.degree} (${edu.dateStarted} – ${edu.dateEnded ?? "Present"})`}
+                      className="anime-gantt-clip absolute top-1.5 h-5 origin-left px-1.5 flex items-center text-[10px] font-bold text-[#1D1C1B] truncate hover:brightness-110 transition-all"
+                    >
+                      {edu.degree.split(" - ")[0]}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-        )}
+        </div>
+
+        {/* Detailed Inspector Rows */}
+        <div className="divide-y divide-border">
+          {(filter === "all" || filter === "work") &&
+            jobGroups.map((group) => {
+              const firstRole = group.roles[group.roles.length - 1];
+              const latestRole = group.roles[0];
+              const totalRange = `${firstRole.dateStarted} — ${latestRole.dateEnded ?? "Present"}`;
+              const totalDuration = (
+                latestRole.dateEnded ?? MonthYear.present()
+              )
+                .diff(firstRole.dateStarted)
+                .toCountString();
+
+              return (
+                <div
+                  key={`${group.organizationName}-${group.roles[0].dateStarted}`}
+                  className="anime-timeline-row grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-border"
+                >
+                  {/* Left Organization Cell */}
+                  <div className="lg:col-span-4 p-6 sm:p-8 bg-card/60 flex flex-col justify-between gap-6">
+                    <div className="flex items-start gap-4">
+                      <a
+                        href={group.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 border border-border bg-white flex items-center justify-center shrink-0 p-1.5"
+                      >
+                        <Image
+                          src={group.icon}
+                          alt={group.organizationName}
+                          width={36}
+                          height={36}
+                          className="w-full h-full object-contain"
+                        />
+                      </a>
+                      <div>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#5CE68A] block mb-1">
+                          ORGANIZATION
+                        </span>
+                        <a
+                          href={group.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xl font-bold tracking-tight text-foreground hover:text-[#5CE68A] transition-colors"
+                        >
+                          <span>{group.organizationName}</span>
+                          <ArrowUpRight size={15} />
+                        </a>
+                        <p className="font-mono text-xs text-muted-foreground mt-1">
+                          {group.location}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-border font-mono text-xs flex items-center justify-between">
+                      <span className="text-muted-foreground">
+                        {totalRange}
+                      </span>
+                      <span className="px-2 py-0.5 bg-[#5CE68A]/15 text-[#5CE68A] font-semibold">
+                        {totalDuration}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Right Roles Progression */}
+                  <div className="lg:col-span-8 divide-y divide-border">
+                    {group.roles.map((role) => {
+                      const id = `job-${role.designation}`;
+                      const isCurrent = !role.dateEnded;
+                      const isFocused = focusedId === id;
+                      const dateRange = `${role.dateStarted} — ${role.dateEnded ?? "Present"}`;
+                      const duration = (role.dateEnded ?? MonthYear.present())
+                        .diff(role.dateStarted)
+                        .toCountString();
+
+                      return (
+                        <div
+                          key={`${role.designation}-${role.dateStarted}`}
+                          className={cn(
+                            "p-6 sm:p-8 transition-colors",
+                            isFocused
+                              ? "bg-[#5CE68A]/10"
+                              : "hover:bg-surface/35",
+                          )}
+                        >
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div className="flex items-center gap-2.5 flex-wrap">
+                              <span
+                                className={cn(
+                                  "w-2.5 h-2.5 shrink-0",
+                                  isCurrent ? "bg-[#FF4B4B]" : "bg-[#5CE68A]",
+                                )}
+                              />
+                              <h3 className="text-lg font-bold tracking-tight text-foreground">
+                                {role.designation}
+                              </h3>
+                              {isCurrent && (
+                                <span className="px-2 py-0.5 bg-[#FF4B4B] text-[#1D1C1B] font-mono text-[10px] font-bold uppercase tracking-wider">
+                                  ACTIVE
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="font-mono text-xs text-muted-foreground">
+                              {dateRange} · {duration}
+                            </div>
+                          </div>
+
+                          {role.points.length > 0 && (
+                            <ul className="mt-4 space-y-2">
+                              {role.points.map((point) => (
+                                <li
+                                  key={point}
+                                  className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed"
+                                >
+                                  <span className="font-mono text-[#5CE68A] select-none mt-0.5 text-xs">
+                                    ▪
+                                  </span>
+                                  <span>{point}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+
+          {(filter === "all" || filter === "education") &&
+            educations.map((edu: EducationProfile) => {
+              const id = `edu-${edu.degree}`;
+              const isFocused = focusedId === id;
+              const dateRange = `${edu.dateStarted} — ${edu.dateEnded ?? "Present"}`;
+              const duration = (edu.dateEnded ?? MonthYear.present())
+                .diff(edu.dateStarted)
+                .toCountString();
+
+              return (
+                <div
+                  key={`${edu.instituteName}-${edu.dateStarted}`}
+                  className={cn(
+                    "anime-timeline-row grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-border transition-colors",
+                    isFocused && "bg-[#FFC730]/10",
+                  )}
+                >
+                  <div className="lg:col-span-4 p-6 sm:p-8 bg-card/60 flex flex-col justify-between gap-5">
+                    <div className="flex items-start gap-4">
+                      <a
+                        href={edu.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 border border-border bg-white flex items-center justify-center shrink-0 p-1.5"
+                      >
+                        <Image
+                          src={edu.icon}
+                          alt={edu.instituteName}
+                          width={34}
+                          height={34}
+                          className="w-full h-full object-contain"
+                        />
+                      </a>
+                      <div>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#FFC730] block mb-1">
+                          ACADEMIA
+                        </span>
+                        <a
+                          href={edu.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-base font-bold text-foreground hover:text-[#FFC730] transition-colors leading-snug"
+                        >
+                          <span>{edu.instituteName}</span>
+                          <ArrowUpRight size={13} className="shrink-0" />
+                        </a>
+                        <p className="font-mono text-xs text-muted-foreground mt-1">
+                          {edu.location}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-border font-mono text-xs flex items-center justify-between text-muted-foreground">
+                      <span>{dateRange}</span>
+                      <span>{duration}</span>
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-8 p-6 sm:p-8">
+                    <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground mb-4">
+                      {edu.degree}
+                    </h3>
+
+                    {edu.points.length > 0 && (
+                      <ul className="space-y-2">
+                        {edu.points.map((point) => {
+                          const isMedal =
+                            point.startsWith("🥇") || point.startsWith("🥈");
+                          if (isMedal) {
+                            return (
+                              <li key={point} className="pb-1">
+                                <span className="inline-flex items-center px-3 py-1 bg-[#FFC730]/15 border border-[#FFC730]/40 font-mono text-xs font-bold text-[#FFC730]">
+                                  {point}
+                                </span>
+                              </li>
+                            );
+                          }
+                          return (
+                            <li
+                              key={point}
+                              className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed"
+                            >
+                              <span className="font-mono text-[#FFC730] select-none mt-0.5 text-xs">
+                                ▪
+                              </span>
+                              <span>{point}</span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+        </div>
       </div>
     </SectionContainer>
   );

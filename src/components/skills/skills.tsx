@@ -1,11 +1,12 @@
 "use client";
 
-import { SkillCategory, technologies, Technology } from "@/src/data/skills";
-import React, { useEffect, useRef, useState } from "react";
+import { SkillCategory, technologies } from "@/src/data/skills";
+import React, { useCallback, useRef, useState } from "react";
+import { Globe, Grid3X3 } from "lucide-react";
 import { animate, createSpring, stagger } from "animejs";
 import { SectionContainer } from "@/src/components/common/section-container";
 import { HeadingText } from "@/src/components/common/heading-text";
-import { SkillBlock } from "@/src/components/skills/skill-block";
+import { DOMAIN_SIGNAL, SkillBlock } from "@/src/components/skills/skill-block";
 import { SkillSphere3D } from "@/src/components/skills/skill-sphere-3d";
 import { cn } from "@/src/lib/utils";
 
@@ -18,132 +19,169 @@ const CATEGORY_ORDER: SkillCategory[] = [
   "Mobile",
 ];
 
-function groupByCategory(
-  techs: Technology[],
-): Record<SkillCategory, Technology[]> {
-  return techs.reduce(
-    (acc, tech) => {
-      acc[tech.category] = [...(acc[tech.category] ?? []), tech];
-      return acc;
-    },
-    {} as Record<SkillCategory, Technology[]>,
-  );
-}
+type ViewMode = "matrix" | "sphere";
 
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState<SkillCategory | "All">(
     "All",
   );
+  const [viewMode, setViewMode] = useState<ViewMode>("matrix");
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
-  const matrixRef = useRef<HTMLDivElement>(null);
-  const grouped = groupByCategory(technologies);
+  const gridRef = useRef<HTMLDivElement>(null);
 
-  const visibleCategories =
-    activeCategory === "All" ? CATEGORY_ORDER : [activeCategory];
+  const triggerCellShockwave = useCallback((originIndex: number) => {
+    const grid = gridRef.current;
+    if (!grid) return;
+    const cells = grid.querySelectorAll(".anime-tech-cell");
+    if (!cells.length) return;
 
-  // Anime.js staggered spring cascade when switching skill domain filters
-  useEffect(() => {
-    const container = matrixRef.current;
-    if (!container) return;
-    const blocks = container.querySelectorAll(".anime-skill-tile");
-    if (!blocks.length) return;
+    // Estimate current responsive column count for accurate 2D radial stagger!
+    const w = window.innerWidth;
+    const cols = w >= 1024 ? 5 : w >= 640 ? 3 : 2;
+    const rows = Math.ceil(cells.length / cols);
 
-    animate(blocks, {
-      scale: [0.88, 1],
-      opacity: [0, 1],
-      y: [14, 0],
-      delay: stagger(26, { from: "first" }),
-      ease: createSpring({ stiffness: 280, damping: 20 }),
+    animate(cells, {
+      scale: [
+        { to: 0.9, duration: 110, ease: "outQuad" },
+        { to: 1, ease: createSpring({ stiffness: 320, damping: 16 }) },
+      ],
+      y: [
+        { to: -6, duration: 130, ease: "outQuad" },
+        { to: 0, ease: createSpring({ stiffness: 300, damping: 18 }) },
+      ],
+      delay: stagger(32, { grid: [cols, rows], from: originIndex }),
     });
-  }, [activeCategory]);
+  }, []);
+
+  const handleCategorySelect = (cat: SkillCategory | "All") => {
+    setActiveCategory(cat);
+    triggerCellShockwave(0);
+  };
 
   return (
     <SectionContainer id="skills">
       <HeadingText
         index="03"
-        eyebrow="3D Tech Constellation"
+        eyebrow="STAGGER MATRIX & 3D ORBIT"
         coloredText="Full-stack &"
-        italicAccent="agentic orbit"
-        subtitle="Drag the interactive 3D constellation sphere or filter by domain — spanning backend services, web & 3D, cloud, mobile, and AI-native developer tooling."
+        italicAccent="agentic stack."
+        signalColor="#38BDF8"
+        subtitle="Click any technology cell to fire an Anime.js 2D radial stagger wave across the matrix, filter by domain, or switch to the 3D orbital sphere."
+        rightSlot={
+          <div
+            role="group"
+            aria-label="Stack visualization mode"
+            className="inline-flex items-center border border-border bg-card divide-x divide-border font-mono text-xs"
+          >
+            <button
+              type="button"
+              onClick={() => setViewMode("matrix")}
+              aria-pressed={viewMode === "matrix"}
+              className={cn(
+                "inline-flex items-center gap-1.5 px-3.5 py-2 transition-colors",
+                viewMode === "matrix"
+                  ? "bg-[#38BDF8] text-[#1D1C1B] font-bold"
+                  : "text-muted-foreground hover:text-foreground hover:bg-surface",
+              )}
+            >
+              <Grid3X3 size={13} />
+              <span>MATRIX</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode("sphere")}
+              aria-pressed={viewMode === "sphere"}
+              className={cn(
+                "inline-flex items-center gap-1.5 px-3.5 py-2 transition-colors",
+                viewMode === "sphere"
+                  ? "bg-[#38BDF8] text-[#1D1C1B] font-bold"
+                  : "text-muted-foreground hover:text-foreground hover:bg-surface",
+              )}
+            >
+              <Globe size={13} />
+              <span>3D SPHERE</span>
+            </button>
+          </div>
+        }
       />
 
-      {/* Category Filter Pills */}
-      <div className="flex flex-wrap items-center gap-2 mb-8">
-        {(["All", ...CATEGORY_ORDER] as const).map((cat) => {
-          const count =
-            cat === "All" ? technologies.length : (grouped[cat]?.length ?? 0);
+      {/* Domain Filter Strip */}
+      <div className="px-5 sm:px-8 lg:px-10 py-3.5 border-b border-border bg-surface/35 flex flex-wrap items-center gap-2 font-mono text-xs">
+        <button
+          type="button"
+          onClick={() => handleCategorySelect("All")}
+          className={cn(
+            "px-3 py-1.5 border transition-colors",
+            activeCategory === "All"
+              ? "bg-foreground text-background border-foreground font-bold"
+              : "bg-card text-muted-foreground border-border hover:text-foreground",
+          )}
+        >
+          ALL [{technologies.length}]
+        </button>
+
+        {CATEGORY_ORDER.map((cat) => {
+          const count = technologies.filter((t) => t.category === cat).length;
           if (!count) return null;
           const active = activeCategory === cat;
+          const sig = DOMAIN_SIGNAL[cat];
           return (
             <button
               key={cat}
               type="button"
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => handleCategorySelect(cat)}
               className={cn(
-                "px-3.5 py-2 rounded-xl font-mono text-xs border transition-all duration-200",
+                "px-3 py-1.5 border inline-flex items-center gap-2 transition-colors",
                 active
-                  ? "bg-foreground text-background border-foreground font-semibold shadow-md"
-                  : "bg-card/70 text-foreground border-border hover:border-primary/45",
+                  ? "bg-foreground text-background border-foreground font-bold"
+                  : "bg-card text-muted-foreground border-border hover:text-foreground",
               )}
             >
-              {cat}{" "}
               <span
-                className={cn(
-                  "ml-0.5",
-                  active ? "opacity-75" : "text-muted-foreground",
-                )}
-              >
-                ({count})
+                style={{ backgroundColor: sig }}
+                className="w-2 h-2 shrink-0"
+              />
+              <span>
+                {cat === "Tools" ? "AI & Tooling" : cat} [{count}]
               </span>
             </button>
           );
         })}
       </div>
 
-      {/* Synchronized 3D Orbital Sphere + Anime.js Staggered Spec Matrix */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
-        <div className="lg:col-span-6 lg:sticky lg:top-24">
-          <SkillSphere3D
-            technologies={technologies}
-            activeCategory={activeCategory}
-            hoveredTech={hoveredTech}
-            onHoverTech={setHoveredTech}
-          />
-        </div>
-
-        <div ref={matrixRef} className="lg:col-span-6 space-y-5">
-          {visibleCategories.map((category) => {
-            const techs = grouped[category];
-            if (!techs?.length) return null;
-            return (
-              <div
-                key={category}
-                className="rounded-2xl border border-border bg-card/75 backdrop-blur-xl p-5"
-              >
-                <div className="flex items-center justify-between gap-3 mb-4 pb-2.5 border-b border-border/70">
-                  <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-foreground font-semibold">
-                    {category === "Tools" ? "AI & Developer Tooling" : category}
-                  </h3>
-                  <span className="font-mono text-[11px] text-muted-foreground">
-                    {techs.length} {techs.length === 1 ? "tool" : "tools"}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {techs.map((tech) => (
-                    <div key={tech.name} className="anime-skill-tile">
-                      <SkillBlock
-                        technology={tech}
-                        highlighted={hoveredTech === tech.name}
-                        onHover={setHoveredTech}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+      {/* Main Stage */}
+      <div className="p-5 sm:p-8 lg:p-10 bg-dot-matrix">
+        {viewMode === "matrix" ? (
+          <div
+            ref={gridRef}
+            data-cursor="WAVE"
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5"
+          >
+            {technologies.map((tech, idx) => {
+              const dimmed =
+                activeCategory !== "All" && tech.category !== activeCategory;
+              return (
+                <SkillBlock
+                  key={tech.name}
+                  technology={tech}
+                  dimmed={dimmed}
+                  highlighted={hoveredTech === tech.name}
+                  onTriggerWave={() => triggerCellShockwave(idx)}
+                  onHover={setHoveredTech}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <div className="max-w-3xl mx-auto">
+            <SkillSphere3D
+              technologies={technologies}
+              activeCategory={activeCategory}
+              hoveredTech={hoveredTech}
+              onHoverTech={setHoveredTech}
+            />
+          </div>
+        )}
       </div>
     </SectionContainer>
   );
