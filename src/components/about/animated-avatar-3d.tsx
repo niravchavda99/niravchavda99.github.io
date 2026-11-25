@@ -38,6 +38,9 @@ export function AnimatedAvatar3D({ className }: AnimatedAvatar3DProps) {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.12;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "100%";
+    renderer.domElement.style.display = "block";
     container.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
@@ -48,9 +51,9 @@ export function AnimatedAvatar3D({ className }: AnimatedAvatar3DProps) {
     scene.environment = envTex;
     scene.environmentIntensity = 0.48;
 
-    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 30);
-    camera.position.set(0, 0.08, 4.45);
-    camera.lookAt(0, 0.02, 0);
+    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 30);
+    camera.position.set(0, -0.06, 4.85);
+    camera.lookAt(0, -0.16, 0);
 
     // 2. Cinematic 4-Point Studio Lighting
     const keyLight = new THREE.DirectionalLight(0xfff5eb, 2.25);
@@ -671,7 +674,7 @@ export function AnimatedAvatar3D({ className }: AnimatedAvatar3DProps) {
     const resize = () => {
       const w = Math.max(1, container.clientWidth);
       const h = Math.max(1, container.clientHeight);
-      renderer.setSize(w, h, false);
+      renderer.setSize(w, h, true);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
     };
