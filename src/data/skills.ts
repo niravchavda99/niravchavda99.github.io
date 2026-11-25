@@ -25,6 +25,8 @@ import extensions from "@/src/assets/icons/tech/extensions.png";
 import claudeCode from "@/src/assets/icons/tech/claude-code.svg";
 import antigravity from "@/src/assets/icons/tech/antigravity.svg";
 import herdr from "@/src/assets/icons/tech/herdr.svg";
+import awsLight from "@/src/assets/icons/tech/aws-light.svg";
+import awsDark from "@/src/assets/icons/tech/aws-dark.svg";
 import azure from "@/src/assets/icons/tech/azure.svg";
 import gcp from "@/src/assets/icons/tech/gcp.svg";
 import vite from "@/src/assets/icons/tech/vite.svg";
@@ -88,6 +90,7 @@ export const technologies: Technology[] = [
   },
   { name: "PostgreSQL", icon: postgreSQL.src, category: "Database" },
 
+  { name: "AWS", icon: awsLight.src, darkIcon: awsDark.src, category: "Cloud" },
   { name: "Azure", icon: azure.src, category: "Cloud" },
   { name: "Google Cloud", icon: gcp.src, category: "Cloud" },
 
