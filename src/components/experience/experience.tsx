@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   EducationProfile,
   JobProfile,
@@ -44,10 +44,7 @@ function groupConsecutiveJobs(jobList: JobProfile[]): JobGroup[] {
   return groups;
 }
 
-type TrackFilter = "work" | "education";
-
 const Experience = () => {
-  const [tab, setTab] = useState<TrackFilter>("work");
   const listRef = useRef<HTMLDivElement>(null);
   const jobGroups = groupConsecutiveJobs(jobs);
 
@@ -62,10 +59,10 @@ const Experience = () => {
 
     const scope = createScope({ root }).add(() => {
       animate(".anime-exp-card", {
-        y: [20, 0],
+        y: [22, 0],
         opacity: [0, 1],
-        duration: 680,
-        delay: stagger(90),
+        duration: 720,
+        delay: stagger(100),
         ease: "outExpo",
         autoplay: onScroll({
           target: root,
@@ -77,50 +74,24 @@ const Experience = () => {
     return () => {
       scope.revert();
     };
-  }, [tab]);
+  }, []);
 
   return (
     <SectionContainer id="experience">
       <HeadingText
-        coloredText="Experience"
+        coloredText="Experience & Education"
         subtitle="My career progression and academic background."
-        rightSlot={
-          <div
-            role="group"
-            aria-label="Experience category"
-            className="inline-flex items-center p-1 rounded-full border border-border bg-card"
-          >
-            {(
-              [
-                { id: "work", label: "Work" },
-                { id: "education", label: "Education" },
-              ] as const
-            ).map((item) => {
-              const active = tab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => setTab(item.id)}
-                  aria-pressed={active}
-                  className={cn(
-                    "px-4 py-1.5 rounded-full text-sm transition-colors",
-                    active
-                      ? "bg-foreground text-background font-medium"
-                      : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  {item.label}
-                </button>
-              );
-            })}
-          </div>
-        }
       />
 
-      <div ref={listRef} className="space-y-5">
-        {tab === "work"
-          ? jobGroups.map((group) => {
+      <div ref={listRef} className="space-y-12">
+        {/* Work Section */}
+        <div className="space-y-4">
+          <h3 className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground px-1">
+            Work
+          </h3>
+
+          <div className="space-y-5">
+            {jobGroups.map((group) => {
               const firstRole = group.roles[group.roles.length - 1];
               const latestRole = group.roles[0];
               const totalRange = `${firstRole.dateStarted} – ${latestRole.dateEnded ?? "Present"}`;
@@ -202,9 +173,9 @@ const Experience = () => {
                           )}
 
                           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                            <h3 className="text-base font-semibold text-foreground">
+                            <h4 className="text-base font-semibold text-foreground">
                               {role.designation}
-                            </h3>
+                            </h4>
                             <span className="text-xs text-muted-foreground">
                               {dateRange} · {duration}
                             </span>
@@ -228,79 +199,89 @@ const Experience = () => {
                   </div>
                 </div>
               );
-            })
-          : educations.map((edu: EducationProfile) => {
+            })}
+          </div>
+        </div>
+
+        {/* Education Section (Always Visible) */}
+        <div className="space-y-4">
+          <h3 className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground px-1">
+            Education
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {educations.map((edu: EducationProfile) => {
               const dateRange = `${edu.dateStarted} – ${edu.dateEnded ?? "Present"}`;
               return (
                 <div
                   key={`${edu.instituteName}-${edu.dateStarted}`}
-                  className="anime-exp-card rounded-3xl border border-border bg-card p-6 sm:p-8"
+                  className="anime-exp-card rounded-3xl border border-border bg-card p-6 sm:p-7 flex flex-col justify-between gap-5"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                    <div className="flex items-start gap-4">
+                  <div>
+                    <div className="flex items-start justify-between gap-3 mb-4">
                       <a
                         href={edu.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-12 h-12 rounded-2xl border border-border bg-white flex items-center justify-center shrink-0 p-1.5"
+                        className="w-11 h-11 rounded-2xl border border-border bg-white flex items-center justify-center shrink-0 p-1.5"
                       >
                         <Image
                           src={edu.icon}
                           alt={edu.instituteName}
-                          width={34}
-                          height={34}
+                          width={32}
+                          height={32}
                           className="w-full h-full object-contain"
                         />
                       </a>
-                      <div>
-                        <h3 className="text-lg font-semibold text-foreground">
-                          {edu.degree}
-                        </h3>
-                        <a
-                          href={edu.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mt-0.5"
-                        >
-                          <span>{edu.instituteName}</span>
-                          <ArrowUpRight size={13} />
-                        </a>
-                      </div>
+                      <span className="text-xs px-3 py-1 rounded-full bg-surface text-muted-foreground shrink-0">
+                        {dateRange}
+                      </span>
                     </div>
 
-                    <span className="text-xs px-3 py-1 rounded-full bg-surface text-muted-foreground shrink-0">
-                      {dateRange}
-                    </span>
-                  </div>
+                    <h4 className="text-lg font-semibold text-foreground leading-snug">
+                      {edu.degree}
+                    </h4>
+                    <a
+                      href={edu.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mt-1"
+                    >
+                      <span>{edu.instituteName}</span>
+                      <ArrowUpRight size={13} className="shrink-0" />
+                    </a>
 
-                  {edu.points.length > 0 && (
-                    <ul className="mt-5 pt-5 border-t border-border space-y-2">
-                      {edu.points.map((point) => {
-                        const isMedal =
-                          point.startsWith("🥇") || point.startsWith("🥈");
-                        if (isMedal) {
+                    {edu.points.length > 0 && (
+                      <ul className="mt-4 pt-4 border-t border-border space-y-2">
+                        {edu.points.map((point) => {
+                          const isMedal =
+                            point.startsWith("🥇") || point.startsWith("🥈");
+                          if (isMedal) {
+                            return (
+                              <li key={point} className="pb-0.5">
+                                <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300 text-xs font-medium">
+                                  {point}
+                                </span>
+                              </li>
+                            );
+                          }
                           return (
-                            <li key={point} className="pb-1">
-                              <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300 text-xs font-medium">
-                                {point}
-                              </span>
+                            <li
+                              key={point}
+                              className="text-sm text-muted-foreground leading-relaxed"
+                            >
+                              {point}
                             </li>
                           );
-                        }
-                        return (
-                          <li
-                            key={point}
-                            className="text-sm text-muted-foreground leading-relaxed"
-                          >
-                            {point}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
+                        })}
+                      </ul>
+                    )}
+                  </div>
                 </div>
               );
             })}
+          </div>
+        </div>
       </div>
     </SectionContainer>
   );

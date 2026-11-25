@@ -9,8 +9,8 @@ import { animate, createSpring } from "animejs";
 import { cn } from "@/src/lib/utils";
 
 const HOME_SECTIONS = [
-  { label: "Work", href: "/#work", id: "work" },
   { label: "Experience", href: "/#experience", id: "experience" },
+  { label: "Work", href: "/#work", id: "work" },
   { label: "Skills", href: "/#skills", id: "skills" },
   { label: "Activities", href: "/#activities", id: "activities" },
 ];
