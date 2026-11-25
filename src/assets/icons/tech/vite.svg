@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="viteBlue" x1="8" y1="10" x2="40" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#41D1FF"/>
+      <stop offset="100%" stop-color="#BD34FE"/>
+    </linearGradient>
+    <linearGradient id="viteGold" x1="30" y1="8" x2="36" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFEA83"/>
+      <stop offset="100%" stop-color="#FFA800"/>
+    </linearGradient>
+  </defs>
+  <path d="M56.8 12.6L33.8 56.4C33 57.9 30.8 57.9 30 56.4L7.2 12.6C6.3 10.9 7.8 8.9 9.7 9.3L32 13.8L54.3 9.3C56.2 8.9 57.7 10.9 56.8 12.6Z" fill="url(#viteBlue)"/>
+  <path d="M41.5 8L25.2 11.2L24.2 28.6L32.8 26.8L30.4 39.5L40.2 37.2L37.4 49.4L49.2 24.8L40.4 26.5L41.5 8Z" fill="url(#viteGold)"/>
+</svg>

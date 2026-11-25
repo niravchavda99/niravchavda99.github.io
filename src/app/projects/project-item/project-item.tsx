@@ -11,8 +11,6 @@ import { Tilt3DCard } from "@/src/components/motion/tilt-3d-card";
 export interface ProjectCardProps {
   project: Project;
   index?: number;
-  activeTag?: string | null;
-  onTagClick?: (tag: string) => void;
   onPreview?: (project: Project) => void;
 }
 
@@ -28,8 +26,6 @@ function formatHostname(url?: string): string {
 export const ProjectItem = ({
   project,
   index,
-  activeTag,
-  onTagClick,
   onPreview,
 }: ProjectCardProps) => {
   const hostname = formatHostname(project.link ?? project.codeLink);
@@ -68,7 +64,7 @@ export const ProjectItem = ({
                 type="button"
                 onClick={() => onPreview(project)}
                 aria-label={`Inspect ${project.name} screenshot`}
-                title="Inspect full preview"
+                title="Expand preview"
                 className="w-7 h-7 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
               >
                 <Maximize2 size={12} />
@@ -195,34 +191,14 @@ export const ProjectItem = ({
           </p>
 
           <div className="flex flex-wrap gap-1.5 pt-2 border-t border-border/60">
-            {project.tags.map((tag) => {
-              const isSelected = activeTag === tag;
-              if (onTagClick) {
-                return (
-                  <button
-                    key={tag}
-                    type="button"
-                    onClick={() => onTagClick(tag)}
-                    className={cn(
-                      "px-2 py-0.5 rounded-md font-mono text-[11px] border transition-colors",
-                      isSelected
-                        ? "bg-primary text-primary-foreground border-primary"
-                        : "bg-surface/80 text-muted-foreground border-border hover:text-foreground hover:border-foreground/30",
-                    )}
-                  >
-                    {tag}
-                  </button>
-                );
-              }
-              return (
-                <span
-                  key={tag}
-                  className="px-2 py-0.5 rounded-md font-mono text-[11px] bg-surface/80 text-muted-foreground border border-border"
-                >
-                  {tag}
-                </span>
-              );
-            })}
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-2 py-0.5 rounded-md font-mono text-[11px] bg-surface/80 text-muted-foreground border border-border"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
       </Tilt3DCard>

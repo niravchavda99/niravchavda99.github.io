@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, LayoutGrid, List, Search, X } from "lucide-react";
+import { ArrowLeft, LayoutGrid, List, X } from "lucide-react";
 import { FaArrowUpRightFromSquare, FaGithub } from "react-icons/fa6";
 import { AnimatePresence, motion } from "framer-motion";
 import { Project, projects } from "@/src/data/projects";
@@ -16,58 +17,29 @@ import { cn } from "@/src/lib/utils";
 type ViewMode = "grid" | "index";
 
 export function ProjectsExplorer() {
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
-  const [search, setSearch] = useState("");
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [hoveredProject, setHoveredProject] = useState<Project>(projects[0]);
   const [previewProject, setPreviewProject] = useState<Project | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!previewProject) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setPreviewProject(null);
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
   }, [previewProject]);
-
-  const tagCounts = useMemo(() => {
-    const map = new Map<string, number>();
-    for (const p of projects) {
-      for (const t of p.tags) {
-        map.set(t, (map.get(t) ?? 0) + 1);
-      }
-    }
-    return Array.from(map.entries()).sort(
-      (a, b) => b[1] - a[1] || a[0].localeCompare(b[0]),
-    );
-  }, []);
-
-  const filteredProjects = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    return projects.filter((p) => {
-      const matchesTag = !selectedTag || p.tags.includes(selectedTag);
-      const matchesQuery =
-        !q ||
-        p.name.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q) ||
-        p.tags.some((t) => t.toLowerCase().includes(q));
-      return matchesTag && matchesQuery;
-    });
-  }, [selectedTag, search]);
-
-  useEffect(() => {
-    if (
-      filteredProjects.length > 0 &&
-      !filteredProjects.some((p) => p.name === hoveredProject.name)
-    ) {
-      setHoveredProject(filteredProjects[0]);
-    }
-  }, [filteredProjects, hoveredProject.name]);
-
-  const handleTagToggle = (tag: string) => {
-    setSelectedTag((prev) => (prev === tag ? null : tag));
-  };
 
   return (
     <SectionContainer id="projects" className="pt-28 sm:pt-36">
@@ -86,7 +58,7 @@ export function ProjectsExplorer() {
         eyebrow={`${projects.length} Public Artifacts`}
         coloredText="Projects &"
         italicAccent="experiments"
-        subtitle="A complete index of things I've built — Chrome extensions, developer utilities, web apps, and Three.js 3D explorations."
+        subtitle="A selection of things I've built — Chrome extensions, developer utilities, web apps, and Three.js 3D explorations. Many are open-source, so feel free to explore the code."
         rightSlot={
           <div
             role="group"
@@ -125,148 +97,33 @@ export function ProjectsExplorer() {
         }
       />
 
-      {/* Interactive Search & Tag Matrix */}
-      <div className="mb-12 space-y-4 rounded-2xl border border-border bg-card/75 backdrop-blur-xl p-4 sm:p-6 shadow-lg shadow-black/5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="relative flex-1 max-w-md">
-            <Search
-              size={14}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
-            />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Filter by title, keyword, or technology..."
-              aria-label="Search projects"
-              className="w-full h-10 pl-9 pr-8 rounded-xl border border-border bg-surface/70 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-            />
-            {search && (
-              <button
-                type="button"
-                onClick={() => setSearch("")}
-                aria-label="Clear search"
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-              >
-                <X size={14} />
-              </button>
-            )}
-          </div>
-
-          <div className="flex items-center gap-3 font-mono text-xs text-muted-foreground">
-            <span>
-              Showing{" "}
-              <strong className="text-foreground font-semibold">
-                {filteredProjects.length}
-              </strong>{" "}
-              of {projects.length}
-            </span>
-            {(selectedTag || search) && (
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedTag(null);
-                  setSearch("");
-                }}
-                className="text-primary hover:underline"
-              >
-                Reset
-              </button>
-            )}
-          </div>
+      {viewMode === "grid" ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+          {projects.map((project, idx) => (
+            <div
+              key={project.name}
+              className={cn(project.featured && "md:col-span-2")}
+            >
+              <ProjectItem
+                project={project}
+                index={idx + 1}
+                onPreview={setPreviewProject}
+              />
+            </div>
+          ))}
         </div>
-
-        <div className="flex flex-wrap items-center gap-1.5 pt-1">
-          <button
-            type="button"
-            onClick={() => setSelectedTag(null)}
-            className={cn(
-              "px-2.5 py-1 rounded-lg font-mono text-[11px] border transition-colors",
-              selectedTag === null
-                ? "bg-foreground text-background border-foreground"
-                : "bg-surface/60 text-muted-foreground border-border hover:text-foreground",
-            )}
-          >
-            all ({projects.length})
-          </button>
-          {tagCounts.map(([tag, count]) => {
-            const active = selectedTag === tag;
-            return (
-              <button
-                key={tag}
-                type="button"
-                onClick={() => handleTagToggle(tag)}
-                className={cn(
-                  "px-2.5 py-1 rounded-lg font-mono text-[11px] border transition-colors",
-                  active
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-surface/60 text-muted-foreground border-border hover:text-foreground",
-                )}
-              >
-                {tag}{" "}
-                <span className={cn("opacity-65", active && "opacity-90")}>
-                  ({count})
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {filteredProjects.length === 0 ? (
-        <div className="py-20 text-center rounded-2xl border border-dashed border-border bg-card/40">
-          <p className="text-base font-medium text-foreground">
-            No matching artifacts found
-          </p>
-          <p className="text-sm text-muted-foreground mt-1 mb-5">
-            Try clearing the search query or selecting another tag.
-          </p>
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedTag(null);
-              setSearch("");
-            }}
-            className="px-4 py-2 rounded-xl bg-foreground text-background text-xs font-mono uppercase tracking-wider"
-          >
-            Reset All Filters
-          </button>
-        </div>
-      ) : viewMode === "grid" ? (
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-7">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, idx) => (
-              <motion.div
-                layout
-                key={project.name}
-                initial={{ opacity: 0, scale: 0.94 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.94 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className={cn(project.featured && "md:col-span-2")}
-              >
-                <ProjectItem
-                  project={project}
-                  index={idx + 1}
-                  activeTag={selectedTag}
-                  onTagClick={handleTagToggle}
-                  onPreview={setPreviewProject}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
       ) : (
         /* Interactive Split-Stage 3D Hover Preview Index */
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="lg:col-span-7 rounded-2xl border border-border bg-card/80 backdrop-blur-xl divide-y divide-border overflow-hidden">
-            {filteredProjects.map((project, idx) => {
+            {projects.map((project, idx) => {
               const isSelected = hoveredProject.name === project.name;
               return (
                 <div
                   key={project.name}
                   onMouseEnter={() => setHoveredProject(project)}
                   onFocus={() => setHoveredProject(project)}
+                  onClick={() => setPreviewProject(project)}
                   className={cn(
                     "relative p-5 flex items-center justify-between gap-4 transition-colors cursor-pointer",
                     isSelected ? "bg-surface/90" : "hover:bg-surface/40",
@@ -292,7 +149,10 @@ export function ProjectsExplorer() {
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div
+                    className="flex items-center gap-2 shrink-0"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {project.codeLink && (
                       <a
                         href={project.codeLink}
@@ -369,91 +229,95 @@ export function ProjectsExplorer() {
         </div>
       )}
 
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {previewProject && (
-          <div
-            className="fixed inset-0 z-[90] flex items-center justify-center p-4 sm:p-8"
-            role="dialog"
-            aria-modal="true"
-            aria-label={`${previewProject.name} preview`}
-          >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/75 backdrop-blur-md"
-              onClick={() => setPreviewProject(null)}
-            />
-            <motion.div
-              initial={{ opacity: 0, scale: 0.94, y: 12 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.94, y: 12 }}
-              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-10 w-full max-w-4xl rounded-2xl border border-border bg-card overflow-hidden shadow-2xl"
-            >
-              <div className="flex items-center justify-between px-5 py-3.5 border-b border-border bg-surface/60">
-                <div>
-                  <h3 className="font-semibold text-foreground">
-                    {previewProject.name}
-                  </h3>
-                  <p className="font-mono text-[11px] text-muted-foreground">
-                    {previewProject.tags.join(" · ")}
-                  </p>
-                </div>
-                <button
-                  type="button"
+      {/* Portal Lightbox Modal — rendered directly on document.body above fixed z-50 header */}
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {previewProject && (
+              <div
+                className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-8"
+                role="dialog"
+                aria-modal="true"
+                aria-label={`${previewProject.name} preview`}
+              >
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/80 backdrop-blur-md"
                   onClick={() => setPreviewProject(null)}
-                  aria-label="Close preview"
-                  className="w-8 h-8 rounded-lg border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground"
-                >
-                  <X size={15} />
-                </button>
-              </div>
-
-              <div className="relative aspect-[16/10] bg-muted">
-                <Image
-                  fill
-                  src={previewProject.image}
-                  alt={previewProject.name}
-                  sizes="(max-width: 1024px) 100vw, 900px"
-                  className="object-contain"
                 />
-              </div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: 12 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: 12 }}
+                  transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative z-10 w-full max-w-4xl max-h-[88vh] flex flex-col rounded-2xl border border-border bg-card overflow-hidden shadow-2xl"
+                >
+                  <div className="flex items-center justify-between px-5 py-3.5 border-b border-border bg-surface/80 shrink-0">
+                    <div className="min-w-0 pr-4">
+                      <h3 className="font-semibold text-foreground truncate">
+                        {previewProject.name}
+                      </h3>
+                      <p className="font-mono text-[11px] text-muted-foreground truncate">
+                        {previewProject.tags.join(" · ")}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setPreviewProject(null)}
+                      aria-label="Close preview"
+                      className="w-8 h-8 rounded-lg border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground shrink-0"
+                    >
+                      <X size={15} />
+                    </button>
+                  </div>
 
-              <div className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-border">
-                <p className="text-sm text-muted-foreground max-w-xl">
-                  {previewProject.description}
-                </p>
-                <div className="flex items-center gap-2.5 shrink-0">
-                  {previewProject.codeLink && (
-                    <a
-                      href={previewProject.codeLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-border bg-surface text-xs font-mono text-foreground hover:bg-muted transition-colors"
-                    >
-                      <FaGithub className="w-3.5 h-3.5" />
-                      <span>Source</span>
-                    </a>
-                  )}
-                  {previewProject.link && (
-                    <a
-                      href={previewProject.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-mono font-medium transition-opacity hover:opacity-90"
-                    >
-                      <span>Open Live</span>
-                      <FaArrowUpRightFromSquare className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
+                  <div className="relative w-full h-[46vh] sm:h-[56vh] bg-muted shrink-0">
+                    <Image
+                      fill
+                      src={previewProject.image}
+                      alt={previewProject.name}
+                      sizes="(max-width: 1024px) 100vw, 900px"
+                      className="object-contain p-2 sm:p-4"
+                    />
+                  </div>
+
+                  <div className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-border overflow-y-auto">
+                    <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
+                      {previewProject.description}
+                    </p>
+                    <div className="flex items-center gap-2.5 shrink-0">
+                      {previewProject.codeLink && (
+                        <a
+                          href={previewProject.codeLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-border bg-surface text-xs font-mono text-foreground hover:bg-muted transition-colors"
+                        >
+                          <FaGithub className="w-3.5 h-3.5" />
+                          <span>Source</span>
+                        </a>
+                      )}
+                      {previewProject.link && (
+                        <a
+                          href={previewProject.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-mono font-medium transition-opacity hover:opacity-90"
+                        >
+                          <span>Open Live</span>
+                          <FaArrowUpRightFromSquare className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
               </div>
-            </motion.div>
-          </div>
+            )}
+          </AnimatePresence>,
+          document.body,
         )}
-      </AnimatePresence>
     </SectionContainer>
   );
 }

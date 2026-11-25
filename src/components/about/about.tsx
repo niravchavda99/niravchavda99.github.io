@@ -8,11 +8,11 @@ import {
   ArrowRight,
   ArrowUpRight,
   Award,
-  Box,
   Check,
   Copy,
   ImageIcon,
   Sparkles,
+  UserCheck,
 } from "lucide-react";
 import {
   AnimatePresence,
@@ -25,7 +25,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SocialMediaPlatform } from "../common/social-media-platform";
 import { YoeValue } from "./yoe-value";
-import { PortraitHologram3D } from "./portrait-hologram-3d";
+import { AnimatedAvatar3D } from "./animated-avatar-3d";
 import { CURRENT_ROLE } from "@/src/data/profile";
 import { jobs } from "@/src/data/experience";
 import { projects } from "@/src/data/projects";
@@ -66,11 +66,11 @@ const SOCIAL_ICONS = [
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-type PortraitMode = "3d" | "photo";
+type PortraitMode = "avatar" | "photo";
 
 const About = () => {
   const [copied, setCopied] = useState(false);
-  const [portraitMode, setPortraitMode] = useState<PortraitMode>("3d");
+  const [portraitMode, setPortraitMode] = useState<PortraitMode>("avatar");
   const sectionRef = useRef<HTMLElement>(null);
   const currentJob = jobs[0];
 
@@ -96,11 +96,11 @@ const About = () => {
   const marqueeItems = [
     `${CURRENT_ROLE} @ ${currentJob?.organizationName ?? "Incubyte"}`,
     "Software Craftsmanship",
-    "Full-Stack Architecture",
+    "Test-Driven Development",
+    "Full-Stack & Agentic Workflows",
     "MCA Gold Medallist",
     `${projects.length} Public Artifacts`,
     `${technologies.length} Core Technologies`,
-    "Open-Source & Collaboration",
   ];
 
   return (
@@ -254,7 +254,7 @@ const About = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right 3D Volumetric Hologram / Portrait Monolith */}
+          {/* Right Animated 3D Character / Portrait Monolith */}
           <motion.div
             style={{ y: cardY }}
             initial={{ opacity: 0, scale: 0.92, rotateY: -8 }}
@@ -264,15 +264,15 @@ const About = () => {
           >
             <div className="w-full max-w-[370px] sm:max-w-[405px]">
               <Tilt3DCard
-                maxTilt={portraitMode === "3d" ? 6 : 13}
-                glareOpacity={portraitMode === "3d" ? 0.1 : 0.24}
+                maxTilt={portraitMode === "avatar" ? 5 : 13}
+                glareOpacity={portraitMode === "avatar" ? 0.08 : 0.24}
                 className="rounded-3xl border border-border/90 bg-card/85 backdrop-blur-xl p-4 shadow-2xl shadow-black/15 dark:shadow-black/60"
               >
-                {/* Top HUD Bar with 3D Hologram <-> Photo Switch */}
+                {/* Top HUD Bar with 3D Avatar <-> Photo Switch */}
                 <div className="flex items-center justify-between gap-2 px-1.5 pb-3">
                   <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                     <Sparkles size={11} className="text-primary" />
-                    SPATIAL ID // NC
+                    STUDIO // NC
                   </span>
 
                   <div
@@ -282,24 +282,24 @@ const About = () => {
                   >
                     <button
                       type="button"
-                      onClick={() => setPortraitMode("3d")}
-                      aria-pressed={portraitMode === "3d"}
+                      onClick={() => setPortraitMode("avatar")}
+                      aria-pressed={portraitMode === "avatar"}
                       className={cn(
-                        "inline-flex items-center gap-1 px-2 py-1 rounded-md font-mono text-[10px] transition-colors",
-                        portraitMode === "3d"
+                        "inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-mono text-[10px] transition-colors",
+                        portraitMode === "avatar"
                           ? "bg-primary text-primary-foreground font-semibold shadow-sm"
                           : "text-muted-foreground hover:text-foreground",
                       )}
                     >
-                      <Box size={10} />
-                      <span>3D Bust</span>
+                      <UserCheck size={10} />
+                      <span>3D Avatar</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => setPortraitMode("photo")}
                       aria-pressed={portraitMode === "photo"}
                       className={cn(
-                        "inline-flex items-center gap-1 px-2 py-1 rounded-md font-mono text-[10px] transition-colors",
+                        "inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-mono text-[10px] transition-colors",
                         portraitMode === "photo"
                           ? "bg-foreground text-background font-semibold shadow-sm"
                           : "text-muted-foreground hover:text-foreground",
@@ -312,18 +312,18 @@ const About = () => {
                 </div>
 
                 {/* Viewport Plane */}
-                <div className="relative aspect-[4/4.35] rounded-2xl overflow-hidden border border-border bg-[#07070b]">
+                <div className="relative aspect-[4/4.35] rounded-2xl overflow-hidden border border-border bg-[#08080e]">
                   <AnimatePresence mode="wait">
-                    {portraitMode === "3d" ? (
+                    {portraitMode === "avatar" ? (
                       <motion.div
-                        key="3d-bust"
+                        key="3d-avatar"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.25 }}
                         className="w-full h-full"
                       >
-                        <PortraitHologram3D imageSrc={profileImage.src} />
+                        <AnimatedAvatar3D />
                       </motion.div>
                     ) : (
                       <motion.div
@@ -347,13 +347,11 @@ const About = () => {
                   </AnimatePresence>
 
                   {/* Bottom Subtle Gradient + Caption */}
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-20" />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-20" />
                   <div className="pointer-events-none absolute bottom-3.5 left-4 right-4 z-20 flex items-end justify-between text-white">
                     <div>
                       <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/65">
-                        {portraitMode === "3d"
-                          ? "Move or Click to Pulse 3D"
-                          : "Clean Code & Craft"}
+                        Clean Code &amp; Craft
                       </p>
                       <p className="text-base font-semibold tracking-tight">
                         Nirav Chavda

@@ -13,12 +13,12 @@ const Activities = () => {
       <HeadingText
         index="04"
         eyebrow="Beyond Engineering"
-        coloredText="Labs &"
+        coloredText="Labs, writing &"
         italicAccent="mentorship"
-        subtitle="Contributions, open engineering labs, and student mentorship experiences beyond day-to-day product development."
+        subtitle="Engineering publications, open education labs, and student mentorship experiences beyond day-to-day product delivery."
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {activities.map((activity, index) => (
           <motion.div
             key={activity.title}
@@ -27,7 +27,7 @@ const Activities = () => {
             viewport={{ once: true, margin: "-60px" }}
             transition={{
               duration: 0.6,
-              delay: index * 0.1,
+              delay: index * 0.08,
               ease: [0.16, 1, 0.3, 1],
             }}
             className="h-full"
@@ -35,33 +35,33 @@ const Activities = () => {
             <Tilt3DCard
               maxTilt={9}
               glareOpacity={0.18}
-              className="relative h-full rounded-2xl border border-border/90 bg-card/80 backdrop-blur-xl p-7 sm:p-9 overflow-hidden shadow-xl shadow-black/5 dark:shadow-black/35 flex flex-col justify-between gap-6"
+              className="relative h-full rounded-2xl border border-border/90 bg-card/80 backdrop-blur-xl p-6 sm:p-8 overflow-hidden shadow-xl shadow-black/5 dark:shadow-black/35 flex flex-col justify-between gap-6"
             >
               {/* Subtle orbital ring decoration */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -right-12 -bottom-12 w-48 h-48 rounded-full border border-primary/15"
+                className="pointer-events-none absolute -right-12 -bottom-12 w-44 h-44 rounded-full border border-primary/15"
               />
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -right-6 -bottom-6 w-32 h-32 rounded-full border border-accent/20"
+                className="pointer-events-none absolute -right-6 -bottom-6 w-28 h-28 rounded-full border border-accent/20"
               />
 
               <div className="relative z-10 translate-z-10">
-                <div className="flex items-center justify-between gap-4 mb-6">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full border border-primary/30 bg-primary/10 font-mono text-xs text-primary font-medium">
+                <div className="flex items-center justify-between gap-3 mb-5">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-primary/30 bg-primary/10 font-mono text-[11px] text-primary font-medium truncate">
                     {activity.subtitle}
                   </span>
-                  <span className="font-mono text-xs text-muted-foreground">
-                    LAB // {String(index + 1).padStart(2, "0")}
+                  <span className="font-mono text-[11px] text-muted-foreground shrink-0">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
 
-                <h3 className="text-2xl font-semibold tracking-tight text-foreground mb-3">
+                <h3 className="text-xl font-semibold tracking-tight text-foreground mb-3">
                   {activity.title}
                 </h3>
 
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {activity.description}
                 </p>
               </div>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#D97757"/>
+  <!-- Claude starburst rays + terminal prompt accent -->
+  <g stroke="#FFF8F3" stroke-width="4.2" stroke-linecap="round">
+    <line x1="32" y1="14" x2="32" y2="50"/>
+    <line x1="14" y1="32" x2="50" y2="32"/>
+    <line x1="19.3" y1="19.3" x2="44.7" y2="44.7"/>
+    <line x1="44.7" y1="19.3" x2="19.3" y2="44.7"/>
+    <line x1="25" y1="15.5" x2="39" y2="48.5" stroke-width="3"/>
+    <line x1="48.5" y1="25" x2="15.5" y2="39" stroke-width="3"/>
+  </g>
+  <circle cx="32" cy="32" r="5" fill="#D97757"/>
+  <circle cx="32" cy="32" r="2.6" fill="#FFF8F3"/>
+</svg>

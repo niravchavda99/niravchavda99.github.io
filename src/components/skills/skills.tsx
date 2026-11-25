@@ -12,9 +12,10 @@ import { cn } from "@/src/lib/utils";
 const CATEGORY_ORDER: SkillCategory[] = [
   "Backend",
   "Frontend",
+  "Tools",
+  "Cloud",
   "Database",
   "Mobile",
-  "Tools",
 ];
 
 function groupByCategory(
@@ -44,9 +45,9 @@ const Skills = () => {
       <HeadingText
         index="03"
         eyebrow="3D Tech Constellation"
-        coloredText="Full-stack"
-        italicAccent="orbit"
-        subtitle="Drag the interactive 3D constellation sphere or filter by engineering domain to inspect technologies across backend, web, database, and mobile."
+        coloredText="Full-stack &"
+        italicAccent="agentic orbit"
+        subtitle="Drag the interactive 3D constellation sphere or filter by domain — spanning backend services, web & 3D, cloud, mobile, and AI-native developer tooling."
       />
 
       {/* Spring-Animated Category Filter Pills */}
@@ -120,7 +121,7 @@ const Skills = () => {
               >
                 <div className="flex items-center justify-between gap-3 mb-4 pb-2.5 border-b border-border/70">
                   <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-foreground font-semibold">
-                    {category}
+                    {category === "Tools" ? "AI & Developer Tooling" : category}
                   </h3>
                   <span className="font-mono text-[11px] text-muted-foreground">
                     {techs.length} {techs.length === 1 ? "tool" : "tools"}

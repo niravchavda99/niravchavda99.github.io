@@ -6,6 +6,12 @@ export interface Activity {
 
 export const activities: Activity[] = [
   {
+    title: "Chandrayaan 3 TDD Assessment",
+    subtitle: "Incubyte Engineering Blog - 2023",
+    description:
+      "Co-authored Incubyte's Test-Driven Development (TDD) problem statement and craftsperson assessment modeled after ISRO's Chandrayaan-3 3D lunar navigation.",
+  },
+  {
     title: "Heat Transfer Lab",
     subtitle: "Virtual Labs, IIT Bombay - 2020",
     description:

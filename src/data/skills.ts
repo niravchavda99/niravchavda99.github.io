@@ -22,11 +22,20 @@ import nextjsLight from "@/src/assets/icons/tech/nextjs-light.svg";
 import nextjsDark from "@/src/assets/icons/tech/nextjs-dark.svg";
 import nestjs from "@/src/assets/icons/tech/nestjs.png";
 import extensions from "@/src/assets/icons/tech/extensions.png";
+import claudeCode from "@/src/assets/icons/tech/claude-code.svg";
+import antigravity from "@/src/assets/icons/tech/antigravity.svg";
+import herdr from "@/src/assets/icons/tech/herdr.svg";
+import azure from "@/src/assets/icons/tech/azure.svg";
+import gcp from "@/src/assets/icons/tech/gcp.svg";
+import vite from "@/src/assets/icons/tech/vite.svg";
+import threejsLight from "@/src/assets/icons/tech/threejs-light.svg";
+import threejsDark from "@/src/assets/icons/tech/threejs-dark.svg";
 
 export type SkillCategory =
   | "Backend"
   | "Frontend"
   | "Database"
+  | "Cloud"
   | "Mobile"
   | "Tools";
 
@@ -59,6 +68,13 @@ export const technologies: Technology[] = [
     category: "Frontend",
   },
   { name: "Angular", icon: angular.src, category: "Frontend" },
+  { name: "Vite", icon: vite.src, category: "Frontend" },
+  {
+    name: "Three.js",
+    icon: threejsLight.src,
+    darkIcon: threejsDark.src,
+    category: "Frontend",
+  },
   { name: "Tailwind", icon: tailwind.src, category: "Frontend" },
   { name: "HTML", icon: html.src, category: "Frontend" },
   { name: "CSS", icon: css.src, category: "Frontend" },
@@ -72,9 +88,15 @@ export const technologies: Technology[] = [
   },
   { name: "PostgreSQL", icon: postgreSQL.src, category: "Database" },
 
+  { name: "Azure", icon: azure.src, category: "Cloud" },
+  { name: "Google Cloud", icon: gcp.src, category: "Cloud" },
+
   { name: "Dart", icon: dart.src, category: "Mobile" },
   { name: "Flutter", icon: flutter.src, category: "Mobile" },
 
+  { name: "Claude Code", icon: claudeCode.src, category: "Tools" },
+  { name: "Antigravity", icon: antigravity.src, category: "Tools" },
+  { name: "Herdr", icon: herdr.src, category: "Tools" },
   { name: "Git", icon: git.src, category: "Tools" },
   { name: "IntelliJ", icon: intellijIdea.src, category: "Tools" },
   { name: "VSCode", icon: vsCode.src, category: "Tools" },
@@ -87,6 +109,8 @@ export const CATEGORY_ACCENT: Record<SkillCategory, string> = {
     "text-violet-500 dark:text-violet-400 bg-violet-50 dark:bg-violet-400/10 border-violet-200/60 dark:border-violet-400/20",
   Database:
     "text-emerald-500 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-400/10 border-emerald-200/60 dark:border-emerald-400/20",
+  Cloud:
+    "text-sky-500 dark:text-sky-400 bg-sky-50 dark:bg-sky-400/10 border-sky-200/60 dark:border-sky-400/20",
   Mobile:
     "text-amber-500 dark:text-amber-400 bg-amber-50 dark:bg-amber-400/10 border-amber-200/60 dark:border-amber-400/20",
   Tools:

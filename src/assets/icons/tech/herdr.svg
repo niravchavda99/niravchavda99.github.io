@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect x="6" y="8" width="52" height="48" rx="11" fill="#14161D" stroke="#FF6B3D" stroke-width="3"/>
+  <!-- Split multiplexer panes -->
+  <line x1="28" y1="8" x2="28" y2="56" stroke="#FF6B3D" stroke-width="2.6"/>
+  <line x1="28" y1="32" x2="58" y2="32" stroke="#FF6B3D" stroke-width="2.6"/>
+  <!-- Left active agent prompt -->
+  <path d="M13 24L18 28.5L13 33" stroke="#FFB547" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="19" y1="36" x2="23" y2="36" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <!-- Right agent status indicators -->
+  <circle cx="36" cy="20" r="3" fill="#34D399"/>
+  <line x1="42" y1="20" x2="51" y2="20" stroke="#E2E8F0" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="36" cy="44" r="3" fill="#FFB547"/>
+  <line x1="42" y1="44" x2="51" y2="44" stroke="#E2E8F0" stroke-width="2.6" stroke-linecap="round"/>
+</svg>
