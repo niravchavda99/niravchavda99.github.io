@@ -15,10 +15,7 @@ export function SectionContainer({
   return (
     <section
       id={id}
-      className={cn(
-        "relative w-full scroll-mt-14 border-b border-border",
-        className,
-      )}
+      className={cn("w-full scroll-mt-24 py-20 sm:py-28", className)}
     >
       {children}
     </section>

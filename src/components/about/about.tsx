@@ -4,20 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import profileImage from "@/src/assets/images/profile.jpg";
 import { BsGithub, BsInstagram, BsLinkedin, BsTwitterX } from "react-icons/bs";
 import { IoMail } from "react-icons/io5";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Check,
-  Copy,
-  ImageIcon,
-  UserCheck,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight, ImageIcon, UserCheck } from "lucide-react";
 import {
   animate,
   createScope,
   createSpring,
   createTimeline,
-  scrambleText,
   splitText,
   stagger,
 } from "animejs";
@@ -29,36 +21,31 @@ import { YoeValue } from "./yoe-value";
 import { AnimatedAvatar3D } from "./animated-avatar-3d";
 import { CURRENT_ROLE } from "@/src/data/profile";
 import { jobs } from "@/src/data/experience";
-import { projects } from "@/src/data/projects";
-import { technologies } from "@/src/data/skills";
-import { getSocialMediaLink } from "@/src/app/links";
-import { AnimeStaggerPlayground } from "@/src/components/motion/anime-grid-wave";
-import { cn } from "@/src/lib/utils";
 
 const SOCIAL_ICONS = [
   {
     platform: SocialMediaPlatform.Github,
-    icon: <BsGithub size={15} />,
+    icon: <BsGithub size={16} />,
     label: "GitHub",
   },
   {
     platform: SocialMediaPlatform.Linkedin,
-    icon: <BsLinkedin size={14} />,
+    icon: <BsLinkedin size={15} />,
     label: "LinkedIn",
   },
   {
     platform: SocialMediaPlatform.X,
-    icon: <BsTwitterX size={13} />,
+    icon: <BsTwitterX size={14} />,
     label: "X",
   },
   {
     platform: SocialMediaPlatform.Instagram,
-    icon: <BsInstagram size={14} />,
+    icon: <BsInstagram size={15} />,
     label: "Instagram",
   },
   {
     platform: SocialMediaPlatform.Mail,
-    icon: <IoMail size={16} />,
+    icon: <IoMail size={17} />,
     label: "Email",
   },
 ];
@@ -66,24 +53,11 @@ const SOCIAL_ICONS = [
 type PortraitMode = "avatar" | "photo";
 
 const About = () => {
-  const [copied, setCopied] = useState(false);
   const [portraitMode, setPortraitMode] = useState<PortraitMode>("avatar");
   const sectionRef = useRef<HTMLElement>(null);
   const nameRef = useRef<HTMLSpanElement>(null);
-  const roleReadoutRef = useRef<HTMLSpanElement>(null);
-  const viewportStageRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const currentJob = jobs[0];
-
-  const emailAddress = getSocialMediaLink(SocialMediaPlatform.Mail).replace(
-    /^mailto:/i,
-    "",
-  );
-
-  const handleCopyEmail = () => {
-    navigator.clipboard?.writeText(emailAddress);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   useEffect(() => {
     const root = sectionRef.current;
@@ -99,21 +73,15 @@ const About = () => {
         defaults: { ease: "outExpo" },
       });
 
-      if (roleReadoutRef.current) {
-        tl.add(
-          roleReadoutRef.current,
-          {
-            innerHTML: scrambleText({
-              text: `${CURRENT_ROLE} // ${currentJob?.organizationName ?? "Incubyte"}`,
-              chars: "uppercase",
-              revealRate: 48,
-              settleDuration: 240,
-            }),
-            duration: 760,
-          },
-          0,
-        );
-      }
+      tl.add(
+        ".anime-hero-pill",
+        {
+          y: [14, 0],
+          opacity: [0, 1],
+          duration: 650,
+        },
+        0,
+      );
 
       if (nameRef.current) {
         const splitted = splitText(nameRef.current, {
@@ -125,8 +93,8 @@ const About = () => {
             {
               y: ["110%", "0%"],
               opacity: [0, 1],
-              ease: createSpring({ stiffness: 250, damping: 18 }),
-              delay: stagger(26, { from: "first" }),
+              ease: createSpring({ stiffness: 220, damping: 20 }),
+              delay: stagger(24, { from: "first" }),
             },
             80,
           );
@@ -134,319 +102,163 @@ const About = () => {
       }
 
       tl.add(
-        ".anime-hero-line",
+        ".anime-hero-fade",
         {
-          y: [20, 0],
+          y: [18, 0],
           opacity: [0, 1],
-          duration: 720,
+          duration: 750,
           delay: stagger(90),
         },
         240,
       );
 
-      // Animate keyframe bars filling in + oscillating keyframe nodes (animejs.com signature!)
       tl.add(
-        ".anime-kf-bar",
+        ".anime-hero-portrait",
         {
-          scaleX: [0, 1],
+          y: [24, 0],
+          scale: [0.96, 1],
+          opacity: [0, 1],
           duration: 900,
-          delay: stagger(100),
-          ease: "outQuart",
         },
-        320,
+        160,
       );
-
-      animate(".anime-kf-playhead", {
-        left: ["8%", "88%"],
-        duration: stagger([2600, 3800]),
-        delay: stagger(280),
-        ease: "inOutSine",
-        alternate: true,
-        loop: true,
-      });
     });
 
     return () => {
       scope.revert();
     };
-  }, [currentJob?.organizationName]);
+  }, []);
 
   useEffect(() => {
-    if (!viewportStageRef.current) return;
-    animate(viewportStageRef.current, {
-      opacity: [0.3, 1],
+    if (!viewportRef.current) return;
+    animate(viewportRef.current, {
+      opacity: [0.35, 1],
       scale: [0.98, 1],
       duration: 280,
       ease: "outCubic",
     });
   }, [portraitMode]);
 
-  const keyframeSpecs = [
-    {
-      prop: "role",
-      value: CURRENT_ROLE,
-      sub: currentJob?.organizationName ?? "Incubyte",
-      color: "#FF4B4B",
-    },
-    {
-      prop: "experience",
-      value: <YoeValue />,
-      sub: "Since Jul 2022",
-      color: "#FFC730",
-    },
-    {
-      prop: "distinction",
-      value: "Gold Medallist",
-      sub: "MCA · Gujarat Univ.",
-      color: "#5CE68A",
-    },
-    {
-      prop: "ecosystem",
-      value: `${projects.length} Builds · ${technologies.length} Tech`,
-      sub: "Full-Stack & Agentic",
-      color: "#38BDF8",
-    },
-  ];
-
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="w-full border-b border-border"
+      className="w-full pt-32 sm:pt-40 pb-16 sm:pb-24"
     >
-      {/* Top Track Status Strip */}
-      <div className="px-5 sm:px-8 lg:px-10 h-10 border-b border-border bg-surface/45 flex items-center justify-between gap-4 font-mono text-[11px]">
-        <div className="flex items-center gap-2.5 truncate">
-          <span className="w-2.5 h-2.5 bg-[#FF4B4B] shrink-0" />
-          <span className="text-[#FF4B4B] font-bold">TRACK 00</span>
-          <span className="text-border">/</span>
-          <span
-            ref={roleReadoutRef}
-            className="uppercase tracking-[0.14em] text-foreground truncate"
-          >
-            {CURRENT_ROLE} // {currentJob?.organizationName ?? "Incubyte"}
-          </span>
-        </div>
-
-        <div className="hidden md:flex items-center gap-2 text-muted-foreground shrink-0">
-          <span className="w-2 h-2 rounded-full bg-[#5CE68A] animate-pulse" />
-          <span>
-            OPEN TO COLLABORATION · {currentJob?.location ?? "REMOTE"}
-          </span>
-        </div>
-      </div>
-
-      {/* Main Split Instrument Stage */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-border">
-        {/* Left 7 Cols: Display Typography + Keyframe Property Lanes */}
-        <div className="lg:col-span-7 flex flex-col justify-between">
-          <div className="px-5 sm:px-8 lg:px-10 py-10 sm:py-14 bg-dot-matrix">
-            <h1 className="text-5xl sm:text-7xl lg:text-[5.25rem] font-bold tracking-[-0.05em] leading-[0.94] text-foreground">
-              <span ref={nameRef} className="block">
-                Nirav Chavda
-              </span>
-            </h1>
-
-            <p className="anime-hero-line mt-5 text-xl sm:text-2xl font-medium tracking-[-0.025em] text-foreground/90 max-w-xl leading-snug">
-              Crafting resilient software with precision,{" "}
-              <span className="text-[#FF4B4B]">motion</span>, and{" "}
-              <span className="text-[#FFC730]">care</span>.
-            </p>
-
-            <p className="anime-hero-line mt-3.5 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl">
-              Learner and enthusiast at heart — delivering thoughtfully
-              engineered backend systems, interactive web experiences, Chrome
-              extensions, and mobile apps at{" "}
-              {currentJob ? (
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        {/* Left Calm Content Column */}
+        <div className="lg:col-span-7 flex flex-col items-start">
+          {/* Simple Role Pill */}
+          <div className="anime-hero-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-card text-xs text-muted-foreground mb-6">
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span className="font-medium text-foreground">{CURRENT_ROLE}</span>
+            {currentJob && (
+              <>
+                <span>at</span>
                 <a
                   href={currentJob.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-0.5 text-foreground underline decoration-border hover:decoration-[#FF4B4B] transition-colors"
+                  className="inline-flex items-center gap-0.5 text-foreground hover:text-primary transition-colors font-medium"
                 >
                   {currentJob.organizationName}
-                  <ArrowUpRight size={13} />
+                  <ArrowUpRight size={12} />
                 </a>
-              ) : (
-                "Incubyte"
-              )}
-              .
-            </p>
-
-            {/* animejs.com Crisp Modular Action Bar */}
-            <div className="anime-hero-line mt-8 flex flex-wrap items-center gap-2.5">
-              <Link
-                href="/projects"
-                data-cursor="OPEN"
-                className="inline-flex items-center gap-2.5 h-11 px-5 bg-[#FF4B4B] text-[#1D1C1B] font-mono text-xs font-bold uppercase tracking-[0.12em] hover:bg-[#FFC730] transition-colors"
-              >
-                <span>Explore Works [{projects.length}]</span>
-                <ArrowRight size={14} />
-              </Link>
-
-              <button
-                type="button"
-                onClick={handleCopyEmail}
-                className="inline-flex items-center gap-2 h-11 px-4 border border-border bg-card hover:bg-surface font-mono text-xs text-foreground transition-colors"
-              >
-                {copied ? (
-                  <>
-                    <Check size={14} className="text-[#5CE68A]" />
-                    <span>COPIED</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy size={13} className="text-muted-foreground" />
-                    <span>COPY EMAIL</span>
-                  </>
-                )}
-              </button>
-
-              <div className="flex items-center border border-border bg-card divide-x divide-border">
-                {SOCIAL_ICONS.map(({ platform, icon, label }) => (
-                  <SocialMediaLink key={platform} platform={platform}>
-                    <span
-                      className="w-11 h-11 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
-                      title={label}
-                      aria-label={label}
-                    >
-                      {icon}
-                    </span>
-                  </SocialMediaLink>
-                ))}
-              </div>
-            </div>
+              </>
+            )}
           </div>
 
-          {/* Live Anime.js Property Keyframe Lanes (Direct homage to animejs.com timeline UI!) */}
-          <div className="border-t border-border divide-y divide-border font-mono text-xs bg-card/60">
-            {keyframeSpecs.map((item) => (
-              <div
-                key={item.prop}
-                className="grid grid-cols-12 items-center min-h-[46px] divide-x divide-border"
-              >
-                <div className="col-span-4 sm:col-span-3 px-4 py-2.5 flex items-center gap-2 text-muted-foreground truncate">
-                  <span
-                    style={{ backgroundColor: item.color }}
-                    className="w-2 h-2 shrink-0"
-                  />
-                  <span className="truncate">{item.prop}</span>
-                </div>
+          <h1 className="text-4xl sm:text-6xl font-semibold tracking-[-0.04em] text-foreground leading-[1.05]">
+            <span ref={nameRef} className="block">
+              Nirav Chavda
+            </span>
+          </h1>
 
-                {/* Animated Keyframe Track */}
-                <div className="hidden sm:flex sm:col-span-4 h-full items-center px-4 relative bg-surface/35 overflow-hidden">
-                  <div
-                    style={{ backgroundColor: `${item.color}30` }}
-                    className="anime-kf-bar w-full h-1.5 origin-left relative"
+          <p className="anime-hero-fade mt-5 text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-lg">
+            I build thoughtful software with care and craftsmanship — from
+            backend services to browser extensions and mobile apps.
+          </p>
+
+          {/* Subtle Two-Item Highlights */}
+          <div className="anime-hero-fade mt-6 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+            <span className="px-3.5 py-1.5 rounded-full bg-surface text-foreground/90 font-medium">
+              <YoeValue /> experience
+            </span>
+            <span className="px-3.5 py-1.5 rounded-full bg-surface text-foreground/90 font-medium">
+              MCA Gold Medallist
+            </span>
+          </div>
+
+          {/* Clean Rounded CTA & Social Row */}
+          <div className="anime-hero-fade mt-9 flex flex-wrap items-center gap-3">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-foreground text-background hover:bg-primary hover:text-primary-foreground text-sm font-medium transition-colors duration-200"
+            >
+              <span>View Projects</span>
+              <ArrowRight size={15} />
+            </Link>
+
+            <div className="flex items-center gap-1.5">
+              {SOCIAL_ICONS.map(({ platform, icon, label }) => (
+                <SocialMediaLink key={platform} platform={platform}>
+                  <span
+                    className="w-11 h-11 rounded-full flex items-center justify-center border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
+                    title={label}
+                    aria-label={label}
                   >
-                    <span
-                      style={{ backgroundColor: item.color }}
-                      className="absolute left-0 -top-[3px] w-3 h-3 rotate-45"
-                    />
-                    <span
-                      style={{ backgroundColor: item.color }}
-                      className="absolute right-0 -top-[3px] w-3 h-3 rotate-45"
-                    />
-                  </div>
-                  <span
-                    style={{ backgroundColor: item.color }}
-                    className="anime-kf-playhead absolute top-1/2 -translate-y-1/2 w-2 h-5"
-                  />
-                </div>
-
-                <div className="col-span-8 sm:col-span-5 px-4 py-2.5 flex items-center justify-between gap-2">
-                  <span className="font-semibold text-foreground truncate">
-                    {item.value}
+                    {icon}
                   </span>
-                  <span className="text-[10px] text-muted-foreground hidden md:inline shrink-0">
-                    {item.sub}
-                  </span>
-                </div>
-              </div>
-            ))}
+                </SocialMediaLink>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Right 5 Cols: Live 3D Viewport Inspector */}
-        <div className="lg:col-span-5 flex flex-col bg-card/40">
-          {/* Inspector Header Bar */}
-          <div className="px-4 h-10 border-b border-border bg-surface/40 flex items-center justify-between gap-2 font-mono text-[10px]">
-            <span className="text-muted-foreground uppercase tracking-[0.14em]">
-              VIEWPORT // 3D RIG
-            </span>
-
+        {/* Right Clean Rounded 3D Avatar / Photo Card */}
+        <div className="anime-hero-portrait lg:col-span-5 flex justify-center lg:justify-end">
+          <div className="w-full max-w-[350px] sm:max-w-[380px] rounded-[2rem] border border-border bg-card p-3 shadow-xl shadow-black/5 dark:shadow-black/30">
             <div
-              role="group"
-              aria-label="Portrait view mode"
-              className="inline-flex items-center border border-border bg-background divide-x divide-border"
+              ref={viewportRef}
+              className="relative aspect-[4/4.3] rounded-[1.5rem] overflow-hidden bg-[#141418]"
             >
-              <button
-                type="button"
-                onClick={() => setPortraitMode("avatar")}
-                aria-pressed={portraitMode === "avatar"}
-                className={cn(
-                  "inline-flex items-center gap-1.5 px-2.5 py-1 transition-colors",
-                  portraitMode === "avatar"
-                    ? "bg-[#FFC730] text-[#1D1C1B] font-bold"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                <UserCheck size={11} />
-                <span>3D RIG</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setPortraitMode("photo")}
-                aria-pressed={portraitMode === "photo"}
-                className={cn(
-                  "inline-flex items-center gap-1.5 px-2.5 py-1 transition-colors",
-                  portraitMode === "photo"
-                    ? "bg-foreground text-background font-bold"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                <ImageIcon size={11} />
-                <span>PHOTO</span>
-              </button>
-            </div>
-          </div>
-
-          {/* 3D Character / Photo Stage */}
-          <div
-            ref={viewportStageRef}
-            className="relative flex-1 min-h-[380px] sm:min-h-[440px] bg-[#191817] overflow-hidden"
-          >
-            {portraitMode === "avatar" ? (
-              <AnimatedAvatar3D />
-            ) : (
-              <div className="relative w-full h-full min-h-[380px]">
+              {portraitMode === "avatar" ? (
+                <AnimatedAvatar3D />
+              ) : (
                 <Image
                   src={profileImage.src}
                   alt="Nirav Chavda"
                   fill
-                  sizes="(max-width: 1024px) 100vw, 480px"
+                  sizes="(max-width: 1024px) 350px, 380px"
                   className="object-cover"
                   priority
                 />
-              </div>
-            )}
+              )}
 
-            {/* Corner Crosshair Brackets */}
-            <span className="pointer-events-none absolute top-3 right-3 w-3 h-3 border-t border-r border-white/30 z-20" />
-            <span className="pointer-events-none absolute bottom-3 left-3 w-3 h-3 border-b border-l border-white/30 z-20" />
-            <span className="pointer-events-none absolute bottom-3 right-3 w-3 h-3 border-b border-r border-white/30 z-20" />
-          </div>
-
-          {/* Bottom Viewport Telemetry Footer */}
-          <div className="px-4 h-9 border-t border-border bg-surface/40 flex items-center justify-between font-mono text-[10px] text-muted-foreground">
-            <span>FPS: 60 · PBR THREE.JS</span>
-            <span>CURSOR TRACKING: ACTIVE</span>
+              {/* Single discreet rounded toggle pill in bottom-right */}
+              <button
+                type="button"
+                onClick={() =>
+                  setPortraitMode((m) => (m === "avatar" ? "photo" : "avatar"))
+                }
+                className="absolute bottom-3.5 right-3.5 z-20 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/55 hover:bg-black/75 backdrop-blur-md border border-white/15 text-xs text-white/90 transition-colors"
+              >
+                {portraitMode === "avatar" ? (
+                  <>
+                    <ImageIcon size={12} />
+                    <span>Photo</span>
+                  </>
+                ) : (
+                  <>
+                    <UserCheck size={12} />
+                    <span>3D Avatar</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Bottom Interactive animejs.com 2D Stagger Playground */}
-      <AnimeStaggerPlayground />
     </section>
   );
 };

@@ -4,18 +4,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { ThemeSwitch } from "@/src/components/theme/theme-switch";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Command, Menu, X } from "lucide-react";
-import { animate } from "animejs";
+import { Menu, X } from "lucide-react";
+import { animate, createSpring } from "animejs";
 import { cn } from "@/src/lib/utils";
-import { projects } from "@/src/data/projects";
-import { CURRENT_ROLE } from "@/src/data/profile";
-import { triggerCommandPalette } from "@/src/components/command-palette/command-palette";
 
 const HOME_SECTIONS = [
-  { label: "Works", href: "/#work", id: "work", dot: "#FFC730" },
-  { label: "Timeline", href: "/#experience", id: "experience", dot: "#5CE68A" },
-  { label: "Matrix", href: "/#skills", id: "skills", dot: "#38BDF8" },
-  { label: "Labs", href: "/#activities", id: "activities", dot: "#C084FC" },
+  { label: "Work", href: "/#work", id: "work" },
+  { label: "Experience", href: "/#experience", id: "experience" },
+  { label: "Skills", href: "/#skills", id: "skills" },
+  { label: "Activities", href: "/#activities", id: "activities" },
 ];
 
 const Navbar = () => {
@@ -26,6 +23,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("");
 
   const navRef = useRef<HTMLElement>(null);
+  const pillBarRef = useRef<HTMLDivElement>(null);
   const mobileDrawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,11 +31,22 @@ const Navbar = () => {
   }, [pathname]);
 
   useEffect(() => {
+    if (pillBarRef.current) {
+      animate(pillBarRef.current, {
+        y: [-20, 0],
+        opacity: [0, 1],
+        ease: createSpring({ stiffness: 220, damping: 22 }),
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     if (isMenuOpen && mobileDrawerRef.current) {
       animate(mobileDrawerRef.current, {
         opacity: [0, 1],
+        scale: [0.96, 1],
         y: [-6, 0],
-        duration: 200,
+        duration: 220,
         ease: "outCubic",
       });
     }
@@ -64,7 +73,7 @@ const Navbar = () => {
   useEffect(() => {
     const NAVBAR_OFFSET = 180;
     const handleScroll = () => {
-      if (!isHome || window.scrollY < 180) {
+      if (!isHome || window.scrollY < 200) {
         setActiveSection("");
         return;
       }
@@ -87,56 +96,45 @@ const Navbar = () => {
   return (
     <header
       ref={navRef}
-      className="sticky top-0 z-50 w-full border-b border-border bg-background/92 backdrop-blur-md"
+      className="fixed top-0 inset-x-0 z-50 px-4 pt-4 sm:pt-5 pointer-events-none flex flex-col items-center"
     >
-      <div className="max-w-[1360px] mx-auto sm:border-x sm:border-border h-14 flex items-center justify-between divide-x divide-border">
-        {/* Cell 1: Brand Monogram + Spectrum Tag */}
+      <div
+        ref={pillBarRef}
+        className="pointer-events-auto flex items-center gap-1 sm:gap-2 p-1.5 rounded-full border border-border/80 bg-card/85 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30"
+      >
+        {/* Minimal Brand Pill */}
         <Link
           href="/"
-          className="px-4 sm:px-6 h-full flex items-center gap-3 hover:bg-surface/60 transition-colors shrink-0"
+          className="flex items-center gap-2.5 pl-1.5 pr-3 py-1 rounded-full hover:bg-surface transition-colors"
         >
-          <div className="flex items-center gap-1">
-            <span className="w-2 h-4 bg-[#FF4B4B]" />
-            <span className="w-2 h-4 bg-[#FFC730]" />
-            <span className="w-2 h-4 bg-[#5CE68A]" />
-          </div>
-          <span className="font-mono text-xs sm:text-sm font-bold tracking-tight text-foreground">
-            nirav.chavda
+          <span className="w-7 h-7 rounded-full bg-foreground text-background flex items-center justify-center font-mono text-[11px] font-bold">
+            NC
           </span>
-          <span className="hidden lg:inline-flex px-1.5 py-0.5 bg-surface border border-border font-mono text-[10px] text-muted-foreground">
-            {CURRENT_ROLE}
+          <span className="text-sm font-medium text-foreground hidden sm:inline">
+            Nirav
           </span>
         </Link>
 
-        {/* Cell 2: Modular Track Navigation (Desktop) */}
+        {/* Clean Pill Links (Desktop) */}
         <nav
           aria-label="Primary"
-          className="hidden md:flex items-center flex-1 h-full divide-x divide-border overflow-x-auto"
+          className="hidden md:flex items-center gap-0.5"
         >
-          {HOME_SECTIONS.map(({ label, href, id, dot }) => {
+          {HOME_SECTIONS.map(({ label, href, id }) => {
             const active = isHome && activeSection === id;
             const cls = cn(
-              "px-4 lg:px-5 h-full inline-flex items-center gap-2 font-mono text-xs transition-colors",
+              "px-3.5 py-1.5 rounded-full text-sm transition-all duration-200",
               active
-                ? "bg-foreground text-background font-semibold"
-                : "text-muted-foreground hover:text-foreground hover:bg-surface/50",
-            );
-            const inner = (
-              <>
-                <span
-                  style={{ backgroundColor: dot }}
-                  className="w-2 h-2 rounded-full shrink-0"
-                />
-                <span>{label}</span>
-              </>
+                ? "bg-foreground text-background font-medium"
+                : "text-muted-foreground hover:text-foreground hover:bg-surface/70",
             );
             return isHome ? (
               <a key={id} href={href} className={cls}>
-                {inner}
+                {label}
               </a>
             ) : (
               <Link key={id} href={href} className={cls}>
-                {inner}
+                {label}
               </Link>
             );
           })}
@@ -144,39 +142,19 @@ const Navbar = () => {
           <Link
             href="/projects"
             className={cn(
-              "px-4 lg:px-5 h-full inline-flex items-center gap-2 font-mono text-xs transition-colors",
+              "px-3.5 py-1.5 rounded-full text-sm transition-all duration-200",
               isProjects
-                ? "bg-foreground text-background font-semibold"
-                : "text-muted-foreground hover:text-foreground hover:bg-surface/50",
+                ? "bg-foreground text-background font-medium"
+                : "text-muted-foreground hover:text-foreground hover:bg-surface/70",
             )}
           >
-            <span className="w-2 h-2 rounded-full bg-[#FF4B4B]" />
-            <span>Archive</span>
-            <span
-              className={cn(
-                "px-1.5 py-0.5 text-[10px]",
-                isProjects
-                  ? "bg-background/20 text-background"
-                  : "bg-surface text-muted-foreground",
-              )}
-            >
-              {projects.length}
-            </span>
+            Projects
           </Link>
         </nav>
 
-        {/* Cell 3: Right Instrument Controls */}
-        <div className="px-3 sm:px-5 h-full flex items-center gap-2 shrink-0 ml-auto md:ml-0">
-          <button
-            type="button"
-            onClick={triggerCommandPalette}
-            aria-label="Open command menu"
-            className="hidden sm:inline-flex items-center gap-1.5 h-8 px-2.5 border border-border bg-card hover:bg-surface font-mono text-[11px] text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <Command size={12} className="text-[#FF4B4B]" />
-            <span>K</span>
-          </button>
+        <div className="w-px h-4 bg-border hidden md:block mx-0.5" />
 
+        <div className="flex items-center gap-1">
           <ThemeSwitch />
 
           <button
@@ -184,83 +162,58 @@ const Navbar = () => {
             onClick={() => setIsMenuOpen((v) => !v)}
             aria-label="Toggle navigation menu"
             aria-expanded={isMenuOpen}
-            className="md:hidden h-8 w-8 flex items-center justify-center border border-border bg-card text-muted-foreground hover:text-foreground"
+            className="md:hidden h-9 w-9 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
           >
-            {isMenuOpen ? <X size={15} /> : <Menu size={15} />}
+            {isMenuOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Instrument Drawer */}
+      {/* Soft Rounded Mobile Menu */}
       {isMenuOpen && (
         <div
           ref={mobileDrawerRef}
-          className="md:hidden border-t border-border bg-background divide-y divide-border font-mono text-xs"
+          className="pointer-events-auto md:hidden mt-2 w-full max-w-xs rounded-3xl border border-border bg-card/95 backdrop-blur-xl p-3 shadow-2xl flex flex-col gap-1"
         >
           {!isHome && (
             <Link
               href="/"
               onClick={closeMenu}
-              className="px-5 py-3.5 flex items-center gap-2.5 text-muted-foreground hover:text-foreground hover:bg-surface"
+              className="px-4 py-2.5 rounded-2xl text-sm text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
             >
-              <span className="w-2 h-2 rounded-full bg-[#FF4B4B]" />
-              <span>00 Overview</span>
+              Home
             </Link>
           )}
-          {HOME_SECTIONS.map(({ label, href, id, dot }, idx) => {
-            const inner = (
-              <>
-                <span
-                  style={{ backgroundColor: dot }}
-                  className="w-2 h-2 rounded-full"
-                />
-                <span>
-                  0{idx + 1} {label}
-                </span>
-              </>
+          {HOME_SECTIONS.map(({ label, href, id }) => {
+            const active = isHome && activeSection === id;
+            const cls = cn(
+              "px-4 py-2.5 rounded-2xl text-sm transition-colors",
+              active
+                ? "bg-foreground text-background font-medium"
+                : "text-foreground/85 hover:bg-surface",
             );
             return isHome ? (
-              <a
-                key={id}
-                href={href}
-                onClick={closeMenu}
-                className="px-5 py-3.5 flex items-center gap-2.5 text-foreground hover:bg-surface"
-              >
-                {inner}
+              <a key={id} href={href} onClick={closeMenu} className={cls}>
+                {label}
               </a>
             ) : (
-              <Link
-                key={id}
-                href={href}
-                onClick={closeMenu}
-                className="px-5 py-3.5 flex items-center gap-2.5 text-foreground hover:bg-surface"
-              >
-                {inner}
+              <Link key={id} href={href} onClick={closeMenu} className={cls}>
+                {label}
               </Link>
             );
           })}
           <Link
             href="/projects"
             onClick={closeMenu}
-            className="px-5 py-3.5 flex items-center justify-between text-foreground hover:bg-surface"
+            className={cn(
+              "px-4 py-2.5 rounded-2xl text-sm transition-colors",
+              isProjects
+                ? "bg-foreground text-background font-medium"
+                : "text-foreground/85 hover:bg-surface",
+            )}
           >
-            <span className="flex items-center gap-2.5">
-              <span className="w-2 h-2 rounded-full bg-[#FF4B4B]" />
-              <span>Projects Archive</span>
-            </span>
-            <span className="text-muted-foreground">[{projects.length}]</span>
+            All Projects
           </Link>
-          <button
-            type="button"
-            onClick={() => {
-              closeMenu();
-              triggerCommandPalette();
-            }}
-            className="w-full px-5 py-3.5 flex items-center justify-between text-muted-foreground hover:text-foreground bg-surface/40"
-          >
-            <span>Command Palette</span>
-            <span>⌘K</span>
-          </button>
         </div>
       )}
     </header>

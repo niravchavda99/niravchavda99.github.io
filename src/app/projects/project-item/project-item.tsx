@@ -9,87 +9,21 @@ import { cn } from "@/src/lib/utils";
 
 export interface ProjectCardProps {
   project: Project;
-  index?: number;
   onPreview?: (project: Project) => void;
 }
 
-function formatHostname(url?: string): string {
-  if (!url) return "local.artifact";
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
-}
-
-export const ProjectItem = ({
-  project,
-  index,
-  onPreview,
-}: ProjectCardProps) => {
-  const hostname = formatHostname(project.link ?? project.codeLink);
-  const indexLabel =
-    typeof index === "number" ? String(index).padStart(2, "0") : "00";
-
+export const ProjectItem = ({ project, onPreview }: ProjectCardProps) => {
   return (
     <article
       className={cn(
-        "group flex flex-col h-full border border-border bg-card hover:border-[#FF4B4B] transition-colors",
+        "group flex flex-col h-full rounded-3xl border border-border bg-card p-3 hover:border-foreground/20 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/30",
         project.featured && "md:col-span-2",
       )}
     >
-      {/* Instrument Window Bar */}
-      <div className="flex items-center justify-between gap-3 px-4 h-10 border-b border-border bg-surface/60 font-mono text-[11px]">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <span className="w-2 h-2 bg-[#FF4B4B] shrink-0" />
-          <span className="font-bold text-foreground">KF-{indexLabel}</span>
-          <span className="text-border">/</span>
-          <span className="text-muted-foreground truncate">{hostname}</span>
-        </div>
-
-        <div className="flex items-center gap-1.5 shrink-0">
-          {onPreview && (
-            <button
-              type="button"
-              onClick={() => onPreview(project)}
-              aria-label={`Inspect ${project.name} screenshot`}
-              title="Expand preview"
-              className="w-7 h-7 flex items-center justify-center border border-transparent hover:border-border hover:bg-background text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Maximize2 size={12} />
-            </button>
-          )}
-          {project.codeLink && (
-            <a
-              href={project.codeLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${project.name} source code`}
-              title="View source code"
-              className="w-7 h-7 flex items-center justify-center border border-transparent hover:border-border hover:bg-background text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <FaGithub className="w-3.5 h-3.5" />
-            </a>
-          )}
-          {project.link && (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Open ${project.name}`}
-              title="Open live project"
-              className="w-7 h-7 flex items-center justify-center text-[#FF4B4B] hover:bg-[#FF4B4B] hover:text-[#1D1C1B] transition-colors"
-            >
-              <FaArrowUpRightFromSquare className="w-3 h-3" />
-            </a>
-          )}
-        </div>
-      </div>
-
-      {/* Media Viewport */}
+      {/* Soft Inset Rounded Image */}
       <div
         className={cn(
-          "relative overflow-hidden bg-muted border-b border-border",
+          "relative rounded-2xl overflow-hidden bg-surface",
           project.featured ? "aspect-[16/8.5]" : "aspect-[16/10]",
         )}
       >
@@ -107,8 +41,8 @@ export const ProjectItem = ({
               alt={project.name}
               sizes={
                 project.featured
-                  ? "(max-width: 768px) 100vw, 1100px"
-                  : "(max-width: 768px) 100vw, 560px"
+                  ? "(max-width: 768px) 100vw, 960px"
+                  : "(max-width: 768px) 100vw, 480px"
               }
               className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             />
@@ -118,16 +52,28 @@ export const ProjectItem = ({
             fill
             src={project.image}
             alt={project.name}
-            sizes="(max-width: 768px) 100vw, 560px"
+            sizes="(max-width: 768px) 100vw, 480px"
             className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           />
         )}
+
+        {onPreview && (
+          <button
+            type="button"
+            onClick={() => onPreview(project)}
+            aria-label={`Expand ${project.name} preview`}
+            title="Expand preview"
+            className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/55 hover:bg-black/75 backdrop-blur-md border border-white/15 text-white flex items-center justify-center sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
+          >
+            <Maximize2 size={13} />
+          </button>
+        )}
       </div>
 
-      {/* Body */}
-      <div className="flex flex-col flex-1 p-5 sm:p-6 gap-4">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="text-xl font-bold tracking-tight text-foreground group-hover:text-[#FF4B4B] transition-colors">
+      {/* Clean Spacious Body */}
+      <div className="flex flex-col flex-1 px-3 pt-5 pb-3 gap-3">
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="text-lg font-semibold tracking-tight text-foreground group-hover:text-primary transition-colors">
             {project.link ? (
               <a href={project.link} target="_blank" rel="noopener noreferrer">
                 {project.name}
@@ -137,27 +83,28 @@ export const ProjectItem = ({
             )}
           </h3>
 
-          <div className="flex items-center gap-2 shrink-0 font-mono text-[11px]">
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#FF4B4B] text-[#1D1C1B] font-bold hover:bg-[#FFC730] transition-colors"
-              >
-                <span>LIVE</span>
-                <FaArrowUpRightFromSquare className="w-2.5 h-2.5" />
-              </a>
-            )}
+          <div className="flex items-center gap-2 shrink-0">
             {project.codeLink && (
               <a
                 href={project.codeLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 border border-border bg-surface text-foreground hover:bg-background transition-colors"
+                aria-label={`${project.name} source code`}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
               >
-                <FaGithub className="w-3 h-3" />
-                <span>CODE</span>
+                <FaGithub className="w-4 h-4" />
+              </a>
+            )}
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open ${project.name}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface hover:bg-foreground hover:text-background text-xs font-medium text-foreground transition-colors"
+              >
+                <span>Visit</span>
+                <FaArrowUpRightFromSquare className="w-2.5 h-2.5" />
               </a>
             )}
           </div>
@@ -166,18 +113,17 @@ export const ProjectItem = ({
         <p className="text-sm text-muted-foreground leading-relaxed flex-1">
           {project.description}
         </p>
-      </div>
 
-      {/* Tags Strip */}
-      <div className="px-5 py-3 border-t border-border bg-surface/35 flex flex-wrap gap-1.5">
-        {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="px-2 py-0.5 font-mono text-[10px] bg-background text-muted-foreground border border-border"
-          >
-            {tag}
-          </span>
-        ))}
+        <div className="flex flex-wrap gap-1.5 pt-2">
+          {project.tags.slice(0, 4).map((tag) => (
+            <span
+              key={tag}
+              className="px-2.5 py-0.5 rounded-full text-xs bg-surface text-muted-foreground"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
     </article>
   );

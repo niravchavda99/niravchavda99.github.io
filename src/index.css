@@ -4,52 +4,50 @@
 
 @layer base {
   :root {
-    /* animejs.com Light Bone & Warm Charcoal Ink */
-    --background: 34 18% 89%;
-    --surface: 34 14% 84%;
-    --foreground: 24 6% 13%;
-    --card: 36 24% 94%;
-    --card-foreground: 24 6% 13%;
-    --popover: 36 24% 94%;
-    --popover-foreground: 24 6% 13%;
-    --primary: 0 84% 55%;
-    --primary-foreground: 36 30% 98%;
-    --secondary: 34 14% 83%;
-    --secondary-foreground: 24 6% 13%;
-    --muted: 34 14% 83%;
-    --muted-foreground: 28 5% 39%;
-    --accent: 41 96% 45%;
-    --accent-foreground: 24 6% 10%;
+    --background: 40 25% 97.5%;
+    --surface: 38 18% 93.5%;
+    --foreground: 240 10% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 10%;
+    --primary: 12 82% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 38 18% 93.5%;
+    --secondary-foreground: 240 10% 12%;
+    --muted: 38 18% 93.5%;
+    --muted-foreground: 240 5% 45%;
+    --accent: 12 82% 55%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 78% 55%;
-    --destructive-foreground: 36 30% 98%;
-    --border: 32 10% 75%;
-    --input: 32 10% 75%;
-    --ring: 0 84% 55%;
-    --radius: 0.5rem;
+    --destructive-foreground: 0 0% 100%;
+    --border: 36 12% 89%;
+    --input: 36 12% 89%;
+    --ring: 12 82% 55%;
+    --radius: 1rem;
   }
 
   .dark {
-    /* animejs.com Signature Matte Charcoal (#1D1C1B) & Warm Bone (#E6E1DA) */
-    --background: 30 4% 11%;
-    --surface: 30 4% 14.5%;
-    --foreground: 35 18% 88%;
-    --card: 30 4% 13%;
-    --card-foreground: 35 18% 88%;
-    --popover: 30 4% 13%;
-    --popover-foreground: 35 18% 88%;
-    --primary: 0 100% 65%;
-    --primary-foreground: 30 4% 10%;
-    --secondary: 30 4% 17%;
-    --secondary-foreground: 35 18% 88%;
-    --muted: 30 4% 17%;
-    --muted-foreground: 32 6% 54%;
-    --accent: 43 100% 59%;
-    --accent-foreground: 30 4% 10%;
-    --destructive: 0 70% 52%;
-    --destructive-foreground: 35 18% 88%;
-    --border: 30 4% 21%;
-    --input: 30 4% 21%;
-    --ring: 0 100% 65%;
+    --background: 240 9% 6.5%;
+    --surface: 240 8% 13%;
+    --foreground: 240 10% 96%;
+    --card: 240 9% 9.8%;
+    --card-foreground: 240 10% 96%;
+    --popover: 240 9% 10%;
+    --popover-foreground: 240 10% 96%;
+    --primary: 12 92% 64%;
+    --primary-foreground: 240 10% 8%;
+    --secondary: 240 8% 14%;
+    --secondary-foreground: 240 10% 96%;
+    --muted: 240 8% 14%;
+    --muted-foreground: 240 5% 60%;
+    --accent: 12 92% 64%;
+    --accent-foreground: 240 10% 8%;
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 240 10% 96%;
+    --border: 240 7% 16.5%;
+    --input: 240 7% 16.5%;
+    --ring: 12 92% 64%;
   }
 }
 
@@ -64,7 +62,7 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased overflow-x-hidden selection:bg-[#FF4B4B]/25 selection:text-foreground;
+    @apply bg-background text-foreground antialiased overflow-x-hidden selection:bg-primary/20 selection:text-foreground;
   }
 
   ::-webkit-scrollbar {
@@ -77,88 +75,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-none hover:bg-primary transition-colors;
+    @apply bg-border rounded-full hover:bg-muted-foreground/50 transition-colors;
   }
 }
 
 @layer utilities {
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
   .perspective-1600 {
     perspective: 1600px;
-  }
-
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-
-  .translate-z-10 {
-    transform: translateZ(20px);
-  }
-
-  .translate-z-20 {
-    transform: translateZ(40px);
-  }
-
-  /* animejs.com precision millimeter tick-mark rulers */
-  .bg-ruler-x {
-    background-image:
-      repeating-linear-gradient(
-        to right,
-        hsl(var(--border)) 0px,
-        hsl(var(--border)) 1px,
-        transparent 1px,
-        transparent 40px
-      ),
-      repeating-linear-gradient(
-        to right,
-        hsl(var(--border) / 0.5) 0px,
-        hsl(var(--border) / 0.5) 1px,
-        transparent 1px,
-        transparent 8px
-      );
-    background-size:
-      100% 10px,
-      100% 5px;
-    background-position:
-      bottom left,
-      bottom left;
-    background-repeat: no-repeat;
-  }
-
-  .bg-ruler-y {
-    background-image:
-      repeating-linear-gradient(
-        to bottom,
-        hsl(var(--border)) 0px,
-        hsl(var(--border)) 1px,
-        transparent 1px,
-        transparent 48px
-      ),
-      repeating-linear-gradient(
-        to bottom,
-        hsl(var(--border) / 0.45) 0px,
-        hsl(var(--border) / 0.45) 1px,
-        transparent 1px,
-        transparent 8px
-      );
-    background-size:
-      10px 100%,
-      5px 100%;
-    background-position:
-      top left,
-      top left;
-    background-repeat: no-repeat;
-  }
-
-  .bg-dot-matrix {
-    background-image: radial-gradient(
-      circle,
-      hsl(var(--foreground) / 0.12) 1px,
-      transparent 1px
-    );
-    background-size: 24px 24px;
   }
 }

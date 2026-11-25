@@ -364,7 +364,7 @@ export function CommandPalette() {
       <div
         ref={modalRef}
         onKeyDown={handleListKeyDown}
-        className="relative z-10 w-full max-w-xl rounded-xl border border-border bg-card text-card-foreground shadow-2xl overflow-hidden will-change-transform"
+        className="relative z-10 w-full max-w-xl rounded-3xl border border-border bg-card text-card-foreground shadow-2xl overflow-hidden will-change-transform"
       >
         {/* Search input bar */}
         <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border">

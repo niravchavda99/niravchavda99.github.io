@@ -863,24 +863,22 @@ export function AnimatedAvatar3D({ className }: AnimatedAvatar3DProps) {
   return (
     <div
       ref={containerRef}
-      data-cursor="CLICK TO WAVE"
       onClick={triggerWave}
+      title="Click to wave · Drag to rotate"
       className={cn(
-        "relative w-full h-full bg-[#191817] overflow-hidden select-none cursor-pointer",
+        "relative w-full h-full bg-[#141418] overflow-hidden select-none cursor-pointer",
         className,
       )}
     >
-      {/* Studio Backdrop Radial Glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgba(255,75,75,0.16),rgba(255,199,48,0.06)_45%,transparent_75%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgba(255,106,77,0.14),transparent_70%)]"
       />
-
-      {/* Top-Left Live Interactive Hint */}
-      <div className="pointer-events-none absolute top-3 left-3.5 z-20 flex items-center gap-2 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/10 font-mono text-[9px] uppercase tracking-[0.16em] text-white/80">
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-        <span>{waving ? "HEY THERE! 👋" : "CLICK TO WAVE · DRAG 3D"}</span>
-      </div>
+      {waving && (
+        <div className="pointer-events-none absolute top-3.5 left-3.5 z-20 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-xs text-white/90">
+          Hey there 👋
+        </div>
+      )}
     </div>
   );
 }

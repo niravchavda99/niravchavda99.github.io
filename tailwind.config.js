@@ -19,13 +19,6 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
-        serif: [
-          '"Iowan Old Style"',
-          '"Palatino Linotype"',
-          '"Book Antiqua"',
-          "Georgia",
-          "serif",
-        ],
         mono: [
           "var(--font-mono)",
           "JetBrains Mono",
@@ -41,13 +34,6 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         surface: "hsl(var(--surface))",
-        signal: {
-          red: "#FF4B4B",
-          yellow: "#FFC730",
-          green: "#5CE68A",
-          cyan: "#38BDF8",
-          purple: "#C084FC",
-        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -79,8 +65,8 @@ module.exports = {
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 8px)",
       },
     },
   },
